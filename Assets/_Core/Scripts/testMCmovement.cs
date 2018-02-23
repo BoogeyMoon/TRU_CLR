@@ -36,12 +36,26 @@ public class testMCmovement : MonoBehaviour
             moveDirection *= speed;
             currentjump = 0;
         }
+        else
+        {
+            if(currentjump ==0)
+            {
+                currentjump++;
+            }
+            moveOnX = Input.GetAxis("Horizontal");
+            moveDirection = new Vector3(moveOnX, moveDirection.y, 0);
+            moveDirection.x *= speed;
+        }
 
         if (Input.GetButtonDown("Jump") && currentjump < jumps)
         {
             moveDirection.y = jumpSpeed;
             animator.SetTrigger("jump");
             currentjump++;
+            if(currentjump == 2)
+            {
+                animator.SetTrigger("doubleJump");
+            }
         }
         if (moveOnX < 0.0f && facingRight == false)
         {
@@ -66,6 +80,6 @@ public class testMCmovement : MonoBehaviour
         //localScale.x *= -1;
         //transform.localScale = localScale;
 
-        this.transform.rotation = Quaternion.Inverse(this.transform.rotation);
+        this.transform.rotation = Quaternion.Inverse(transform.rotation);
     }
 }
