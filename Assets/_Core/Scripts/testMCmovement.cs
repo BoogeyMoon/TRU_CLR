@@ -13,6 +13,7 @@ public class testMCmovement : MonoBehaviour
     float moveOnX;
     bool facingRight;
     Animator animator;
+    bool isGrounded;
 
 
     void Start()
@@ -24,12 +25,13 @@ public class testMCmovement : MonoBehaviour
 
     void Update()
     {
+        GroundCheck();
+        animator.SetBool("isGrounded", isGrounded);
+        moveOnX = Input.GetAxis("Horizontal");
 
-        animator.SetBool("isGrounded", controller.isGrounded);
-
-        if (controller.isGrounded)
+        if (isGrounded)
         {
-            moveOnX = Input.GetAxis("Horizontal");
+            //moveOnX = Input.GetAxis("Horizontal");
             animator.SetFloat("running", Mathf.Abs(moveOnX), .01f, Time.deltaTime);
             moveDirection = new Vector3(0, 0, Mathf.Abs(moveOnX));
             moveDirection = transform.TransformDirection(moveDirection);
@@ -38,11 +40,11 @@ public class testMCmovement : MonoBehaviour
         }
         else
         {
-            if(currentjump ==0)
-            {
-                currentjump++;
-            }
-            moveOnX = Input.GetAxis("Horizontal");
+            //if(currentjump == 0)
+            //{
+            //    currentjump++;
+            //}
+            //moveOnX = Input.GetAxis("Horizontal");
             moveDirection = new Vector3(moveOnX, moveDirection.y, 0);
             moveDirection.x *= speed;
         }
@@ -50,12 +52,17 @@ public class testMCmovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && currentjump < jumps)
         {
             moveDirection.y = jumpSpeed;
-            animator.SetTrigger("jump");
+            //animator.SetTrigger("jump");
             currentjump++;
             if(currentjump == 2)
             {
                 animator.SetTrigger("doubleJump");
             }
+            else
+            {
+                animator.SetTrigger("jump");
+            }
+            
         }
         if (moveOnX < 0.0f && facingRight == false)
         {
@@ -71,6 +78,13 @@ public class testMCmovement : MonoBehaviour
 
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
+
+        //memes
+        if (Input.GetKeyDown(KeyCode.KeypadEnter) && isGrounded)
+        {
+            animator.SetTrigger("wave");
+        }
+
     }
 
     void FlipPlayer()
@@ -82,4 +96,11 @@ public class testMCmovement : MonoBehaviour
 
         this.transform.rotation = Quaternion.Inverse(transform.rotation);
     }
+
+    void GroundCheck()
+    {
+        Ray ray = new Ray(this.transform.position + new Vector3(0,.25f,0), -this.transform.up);
+        isGrounded = Physics.Raycast(ray, .25f);
+    }
+
 }
