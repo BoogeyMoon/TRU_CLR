@@ -20,17 +20,15 @@ public class Climb_Edge : MonoBehaviour
     }
     public void Climb(Transform player)
     {
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKey(KeyCode.W))
         {
             StartCoroutine(ClimbTheEdge(player));
         }
     }
     IEnumerator ClimbTheEdge(Transform player)
     {
-        print("Climbing");
         player.position = start.position;
-        yield return new WaitForSeconds(0.5f);
-        print("Done");
+        yield return new WaitForSeconds(0.1f);
         player.position = destination.position;
     }
     
