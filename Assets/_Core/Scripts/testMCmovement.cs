@@ -5,7 +5,7 @@ using UnityEngine;
 public class testMCmovement : MonoBehaviour
 {
     [SerializeField]
-    float speed = 6.0f, rotationSpeed = 6.0f, jumpSpeed = 8.0f, gravity = 20.0f;
+    float speed = 6.0f, rotationSpeed = 6.0f, jumpSpeed = 8.0f, gravity = 20.0f, airtime;
     Vector3 moveDirection = Vector3.zero;
     CharacterController controller;
     int jumps = 2;
@@ -21,6 +21,7 @@ public class testMCmovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         facingRight = true;
         animator = GetComponent<Animator>();
+        airtime = 0;
     }
 
     void Update()
@@ -37,13 +38,15 @@ public class testMCmovement : MonoBehaviour
             moveDirection = transform.TransformDirection(moveDirection);
             moveDirection *= speed;
             currentjump = 0;
+            airtime = 0;
         }
         else
         {
-            //if(currentjump == 0)
-            //{
-            //    currentjump++;
-            //}
+            airtime += Time.deltaTime;
+            if(currentjump == 0 && airtime > 0.25f)
+            {
+               currentjump++;
+            }
             //moveOnX = Input.GetAxis("Horizontal");
             moveDirection = new Vector3(moveOnX, moveDirection.y, 0);
             moveDirection.x *= speed;
