@@ -43,10 +43,11 @@ public class testMCmovement : MonoBehaviour
         else
         {
             airtime += Time.deltaTime;
-            if(currentjump == 0 && airtime > 0.25f)
+            if (currentjump == 0 && airtime > 0.25f)
             {
-               currentjump++;
+                currentjump++;
             }
+            HeadbumbCheck();
             //moveOnX = Input.GetAxis("Horizontal");
             moveDirection = new Vector3(moveOnX, moveDirection.y, 0);
             moveDirection.x *= speed;
@@ -57,7 +58,7 @@ public class testMCmovement : MonoBehaviour
             moveDirection.y = jumpSpeed;
             //animator.SetTrigger("jump");
             currentjump++;
-            if(currentjump == 2)
+            if (currentjump == 2)
             {
                 animator.SetTrigger("doubleJump");
             }
@@ -65,7 +66,7 @@ public class testMCmovement : MonoBehaviour
             {
                 animator.SetTrigger("jump");
             }
-            
+
         }
         if (moveOnX < 0.0f && facingRight == false)
         {
@@ -102,8 +103,17 @@ public class testMCmovement : MonoBehaviour
 
     void GroundCheck()
     {
-        Ray ray = new Ray(this.transform.position + new Vector3(0,.25f,0), -this.transform.up);
-        isGrounded = Physics.Raycast(ray, .25f);
+        RaycastHit hit;
+        isGrounded = Physics.SphereCast(transform.position + new Vector3(0, .25f, 0), 0.2f, -transform.up, out hit, 0.15f);
+    }
+    void HeadbumbCheck()
+    {
+        RaycastHit hit;
+         if(moveDirection.y > 0 && Physics.SphereCast(transform.position + new Vector3(0, 1.8f, 0), 0.2f, transform.up, out hit, 0.1f))
+        {
+            moveDirection.y = 0;
+        }
+
     }
 
 }
