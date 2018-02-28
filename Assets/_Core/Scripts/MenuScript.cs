@@ -19,7 +19,7 @@ public class MenuScript : MonoBehaviour
 
     void Start()
     {
-        //Blir det problem along the way så är det med största sannolikhet följande "satta värden" som ändrats i Unitys hierarki.
+        //Blir det problem, along the way, så är det med största sannolikhet följande "satta värden" som ändrats i Unitys hierarki.
         MainMenu = transform.GetChild(1).gameObject;
         LoadMenu = transform.GetChild(2).gameObject;
         SettingsMenu = transform.GetChild(3).gameObject;
