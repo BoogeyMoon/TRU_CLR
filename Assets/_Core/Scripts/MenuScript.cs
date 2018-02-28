@@ -13,6 +13,7 @@ public class MenuScript : MonoBehaviour
     GameObject LoadMenu;
     GameObject SettingsMenu;
     GameObject ConfirmQuit;
+    GameObject CreditsMenu;
     List<GameObject> Menus;
     int numberOfSaves;
 
@@ -22,9 +23,10 @@ public class MenuScript : MonoBehaviour
         MainMenu = transform.GetChild(1).gameObject;
         LoadMenu = transform.GetChild(2).gameObject;
         SettingsMenu = transform.GetChild(3).gameObject;
+        CreditsMenu = transform.GetChild(4).gameObject;
         ConfirmQuit = transform.GetChild(5).gameObject;
 
-        Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, ConfirmQuit };
+        Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, CreditsMenu, ConfirmQuit };
         
     }
 
@@ -32,7 +34,7 @@ public class MenuScript : MonoBehaviour
     //Index är specificerat hos vardera knapp i Unity. 
     public void ClickButtons(int index)
     {
-        Menus[0].SetActive(false);
+        MainMenu.SetActive(false);
 
         switch (index)
         {
@@ -43,30 +45,29 @@ public class MenuScript : MonoBehaviour
 
             //Load Game
             case 1:
+                LoadMenu.SetActive(true);
 
                 //Det här bör ändras till att den hämtar värde från vår spar-funktion.
                 numberOfSaves = 5;
-
                 for(int i = 0; i < numberOfSaves; i++)
                 {
-                    Menus[1].transform.GetChild(i).gameObject.SetActive(true);
+                    LoadMenu.transform.GetChild(i).gameObject.SetActive(true);
                 }
                 break;
 
             //Settings
             case 2:
-                Menus[2].SetActive(true);
+                SettingsMenu.SetActive(true);
                 break;
 
             //Credits
             case 3:
-                print("credits");
+                CreditsMenu.SetActive(true);
                 break;
 
             //Quit
             case 4:
                 ConfirmQuit.SetActive(true);
-                print("quit");
                 break;
             
             //Back (till MainMenu)
@@ -75,7 +76,12 @@ public class MenuScript : MonoBehaviour
                 {
                     Menus[i].SetActive(false);
                 }
-                Menus[0].SetActive(true);
+                MainMenu.SetActive(true);
+                break;
+            
+            //Yes-knapp i ConfirmQuit.
+            case 6:
+                Application.Quit();
                 break;
         }
     }
