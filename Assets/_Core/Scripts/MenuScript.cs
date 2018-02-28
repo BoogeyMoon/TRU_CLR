@@ -1,5 +1,5 @@
 ﻿
-//Meny-script som hanterar alla(?) menyer och knappar.
+//Meny-script som hanterar alla menyer och knappar.
 //Skapat av Moa.
 
 using System.Collections;
@@ -40,7 +40,7 @@ public class MenuScript : MonoBehaviour
         {
             //New Game
             case 0:
-                SceneManager.LoadScene("DemoScene"); // Ändra det här till den färdiga spelscenen
+                SceneManager.LoadScene("Moa_DemoScene"); // Ändra det här till den färdiga spelscenen
                 break;
 
             //Load Game
@@ -72,6 +72,8 @@ public class MenuScript : MonoBehaviour
             
             //Back (till MainMenu)
             case 5:
+                //Funderingar: En if-sats som kollar om man är in-game eller inte. (Do you want to save current game?)
+                //             En till if-sats som kollar om man har sparat eller inte ??? Så det inte dyker upp om man redan har sparat. 
                 for(int i = 0; i < Menus.Count; i++)
                 {
                     Menus[i].SetActive(false);
