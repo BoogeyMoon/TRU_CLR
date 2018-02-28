@@ -32,10 +32,9 @@ public class testMCmovement : MonoBehaviour
 
         if (isGrounded)
         {
-            //moveOnX = Input.GetAxis("Horizontal");
             animator.SetFloat("running", Mathf.Abs(moveOnX), .01f, Time.deltaTime);
             moveDirection = new Vector3(0, 0, Mathf.Abs(moveOnX));
-            moveDirection = transform.TransformDirection(moveDirection);
+            moveDirection = new Vector3(moveOnX, moveDirection.y, 0);
             moveDirection *= speed;
             currentjump = 0;
             airtime = 0;
@@ -48,7 +47,6 @@ public class testMCmovement : MonoBehaviour
                 currentjump++;
             }
             HeadbumbCheck();
-            //moveOnX = Input.GetAxis("Horizontal");
             moveDirection = new Vector3(moveOnX, moveDirection.y, 0);
             moveDirection.x *= speed;
         }
@@ -68,12 +66,12 @@ public class testMCmovement : MonoBehaviour
             }
 
         }
-        if (moveOnX < 0.0f && facingRight == false)
+        if (Input.mousePosition.x < Screen.width/2  && facingRight == false)
         {
             FlipPlayer();
         }
 
-        if (moveOnX > 0.0f && facingRight == true)
+        if (Input.mousePosition.x > Screen.width/2 && facingRight == true)
         {
             FlipPlayer();
         }
@@ -98,7 +96,7 @@ public class testMCmovement : MonoBehaviour
         //localScale.x *= -1;
         //transform.localScale = localScale;
 
-        this.transform.rotation = Quaternion.Inverse(transform.rotation);
+        transform.rotation = Quaternion.Inverse(transform.rotation);
     }
 
     void GroundCheck()

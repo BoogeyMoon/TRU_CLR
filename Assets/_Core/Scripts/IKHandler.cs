@@ -9,7 +9,8 @@ public class IKHandler : MonoBehaviour
 
     [SerializeField] Transform rightHand = null;
     [SerializeField] Transform leftHand = null;
-    [SerializeField] Transform lookObj = null;
+    [SerializeField] Transform shoulder = null;
+    [SerializeField] Vector3 lookObj = new Vector3(0.0f,0.0f,0.0f);
 
     private void Start()
     {
@@ -18,7 +19,14 @@ public class IKHandler : MonoBehaviour
 
     private void Update()
     {
-        //lookObj = 
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit))
+        {
+            Vector3 lookP = hit.point;
+            lookP.z = transform.position.z;
+            lookObj = lookP; 
+        }
     }
 
     private void OnAnimatorIK()
@@ -26,7 +34,9 @@ public class IKHandler : MonoBehaviour
         if (lookObj != null)
         {
             animator.SetLookAtWeight(1);
-            animator.SetLookAtPosition(lookObj.position);
+            animator.SetLookAtPosition(lookObj);
+            shoulder.LookAt(lookObj);
+            
         }
 
         if (rightHand != null)
