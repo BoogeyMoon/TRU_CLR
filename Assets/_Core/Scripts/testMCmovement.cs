@@ -32,7 +32,7 @@ public class testMCmovement : MonoBehaviour
 
         if (isGrounded)
         {
-            animator.SetFloat("running", Mathf.Abs(moveOnX), .01f, Time.deltaTime);
+            animator.SetFloat("running",(moveOnX), .01f, Time.deltaTime);
             moveDirection = new Vector3(0, 0, Mathf.Abs(moveOnX));
             moveDirection = new Vector3(moveOnX, moveDirection.y, 0);
             moveDirection *= speed;
