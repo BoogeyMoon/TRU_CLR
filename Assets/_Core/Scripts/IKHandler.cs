@@ -1,42 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Av Andreas de Freitas, Erik Qvarnström och Timmy Alvelöv. 
 public class IKHandler : MonoBehaviour
 {
-
     Animator animator;
+    [SerializeField]
+    Transform rightHand = null, leftHand = null, shoulder = null;
+    Vector3 lookObj = new Vector3(0.0f, 0.0f, 0.0f);
 
-    [SerializeField] Transform rightHand = null;
-    [SerializeField] Transform leftHand = null;
-    [SerializeField] Transform shoulder = null;
-    [SerializeField] Vector3 lookObj = new Vector3(0.0f,0.0f,0.0f);
-
-    private void Start()
+    void Start()
     {
         animator = GetComponent<Animator>();
     }
 
-    private void Update()
+    void Update() //Uppdaterar muspekarens position som avataren ska titta på
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-        if(Physics.Raycast(ray, out hit))
+        if (Physics.Raycast(ray, out hit))
         {
             Vector3 lookP = hit.point;
             lookP.z = transform.position.z;
-            lookObj = lookP; 
+            lookObj = lookP;
         }
     }
 
-    private void OnAnimatorIK()
+    void OnAnimatorIK() //Använder inverted kinematics för att få armarna att följa med vapnet
     {
         if (lookObj != null)
         {
             animator.SetLookAtWeight(1);
             animator.SetLookAtPosition(lookObj);
             shoulder.LookAt(lookObj);
-            
+
         }
 
         if (rightHand != null)

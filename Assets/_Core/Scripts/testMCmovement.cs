@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Av Andreas de Freitas, Erik Qvarnström och Timmy Alvelöv. 
 public class testMCmovement : MonoBehaviour
 {
     [SerializeField]
@@ -30,7 +30,7 @@ public class testMCmovement : MonoBehaviour
         animator.SetBool("isGrounded", isGrounded);
         moveOnX = Input.GetAxis("Horizontal");
 
-        if (isGrounded)
+        if (isGrounded) //Ifall spelaren är på marken
         {
             animator.SetFloat("running",(moveOnX), .01f, Time.deltaTime);
             moveDirection = new Vector3(0, 0, Mathf.Abs(moveOnX));
@@ -39,7 +39,7 @@ public class testMCmovement : MonoBehaviour
             currentjump = 0;
             airtime = 0;
         }
-        else
+        else //Ifall spelaren är i luften
         {
             airtime += Time.deltaTime;
             if (currentjump == 0 && airtime > 0.25f)
@@ -51,10 +51,9 @@ public class testMCmovement : MonoBehaviour
             moveDirection.x *= speed;
         }
 
-        if (Input.GetButtonDown("Jump") && currentjump < jumps)
+        if (Input.GetButtonDown("Jump") && currentjump < jumps) //Kollar ifall spelaren kan hoppa
         {
             moveDirection.y = jumpSpeed;
-            //animator.SetTrigger("jump");
             currentjump++;
             if (currentjump == 2)
             {
@@ -66,22 +65,19 @@ public class testMCmovement : MonoBehaviour
             }
 
         }
-        if (Input.mousePosition.x < Screen.width/2  && facingRight == false)
+        if (Input.mousePosition.x < Screen.width / 2 && facingRight == false) //Om muspekaren är på högra sidan av skärmen så vänder spelaren åt höger
         {
             FlipPlayer();
         }
 
-        if (Input.mousePosition.x > Screen.width/2 && facingRight == true)
+        if (Input.mousePosition.x > Screen.width / 2 && facingRight == true) //Om muspekaren är på vänstra sidan av skärmen så vänder spelaren åt vänster
         {
             FlipPlayer();
         }
-
-        //this.transform.rotation = Quaternion.LookRotation(moveDirection);
 
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
 
-        //memes
         if (Input.GetKeyDown(KeyCode.KeypadEnter) && isGrounded)
         {
             animator.SetTrigger("wave");
@@ -89,25 +85,21 @@ public class testMCmovement : MonoBehaviour
 
     }
 
-    void FlipPlayer()
+    void FlipPlayer() //Vänd spelaren åt motsatt rotation
     {
         facingRight = !facingRight;
-        //Vector3 localScale = gameObject.transform.localScale;
-        //localScale.x *= -1;
-        //transform.localScale = localScale;
-
         transform.rotation = Quaternion.Inverse(transform.rotation);
     }
 
-    void GroundCheck()
+    void GroundCheck() //Kollar om spelaren står på marken
     {
         RaycastHit hit;
         isGrounded = Physics.SphereCast(transform.position + new Vector3(0, .25f, 0), 0.2f, -transform.up, out hit, 0.15f);
     }
-    void HeadbumbCheck()
+    void HeadbumbCheck() //Kollar om spelarens huvud krockar med ett objekt
     {
         RaycastHit hit;
-         if(moveDirection.y > 0 && Physics.SphereCast(transform.position + new Vector3(0, 1.8f, 0), 0.2f, transform.up, out hit, 0.1f))
+        if (moveDirection.y > 0 && Physics.SphereCast(transform.position + new Vector3(0, 1.8f, 0), 0.2f, transform.up, out hit, 0.1f))
         {
             moveDirection.y = 0;
         }
