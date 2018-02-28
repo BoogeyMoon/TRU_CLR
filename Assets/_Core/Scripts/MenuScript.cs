@@ -1,5 +1,5 @@
 ﻿
-//Meny-script som hanterar alla menyer och knappar.
+//Meny-script som hanterar alla(?) menyer och knappar.
 //Skapat av Moa.
 
 using System.Collections;
@@ -9,60 +9,74 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
-    GameObject MainMenuButtons;
-    Transform LoadMenu;
+    GameObject MainMenu;
+    GameObject LoadMenu;
     GameObject SettingsMenu;
-    [SerializeField]
-    int numberOfSaves; //Det här ska vara ett värde som hämtas från eventuell lista av sparade spel-sessioner. Max antal (just nu) är 8 st.
+    GameObject ConfirmQuit;
+    List<GameObject> Menus;
+    int numberOfSaves;
 
     void Start()
     {
-        MainMenuButtons = transform.GetChild(1).gameObject;
-        LoadMenu = transform.GetChild(2);
+        //Blir det problem along the way så är det med största sannolikhet följande "satta värden" som ändrats i Unitys hierarki.
+        MainMenu = transform.GetChild(1).gameObject;
+        LoadMenu = transform.GetChild(2).gameObject;
         SettingsMenu = transform.GetChild(3).gameObject;
+        ConfirmQuit = transform.GetChild(5).gameObject;
+
+        Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, ConfirmQuit };
+        
     }
 
     //Följande metod är kopplat till OnClick() på knapparna i menyn i Unity.
-    //Indexet kommer från vilken knapp användaren trycker på i spelet.
+    //Index är specificerat hos vardera knapp i Unity. 
     public void ClickButtons(int index)
     {
-        switch(index)
+        Menus[0].SetActive(false);
+
+        switch (index)
         {
-            //ladda ett nytt spel
+            //New Game
             case 0:
-                SceneManager.LoadScene("GameScene");
+                SceneManager.LoadScene("DemoScene"); // Ändra det här till den färdiga spelscenen
                 break;
 
-            //öppnar en ny meny med olika sparade spel-sessioner
+            //Load Game
             case 1:
-                MainMenuButtons.SetActive(false);
+
+                //Det här bör ändras till att den hämtar värde från vår spar-funktion.
+                numberOfSaves = 5;
+
                 for(int i = 0; i < numberOfSaves; i++)
                 {
-                    LoadMenu.GetChild(i).gameObject.SetActive(true);
+                    Menus[1].transform.GetChild(i).gameObject.SetActive(true);
                 }
                 break;
 
-            //öppna en ny meny med inställningar
+            //Settings
             case 2:
-                MainMenuButtons.SetActive(false);
-                SettingsMenu.SetActive(true);
+                Menus[2].SetActive(true);
                 break;
 
-            //öppna en ny "meny" med lista på alla som gjort spelet
+            //Credits
             case 3:
                 print("credits");
-                MainMenuButtons.SetActive(false);
                 break;
 
-            //öppna en "are you sure you want to quit?" ruta.
+            //Quit
             case 4:
+                ConfirmQuit.SetActive(true);
                 print("quit");
                 break;
+            
+            //Back (till MainMenu)
+            case 5:
+                for(int i = 0; i < Menus.Count; i++)
+                {
+                    Menus[i].SetActive(false);
+                }
+                Menus[0].SetActive(true);
+                break;
         }
-    }
-
-    public void LoadScene(int index)
-    {
-
     }
 }
