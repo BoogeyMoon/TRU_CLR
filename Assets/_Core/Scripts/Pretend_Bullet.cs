@@ -16,6 +16,7 @@ public class Pretend_Bullet : Projectile
     // Update is called once per frame
     void Update()
     {
+        base.Update();
         transform.Translate(Vector3.forward * startVelocity * Time.deltaTime);
     }
 
