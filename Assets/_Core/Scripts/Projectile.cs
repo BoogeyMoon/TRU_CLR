@@ -1,16 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//Av Timmy Alvelöv
+public class Projectile : MonoBehaviour
+{
+    protected GameObject rotation;
+    protected float startVelocity, damage;
 
-public class Projectile : MonoBehaviour {
+    protected void Start()
+    {
+        rotation = GameObject.Find("ShoulderAim");
+        transform.rotation = rotation.transform.rotation;
+    }
+    void Update()
+    {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
 }

@@ -156,7 +156,7 @@ GameObject:
   - component: {fileID: 4935818700498424}
   m_Layer: 0
   m_Name: ShoulderAim
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 23888517970268230}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -879,7 +879,7 @@ GameObject:
   - component: {fileID: 4101312279114176}
   m_Layer: 0
   m_Name: mixamorig:Hips
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -895,7 +895,7 @@ GameObject:
   - component: {fileID: 137767652720096006}
   m_Layer: 0
   m_Name: vanguard_visor
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -977,7 +977,7 @@ GameObject:
   - component: {fileID: 137938741965210660}
   m_Layer: 0
   m_Name: vanguard_Mesh
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1007,7 +1007,7 @@ GameObject:
   - component: {fileID: 4606693968673038}
   m_Layer: 0
   m_Name: Gunbarrel
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1732,7 +1732,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1909412594384544}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.066, y: -0.039, z: 1.04}
+  m_LocalPosition: {x: 0.07, y: -0.039, z: 1.15}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4935818700498424}
@@ -2237,7 +2237,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5778596066ef641458b972e6031c0724, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rifleBarrel: {fileID: 4606693968673038}
+  colorsBullets:
+  - {fileID: 1391852344878852, guid: f4fb8e6baf93d0f47867ec26fc40fb5d, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  rifleBarrel: {fileID: 1909412594384544}
 --- !u!114 &114645670478106756
 MonoBehaviour:
   m_ObjectHideFlags: 1
