@@ -1,21 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//Av Andreas de Freitas och Timmy Alvelöv.
-public class CameraManager : MonoBehaviour
+
+public class CameraTestFreitas : MonoBehaviour
 {
     [SerializeField]
     Transform player;
 
-    int screenHeight, screenWidth;
-
     [SerializeField]
     int boundary = 50, speed = 30;
 
+    int screenHeight, screenWidth;
+
     void Start()
     {
+        screenWidth = Screen.width / 2;
         screenHeight = Screen.height;
-        screenWidth = Screen.width;
     }
 
     void Update()
@@ -24,7 +24,7 @@ public class CameraManager : MonoBehaviour
 
         if (Input.mousePosition.x > screenWidth - boundary)
         {
-            transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0));  //+X Axeln
+            transform.Translate(new Vector3(speed * Time.deltaTime, 0, 0)); //+X Axeln     
         }
         if (Input.mousePosition.x < 0 + boundary)
         {
@@ -32,13 +32,11 @@ public class CameraManager : MonoBehaviour
         }
         if (Input.mousePosition.y > screenHeight - boundary)
         {
-            transform.Translate(new Vector3(0, 0, -speed * Time.deltaTime)); //+Z Axeln
+            transform.Translate(new Vector3(0, speed * Time.deltaTime, 0)); //+Y Axeln
         }
         if (Input.mousePosition.y < 0 + boundary)
         {
-            transform.Translate(new Vector3(0, 0, -speed * Time.deltaTime)); //-Z Axeln
+            transform.Translate(new Vector3(0, -speed * Time.deltaTime, 0)); //-Y Axeln
         }
     }
-
-
 }
