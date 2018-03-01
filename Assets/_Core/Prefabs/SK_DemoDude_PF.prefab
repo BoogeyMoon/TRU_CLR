@@ -958,6 +958,7 @@ GameObject:
   - component: {fileID: 114667242435213210}
   - component: {fileID: 114645670478106756}
   - component: {fileID: 114278831883039714}
+  - component: {fileID: 114414989220760484}
   m_Layer: 0
   m_Name: SK_DemoDude_PF
   m_TagString: Player
@@ -991,6 +992,21 @@ GameObject:
   - component: {fileID: 4261968695891330}
   m_Layer: 0
   m_Name: mixamorig:LeftHandThumb4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1909412594384544
+GameObject:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4606693968673038}
+  m_Layer: 0
+  m_Name: Gunbarrel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1709,6 +1725,19 @@ Transform:
   m_Father: {fileID: 4519426798286622}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4606693968673038
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1909412594384544}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.066, y: -0.039, z: 1.04}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4935818700498424}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4612380530584296
 Transform:
   m_ObjectHideFlags: 1
@@ -2082,6 +2111,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4616286025549498}
+  - {fileID: 4606693968673038}
   m_Father: {fileID: 4358131106944274}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2196,6 +2226,18 @@ MonoBehaviour:
   rightHand: {fileID: 4368763934093356}
   leftHand: {fileID: 4978799322577078}
   shoulder: {fileID: 4935818700498424}
+--- !u!114 &114414989220760484
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1852247902477282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5778596066ef641458b972e6031c0724, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rifleBarrel: {fileID: 4606693968673038}
 --- !u!114 &114645670478106756
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2399,7 +2441,7 @@ CharacterController:
   m_Height: 1.8
   m_Radius: 0.2
   m_SlopeLimit: 45
-  m_StepOffset: 0.05
+  m_StepOffset: 0.04
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
