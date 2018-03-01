@@ -20,6 +20,7 @@ public class testMCmovement : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         facingRight = true;
         airtime = 0;
