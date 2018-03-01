@@ -73,10 +73,12 @@ public class testMCmovement : MonoBehaviour
 
     void Grounded()
     {
-        animator.SetFloat("running", (moveOnX), .01f, Time.deltaTime);
         moveDirection = new Vector3(0, 0, Mathf.Abs(moveOnX));
         moveDirection = new Vector3(moveOnX, moveDirection.y, 0);
         moveDirection *= speed;
+        if (facingRight)
+            moveOnX = -moveOnX;
+        animator.SetFloat("running", (moveOnX), .01f, Time.deltaTime);
         currentjump = 0;
         airtime = 0;
     }
