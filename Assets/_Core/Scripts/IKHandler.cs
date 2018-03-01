@@ -4,9 +4,11 @@ using UnityEngine;
 //Av Andreas de Freitas, Erik Qvarnström och Timmy Alvelöv. 
 public class IKHandler : MonoBehaviour
 {
-    Animator animator;
     [SerializeField]
     Transform rightHand = null, leftHand = null, shoulder = null;
+
+    Animator animator;
+
     Vector3 lookObj = new Vector3(0.0f, 0.0f, 0.0f);
 
     void Start()
@@ -15,6 +17,11 @@ public class IKHandler : MonoBehaviour
     }
 
     void Update() //Uppdaterar muspekarens position som avataren ska titta på
+    {
+        SettingAimPosition();
+    }
+
+    void SettingAimPosition()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
@@ -33,7 +40,6 @@ public class IKHandler : MonoBehaviour
             animator.SetLookAtWeight(1);
             animator.SetLookAtPosition(lookObj);
             shoulder.LookAt(lookObj);
-
         }
 
         if (rightHand != null)
