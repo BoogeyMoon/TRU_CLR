@@ -405,7 +405,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 277827293}
-  - component: {fileID: 277827294}
+  - component: {fileID: 277827292}
   m_Layer: 0
   m_Name: Jig
   m_TagString: Untagged
@@ -413,6 +413,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &277827292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 277827291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18e02a3e850d6284e9566ea5cec11342, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 146255288}
+  boundary: 50
+  speed: 25
 --- !u!4 &277827293
 Transform:
   m_ObjectHideFlags: 0
@@ -427,18 +441,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &277827294
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 277827291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66235dbd6e949af44841deedc23ab7f7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 146255288}
 --- !u!1 &353535252
 GameObject:
   m_ObjectHideFlags: 0
@@ -944,7 +946,9 @@ Prefab:
       propertyPath: m_StepOffset
       value: 0.05
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114667242435213210, guid: 78ca1b2466e1bf64d977497d8aaaa9fc, type: 2}
+    - {fileID: 114278831883039714, guid: 78ca1b2466e1bf64d977497d8aaaa9fc, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 78ca1b2466e1bf64d977497d8aaaa9fc, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &857775061
@@ -1036,6 +1040,22 @@ GameObject:
   m_PrefabParentObject: {fileID: 1852247902477282, guid: 78ca1b2466e1bf64d977497d8aaaa9fc,
     type: 2}
   m_PrefabInternal: {fileID: 613071883}
+--- !u!114 &867633427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 867633426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517de7a27a46de7488d977f6f62e52c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 6
+  rotationSpeed: 6
+  jumpSpeed: 8
+  gravity: 20
+  airtime: 0
 --- !u!114 &867633431
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1050,7 +1070,6 @@ MonoBehaviour:
   rightHand: {fileID: 1309776905}
   leftHand: {fileID: 2009610090}
   shoulder: {fileID: 474702740}
-  lookObj: {x: 0, y: 0, z: 0}
 --- !u!1 &884522465
 GameObject:
   m_ObjectHideFlags: 0

@@ -125,7 +125,5 @@ public class testMCmovement : MonoBehaviour
         {
             moveDirection.y = 0;
         }
-
     }
-
 }
