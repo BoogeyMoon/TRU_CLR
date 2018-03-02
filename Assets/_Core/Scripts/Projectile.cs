@@ -9,6 +9,7 @@ public class Projectile : MonoBehaviour
 
     protected void Start()
     {
+        print("Varför fuckar allt?");
         rotation = GameObject.Find("ShoulderAim");
         transform.rotation = rotation.transform.rotation;
         lifeTime = 10;
