@@ -6,33 +6,39 @@ using UnityEngine.AI;
 public class EnemyTestFreitas : MonoBehaviour
 {
     [SerializeField]
-    GameObject player;
+    Transform player;
 
     [SerializeField]
     Transform[] points;
 
     int destPoint;
 
+    bool chasingPlayer;
+
     [SerializeField]
     float speed;
 
     NavMeshAgent agent;
 
-    [SerializeField]
-    Collider deathZone;
-
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.autoBraking = false;
+        chasingPlayer = false;
         destPoint = 0;
     }
 
     void Update()
     {
-        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        if (!agent.pathPending && agent.remainingDistance < 0.5f && !chasingPlayer)
         {
             GotoNextPoint();
+        }
+
+        if (chasingPlayer)
+        {
+            float step = speed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, player.position, step);
         }
     }
 
@@ -47,13 +53,18 @@ public class EnemyTestFreitas : MonoBehaviour
         destPoint = (destPoint + 1) % points.Length;
     }
 
-    void OnCollisionEnter(Collision col)
+    void OnTriggerEnter(Collider other)
     {
-        print("hej");
-        if (col.gameObject.tag == "Player")
+        if (other.gameObject.tag == "Player")
         {
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, step);
+            print("NU SKARU DÖ");
+            chasingPlayer = true;
         }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        print("Du hann undan lilla skit");
+        chasingPlayer = false;
     }
 }
