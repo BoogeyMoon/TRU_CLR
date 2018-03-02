@@ -9,6 +9,9 @@ public class EnemyTestFreitas : MonoBehaviour
     Transform player;
 
     [SerializeField]
+    GameObject enemyBullet, enemyGun;
+
+    [SerializeField]
     Transform[] points;
 
     int destPoint;
@@ -18,7 +21,7 @@ public class EnemyTestFreitas : MonoBehaviour
     [SerializeField]
     float speed;
 
-    NavMeshAgent agent;
+    NavMeshAgent agent; 
 
     void Start()
     {
