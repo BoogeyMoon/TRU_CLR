@@ -117,7 +117,7 @@ public class testMCmovement : MonoBehaviour
     void GroundCheck() //Kollar om spelaren står på marken
     {
         RaycastHit hit;
-        isGrounded = Physics.SphereCast(transform.position + new Vector3(0, .25f, 0), 0.2f, -transform.up, out hit, 0.15f);
+        isGrounded = Physics.SphereCast(transform.position + new Vector3(0, .25f, 0), 0.2f, -transform.up, out hit, 0.1f);
     }
     void HeadbumbCheck() //Kollar om spelarens huvud krockar med ett objekt
     {
