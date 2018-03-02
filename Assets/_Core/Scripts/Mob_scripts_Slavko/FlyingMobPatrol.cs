@@ -3,25 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 // by Slavko Stojnic
 
-public class FlyingMobScript : MonoBehaviour {
-    public Transform target;
-    public Transform bullet;
+public class FlyingMobPatrol : MonoBehaviour {
+
+    public Transform[] points;
+    private Transform destination;
+    private int destPoint = 0;
     public float speed;
+
+    /*public Transform target;
+    public Transform bullet;
+    
     float dist;
     private float time;
     private float howOftenToShoot;
     public Transform bulletSpawnPoint;
-    private int bulletCount;
+    private int bulletCount;*/
 
     void Start () {
-        howOftenToShoot = 0.15f;
-        bulletCount = 0;
-        time = 0.0f;
-    }
-	
-	void Update () {
 
-        time += Time.deltaTime; 
+        GotoNextPoint();
+
+        /*howOftenToShoot = 0.15f;
+        bulletCount = 0;
+        time = 0.0f;*/
+    }
+
+    void GotoNextPoint()
+    {
+        // Returns if no points have been set up
+        if (points.Length == 0)
+            return;
+
+        // Set the agent to go to the currently selected destination.
+       destination = points[destPoint];
+
+        // Choose the next point in the array as the destination,
+        // cycling to the start if necessary.
+        destPoint = (destPoint + 1) % points.Length;
+    }
+
+    void Update () {
+        // Choose the next destination point when the agent gets
+        // close to the current one.
+        if ((Vector3.Distance(destination.position, transform.position) <= .1))
+        {
+
+            GotoNextPoint();
+        }
+
+            
+        float step = speed * Time.deltaTime;
+        transform.position = Vector3.MoveTowards(transform.position, destination.position, step);
+        /*time += Time.deltaTime; 
 
         dist = Vector3.Distance(target.position, transform.position);
         if (dist > 5 && dist < 40) // follow MC if he's between 5 and 40 distance
@@ -31,13 +64,11 @@ public class FlyingMobScript : MonoBehaviour {
             transform.Translate(randomVector * Time.deltaTime * 5); // jiggle about randomly because it's shitty if the mob stands still
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-
-            if ((transform.position.y - target.position.y) < 5)
-            {
-                transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
-            }
         }
-
+        if ((transform.position.y-target.position.y) < 5) 
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
+        }
 
         if (time >= howOftenToShoot && dist < 40) // stop shooting if MC is far away
         {
@@ -53,6 +84,6 @@ public class FlyingMobScript : MonoBehaviour {
                 howOftenToShoot = 2f; // pause for 2 seconds (Phase 2)
                 bulletCount = 0;
             }
-        }
+        }*/
     }
 }
