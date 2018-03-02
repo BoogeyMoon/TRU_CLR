@@ -5,7 +5,7 @@ using UnityEngine;
 public class IKHandler : MonoBehaviour
 {
     [SerializeField]
-    Transform rightHand = null, leftHand = null, shoulder = null;
+    Transform rightHand = null, leftHand = null, shoulder = null, elbow_L = null, elbow_R;
 
     Animator animator;
 
@@ -56,6 +56,18 @@ public class IKHandler : MonoBehaviour
             animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
             animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHand.position);
             animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHand.rotation);
+        }
+
+        if(elbow_L != null && elbow_R != null)
+        {
+            animator.SetIKHintPositionWeight(AvatarIKHint.LeftElbow, 1);
+            animator.SetIKHintPositionWeight(AvatarIKHint.RightElbow, 1);
+
+            animator.SetIKHintPosition(AvatarIKHint.LeftElbow, elbow_L.position);
+            animator.SetIKHintPosition(AvatarIKHint.RightElbow, elbow_R.position);
+
+            animator.SetIKHintPosition(AvatarIKHint.LeftElbow, elbow_L.position);
+            animator.SetIKHintPosition(AvatarIKHint.RightElbow, elbow_R.position);
         }
     }
 }
