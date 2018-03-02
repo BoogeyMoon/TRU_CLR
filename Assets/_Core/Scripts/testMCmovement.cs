@@ -7,6 +7,7 @@ public class testMCmovement : MonoBehaviour
     [SerializeField]
     float speed = 6.0f, rotationSpeed = 6.0f, jumpSpeed = 8.0f, gravity = 20.0f, airtime;
     float moveOnX;
+    float offsetZ = -0.85f;
 
     int jumps = 2, currentjump = 0;
 
@@ -28,6 +29,7 @@ public class testMCmovement : MonoBehaviour
 
     void Update()
     {
+        transform.position = new Vector3(transform.position.x, transform.position.y, offsetZ);
         GroundCheck();
         animator.SetBool("isGrounded", isGrounded);
         moveOnX = Input.GetAxis("Horizontal");
