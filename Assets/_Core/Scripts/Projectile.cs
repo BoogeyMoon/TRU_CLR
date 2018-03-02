@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 //Av Timmy Alvelöv
+
+//Ett script som beskriver beteendet som alla projektiler har gemensamt, alla projektiler ärver från detta script.
 public class Projectile : MonoBehaviour
 {
     protected GameObject rotation;

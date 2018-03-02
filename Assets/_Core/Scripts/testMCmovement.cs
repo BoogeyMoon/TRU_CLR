@@ -121,7 +121,7 @@ public class testMCmovement : MonoBehaviour
     {
         RaycastHit hit;
 
-        if (moveDirection.y > 0 && Physics.SphereCast(transform.position + new Vector3(0, 1.8f, 0), 0.2f, transform.up, out hit, 0.1f))
+        if (moveDirection.y > 0 && Physics.SphereCast(transform.position + new Vector3(0, 1.85f, 0), 0.2f, transform.up, out hit, 0.1f))
         {
             moveDirection.y = 0;
         }

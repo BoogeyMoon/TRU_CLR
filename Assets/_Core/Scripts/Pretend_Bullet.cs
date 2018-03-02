@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//Av Timmy Alvelöv
 
+//Ett exempel på hur en projektil skulle kunna se ut, används som demaversion
 public class Pretend_Bullet : Projectile
 {
 

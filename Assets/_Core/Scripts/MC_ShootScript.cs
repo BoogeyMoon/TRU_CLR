@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 // Av Timmy Alvelöv
+
+//Används för att skapa projektilerna som MC skjuter.
 public class MC_ShootScript : MonoBehaviour
 {
     [SerializeField]
