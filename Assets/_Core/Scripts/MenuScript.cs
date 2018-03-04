@@ -13,41 +13,33 @@ using UnityEngine.SceneManagement;
 
 public class MenuScript : MonoBehaviour
 {
-    GameObject Panel,               //  
-               MainMenu,            //  <- Huvudmeny 
-            
-               LoadMenu,            //
-               SettingsMenu,        //  
-               ConfirmQuit,         //  <- Panel 
-               CreditsMenu,         //
-               Background,          //  <- borde gå att ändra det här på något sätt. vad tillhör bakgrunden? panel eller huvudmeny?
+    GameObject Panel,
+               MainMenu,
+               LoadMenu,
+               SettingsMenu,
+               ConfirmQuit,
+               CreditsMenu,
+               PauseMenu;
 
-               PauseMenu;           //  <- Pausmeny
-
-    [SerializeField]
     List<GameObject> Menus;
 
     int numberOfSaves;
     string gameScene;
 
-    bool paused, 
+    bool paused,
          inGame;
 
     //Spara Canvas till nästa scen.
     void Awake()
     {
-        DontDestroyOnLoad(transform.gameObject);                                 
+        DontDestroyOnLoad(transform.gameObject);
     }
 
     //Sätter alla värden
     void Start()
     {
         Panel = transform.GetChild(0).gameObject;
-        gameScene = "Moa_DemoScene"; //Ändra det här till den färdiga spel-scenen.
-        inGame = false;
-
-        //Listan nedan måste fixas. De är inte placerade rätt. Behövs alla dessa ens? Lös problemet med Panel
-        Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu,  CreditsMenu, ConfirmQuit, PauseMenu };
+        Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, CreditsMenu, ConfirmQuit, PauseMenu };
 
         for (int i = 0; i < Menus.Count; i++)
         {
@@ -60,29 +52,36 @@ public class MenuScript : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape) && inGame)
         {
-
             paused = !paused;
 
-            if(paused)
+            if (paused)
             {
-                print("hej");
                 Panel.SetActive(true);
                 Menus[5].SetActive(true);
             }
             else
             {
+                for (int i = 0; i < Menus.Count; i++)
+                {
+                    Menus[i].SetActive(false);
+                }
                 Panel.SetActive(false);
-                Menus[5].SetActive(false);
             }
         }
     }
 
     //Följande metod är kopplat till OnClick() på knapparna i menyn i Unity.
-    //Index är specificerat hos vardera knapp i Unity. (*******Och det behöver som sagt fixas!!*****)
+    //Index är specificerat hos vardera knapp i Unity.
     public void ClickButtons(int index)
     {
         Menus[0].SetActive(false);
-        Menus[1].SetActive(false);
+        Menus[5].SetActive(false);
+
+        //Settings, Credit och Confirm Quit.
+        if (index == 2 || index == 3 || index == 4)
+        {
+            Menus[index].SetActive(true);
+        }
 
         switch (index)
         {
@@ -90,16 +89,15 @@ public class MenuScript : MonoBehaviour
             case 0:
                 inGame = true;
                 Panel.SetActive(false);
-                SceneManager.LoadScene(gameScene); 
+                SceneManager.LoadScene("Moa_DemoScene"); //Ändra det här till den färdiga spel-scenen.
                 break;
 
             //Load Game
             case 1:
                 Menus[1].SetActive(true);
+                numberOfSaves = 5;          //Det här bör ändras till att den hämtar värde från vår spar-funktion.
 
-                //Det här bör ändras till att den hämtar värde från vår spar-funktion.
-                numberOfSaves = 5;
-                if(numberOfSaves == 0)
+                if (numberOfSaves == 0)
                 {
                     //Här ska "No saved games yet" texten aktiveras.
                 }
@@ -112,36 +110,39 @@ public class MenuScript : MonoBehaviour
                 }
                 break;
 
-            //Settings
-            case 2:
-                Menus[2].SetActive(true);
-                break;
 
-            //Credits
-            case 3:
-                Menus[3].SetActive(true);
-                break;
-
-            //Confirm Quit
-            case 4:
-                Menus[4].SetActive(true);
-                break;
-
-            //Back, till MainMenu on inGame är false, och till Pausmenyn om inGame är true.
+            //Back-knappen, går till MainMenu on inGame är false, och till PauseMenu om inGame är true.
             case 5:
-                //Funderingar: En if-sats som kollar om man är in-game eller inte. (Do you want to save current game?)
-                //             En till if-sats som kollar om man har sparat eller inte ??? Så det inte dyker upp om man redan har sparat. 
                 for (int i = 0; i < Menus.Count; i++)
                 {
                     Menus[i].SetActive(false);
                 }
-                Menus[0].SetActive(true);
-             //   Menus[5].SetActive(true);
+                if (inGame)
+                {
+                    Menus[5].SetActive(true);
+                }
+                else
+                {
+                    Menus[0].SetActive(true);
+                }
                 break;
 
             //Yes-knapp i ConfirmQuit.
             case 6:
                 Application.Quit();
+                break;
+
+            //Return knappen
+            case 7:
+                paused = false;
+                Panel.SetActive(false);
+                break;
+
+            //Main menu knappen. Saknar dock en confirm knapp.
+            case 8:
+                inGame = false;
+                Panel.SetActive(false);
+                SceneManager.LoadScene("MenuScene");
                 break;
         }
     }
