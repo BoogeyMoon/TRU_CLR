@@ -26,6 +26,9 @@ public class Pretend_Bullet : Projectile
     {
         if (coll.gameObject.tag != "Player")
         {
+            if (coll.gameObject.tag == "Weakpoint")
+                print("träffa rätt");
+
             Destroy(gameObject);
         }
 
