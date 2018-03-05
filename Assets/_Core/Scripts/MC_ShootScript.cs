@@ -24,6 +24,18 @@ public class MC_ShootScript : MonoBehaviour
         {
             Shoot();
         }
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            activeColor = (activeColor +1) % 3;
+        }
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            activeColor--;
+            if(activeColor < 0)
+            {
+                activeColor = colorsBullets.Length -1;
+            }
+        }
     }
 
     void Shoot()
