@@ -7,6 +7,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     protected GameObject rotation;
+    [SerializeField]
     protected float startVelocity, damage, startTime, lifeTime;
 
     protected void Start()
