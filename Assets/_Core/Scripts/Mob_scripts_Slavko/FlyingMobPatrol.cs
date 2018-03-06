@@ -5,18 +5,18 @@ using UnityEngine;
 
 public class FlyingMobPatrol : MonoBehaviour {
 
-    public Transform[] points;
+    [SerializeField] Transform[] points;
     private Transform destination;
     private int destPoint = 0;
-    public float speed;
+    [SerializeField] float speed;
 
-    /*public Transform target;
-    public Transform bullet;
+    /*[SerializeField] Transform target;
+    [SerializeField] Transform bullet;
     
     float dist;
     private float time;
     private float howOftenToShoot;
-    public Transform bulletSpawnPoint;
+    [SerializeField] Transform bulletSpawnPoint;
     private int bulletCount;*/
 
     void Start () {
@@ -47,7 +47,6 @@ public class FlyingMobPatrol : MonoBehaviour {
         // close to the current one.
         if ((Vector3.Distance(destination.position, transform.position) <= .1))
         {
-
             GotoNextPoint();
         }
 
