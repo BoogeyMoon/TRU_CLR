@@ -10,37 +10,47 @@ public class MC_ShootScript : MonoBehaviour
     GameObject[] colorsBullets;
     [SerializeField]
     GameObject rifleBarrel;
-    enum ColorProjectiles {Blue, Yellow, Red};
+    enum ColorProjectiles { Blue, Yellow, Red };
     int activeColor;
     GameObject currentBullet;
+    float cooldown;
+    bool shootReady;
 
     void Start()
     {
-        activeColor = (int) ColorProjectiles.Blue;
+        cooldown = 0.5f;
+        shootReady = true;
+        activeColor = (int)ColorProjectiles.Blue;
     }
     void Update()
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
-            Shoot();
+            cooldown -= Time.deltaTime;
+
+            if (cooldown < 0)
+            {
+                cooldown = 0.5f;
+                Shoot();
+            }
         }
-        if(Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            activeColor = (activeColor +1) % 3;
+            activeColor = (activeColor + 1) % 3;
         }
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             activeColor--;
-            if(activeColor < 0)
+            if (activeColor < 0)
             {
-                activeColor = colorsBullets.Length -1;
+                activeColor = colorsBullets.Length - 1;
             }
         }
     }
 
     void Shoot()
     {
-        currentBullet = Instantiate(colorsBullets[activeColor], 
-            new Vector3(rifleBarrel.transform.position.x,rifleBarrel.transform.position.y,rifleBarrel.transform.position.z), Quaternion.identity);
+        currentBullet = Instantiate(colorsBullets[activeColor],
+        new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
     }
 }
