@@ -8,7 +8,6 @@ public class MobStats : MonoBehaviour
 {
     [SerializeField]
     float health, speed, maxHealth, fireRate;
-    enum colors { blue, yellow, red };
     [SerializeField]
     int color;
 
@@ -50,7 +49,7 @@ public class MobStats : MonoBehaviour
 
     void Move() //Flyttar mob:en
     {
-        Destroy(this);
+
     }
 
 
