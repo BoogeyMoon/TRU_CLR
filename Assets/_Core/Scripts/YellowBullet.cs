@@ -6,8 +6,33 @@ using UnityEngine;
 //Följande script lägger till en ökad gravity till det gula skottet.
 public class YellowBullet : Projectile
 {
-    void Awake()
+    [SerializeField]
+    float dropValue;
+
+    // Use this for initialization
+    void Start()
     {
-        Physics.gravity = new Vector3(0, -45, 0);
+        dropValue = 0;
+        base.Start();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        dropValue = dropValue - 0.8f;
+        base.Update();
+        transform.Translate(new Vector3(0, dropValue, 1 * startVelocity) * Time.deltaTime);
+    }
+
+    void OnTriggerEnter(Collider coll)
+    {
+        if (coll.gameObject.tag != "Player")
+        {
+            if (coll.gameObject.tag == "Weakpoint")
+                print("träffa rätt");
+
+            Destroy(gameObject);
+        }
+
     }
 }
