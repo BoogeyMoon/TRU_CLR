@@ -22,7 +22,7 @@ public class MobStats : MonoBehaviour
         if (color == this.color)
         {
             health -= damage;
-            if(health<=0)
+            if (health <= 0)
             {
                 Die();
             }
@@ -32,7 +32,7 @@ public class MobStats : MonoBehaviour
     public void GainHealth(float life) //Ökar mob:ens hälsa
     {
         health += life;
-        if(health > maxHealth)
+        if (health > maxHealth)
         {
             health = maxHealth;
         }
@@ -50,8 +50,9 @@ public class MobStats : MonoBehaviour
 
     void Move() //Flyttar mob:en
     {
-
+        Destroy(this);
     }
+
 
 
 
