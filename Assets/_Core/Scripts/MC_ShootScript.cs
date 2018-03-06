@@ -10,7 +10,7 @@ public class MC_ShootScript : MonoBehaviour
     GameObject[] colorsBullets;
     [SerializeField]
     GameObject rifleBarrel;
-    enum ColorProjectiles {Blue, Yellow, Red};
+    public enum ColorProjectiles {Blue, Yellow, Red};
     int activeColor;
     GameObject currentBullet;
 
