@@ -11,8 +11,6 @@ public class Pretend_Bullet : Projectile
     void Start()
     {
         base.Start();
-        damage = 3;
-        startVelocity = 25;
     }
 
     // Update is called once per frame
