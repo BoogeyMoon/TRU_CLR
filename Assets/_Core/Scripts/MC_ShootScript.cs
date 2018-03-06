@@ -13,24 +13,27 @@ public class MC_ShootScript : MonoBehaviour
     enum ColorProjectiles { Blue, Yellow, Red };
     int activeColor;
     GameObject currentBullet;
+    float fireRate;
+    [SerializeField]
     float cooldown;
-    bool shootReady;
 
     void Start()
     {
+        fireRate = 0;
         cooldown = 0.5f;
-        shootReady = true;
         activeColor = (int)ColorProjectiles.Blue;
     }
     void Update()
     {
+        if(fireRate > 0)
+        {
+            fireRate -= Time.deltaTime;
+        }
+
         if (Input.GetMouseButton(0))
         {
-            cooldown -= Time.deltaTime;
-
-            if (cooldown < 0)
+            if (fireRate <= 0)
             {
-                cooldown = 0.5f;
                 Shoot();
             }
         }
@@ -52,5 +55,6 @@ public class MC_ShootScript : MonoBehaviour
     {
         currentBullet = Instantiate(colorsBullets[activeColor],
         new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
+        fireRate = cooldown;
     }
 }
