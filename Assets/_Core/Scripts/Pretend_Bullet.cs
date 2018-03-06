@@ -6,7 +6,6 @@ using UnityEngine;
 //Ett exempel på hur en projektil skulle kunna se ut, används som demaversion
 public class Pretend_Bullet : Projectile
 {
-
     // Use this for initialization
     void Start()
     {
@@ -25,7 +24,7 @@ public class Pretend_Bullet : Projectile
         if (coll.gameObject.tag != "Player")
         {
             if (coll.gameObject.tag == "Weakpoint")
-                print("träffa rätt");
+                coll.GetComponent<MobStats>().TakeDamage(damage, color);
 
             Destroy(gameObject);
         }

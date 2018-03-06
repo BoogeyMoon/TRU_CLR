@@ -9,6 +9,8 @@ public class Projectile : MonoBehaviour
     protected GameObject rotation;
     [SerializeField]
     protected float startVelocity, damage, startTime, lifeTime;
+    [SerializeField]
+    protected int color;
 
     protected void Start()
     {
