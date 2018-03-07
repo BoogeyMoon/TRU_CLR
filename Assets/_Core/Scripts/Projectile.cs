@@ -21,7 +21,7 @@ public class Projectile : MonoBehaviour
     protected void Update()
     {
         startTime += Time.deltaTime;
-        if(startTime >= lifeTime)
+        if (startTime >= lifeTime)
         {
             Destroy(gameObject);
         }

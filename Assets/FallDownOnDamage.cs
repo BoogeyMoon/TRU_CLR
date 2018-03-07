@@ -1,15 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// by Slavko Stojnic
 
 public class FallDownOnDamage : MonoBehaviour {
-
 
     private Rigidbody [] bodies;
     private Collider[] colliders;
     private Collider mainCollider;
     private Rigidbody iFall;
     private Transform[] unparent;
+    [SerializeField] float destroyAfter;
+    [SerializeField] float randomScatter;
     void Start()
         {
         bodies = GetComponentsInChildren<Rigidbody>();
@@ -35,7 +37,8 @@ public class FallDownOnDamage : MonoBehaviour {
             //iFall = GetComponent<Rigidbody>();
             body.useGravity = true;
             body.constraints = RigidbodyConstraints.FreezePositionZ;
-            Destroy(body.gameObject, 3f);
+            Destroy(body.gameObject, destroyAfter);
+            body.AddForce(body.transform.forward * Random.Range(-randomScatter, randomScatter));
         }
         
 
