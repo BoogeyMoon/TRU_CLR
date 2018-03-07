@@ -33,7 +33,7 @@ public class YellowBullet : Projectile
 
     void OnTriggerEnter(Collider coll)
     {
-        if (coll.gameObject.tag != "Player")
+        if (coll.gameObject.tag != "Player" && coll.gameObject.tag != "Bullet")
         {
             if (coll.gameObject.tag == "Weakpoint")
                 print("träffa rätt");

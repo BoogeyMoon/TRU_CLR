@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// Av Timmy Alvelöv 
 
+//Håller koll på vilken som är nästa vägpoäng
 public class Waypoint : MonoBehaviour {
     [SerializeField]
 	GameObject nextWaypoint;

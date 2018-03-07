@@ -24,9 +24,10 @@ GameObject:
   - component: {fileID: 23806556335176598}
   - component: {fileID: 114111135335106006}
   - component: {fileID: 54431520538901092}
+  - component: {fileID: 114496534260569912}
   m_Layer: 2
   m_Name: Pretendbullet_Red_PF
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -116,6 +117,18 @@ MonoBehaviour:
   startTime: 0
   lifeTime: 0
   color: 2
+--- !u!114 &114496534260569912
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1402148569433218}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef0e2218f321994d99c55d82ea3a38a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killTime: 0
 --- !u!135 &135239300566323310
 SphereCollider:
   m_ObjectHideFlags: 1
