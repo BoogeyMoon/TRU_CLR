@@ -6,22 +6,29 @@ using UnityEngine;
 //Följande script lägger till en ökad gravity till det gula skottet.
 public class YellowBullet : Projectile
 {
-    [SerializeField]
-    float dropValue;
 
+    float dropValue;
+    [SerializeField]
+    float gravity;
+    float zOffSet;
+    Vector3 position;
     // Use this for initialization
     void Start()
     {
-        dropValue = 0;
         base.Start();
+        zOffSet = -0.85f;
+        dropValue = 0;
+        gravity = 0.5f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        dropValue = dropValue - 0.8f;
         base.Update();
-        transform.Translate(new Vector3(0, dropValue, 1 * startVelocity) * Time.deltaTime);
+        dropValue = dropValue - gravity * Time.deltaTime;
+        transform.Translate(Vector3.forward * startVelocity * Time.deltaTime);
+        transform.Translate(new Vector3(0, dropValue, 0), Space.World);
+        transform.position = new Vector3(transform.position.x, transform.position.y + dropValue, zOffSet);
     }
 
     void OnTriggerEnter(Collider coll)
