@@ -10,7 +10,7 @@ public class PlayerStats : MonoBehaviour
 {
     [SerializeField]
     float maxHealth;
-
+    [SerializeField]
     float health, cPHealth;
 
     string checkpoint;
@@ -21,6 +21,7 @@ public class PlayerStats : MonoBehaviour
         {
             health = cPHealth;
         }
+        
     }
 
     public void ChangeHealth(float value) //Lägg till eller ta bort hälsa från spelaren

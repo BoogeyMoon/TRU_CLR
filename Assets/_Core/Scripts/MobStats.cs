@@ -12,7 +12,8 @@ public class MobStats : MonoBehaviour
     [SerializeField]
     int color;
     [SerializeField]
-    GameObject destination;
+    GameObject destination, bullet, bulletSpawner;
+    GameObject currentBullet;
     NavMeshAgent agent;
 
     void Start()
@@ -22,9 +23,14 @@ public class MobStats : MonoBehaviour
     }
     void Update()
     {
-        if(destination != null)
+        if (destination != null)
         {
             Move();
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            Shoot();
         }
     }
     public void TakeDamage(float damage, int color) //Om mob:en blir träffad av en kula som korresponderar med mob:ens färg så tar den skada.
@@ -55,12 +61,16 @@ public class MobStats : MonoBehaviour
 
     void Shoot() //Mob:en skjuter
     {
+        currentBullet = Instantiate(bullet);
+
+        currentBullet.transform.position = bulletSpawner.transform.position;
+        currentBullet.transform.rotation = bulletSpawner.transform.rotation;
 
     }
 
     void Move() //Flyttar mob:en
     {
-        transform.position = Vector3.MoveTowards(agent.transform.position,destination.transform.position,speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(agent.transform.position, destination.transform.position, speed * Time.deltaTime);
     }
     public void ChangeDestination(GameObject newDestination)
     {
