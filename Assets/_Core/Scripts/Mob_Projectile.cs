@@ -1,12 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//Av Timmy Alvelöv
-
-//Ett script som beskriver beteendet som alla projektiler har gemensamt, alla projektiler ärver från detta script.
-public class Projectile : MonoBehaviour
+//Timmy Alvelöv
+public class Mob_Projectile : MonoBehaviour
 {
-    protected GameObject rotation;
+
+    protected GameObject rotation, player;
     [SerializeField]
     protected float startVelocity, damage, startTime, lifeTime;
     [SerializeField]
@@ -14,8 +13,8 @@ public class Projectile : MonoBehaviour
 
     protected void Start()
     {
-        rotation = GameObject.Find("ShoulderAim");
-        transform.rotation = rotation.transform.rotation;
+        player = GameObject.Find("SK_DemoDude_PF");
+
         lifeTime = 10;
     }
     protected void Update()
@@ -26,4 +25,6 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+
 }
