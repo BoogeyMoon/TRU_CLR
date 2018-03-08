@@ -32,7 +32,7 @@ public class testMCmovement : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, offsetZ);
         GroundCheck();
         animator.SetBool("isGrounded", isGrounded);
-        moveOnX = Input.GetAxis("Horizontal");
+        moveOnX = Input.GetAxisRaw("Horizontal");
 
         if (isGrounded) //Ifall spelaren är på marken
         {
