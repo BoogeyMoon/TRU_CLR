@@ -28,6 +28,12 @@ public class SoundManager : MonoBehaviour
         DontDestroyOnLoad(gameObject); //Hindrar att soundmanagern förstörs vid omladdning av scenen
     }
 
+    public void PlayMusic(AudioClip music) //Används för att spela musik
+    {
+        musicSource.clip = music;
+        musicSource.Play();
+    }
+
     public void PlaySingle(AudioClip clip) //Används för att spela upp enspårsljud
     {
         efxSource.clip = clip;
