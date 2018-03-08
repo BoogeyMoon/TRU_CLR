@@ -18,7 +18,7 @@ public class Mob_bullet : Mob_Projectile
 
     void OnTriggerEnter(Collider coll)
     {
-        if(coll.gameObject.tag != "Weakpoint")
+        if(coll.gameObject.tag != "Weakpoint" && coll.gameObject.tag != "Bullet")
         {
             if(coll.gameObject.tag == "Player")
             {
