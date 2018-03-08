@@ -36,7 +36,7 @@ public class YellowBullet : Projectile
         if (coll.gameObject.tag != "Player" && coll.gameObject.tag != "Bullet")
         {
             if (coll.gameObject.tag == "Weakpoint")
-                print("träffa rätt");
+                coll.GetComponent<MobStats>().TakeDamage(damage, color);
 
             Destroy(gameObject);
         }
