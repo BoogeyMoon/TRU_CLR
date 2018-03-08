@@ -8,27 +8,38 @@ using UnityEngine.AI;
 public class MobStats : MonoBehaviour
 {
     [SerializeField]
-    float health, speed, maxHealth, fireRate;
+    float health, speed, maxHealth, fireRate, startTime;
+    float timeLeft;
     [SerializeField]
     int color;
     [SerializeField]
     GameObject destination, bullet, bulletSpawner;
     GameObject currentBullet;
     NavMeshAgent agent;
+    bool onCooldown;
 
     void Start()
     {
         health = maxHealth;
         agent = GetComponent<NavMeshAgent>();
+        timeLeft = startTime;
+        onCooldown = false;
     }
     void Update()
     {
+        timeLeft -= Time.deltaTime;
+
         if (destination != null)
         {
             Move();
         }
 
         if (Input.GetMouseButtonDown(1))
+        {
+            Shoot();
+        }
+
+        if (timeLeft < 0)
         {
             Shoot();
         }
@@ -62,9 +73,15 @@ public class MobStats : MonoBehaviour
     void Shoot() //Mob:en skjuter
     {
         currentBullet = Instantiate(bullet);
+        onCooldown = true;
 
         currentBullet.transform.position = bulletSpawner.transform.position;
         currentBullet.transform.rotation = bulletSpawner.transform.rotation;
+
+        if (onCooldown)
+        {
+            timeLeft = startTime;
+        }
 
     }
 
