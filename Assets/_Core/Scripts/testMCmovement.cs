@@ -73,7 +73,7 @@ public class testMCmovement : MonoBehaviour
         transform.rotation = Quaternion.Inverse(transform.rotation);
     }
 
-    void Grounded()
+    void Grounded() //Ifall spelaren befinner sig på marken
     {
         moveDirection = new Vector3(0, 0, Mathf.Abs(moveOnX));
         moveDirection = new Vector3(moveOnX, moveDirection.y, 0);
@@ -85,7 +85,7 @@ public class testMCmovement : MonoBehaviour
         airtime = 0;
     }
 
-    void Airbourne()
+    void Airbourne() //Ifall spelaren befinner sig i luften
     {
         airtime += Time.deltaTime;
 
@@ -99,7 +99,7 @@ public class testMCmovement : MonoBehaviour
         moveDirection.x *= speed;
     }
 
-    void JumpOrFall()
+    void JumpOrFall() //Ifall spelaren hoppar eller faller
     {
         moveDirection.y = jumpSpeed;
         currentjump++;
