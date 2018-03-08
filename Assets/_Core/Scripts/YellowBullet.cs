@@ -20,8 +20,7 @@ public class YellowBullet : Projectile
         dropValue = 0;
         gravity = 0.5f;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         base.Update();
