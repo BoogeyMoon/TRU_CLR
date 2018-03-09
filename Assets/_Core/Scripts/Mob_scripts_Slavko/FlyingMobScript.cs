@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 // by Slavko Stojnic
 
-public class FlyingMobScript : MonoBehaviour {
+public class FlyingMobScript : MobStats
+{
     [SerializeField] Transform target;
-    [SerializeField] Transform bullet;
-    [SerializeField] float speed;
+    [SerializeField] Transform bulletTransform;
+    //[SerializeField] float speed;
     [SerializeField] float radiusOfReaction;
     float dist;
     private float time;
@@ -14,7 +15,10 @@ public class FlyingMobScript : MonoBehaviour {
     [SerializeField] Transform bulletSpawnPoint;
     private int bulletCount;
 
-    void Start () {
+    void Start ()
+    {
+        base.Start();
+        target = GameObject.Find("SK_DemoDude_PF").transform;
         howOftenToShoot = 0.15f;
         bulletCount = 0;
         time = 0.0f;
@@ -47,7 +51,7 @@ public class FlyingMobScript : MonoBehaviour {
             { howOftenToShoot = 0.15f; } 
             time = 0.0f;
             
-            Instantiate(bullet, bulletSpawnPoint.position, bullet.rotation);
+            Instantiate(bullet, bulletSpawnPoint.position, bulletTransform.rotation);
             bulletCount++;
 
             if (bulletCount == 5)

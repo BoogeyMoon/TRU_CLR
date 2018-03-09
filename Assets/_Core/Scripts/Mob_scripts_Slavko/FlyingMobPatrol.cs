@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 // by Slavko Stojnic
 
-public class FlyingMobPatrol : MonoBehaviour {
+public class FlyingMobPatrol : MobStats {
 
     [SerializeField] Transform[] points;
     private Transform destination;
     private int destPoint = 0;
     [SerializeField] float speed;
+    private ParticleSystem[] damageParticles;
+    private int timesGotHit;
 
     /*[SerializeField] Transform target;
     [SerializeField] Transform bullet;
@@ -20,9 +22,17 @@ public class FlyingMobPatrol : MonoBehaviour {
     private int bulletCount;*/
 
     void Start () {
-
+        base.Start();
         GotoNextPoint();
+        damageParticles = GetComponentsInChildren<ParticleSystem>();
+        timesGotHit = 0;
 
+        foreach (ParticleSystem damageParticle in damageParticles)
+        {
+
+            var emission = damageParticle.emission;
+            emission.enabled = false;
+        }
         /*howOftenToShoot = 0.15f;
         bulletCount = 0;
         time = 0.0f;*/
@@ -33,6 +43,7 @@ public class FlyingMobPatrol : MonoBehaviour {
         // Returns if no points have been set up
         if (points.Length == 0)
             return;
+
 
         // Set the agent to go to the currently selected destination.
        destination = points[destPoint];
@@ -50,8 +61,10 @@ public class FlyingMobPatrol : MonoBehaviour {
             GotoNextPoint();
         }
 
-            
-        float step = speed * Time.deltaTime;
+
+
+
+            float step = speed * Time.deltaTime;
         transform.position = Vector3.MoveTowards(transform.position, destination.position, step);
         /*time += Time.deltaTime; 
 
@@ -84,5 +97,19 @@ public class FlyingMobPatrol : MonoBehaviour {
                 bulletCount = 0;
             }
         }*/
+    }
+    public override void TakeDamage(float damage, int color) //Om mob:en blir träffad av en kula som korresponderar med mob:ens färg så tar den skada.
+    {
+        print("weee");
+        base.TakeDamage(damage, color);
+        if (color == this.color)
+        {
+            print(damageParticles[timesGotHit]);
+            var emission = damageParticles[timesGotHit].emission;
+            emission.enabled = true;
+            timesGotHit++;
+        }
+
+
     }
 }
