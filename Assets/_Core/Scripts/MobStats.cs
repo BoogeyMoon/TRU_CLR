@@ -9,7 +9,7 @@ public class MobStats : MonoBehaviour
     [SerializeField]
     protected float health, speed, maxHealth, fireCooldown;
     [SerializeField]
-    int color;
+    protected int color;
     [SerializeField]
     protected GameObject destination, bullet, bulletSpawner;
     protected GameObject currentBullet;
@@ -21,7 +21,7 @@ public class MobStats : MonoBehaviour
         
     }
     
-    public void TakeDamage(float damage, int color) //Om mob:en blir träffad av en kula som korresponderar med mob:ens färg så tar den skada.
+    public virtual void TakeDamage(float damage, int color) //Om mob:en blir träffad av en kula som korresponderar med mob:ens färg så tar den skada.
     {
         if (color == this.color)
         {
