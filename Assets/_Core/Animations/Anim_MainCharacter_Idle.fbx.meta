@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: ebae4a3178dbadc42971ad5daa1b2e58
-timeCreated: 1520515550
+guid: a6bea4a00ededc345a40cded6e8fcd21
+timeCreated: 1520709561
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
-    100000: C_MainCharacter
+    100000: //RootNode
     100002: Head_JNT
     100004: Hip_JNT
     100006: L_Ankle_JNT
@@ -28,11 +28,10 @@ ModelImporter:
     100040: R_Shoulder_JNT
     100042: R_Toe_JNT
     100044: Root_JNT
-    100046: //RootNode
-    100048: Spine_JNT_1
-    100050: Spine_JNT_2
-    100052: Spine_JNT_3
-    400000: C_MainCharacter
+    100046: Spine_JNT_1
+    100048: Spine_JNT_2
+    100050: Spine_JNT_3
+    400000: //RootNode
     400002: Head_JNT
     400004: Hip_JNT
     400006: L_Ankle_JNT
@@ -55,17 +54,14 @@ ModelImporter:
     400040: R_Shoulder_JNT
     400042: R_Toe_JNT
     400044: Root_JNT
-    400046: //RootNode
-    400048: Spine_JNT_1
-    400050: Spine_JNT_2
-    400052: Spine_JNT_3
-    2100000: lambert5
-    4300000: C_MainCharacter
+    400046: Spine_JNT_1
+    400048: Spine_JNT_2
+    400050: Spine_JNT_3
+    7400000: Anim_MainCharacter_Idle
     9500000: //RootNode
-    13700000: C_MainCharacter
   externalObjects: {}
   materials:
-    importMaterials: 0
+    importMaterials: 1
     materialName: 0
     materialSearch: 1
     materialLocation: 1
@@ -89,7 +85,35 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Anim_MainCharacter_Idle
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 120
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -119,7 +143,7 @@ ModelImporter:
     tangentImportMode: 3
     normalCalculationMode: 4
   importAnimation: 1
-  copyAvatar: 0
+  copyAvatar: 1
   humanDescription:
     serializedVersion: 2
     human:
@@ -447,7 +471,8 @@ ModelImporter:
     hasTranslationDoF: 0
     hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: ebae4a3178dbadc42971ad5daa1b2e58,
+    type: 3}
   animationType: 3
   humanoidOversampling: 1
   additionalBone: 0
