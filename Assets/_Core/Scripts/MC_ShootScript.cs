@@ -9,39 +9,48 @@ public class MC_ShootScript : MonoBehaviour
     [SerializeField]
     GameObject[] colorsBullets;
     [SerializeField]
-    GameObject rifleBarrel;
+    GameObject rifleBarrel, shoulderAim;
     enum ColorProjectiles { Blue, Yellow, Red };
     int activeColor;
     GameObject currentBullet;
     float fireRate;
     [SerializeField]
     float cooldown;
-    Vector3 redProjectileDir; //Tillagt
-    RaycastHit objectHit; //Tillagt
-    GameObject target; //Tillagt
+
+    Vector3 redProjectileDir;
+    RaycastHit objectHit;
+    GameObject target;
+    LineRenderer laserLine;
+    Light laserLight;
 
     void Start()
     {
-        fireRate = 0;
+        fireRate = 0f;
         cooldown = 0.5f;
         activeColor = (int)ColorProjectiles.Blue;
+        laserLine = GetComponentInChildren<LineRenderer>();
+        laserLight = GetComponentInChildren<Light>();
+
     }
     void Update()
     {
-        if(activeColor == (int)ColorProjectiles.Red)
+        if (activeColor == (int)ColorProjectiles.Red)
         {
-            redProjectileDir = rifleBarrel.transform.TransformDirection(Vector3.forward); //Tillagt
+            redProjectileDir = rifleBarrel.transform.TransformDirection(Vector3.forward);
         }
         if (fireRate > 0)
         {
             fireRate -= Time.deltaTime;
         }
-
         if (Input.GetMouseButton(0))
         {
             if (fireRate <= 0)
             {
                 Shoot();
+            }
+            else
+            {
+              //  laserLine.enabled = false;
             }
         }
         if (Input.GetKeyDown(KeyCode.E))
@@ -60,24 +69,31 @@ public class MC_ShootScript : MonoBehaviour
 
     void Shoot()
     {
-        //Tillagt
-        if(activeColor == (int)ColorProjectiles.Red)
-        {
-            Debug.DrawRay(rifleBarrel.transform.position, redProjectileDir * 50);
 
-            if(Physics.Raycast(rifleBarrel.transform.position, redProjectileDir, out objectHit, 50))
+        if (activeColor == (int)ColorProjectiles.Red)
+        {
+
+            //laserLine.enabled = true;
+           laserLine.SetPosition(0, rifleBarrel.transform.localPosition);
+
+            if (Physics.Raycast(rifleBarrel.transform.localPosition, redProjectileDir, out objectHit, 50f))
             {
+                Debug.DrawRay(rifleBarrel.transform.localPosition, redProjectileDir);
+                laserLine.SetPosition(1, objectHit.point);
                 target = objectHit.transform.gameObject;
                 print(target);
-                if(target.tag == "WeakPoint")
+                if (target.tag == "WeakPoint")
                 {
                     print("du träffade en weakpoint");
                 }
             }
+
         }
-        //_
-            currentBullet = Instantiate(colorsBullets[activeColor],
-            new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
-            fireRate = cooldown;
+
+        currentBullet = Instantiate(colorsBullets[activeColor],
+        new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
+
+        fireRate = cooldown;
+
     }
 }
