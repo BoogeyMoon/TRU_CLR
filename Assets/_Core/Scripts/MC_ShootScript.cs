@@ -68,7 +68,6 @@ public class MC_ShootScript : MonoBehaviour
             if(Physics.Raycast(rifleBarrel.transform.position, redProjectileDir, out objectHit, 50))
             {
                 target = objectHit.transform.gameObject;
-                print(target);
                 if(target.tag == "WeakPoint")
                 {
                     print("du träffade en weakpoint");
