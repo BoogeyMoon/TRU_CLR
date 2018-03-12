@@ -7,7 +7,7 @@ public class TentacleFollow : MonoBehaviour {
     public float speed;
     // Use this for initialization
     void Start () {
-        target = GameObject.Find("SK_DemoDude_PF").transform;
+        target = GameObject.Find("SK_MainCharacter_PF").transform;
 	}
 
     // Update is called once per frame

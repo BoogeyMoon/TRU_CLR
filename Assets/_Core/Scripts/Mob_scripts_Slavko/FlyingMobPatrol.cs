@@ -6,7 +6,7 @@ using UnityEngine;
 public class FlyingMobPatrol : MobStats {
 
     [SerializeField] Transform[] points;
-    private Transform destination;
+    private Transform destinationLocal;
     private int destPoint = 0;
     [SerializeField] float speedWhenAggro;
     private ParticleSystem[] damageParticles;
@@ -49,7 +49,7 @@ public class FlyingMobPatrol : MobStats {
             return;
 
         // Set the agent to go to the currently selected destination.
-       destination = points[destPoint];
+       destinationLocal = points[destPoint];
 
         // Choose the next point in the array as the destination,
         // cycling to the start if necessary.
@@ -60,7 +60,7 @@ public class FlyingMobPatrol : MobStats {
     {
         // Choose the next destination point when the agent gets
         // close to the current one.
-        if ((Vector3.Distance(destination.position, transform.position) <= .1) && !aggro)
+        if ((Vector3.Distance(destinationLocal.position, transform.position) <= .1) && !aggro)
         {
             GotoNextPoint();
         }
@@ -69,7 +69,7 @@ public class FlyingMobPatrol : MobStats {
         time += Time.deltaTime;
         if (!aggro)
         {
-            transform.position = Vector3.MoveTowards(transform.position, destination.position, step);
+            transform.position = Vector3.MoveTowards(transform.position, destinationLocal.position, step);
         }
         dist = Vector3.Distance(target.position, transform.position);
         if (aggro)
@@ -79,7 +79,7 @@ public class FlyingMobPatrol : MobStats {
         {
             //transform.LookAt(target.position); // turn towards MC
             Vector2 randomVector = new Vector2(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f));
-            transform.Translate(randomVector * Time.deltaTime * 5); // jiggle about randomly because it's shitty if the mob stands still
+            transform.Translate(randomVector * Time.deltaTime * 5, Space.World); // jiggle about randomly because it's shitty if the mob stands still
             transform.position = Vector3.MoveTowards(transform.position, target.position, step);
 
         }
@@ -89,7 +89,7 @@ public class FlyingMobPatrol : MobStats {
         }
     }
         /*
-        if (time >= howOftenToShoot && dist < 40) // stop shooting if MC is far away
+        if (time >= howOftenToShoot && dist < radiusOfReaction) // stop shooting if MC is far away
         {
             if (bulletCount == 0) // shoot five times with .15 second pause (Phase 1)
             { howOftenToShoot = 0.15f; } 
@@ -109,7 +109,7 @@ public class FlyingMobPatrol : MobStats {
     {
         aggro = true;
         base.TakeDamage(damage, color);
-        if (color == this.color)
+        if ((color == this.color) && (timesGotHit <= damageParticles.Length -1))
         {
 
             var emission = damageParticles[timesGotHit].emission;
