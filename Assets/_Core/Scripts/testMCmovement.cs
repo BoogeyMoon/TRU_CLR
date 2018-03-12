@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 //Av Andreas de Freitas, Erik Qvarnström och Timmy Alvelöv. 
+
+//Ser till att spelaren kan röra sig korrekt och att animationerna följer rörelserna.
 public class testMCmovement : MonoBehaviour
 {
     [SerializeField]
