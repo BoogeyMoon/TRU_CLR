@@ -16,6 +16,9 @@ public class MC_ShootScript : MonoBehaviour
     float fireRate;
     [SerializeField]
     float cooldown;
+    Vector3 redProjectileDir; //Tillagt
+    RaycastHit objectHit; //Tillagt
+    GameObject target; //Tillagt
 
     void Start()
     {
@@ -25,7 +28,11 @@ public class MC_ShootScript : MonoBehaviour
     }
     void Update()
     {
-        if(fireRate > 0)
+        if(activeColor == (int)ColorProjectiles.Red)
+        {
+            redProjectileDir = rifleBarrel.transform.TransformDirection(Vector3.forward); //Tillagt
+        }
+        if (fireRate > 0)
         {
             fireRate -= Time.deltaTime;
         }
@@ -53,8 +60,24 @@ public class MC_ShootScript : MonoBehaviour
 
     void Shoot()
     {
-        currentBullet = Instantiate(colorsBullets[activeColor],
-        new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
-        fireRate = cooldown;
+        //Tillagt
+        if(activeColor == (int)ColorProjectiles.Red)
+        {
+            Debug.DrawRay(rifleBarrel.transform.position, redProjectileDir * 50);
+
+            if(Physics.Raycast(rifleBarrel.transform.position, redProjectileDir, out objectHit, 50))
+            {
+                target = objectHit.transform.gameObject;
+                print(target);
+                if(target.tag == "WeakPoint")
+                {
+                    print("du träffade en weakpoint");
+                }
+            }
+        }
+        //_
+            currentBullet = Instantiate(colorsBullets[activeColor],
+            new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
+            fireRate = cooldown;
     }
 }
