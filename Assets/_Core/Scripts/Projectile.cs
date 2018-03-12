@@ -12,13 +12,13 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     protected int color;
 
-    protected void Start()
+    protected void Start() // Hittar emptyn för att veta var vi siktar, samt sätter rotationen korrekt.
     {
         rotation = GameObject.Find("ShoulderAim");
         transform.rotation = rotation.transform.rotation;
         lifeTime = 10;
     }
-    protected void Update()
+    protected void Update() //Förstör kulan om den missar kolliders.
     {
         startTime += Time.deltaTime;
         if (startTime >= lifeTime)

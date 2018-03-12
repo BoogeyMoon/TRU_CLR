@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 //Av Andreas de Freitas, Erik Qvarnström och Timmy Alvelöv. 
+
+// Ser till att spelaren siktar där vi har muspekaren
 public class IKHandler : MonoBehaviour
 {
     [SerializeField]

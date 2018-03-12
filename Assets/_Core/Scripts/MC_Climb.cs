@@ -1,21 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//Av Timmy Alvelöv
 
+//Ser till att spelaren kan klättra över kanter (ANVÄNDS EJ I SPELET)
 public class MC_Climb : MonoBehaviour
 {
 
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     void OnTriggerStay(Collider coll)
     {
         if (coll.gameObject.tag == "Edge")

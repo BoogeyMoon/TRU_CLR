@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 // by Slavko Stojnic
 
-public class FlyingMobScript : MonoBehaviour {
+public class FlyingMobScript : MobStats
+{
     [SerializeField] Transform target;
-    [SerializeField] Transform bullet;
-    [SerializeField] float speed;
+    [SerializeField] Transform bulletTransform;
+    //[SerializeField] float speed;
     [SerializeField] float radiusOfReaction;
     float dist;
     private float time;
@@ -14,7 +15,10 @@ public class FlyingMobScript : MonoBehaviour {
     [SerializeField] Transform bulletSpawnPoint;
     private int bulletCount;
 
-    void Start () {
+    void Start ()
+    {
+        base.Start();
+        //target = GameObject.Find("SK_DemoDude_PF").transform;
         howOftenToShoot = 0.15f;
         bulletCount = 0;
         time = 0.0f;
@@ -23,17 +27,14 @@ public class FlyingMobScript : MonoBehaviour {
 	void Update () {
 
         time += Time.deltaTime; 
-
-        dist = Vector3.Distance(target.position, transform.position);
+        dist = Vector3.Distance(target.position, transform.position); // calculate distance beween mob and MC
         if (dist > 5 && dist < radiusOfReaction) // follow MC if he's between 5 and the distance determined in the inspector
         {
             transform.LookAt(target.position); // turn towards MC
             Vector2 randomVector = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f));
             transform.Translate(randomVector * Time.deltaTime * 5, Space.World); // jiggle about randomly because it's shitty if the mob stands still
             float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, target.position, step);
-
-
+            transform.position = Vector3.MoveTowards(transform.position, target.position, step); // move towards MC
         }
 
         if ((dist < radiusOfReaction) && (transform.position.y - target.position.y) < 5)
@@ -47,7 +48,7 @@ public class FlyingMobScript : MonoBehaviour {
             { howOftenToShoot = 0.15f; } 
             time = 0.0f;
             
-            Instantiate(bullet, bulletSpawnPoint.position, bullet.rotation);
+            Instantiate(bullet, bulletSpawnPoint.position, bulletTransform.rotation);
             bulletCount++;
 
             if (bulletCount == 5)
