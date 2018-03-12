@@ -30,8 +30,9 @@ public class YellowBullet : Projectile
         transform.position = new Vector3(transform.position.x, transform.position.y + dropValue, zOffSet);
     }
 
-    void OnTriggerEnter(Collider coll)
+    protected override void OnTriggerEnter(Collider coll)
     {
+        base.OnTriggerEnter(coll);
         if (coll.gameObject.tag != "Player" && coll.gameObject.tag != "Bullet")
         {
             if (coll.gameObject.tag == "Weakpoint")

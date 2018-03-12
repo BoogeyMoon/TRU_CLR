@@ -59,7 +59,7 @@ GameObject:
   - component: {fileID: 54893206034977150}
   m_Layer: 0
   m_Name: FlyingMob_PF
-  m_TagString: Untagged
+  m_TagString: Weakpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,7 +84,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1793991372115262}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.85, y: 27.64, z: -0.9}
+  m_LocalPosition: {x: 29.8, y: -20.23, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4212564706436282}
@@ -213,9 +213,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f00c4dc4631c1334ead11f078d8c531d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  bullet: {fileID: 4413826166199340, guid: 1d48c5e3a941f024496f4e542c8b1798, type: 2}
+  health: 0
   speed: 4
+  maxHealth: 5
+  fireCooldown: 0
+  color: 0
+  destination: {fileID: 0}
+  bullet: {fileID: 1391852344878852, guid: a33a4ab2f10f30c47a1dc18e0d75f698, type: 2}
+  bulletSpawner: {fileID: 0}
+  target: {fileID: 0}
+  bulletTransform: {fileID: 4520985609993132, guid: a33a4ab2f10f30c47a1dc18e0d75f698,
+    type: 2}
+  radiusOfReaction: 19.42
   bulletSpawnPoint: {fileID: 4212564706436282}
 --- !u!135 &135791984654576184
 SphereCollider:

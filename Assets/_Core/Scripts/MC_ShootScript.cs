@@ -82,7 +82,7 @@ public class MC_ShootScript : MonoBehaviour
                 laserLine.SetPosition(1, objectHit.point);
                 target = objectHit.transform.gameObject;
                 print(target);
-                if (target.tag == "WeakPoint")
+                if(target.tag == "WeakPoint")
                 {
                     print("du träffade en weakpoint");
                 }

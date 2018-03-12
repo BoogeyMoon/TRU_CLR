@@ -26,4 +26,12 @@ public class Projectile : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    protected virtual void OnTriggerEnter(Collider coll)
+    {
+        if(coll.transform.gameObject.tag == "Interactable")
+        {
+            coll.GetComponent<SwitchInteract>().Trigger(color);
+        }
+    }
 }
