@@ -8,15 +8,19 @@ public class FlyingMobPatrol : MobStats {
     [SerializeField] Transform[] points;
     private Transform destination;
     private int destPoint = 0;
-    [SerializeField] float speed;
+    [SerializeField] float speedWhenAggro;
     private ParticleSystem[] damageParticles;
     private int timesGotHit;
-
-    /*[SerializeField] Transform target;
-    [SerializeField] Transform bullet;
-    
-    float dist;
+    private bool aggro;
     private float time;
+    private float dist;
+    [SerializeField]
+    Transform target;
+    [SerializeField]
+    float radiusOfReaction;
+
+    /*
+    [SerializeField] Transform bullet;
     private float howOftenToShoot;
     [SerializeField] Transform bulletSpawnPoint;
     private int bulletCount;*/
@@ -26,10 +30,10 @@ public class FlyingMobPatrol : MobStats {
         GotoNextPoint();
         damageParticles = GetComponentsInChildren<ParticleSystem>();
         timesGotHit = 0;
-
+        //target = GameObject.Find("SK_DemoDude_PF").transform;
+        aggro = false;
         foreach (ParticleSystem damageParticle in damageParticles)
         {
-
             var emission = damageParticle.emission;
             emission.enabled = false;
         }
@@ -44,7 +48,6 @@ public class FlyingMobPatrol : MobStats {
         if (points.Length == 0)
             return;
 
-
         // Set the agent to go to the currently selected destination.
        destination = points[destPoint];
 
@@ -53,35 +56,39 @@ public class FlyingMobPatrol : MobStats {
         destPoint = (destPoint + 1) % points.Length;
     }
 
-    void Update () {
+    void Update()
+    {
         // Choose the next destination point when the agent gets
         // close to the current one.
-        if ((Vector3.Distance(destination.position, transform.position) <= .1))
+        if ((Vector3.Distance(destination.position, transform.position) <= .1) && !aggro)
         {
             GotoNextPoint();
         }
 
-
-
-
-            float step = speed * Time.deltaTime;
-        transform.position = Vector3.MoveTowards(transform.position, destination.position, step);
-        /*time += Time.deltaTime; 
-
-        dist = Vector3.Distance(target.position, transform.position);
-        if (dist > 5 && dist < 40) // follow MC if he's between 5 and 40 distance
+        float step = speed * Time.deltaTime;
+        time += Time.deltaTime;
+        if (!aggro)
         {
-            transform.LookAt(target.position); // turn towards MC
+            transform.position = Vector3.MoveTowards(transform.position, destination.position, step);
+        }
+        dist = Vector3.Distance(target.position, transform.position);
+        if (aggro)
+        {
+            step = speedWhenAggro * Time.deltaTime;
+            if (dist > 10 && dist < radiusOfReaction) // follow MC if he's between 10 and aggro distance
+        {
+            //transform.LookAt(target.position); // turn towards MC
             Vector2 randomVector = new Vector2(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f));
             transform.Translate(randomVector * Time.deltaTime * 5); // jiggle about randomly because it's shitty if the mob stands still
-            float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, target.position, step);
+
         }
-        if ((transform.position.y-target.position.y) < 5) 
+        if ((transform.position.y - target.position.y) < 10) //keep flying above MC, move up if (s)he gets too close
         {
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
         }
-
+    }
+        /*
         if (time >= howOftenToShoot && dist < 40) // stop shooting if MC is far away
         {
             if (bulletCount == 0) // shoot five times with .15 second pause (Phase 1)
@@ -100,11 +107,11 @@ public class FlyingMobPatrol : MobStats {
     }
     public override void TakeDamage(float damage, int color) //Om mob:en blir träffad av en kula som korresponderar med mob:ens färg så tar den skada.
     {
-        print("weee");
+        aggro = true;
         base.TakeDamage(damage, color);
         if (color == this.color)
         {
-            print(damageParticles[timesGotHit]);
+
             var emission = damageParticles[timesGotHit].emission;
             emission.enabled = true;
             timesGotHit++;
