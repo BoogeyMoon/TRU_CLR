@@ -1,7 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//Timmy Alvelöv
+//Av Timmy Alvelöv
+
+//En klass som alla skott som fiender skjuter ärver från och har gemensamt
+//Scriptet har hand om var spelaren är och ser till att kulan förstörs om den missar, skada och hastighet.
 public class Mob_Projectile : MonoBehaviour
 {
 
@@ -13,7 +16,7 @@ public class Mob_Projectile : MonoBehaviour
 
     protected void Start()
     {
-        player = GameObject.Find("SK_DemoDude_PF");
+        player = GameObject.Find("SK_MainCharacter_PF");
 
         lifeTime = 10;
     }
