@@ -17,8 +17,9 @@ public class Pretend_Bullet : Projectile
         transform.Translate(Vector3.forward * startVelocity * Time.deltaTime);
     }
 
-    void OnTriggerEnter(Collider coll) //Tar hand om collisioner
+    protected override void OnTriggerEnter(Collider coll) //Tar hand om collisioner
     {
+        base.OnTriggerEnter(coll);
         if (coll.gameObject.tag != "Player" && coll.gameObject.tag != "Bullet")
         {
             if (coll.gameObject.tag == "Weakpoint")
