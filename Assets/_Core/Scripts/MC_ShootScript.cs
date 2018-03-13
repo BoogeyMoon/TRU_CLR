@@ -9,27 +9,28 @@ public class MC_ShootScript : MonoBehaviour
     [SerializeField]
     GameObject[] colorsBullets;
     [SerializeField]
-    GameObject rifleBarrel, shoulderAim;
-    protected enum ColorProjectiles { Blue, Yellow, Red };
-    protected int activeColor;
-    public int ActiveColor
-    {
-        get
-        {
-            return activeColor;
-        }
-    }
+    GameObject rifleBarrel;
     GameObject currentBullet;
-    float fireRate;
+
+    enum ColorProjectiles { Blue, Yellow, Red };
+    int activeColor;
+
     [SerializeField]
-    float cooldown;
+    float cooldown, laserLength;
+    float fireRate;
+
+    LineRenderer laserLineRenderer;
+    Vector3 targetPosition, direction;
 
     void Start()
     {
+        laserLength = 50f;
+        laserLineRenderer = GetComponent<LineRenderer>();
         fireRate = 0f;
         cooldown = 0.5f;
         activeColor = (int)ColorProjectiles.Blue;
     }
+
     void Update()
     {
         if (fireRate > 0)
@@ -40,8 +41,21 @@ public class MC_ShootScript : MonoBehaviour
         {
             if (fireRate <= 0)
             {
+                if(activeColor == (int)ColorProjectiles.Red)
+                {
+                    targetPosition = rifleBarrel.transform.position;
+                    direction = rifleBarrel.transform.forward;
+                }
                 Shoot();
             }
+            else
+            {
+                laserLineRenderer.enabled = false;
+            }
+        }
+        else
+        {
+            laserLineRenderer.enabled = false;
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -56,12 +70,24 @@ public class MC_ShootScript : MonoBehaviour
             }
         }
     }
-
     void Shoot()
     {
+        if (activeColor == (int)ColorProjectiles.Red)
+        {
+            laserLineRenderer.enabled = true;
+            Ray ray = new Ray(targetPosition, direction);
+            RaycastHit raycastHit;
+            Vector3 endPosition = targetPosition + (laserLength * direction);
+
+            if (Physics.Raycast(ray, out raycastHit, laserLength))
+            {
+                endPosition = raycastHit.point;
+            }
+            laserLineRenderer.SetPosition(0, targetPosition);
+            laserLineRenderer.SetPosition(1, endPosition);
+        }
         currentBullet = Instantiate(colorsBullets[activeColor],
         new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
-
         fireRate = cooldown;
     }
 }

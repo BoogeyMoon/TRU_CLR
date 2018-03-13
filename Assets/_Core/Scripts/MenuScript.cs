@@ -56,11 +56,13 @@ public class MenuScript : MonoBehaviour
 
             if (paused)
             {
+                Time.timeScale = 0;
                 Panel.SetActive(true);
                 Menus[5].SetActive(true);
             }
             else
             {
+                Time.timeScale = 1;
                 for (int i = 0; i < Menus.Count; i++)
                 {
                     Menus[i].SetActive(false);
