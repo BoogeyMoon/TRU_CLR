@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 136807898902236470}
   - component: {fileID: 23624548488722302}
   m_Layer: 0
-  m_Name: Cylinder
+  m_Name: Mob_Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38,7 +38,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4212564706436282}
   m_Layer: 0
-  m_Name: BulletSpawnPoint
+  m_Name: FlyingMobBulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -84,8 +84,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1793991372115262}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 42.9, y: -22.1, z: -1}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 57, y: -61.6, z: -0.8}
+  m_LocalScale: {x: 0.98585784, y: 0.98585784, z: 0.98585784}
   m_Children:
   - {fileID: 4212564706436282}
   - {fileID: 4800883701938990}
@@ -220,7 +220,7 @@ MonoBehaviour:
   color: 0
   destination: {fileID: 0}
   bullet: {fileID: 1391852344878852, guid: a33a4ab2f10f30c47a1dc18e0d75f698, type: 2}
-  bulletSpawner: {fileID: 0}
+  bulletSpawner: {fileID: 1762025397438498}
   target: {fileID: 0}
   bulletTransform: {fileID: 4520985609993132, guid: a33a4ab2f10f30c47a1dc18e0d75f698,
     type: 2}
