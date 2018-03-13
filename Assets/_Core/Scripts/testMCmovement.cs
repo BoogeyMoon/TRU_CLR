@@ -120,6 +120,14 @@ public class testMCmovement : MonoBehaviour
     {
         RaycastHit hit;
         isGrounded = Physics.SphereCast(transform.position + new Vector3(0, .25f, 0), 0.2f, -transform.up, out hit, 0.1f);
+        if (hit.transform != null)
+        {
+            if (hit.transform.gameObject.tag == "Bullet" && hit.transform.gameObject.tag == "Weakpoint")
+            {
+                isGrounded = false;
+            }
+        }
+
     }
     void HeadbumbCheck() //Kollar om spelarens huvud krockar med ett objekt
     {

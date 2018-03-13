@@ -13,12 +13,19 @@ public class MobStats : MonoBehaviour
     [SerializeField]
     protected GameObject destination, bullet, bulletSpawner;
     protected GameObject currentBullet;
-    
+    protected Transform player;
+    protected bool onCooldown;
+    protected float timeLeft;
 
-    protected void Start()
+
+    protected virtual void Start()
     {
         health = maxHealth;
-        
+        player = GameObject.Find("SK_MainCharacter_PF").transform;
+        timeLeft = fireCooldown;
+        onCooldown = false;
+
+
     }
     
     public virtual void TakeDamage(float damage, int color) //Om mob:en blir träffad av en kula som korresponderar med mob:ens färg så tar den skada.

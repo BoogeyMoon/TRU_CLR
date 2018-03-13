@@ -6,15 +6,11 @@ public class SpiderMobs : MobStats
 {
 
     NavMeshAgent agent;
-    bool onCooldown;
-    float timeLeft;
 
-    void Start()
+    protected override void Start()
     {
         base.Start();
         agent = GetComponent<NavMeshAgent>();
-        timeLeft = fireCooldown;
-        onCooldown = false;
     }
 
     void Update()
