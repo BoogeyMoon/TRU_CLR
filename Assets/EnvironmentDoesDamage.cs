@@ -8,7 +8,7 @@ public class EnvironmentDoesDamage : Projectile
 {
     void Start()
     {
-        lifeTime = 10;
+        
     }
     
     void Update() //Åker framåt
