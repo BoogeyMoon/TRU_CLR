@@ -7,10 +7,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-/* En hel del ändringar har gjorts i unity-hierarkin. Därför fungerar basically ingenting atm. 
- * Behöver fixa alla index för att fixa problemet*/
-
-
 public class MenuScript : MonoBehaviour
 {
     GameObject Panel,
