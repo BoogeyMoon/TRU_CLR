@@ -7,16 +7,16 @@ using UnityEngine;
 public class MobStats : MonoBehaviour
 {
     [SerializeField]
-    protected float speed, maxHealth, fireRate;
+    protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, rotationBetweenBullets;
     [SerializeField]
-    protected int color;
+    protected int color, numberOfBulletsPerShot;
     [SerializeField]
     protected GameObject destination, bullet, bulletSpawner, patrolPoints;
     protected GameObject currentBullet;
     protected Transform player;
     protected List<Transform> patrolPointsList = new List<Transform>();
     protected bool onCooldown;
-    protected float health, timeLeft;
+    protected float health, timeLeft, burstTimer, burstCounter;
     protected int patrolCounter;
 
 
@@ -100,7 +100,49 @@ public class MobStats : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, destination.transform.position, speed / 2 * Time.deltaTime);
     }
 
+    protected virtual void Shoot() //Ser till att rätt antal skott skjuts samt räknar ut dess offset.
+    {
+        float startRot;
+        onCooldown = true;
+        if (numberOfBulletsPerShot % 2 == 0) //Om vi har ett jämnt antal kulor
+        {
+            startRot = ((numberOfBulletsPerShot / 2) - 1) * rotationBetweenBullets;
+            startRot += rotationBetweenBullets / 2;
+        }
+        else //Om vi har ett udda antal kulor
+        {
+            int n = numberOfBulletsPerShot / 2;
+            startRot = n * rotationBetweenBullets;
+        }
+        for (int i = 0; i < numberOfBulletsPerShot; i++)
+        {
+            ShootABullet(startRot - rotationBetweenBullets * i);
+        }
+        burstCounter--;
+        if (burstCounter <= 0) //Räknar om vi är klara med bursten eller inte.
+        {
+            burstCounter = shotsPerBurst;
+            burstTimer = timeBetweenBurst;
+        }
 
+        if (onCooldown)
+        {
+            timeLeft = fireRate;
+        }
+    }
+
+    protected virtual void ShootABullet(float RotationOffset) //Sköter instansieringen av en kula och ger den en rotationsoffset.
+    {
+        currentBullet = Instantiate(bullet); //Skapar en kula
+
+        currentBullet.transform.position = bulletSpawner.transform.position; //Sätter positionen till mynningen på vapnet
+        currentBullet.transform.rotation = bulletSpawner.transform.rotation; //Sätter rotationen så att skottet åker dit vapnet siktar
+        currentBullet.transform.Rotate(RotationOffset, 0, 0); //Ändrar offseten för skottet om så önskas
+    }
+    protected virtual float GetPlayerDistance(Transform position) //Ger tillbaka avståndet till spelaren med endast x -och yaxlarna i beaktning
+    {
+        return Mathf.Abs((player.transform.position.x - position.position.x) + (player.transform.position.y - position.position.y));
+    }
 
 
 
