@@ -44,7 +44,7 @@ public class SpiderMobs : MobStats
 
         if (onCooldown)
         {
-            timeLeft = fireCooldown;
+            timeLeft = fireRate;
         }
     }
 	

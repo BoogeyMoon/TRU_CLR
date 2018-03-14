@@ -7,7 +7,9 @@ using UnityEngine;
 public class FlyingMob : MobStats
 {
     [SerializeField]
-    float aggroRange, distanceInterval, fireRate, timeBetweenBurst,bulletsPerBurst;
+    float aggroRange, distanceInterval, timeBetweenBurst,shotsPerBurst, rotationBetweenBullets;
+    [SerializeField]
+    int numberOfBulletsPerShot;
     float playerDistance, closestDistance, burstTimer, burstCounter;
     bool chase;
 
@@ -15,7 +17,7 @@ public class FlyingMob : MobStats
     {
         base.Start();
         burstTimer = timeBetweenBurst;
-        burstCounter = bulletsPerBurst;
+        burstCounter = shotsPerBurst;
         closestDistance = aggroRange - distanceInterval;
     }
     void Update() //Ser till att rätt metoder anropas när de ska.
@@ -34,14 +36,17 @@ public class FlyingMob : MobStats
                 {
                     Shoot();
                 }
-            }
-            
+            }   
+        }
+        else
+        {
+            patrol();
         }
     }
 
     void Move() //Styr hur fienden rör sig.
     {
-        transform.LookAt(player);
+        transform.LookAt(player.transform.GetChild(2).transform.GetChild(0));
         
         if (chase)
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
@@ -66,24 +71,42 @@ public class FlyingMob : MobStats
     }
     void Shoot()
     {
-        currentBullet = Instantiate(bullet);
+        float startRot;
         onCooldown = true;
-        currentBullet.transform.position = bulletSpawner.transform.position;
-        currentBullet.transform.rotation = bulletSpawner.transform.rotation;
-
-        burstCounter--;
-            
-        if(burstCounter <= 0)
+        if (numberOfBulletsPerShot % 2 ==0)
         {
-            burstCounter = bulletsPerBurst;
+            startRot = ((numberOfBulletsPerShot / 2)-1) * rotationBetweenBullets;
+            startRot += rotationBetweenBullets / 2;
+        }
+        else
+        {
+            int n = numberOfBulletsPerShot / 2;
+            startRot = n * rotationBetweenBullets;
+        }
+        for (int i = 0; i < numberOfBulletsPerShot; i++)
+        {
+            ShootABullet(startRot- rotationBetweenBullets*i);
+        }
+        burstCounter--;
+        if (burstCounter <= 0)
+        {
+            burstCounter = shotsPerBurst;
             burstTimer = timeBetweenBurst;
         }
 
         if (onCooldown)
         {
-            timeLeft = fireCooldown;
+            timeLeft = fireRate;
         }
+    }
+
+    void ShootABullet(float RotationOffset) //Sköter instansieringen av 
+    {
+        currentBullet = Instantiate(bullet);
         
+        currentBullet.transform.position = bulletSpawner.transform.position;
+        currentBullet.transform.rotation = bulletSpawner.transform.rotation;
+        currentBullet.transform.Rotate(RotationOffset, 0, 0); 
     }
     float GetPlayerDistance(Transform position) //Ger tillbaka avståndet till spelaren med endast x -och yaxlarna i beaktning
     {

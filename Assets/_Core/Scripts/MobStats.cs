@@ -7,27 +7,45 @@ using UnityEngine;
 public class MobStats : MonoBehaviour
 {
     [SerializeField]
-    protected float health, speed, maxHealth, fireCooldown;
+    protected float speed, maxHealth, fireRate;
     [SerializeField]
     protected int color;
     [SerializeField]
-    protected GameObject destination, bullet, bulletSpawner;
+    protected GameObject destination, bullet, bulletSpawner, patrolPoints;
     protected GameObject currentBullet;
     protected Transform player;
+    protected List<Transform> patrolPointsList = new List<Transform>();
     protected bool onCooldown;
-    protected float timeLeft;
+    protected float health, timeLeft;
+    protected int patrolCounter;
+
 
 
     protected virtual void Start()
     {
+        patrolCounter = 0;
         health = maxHealth;
         player = GameObject.Find("SK_MainCharacter_PF").transform;
-        timeLeft = fireCooldown;
+        timeLeft = fireRate;
         onCooldown = false;
+        updatePatrolPoints();
 
 
     }
-    
+    protected void updatePatrolPoints() //Kollar barnen på ett gameobject och lägger till dem i en lista.
+    {
+        if(patrolPoints != null)
+        {
+            for (int i = 0; i < patrolPoints.transform.childCount; i++)
+            {
+                patrolPointsList.Add(patrolPoints.transform.GetChild(i));
+            }
+            if (patrolPointsList.Count > 0)
+                destination = patrolPointsList[0].gameObject;
+        }
+        
+    }
+
     public virtual void TakeDamage(float damage, int color) //Om mob:en blir träffad av en kula som korresponderar med mob:ens färg så tar den skada.
     {
         if (color == this.color)
@@ -54,10 +72,32 @@ public class MobStats : MonoBehaviour
         Destroy(gameObject);
     }
 
-    
-    public void ChangeDestination(GameObject newDestination)
+
+    public void ChangeDestination(GameObject newDestination, GameObject lastDestination) //Ger en mob sitt nästa mål, om input är null går den till nästa mål i sin lista.
     {
-        destination = newDestination;
+        if(lastDestination == destination) //Ser till att vi inte krockar in i fel patrullställe
+        {
+            if (newDestination != null) //Sätter ny destination
+                destination = newDestination;
+            else //Går till nästa plats i listan
+            {
+                if (patrolPointsList.Count != 1)
+                {
+                    if (patrolCounter > patrolPointsList.Count - 1)
+                    {
+                        patrolCounter = 0;
+                    }
+                    destination = patrolPointsList[patrolCounter].gameObject;
+                    patrolCounter++;
+                }
+            }
+        }
+       
+    }
+    protected void patrol() //Går mot nästa patrullplats
+    {
+        if (destination != null)
+            transform.position = Vector3.MoveTowards(transform.position, destination.transform.position, speed / 2 * Time.deltaTime);
     }
 
 
