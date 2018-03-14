@@ -16,8 +16,7 @@ public class MC_ShootScript : MonoBehaviour
     int activeColor;
 
     [SerializeField]
-    float cooldown, laserLength;
-    float fireRate;
+    float cooldown, laserLength, fireRate;
 
     LineRenderer laserLineRenderer;
     Vector3 targetPosition, direction;
