@@ -100,18 +100,13 @@ public class FlyingMob : MobStats
         }
     }
 
-    void ShootABullet(float RotationOffset)
+    void ShootABullet(float RotationOffset) //Sköter instansieringen av 
     {
         currentBullet = Instantiate(bullet);
         
         currentBullet.transform.position = bulletSpawner.transform.position;
         currentBullet.transform.rotation = bulletSpawner.transform.rotation;
-        currentBullet.transform.Rotate(RotationOffset, 0, 0);
-
-        
-            
-        
-        
+        currentBullet.transform.Rotate(RotationOffset, 0, 0); 
     }
     float GetPlayerDistance(Transform position) //Ger tillbaka avståndet till spelaren med endast x -och yaxlarna i beaktning
     {
