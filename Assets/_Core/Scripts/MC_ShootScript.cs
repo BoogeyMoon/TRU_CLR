@@ -25,8 +25,8 @@ public class MC_ShootScript : MonoBehaviour
     {
         laserLength = 50f;
         laserLineRenderer = GetComponent<LineRenderer>();
-        fireRate = 0f;
-        cooldown = 0.5f;
+       // fireRate = 0f;
+       // cooldown = 0.5f;
         activeColor = (int)ColorProjectiles.Blue;
     }
 
