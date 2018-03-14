@@ -18,6 +18,8 @@ public class FlyingMobPatrol : MobStats {
     Transform target;
     [SerializeField]
     float radiusOfReaction;
+    [SerializeField]
+    bool lookAtMc;
 
     /*
     [SerializeField] Transform bullet;
@@ -77,7 +79,11 @@ public class FlyingMobPatrol : MobStats {
             step = speedWhenAggro * Time.deltaTime;
             if (dist > 10 && dist < radiusOfReaction) // follow MC if he's between 10 and aggro distance
         {
-            //transform.LookAt(target.position); // turn towards MC
+                if (lookAtMc)
+                {
+                    transform.LookAt(target.position); // turn towards MC
+                }
+
             Vector2 randomVector = new Vector2(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f));
             transform.Translate(randomVector * Time.deltaTime * 5, Space.World); // jiggle about randomly because it's shitty if the mob stands still
             transform.position = Vector3.MoveTowards(transform.position, target.position, step);
