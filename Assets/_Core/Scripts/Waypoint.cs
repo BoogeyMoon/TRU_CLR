@@ -4,15 +4,16 @@ using UnityEngine;
 // Av Timmy Alvelöv 
 
 //Håller koll på vilken som är nästa vägpoäng
-public class Waypoint : MonoBehaviour {
+public class Waypoint : MonoBehaviour
+{
     [SerializeField]
-	GameObject nextWaypoint;
+    GameObject nextWaypoint = null;
 
     void OnTriggerEnter(Collider coll)
     {
-        if(coll.gameObject.tag == "Weakpoint")
+        if (coll.gameObject.tag == "Weakpoint")
         {
-            coll.gameObject.GetComponent<MobStats>().ChangeDestination(nextWaypoint);
+            coll.gameObject.GetComponent<MobStats>().ChangeDestination(nextWaypoint, gameObject);
         }
     }
 }
