@@ -10,12 +10,18 @@ public class FallDownOnDamage : MonoBehaviour {
     private Collider mainCollider;
     private Rigidbody iFall;
     private Transform[] unparent;
+    private HingeJoint[] unhinge;
     [SerializeField] float destroyAfter;
     [SerializeField] float randomScatter;
     void Start()
         {
+        unhinge = GetComponentsInChildren<HingeJoint>();
         bodies = GetComponentsInChildren<Rigidbody>();
         colliders = GetComponentsInChildren<Collider>();
+        /*foreach (Collider coll in colliders)
+        {
+            coll.enabled = false;
+        }*/
         mainCollider = gameObject.GetComponent<Collider>();
         unparent = GetComponentsInChildren<Transform>();
         }
@@ -24,6 +30,10 @@ public class FallDownOnDamage : MonoBehaviour {
         mainCollider.enabled = false;
         Destroy(gameObject, .01f);
 
+        /*foreach (HingeJoint hing in unhinge)
+        {
+            Destroy(hing);
+        }*/
         foreach (Transform unpa in unparent)
         {
             unpa.transform.SetParent(null, true);
