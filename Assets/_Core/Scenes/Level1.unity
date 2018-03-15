@@ -1355,6 +1355,31 @@ Prefab:
       propertyPath: m_LocalPosition.y
       value: -0.69
       objectReference: {fileID: 0}
+    - target: {fileID: 114631085940581618, guid: 21ced756066637b488a6b4c219b1481d,
+        type: 2}
+      propertyPath: fireRate
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114631085940581618, guid: 21ced756066637b488a6b4c219b1481d,
+        type: 2}
+      propertyPath: timeBetweenBurst
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114631085940581618, guid: 21ced756066637b488a6b4c219b1481d,
+        type: 2}
+      propertyPath: shotsPerBurst
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114631085940581618, guid: 21ced756066637b488a6b4c219b1481d,
+        type: 2}
+      propertyPath: rotationBetweenBullets
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114631085940581618, guid: 21ced756066637b488a6b4c219b1481d,
+        type: 2}
+      propertyPath: numberOfBulletsPerShot
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 21ced756066637b488a6b4c219b1481d, type: 2}
   m_IsPrefabParent: 0
@@ -1666,7 +1691,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69e748d75fc599046bbf5e6f33afae08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorTexture: {fileID: 0}
+  cursorTexture: {fileID: 2800000, guid: ad7900f6d69a57f4f961fdaf7c0a928b, type: 3}
   cursorMode: 0
   hotSpot: {x: 0, y: 0}
 --- !u!4 &285504747 stripped
@@ -2824,26 +2849,23 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114236489670437786, guid: 587961e93e86ef248995499467020b03,
         type: 2}
-      propertyPath: colorsBullets.Array.data[0]
+      propertyPath: shoulderAim
       value: 
-      objectReference: {fileID: 1075023934828380, guid: 445f0828a04ab0c47978b8416a892617,
-        type: 2}
-    - target: {fileID: 4738066061169610, guid: 587961e93e86ef248995499467020b03, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -0.504
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738066061169610, guid: 587961e93e86ef248995499467020b03, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -90.937004
-      objectReference: {fileID: 0}
-    - target: {fileID: 4738066061169610, guid: 587961e93e86ef248995499467020b03, type: 2}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0.93600005
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 921389789}
     - target: {fileID: 114236489670437786, guid: 587961e93e86ef248995499467020b03,
         type: 2}
       propertyPath: cooldown
-      value: 0.1
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114236489670437786, guid: 587961e93e86ef248995499467020b03,
+        type: 2}
+      propertyPath: laserLength
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114236489670437786, guid: 587961e93e86ef248995499467020b03,
+        type: 2}
+      propertyPath: fireRate
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 587961e93e86ef248995499467020b03, type: 2}
@@ -3431,6 +3453,11 @@ Transform:
   m_PrefabParentObject: {fileID: 4905912640104980, guid: ea92c6690e588ed499a6d36bdd417a30,
     type: 2}
   m_PrefabInternal: {fileID: 1385111889}
+--- !u!1 &921389789 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1705658556007866, guid: 587961e93e86ef248995499467020b03,
+    type: 2}
+  m_PrefabInternal: {fileID: 649248341}
 --- !u!1 &929407481
 GameObject:
   m_ObjectHideFlags: 0
@@ -7494,6 +7521,31 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114971086752608176, guid: 0579303d816a8494c82afaf674cc241b,
+        type: 2}
+      propertyPath: fireRate
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114971086752608176, guid: 0579303d816a8494c82afaf674cc241b,
+        type: 2}
+      propertyPath: timeBetweenBurst
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114971086752608176, guid: 0579303d816a8494c82afaf674cc241b,
+        type: 2}
+      propertyPath: shotsPerBurst
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114971086752608176, guid: 0579303d816a8494c82afaf674cc241b,
+        type: 2}
+      propertyPath: rotationBetweenBullets
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114971086752608176, guid: 0579303d816a8494c82afaf674cc241b,
+        type: 2}
+      propertyPath: numberOfBulletsPerShot
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 0579303d816a8494c82afaf674cc241b, type: 2}
   m_IsPrefabParent: 0
@@ -8460,6 +8512,31 @@ Prefab:
     - target: {fileID: 4866693599977042, guid: ca83354302a3f084d8cb5723fadef08c, type: 2}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114912312725082554, guid: ca83354302a3f084d8cb5723fadef08c,
+        type: 2}
+      propertyPath: fireRate
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 114912312725082554, guid: ca83354302a3f084d8cb5723fadef08c,
+        type: 2}
+      propertyPath: timeBetweenBurst
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114912312725082554, guid: ca83354302a3f084d8cb5723fadef08c,
+        type: 2}
+      propertyPath: shotsPerBurst
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114912312725082554, guid: ca83354302a3f084d8cb5723fadef08c,
+        type: 2}
+      propertyPath: rotationBetweenBullets
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114912312725082554, guid: ca83354302a3f084d8cb5723fadef08c,
+        type: 2}
+      propertyPath: numberOfBulletsPerShot
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ca83354302a3f084d8cb5723fadef08c, type: 2}

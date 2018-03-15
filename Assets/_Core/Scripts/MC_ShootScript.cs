@@ -9,20 +9,22 @@ public class MC_ShootScript : MonoBehaviour
     [SerializeField]
     GameObject[] colorsBullets;
     [SerializeField]
-    GameObject rifleBarrel;
+    GameObject rifleBarrel, shoulderAim;
     GameObject currentBullet;
+
 
     enum ColorProjectiles { Blue, Yellow, Red };
     int activeColor;
 
     [SerializeField]
-    float cooldown, laserLength, fireRate;
+    float cooldown, laserLength, fireRate, offsetZ;
 
     LineRenderer laserLineRenderer;
     Vector3 targetPosition, direction;
 
     void Start()
     {
+        offsetZ = -0.85f;
         laserLength = 50f;
         laserLineRenderer = GetComponent<LineRenderer>();
        // fireRate = 0f;
@@ -32,6 +34,7 @@ public class MC_ShootScript : MonoBehaviour
 
     void Update()
     {
+        shoulderAim.transform.position = new Vector3(shoulderAim.transform.position.x, shoulderAim.transform.position.y, offsetZ);
         if (fireRate > 0)
         {
             fireRate -= Time.deltaTime;

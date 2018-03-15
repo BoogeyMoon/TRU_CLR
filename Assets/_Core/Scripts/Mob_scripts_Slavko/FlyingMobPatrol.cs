@@ -117,7 +117,6 @@ public class FlyingMobPatrol : MobStats {
         base.TakeDamage(damage, color);
         if ((color == this.color) && (timesGotHit <= damageParticles.Length -1))
         {
-
             var emission = damageParticles[timesGotHit].emission;
             emission.enabled = true;
             timesGotHit++;
