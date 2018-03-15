@@ -9,11 +9,15 @@ public class Score : MonoBehaviour
     Text displayScore;
 
     [SerializeField]
-    int currentScore, scoreMultiplyer;
+    int currentScore, positiveScore, negativeScore;
+
+    [SerializeField]
+    float multiplierSpeed, startCounter;
 
     void Start()
     {
-        InvokeRepeating("AddScore", 1, 1);
+        InvokeRepeating("AddScore", startCounter, multiplierSpeed);
+        InvokeRepeating("DecreaseScore", startCounter, multiplierSpeed);
     }
 
     void Update()
@@ -23,7 +27,16 @@ public class Score : MonoBehaviour
 
     void AddScore()
     {
-        currentScore += scoreMultiplyer;
+        currentScore += positiveScore;
+    }
+
+    void DecreaseScore()
+    {
+        if (currentScore > 0)
+        {
+            currentScore -= negativeScore;
+        }
     }
 
 }
+
