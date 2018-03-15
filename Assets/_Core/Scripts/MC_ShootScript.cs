@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 // Av Timmy Alvelöv
+// Tillägg av Moa Lindgren
 
 //Används för att skapa projektilerna som MC skjuter.
 public class MC_ShootScript : MonoBehaviour
@@ -12,29 +13,31 @@ public class MC_ShootScript : MonoBehaviour
     GameObject rifleBarrel, shoulderAim;
     GameObject currentBullet;
 
-
     enum ColorProjectiles { Blue, Yellow, Red };
     int activeColor;
 
     [SerializeField]
-    float cooldown, laserLength, fireRate, offsetZ;
+    float laserLength, fireRate, offsetZ;
+    float cooldown;
+    [SerializeField]
+    float[] cooldowns;
 
     LineRenderer laserLineRenderer;
-    Vector3 targetPosition, direction;
+    Vector3 startPosition, direction;
 
     void Start()
     {
         offsetZ = -0.85f;
         laserLength = 50f;
         laserLineRenderer = GetComponent<LineRenderer>();
-       // fireRate = 0f;
-       // cooldown = 0.5f;
         activeColor = (int)ColorProjectiles.Blue;
     }
 
     void Update()
     {
         shoulderAim.transform.position = new Vector3(shoulderAim.transform.position.x, shoulderAim.transform.position.y, offsetZ);
+        cooldown = cooldowns[activeColor];
+
         if (fireRate > 0)
         {
             fireRate -= Time.deltaTime;
@@ -43,20 +46,14 @@ public class MC_ShootScript : MonoBehaviour
         {
             if (fireRate <= 0)
             {
-                if(activeColor == (int)ColorProjectiles.Red)
-                {
-                    targetPosition = rifleBarrel.transform.position;
-                    direction = rifleBarrel.transform.forward;
-                }
                 Shoot();
-            }
-            else
-            {
-                laserLineRenderer.enabled = false;
             }
         }
         else
         {
+            //Om man vill kunna skjuta på en gång vid första klick så ta bort kommentaren från följande:
+            //fireRate = 0;
+
             laserLineRenderer.enabled = false;
         }
         if (Input.GetKeyDown(KeyCode.E))
@@ -72,21 +69,25 @@ public class MC_ShootScript : MonoBehaviour
             }
         }
     }
+
     void Shoot()
     {
         if (activeColor == (int)ColorProjectiles.Red)
         {
-            laserLineRenderer.enabled = true;
-            Ray ray = new Ray(targetPosition, direction);
+            startPosition = rifleBarrel.transform.position;
+            direction = rifleBarrel.transform.forward;
+            Ray ray = new Ray(startPosition, direction);
             RaycastHit raycastHit;
-            Vector3 endPosition = targetPosition + (laserLength * direction);
-
+            Vector3 endPosition = startPosition + (laserLength * direction);
             if (Physics.Raycast(ray, out raycastHit, laserLength))
             {
                 endPosition = raycastHit.point;
             }
-            laserLineRenderer.SetPosition(0, targetPosition);
+
+            laserLineRenderer.SetPosition(0, startPosition);
             laserLineRenderer.SetPosition(1, endPosition);
+
+            laserLineRenderer.enabled = true;
         }
         currentBullet = Instantiate(colorsBullets[activeColor],
         new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
