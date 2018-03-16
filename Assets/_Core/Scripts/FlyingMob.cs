@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 //Av Slavko Stojnic och Timmy Alvelöv
 
-//Beskriver den flygande fiendens beteende, så som skjut -och rörelsemönster 
+//Beskriver den flygande fiendens beteende, så som rörelsemönster 
 public class FlyingMob : MobStats
 {
-    protected float playerDistance, closestDistance;
+    protected float playerDistance, closestDistance, timeSinceSeenPlayer, loseTrackOfPlayer;
     protected bool chase;
 
     protected override void Start() //Ger fienden dess starvärden
@@ -15,9 +15,19 @@ public class FlyingMob : MobStats
         burstTimer = timeBetweenBurst;
         burstCounter = shotsPerBurst;
         closestDistance = aggroRange - distanceInterval;
+        loseTrackOfPlayer = 1;
+        timeSinceSeenPlayer = 0;
     }
     void Update() //Ser till att rätt metoder anropas när de ska.
     {
+        if(CanSeePlayer())
+        {
+            timeSinceSeenPlayer = 0;
+        }
+        else
+        {
+            timeSinceSeenPlayer += Time.deltaTime;
+        }
         playerDistance = GetPlayerDistance(transform);
         timeLeft -= Time.deltaTime;
         burstTimer -= Time.deltaTime;
@@ -25,24 +35,32 @@ public class FlyingMob : MobStats
 
         if (playerDistance <= aggroRange)
         {
-            Move();
-            if(burstTimer < 0)
+            transform.LookAt(player);
+            if (timeSinceSeenPlayer <= loseTrackOfPlayer)
             {
-                if (timeLeft < 0)
+                Move();
+                if (burstTimer < 0)
                 {
-                    Shoot();
+                    if (timeLeft < 0)
+                    {
+                        Shoot();
+                    }
                 }
-            }   
+            }
+            else
+            {
+                patrol();
+            }
         }
         else
         {
             patrol();
         }
+
     }
 
     void Move() //Styr hur fienden rör sig.
     {
-        transform.LookAt(player.transform.GetChild(2).transform.GetChild(0));
         
         if (chase)
             transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);

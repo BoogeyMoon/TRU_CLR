@@ -11,7 +11,7 @@ public class MobStats : MonoBehaviour
     [SerializeField]
     protected int color, numberOfBulletsPerShot;
     [SerializeField]
-    GameObject[] bulletSpawners;
+    protected GameObject[] bulletSpawners, eyes;
     [SerializeField]
     protected GameObject destination, bullet, patrolPoints;
     protected GameObject currentBullet;
@@ -25,18 +25,20 @@ public class MobStats : MonoBehaviour
 
     protected virtual void Start()
     {
+        
         patrolCounter = 0;
         health = maxHealth;
         player = GameObject.Find("SK_MainCharacter_PF").transform;
         timeLeft = fireRate;
         onCooldown = false;
         updatePatrolPoints();
+        player = player.transform.GetChild(2).transform.GetChild(0);
 
 
     }
     protected void updatePatrolPoints() //Kollar barnen på ett gameobject och lägger till dem i en lista.
     {
-        if(patrolPoints != null)
+        if (patrolPoints != null)
         {
             for (int i = 0; i < patrolPoints.transform.childCount; i++)
             {
@@ -45,7 +47,7 @@ public class MobStats : MonoBehaviour
             if (patrolPointsList.Count > 0)
                 destination = patrolPointsList[0].gameObject;
         }
-        
+
     }
 
     public virtual void TakeDamage(float damage, int color) //Om mob:en blir träffad av en kula som korresponderar med mob:ens färg så tar den skada.
@@ -77,7 +79,7 @@ public class MobStats : MonoBehaviour
 
     public void ChangeDestination(GameObject newDestination, GameObject lastDestination) //Ger en mob sitt nästa mål, om input är null går den till nästa mål i sin lista.
     {
-        if(lastDestination == destination) //Ser till att vi inte krockar in i fel patrullställe
+        if (lastDestination == destination) //Ser till att vi inte krockar in i fel patrullställe
         {
             if (newDestination != null) //Sätter ny destination
                 destination = newDestination;
@@ -94,12 +96,16 @@ public class MobStats : MonoBehaviour
                 }
             }
         }
-       
+
     }
     protected void patrol() //Går mot nästa patrullplats
     {
         if (destination != null)
+        {
             transform.position = Vector3.MoveTowards(transform.position, destination.transform.position, speed / 2 * Time.deltaTime);
+            transform.LookAt(destination.transform.position);
+        }
+           
     }
 
     protected virtual void Shoot() //Ser till att rätt antal skott skjuts samt räknar ut dess offset.
@@ -143,11 +149,30 @@ public class MobStats : MonoBehaviour
             currentBullet.transform.rotation = bulletSpawners[i].transform.rotation; //Sätter rotationen så att skottet åker dit vapnet siktar
             currentBullet.transform.Rotate(RotationOffset, 0, 0); //Ändrar offseten för skottet om så önskas
         }
-        
+
     }
     protected virtual float GetPlayerDistance(Transform position) //Ger tillbaka avståndet till spelaren med endast x -och yaxlarna i beaktning
     {
-        return Mathf.Sqrt(Mathf.Abs(Mathf.Pow((player.transform.position.x - position.position.x),2) + Mathf.Pow((player.transform.position.y - position.position.y),2)));
+        return Mathf.Sqrt(Mathf.Abs(Mathf.Pow((player.transform.position.x - position.position.x), 2) + Mathf.Pow((player.transform.position.y - position.position.y), 2)));
+    }
+    protected bool CanSeePlayer()
+    {
+        for (int i = 0; i < eyes.Length; i++)
+        {
+            RaycastHit hit;
+
+            if (Physics.Raycast(eyes[i].transform.position, new Vector3 (player.position.x - eyes[i].transform.position.x, player.position.y - eyes[i].transform.position.y, player.position.z - eyes[i].transform.position.z), out hit, Mathf.Infinity))
+            {
+                Debug.DrawRay(eyes[i].transform.position, new Vector3(player.position.x - transform.position.x, player.position.y - transform.position.y, player.position.z - transform.position.z), Color.blue);
+                if(hit.transform.gameObject.tag == "Player")
+                {
+                    return true;
+                }
+            }
+
+
+        }
+        return false;
     }
 
 
