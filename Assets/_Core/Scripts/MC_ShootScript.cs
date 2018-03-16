@@ -45,6 +45,7 @@ public class MC_ShootScript : MonoBehaviour
         {
             if (fireRate <= 0)
             {
+                laserLineRenderer.enabled = false;
                 Shoot();
             }
         }
