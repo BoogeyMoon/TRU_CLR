@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 // Av Timmy Alvelöv
-// Tillägg av Moa Lindgren
+// Vissa tillägg ang. röda projektilen av Moa Lindgren.
 
 //Används för att skapa projektilerna som MC skjuter.
 public class MC_ShootScript : MonoBehaviour
@@ -15,10 +15,9 @@ public class MC_ShootScript : MonoBehaviour
 
     enum ColorProjectiles { Blue, Yellow, Red };
     int activeColor;
-
     [SerializeField]
-    float laserLength, fireRate, offsetZ;
-    float cooldown;
+    float laserDamage;
+    float cooldown, fireRate, offsetZ, laserLength;
     [SerializeField]
     float[] cooldowns;
 
@@ -79,9 +78,14 @@ public class MC_ShootScript : MonoBehaviour
             Ray ray = new Ray(startPosition, direction);
             RaycastHit raycastHit;
             Vector3 endPosition = startPosition + (laserLength * direction);
+
             if (Physics.Raycast(ray, out raycastHit, laserLength))
             {
                 endPosition = raycastHit.point;
+                if(raycastHit.transform.gameObject.tag == "Weakpoint")
+                {
+                    raycastHit.transform.gameObject.GetComponent<MobStats>().TakeDamage(laserDamage, activeColor); 
+                }
             }
 
             laserLineRenderer.SetPosition(0, startPosition);
