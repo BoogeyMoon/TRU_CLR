@@ -127,7 +127,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1333606018773816}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 12.469008, y: 8.197551, z: -0.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4202273385632674}
@@ -245,17 +245,19 @@ MonoBehaviour:
   speed: 5
   maxHealth: 10
   fireRate: 0.1
-  color: 0
-  destination: {fileID: 0}
-  bullet: {fileID: 1391852344878852, guid: eb5fe13b20c43284fabd9f2d94d5927a, type: 2}
-  bulletSpawner: {fileID: 1155623061834398}
-  patrolPoints: {fileID: 0}
   aggroRange: 15
   distanceInterval: 7
   timeBetweenBurst: 1
   shotsPerBurst: 5
   rotationBetweenBullets: 15
+  color: 0
   numberOfBulletsPerShot: 2
+  bulletSpawners:
+  - {fileID: 1155623061834398}
+  - {fileID: 0}
+  destination: {fileID: 0}
+  bullet: {fileID: 1391852344878852, guid: eb5fe13b20c43284fabd9f2d94d5927a, type: 2}
+  patrolPoints: {fileID: 0}
 --- !u!135 &135343991154341672
 SphereCollider:
   m_ObjectHideFlags: 1

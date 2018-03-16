@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuScript : MonoBehaviour
 {
@@ -24,6 +25,13 @@ public class MenuScript : MonoBehaviour
 
     bool paused,
          inGame;
+
+    [SerializeField]
+    Slider master, music, effects, dialogue;
+
+    [SerializeField]
+    AudioSource tempMaster; //Bara för att simulera ljud TA BORT SEN
+
 
     //Spara Canvas till nästa scen.
     void Awake()
@@ -46,6 +54,8 @@ public class MenuScript : MonoBehaviour
     //Öppna och stänga pausmeny.
     void Update()
     {
+        tempMaster.volume = master.value; //Här sätter man ljudetsvolym LÄGG IN RESTEN SEN
+
         if (Input.GetKeyDown(KeyCode.Escape) && inGame)
         {
             paused = !paused;

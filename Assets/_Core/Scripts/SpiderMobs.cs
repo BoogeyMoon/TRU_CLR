@@ -33,19 +33,5 @@ public class SpiderMobs : MobStats
     {
         transform.position = Vector3.MoveTowards(agent.transform.position, destination.transform.position, speed * Time.deltaTime);
     }
-
-    void Shoot()
-    {
-        currentBullet = Instantiate(bullet);
-        onCooldown = true;
-
-        currentBullet.transform.position = bulletSpawner.transform.position;
-        currentBullet.transform.rotation = bulletSpawner.transform.rotation;
-
-        if (onCooldown)
-        {
-            timeLeft = fireRate;
-        }
-    }
 	
 }
