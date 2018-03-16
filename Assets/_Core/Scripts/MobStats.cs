@@ -11,7 +11,9 @@ public class MobStats : MonoBehaviour
     [SerializeField]
     protected int color, numberOfBulletsPerShot;
     [SerializeField]
-    protected GameObject destination, bullet, bulletSpawner, patrolPoints;
+    GameObject[] bulletSpawners;
+    [SerializeField]
+    protected GameObject destination, bullet, patrolPoints;
     protected GameObject currentBullet;
     protected Transform player;
     protected List<Transform> patrolPointsList = new List<Transform>();
@@ -133,11 +135,15 @@ public class MobStats : MonoBehaviour
 
     protected virtual void ShootABullet(float RotationOffset) //Sköter instansieringen av en kula och ger den en rotationsoffset.
     {
-        currentBullet = Instantiate(bullet); //Skapar en kula
+        for (int i = 0; i < bulletSpawners.Length; i++)
+        {
+            currentBullet = Instantiate(bullet); //Skapar en kula
 
-        currentBullet.transform.position = bulletSpawner.transform.position; //Sätter positionen till mynningen på vapnet
-        currentBullet.transform.rotation = bulletSpawner.transform.rotation; //Sätter rotationen så att skottet åker dit vapnet siktar
-        currentBullet.transform.Rotate(RotationOffset, 0, 0); //Ändrar offseten för skottet om så önskas
+            currentBullet.transform.position = bulletSpawners[i].transform.position; //Sätter positionen till mynningen på vapnet
+            currentBullet.transform.rotation = bulletSpawners[i].transform.rotation; //Sätter rotationen så att skottet åker dit vapnet siktar
+            currentBullet.transform.Rotate(RotationOffset, 0, 0); //Ändrar offseten för skottet om så önskas
+        }
+        
     }
     protected virtual float GetPlayerDistance(Transform position) //Ger tillbaka avståndet till spelaren med endast x -och yaxlarna i beaktning
     {
