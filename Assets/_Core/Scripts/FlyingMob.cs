@@ -31,6 +31,10 @@ public class FlyingMob : MobStats
         {
             timeSinceSeenPlayer += Time.deltaTime;
         }
+        if(body.velocity != Vector3.zero)
+        {
+            body.velocity = Vector3.zero;
+        }
         playerDistance = GetPlayerDistance(transform);
         timeLeft -= Time.deltaTime;
         burstTimer -= Time.deltaTime;
@@ -61,7 +65,6 @@ public class FlyingMob : MobStats
         }
         else
         {
-            body.velocity = Vector3.zero;
             mode = "patrol 2";
             patrol();
         }
