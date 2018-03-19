@@ -8,15 +8,18 @@ public class FlyingMob : MobStats
 {
     protected float playerDistance, closestDistance, timeSinceSeenPlayer, loseTrackOfPlayer;
     protected bool chase;
+    Rigidbody body;
 
     protected override void Start() //Ger fienden dess starvärden
     {
+        body = GetComponent<Rigidbody>();
         base.Start();
         burstTimer = timeBetweenBurst;
         burstCounter = shotsPerBurst;
         closestDistance = aggroRange - distanceInterval;
         loseTrackOfPlayer = 1;
         timeSinceSeenPlayer = 0;
+
     }
     void Update() //Ser till att rätt metoder anropas när de ska.
     {
@@ -44,6 +47,7 @@ public class FlyingMob : MobStats
                 {
                     if (timeLeft < 0)
                     {
+
                         mode = "moving and shooting";
                         Shoot();
                     }
@@ -57,6 +61,7 @@ public class FlyingMob : MobStats
         }
         else
         {
+            body.velocity = Vector3.zero;
             mode = "patrol 2";
             patrol();
         }
