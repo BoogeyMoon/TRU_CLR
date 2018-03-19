@@ -31,6 +31,7 @@ public class FlyingMobPatrol : MobStats {
         base.Start();
         GotoNextPoint();
         damageParticles = GetComponentsInChildren<ParticleSystem>();
+        target = GameObject.FindWithTag("Player").transform;
         timesGotHit = 0;
         //target = GameObject.Find("SK_DemoDude_PF").transform;
         aggro = false;
@@ -65,6 +66,7 @@ public class FlyingMobPatrol : MobStats {
         if ((Vector3.Distance(destinationLocal.position, transform.position) <= .1) && !aggro)
         {
             GotoNextPoint();
+            //Patrol();
         }
 
         float step = speed * Time.deltaTime;
