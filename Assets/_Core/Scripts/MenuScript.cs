@@ -10,14 +10,7 @@ using UnityEngine.UI;
 
 public class MenuScript : MonoBehaviour
 {
-    GameObject Panel,
-               MainMenu,
-               LoadMenu,
-               SettingsMenu,
-               ConfirmQuit,
-               CreditsMenu,
-               PauseMenu;
-
+    GameObject Panel, MainMenu, LoadMenu, SettingsMenu, ConfirmQuit, CreditsMenu, PauseMenu, ScenesParent, Scenes;
     List<GameObject> Menus;
 
     int numberOfSaves;
@@ -43,7 +36,7 @@ public class MenuScript : MonoBehaviour
     void Start()
     {
         Panel = transform.GetChild(0).gameObject;
-        Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, CreditsMenu, ConfirmQuit, PauseMenu };
+        Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, CreditsMenu, ConfirmQuit, PauseMenu, Scenes };
 
         for (int i = 0; i < Menus.Count; i++)
         {
@@ -78,6 +71,15 @@ public class MenuScript : MonoBehaviour
         }
     }
 
+    //Välj scen.
+    public void SceneButtons(string text)
+    {
+        inGame = true;
+        Menus[6].SetActive(false); //behövs den här? (sätter "välj scen"-menyn till false)
+        Panel.SetActive(false);
+        SceneManager.LoadScene(text);
+    }
+
     //Följande metod är kopplat till OnClick() på knapparna i menyn i Unity.
     //Index är specificerat hos vardera knapp i Unity.
     public void ClickButtons(int index)
@@ -93,11 +95,9 @@ public class MenuScript : MonoBehaviour
 
         switch (index)
         {
-            //New Game
+            //New Game-knappen (visar en meny med knappar där du kan välja vilken scen du vill gå in i).
             case 0:
-                inGame = true;
-                Panel.SetActive(false);
-                SceneManager.LoadScene("Moa_DemoScene"); //Ändra det här till den färdiga spel-scenen.
+                Menus[6].SetActive(true);
                 break;
 
             //Load Game
@@ -152,6 +152,10 @@ public class MenuScript : MonoBehaviour
                 Panel.SetActive(false);
                 SceneManager.LoadScene("MenuScene");
                 break;
+
+
         }
     }
+
 }
+
