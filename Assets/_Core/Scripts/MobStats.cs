@@ -20,8 +20,6 @@ public class MobStats : MonoBehaviour
     protected bool onCooldown;
     protected float health, timeLeft, burstTimer, burstCounter;
     protected int patrolCounter;
-    [SerializeField]
-    protected string mode;
 
 
 
@@ -99,7 +97,7 @@ public class MobStats : MonoBehaviour
         }
 
     }
-    protected void patrol() //Går mot nästa patrullplats
+    protected void Patrol() //Går mot nästa patrullplats
     {
         if (destination != null)
         {
@@ -175,7 +173,5 @@ public class MobStats : MonoBehaviour
         }
         return false;
     }
-
-
 
 }
