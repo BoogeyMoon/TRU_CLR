@@ -28,11 +28,10 @@ public class MobStats : MonoBehaviour
         
         patrolCounter = 0;
         health = maxHealth;
-        player = GameObject.Find("SK_MainCharacter_PF").transform;
+        player = GameObject.FindGameObjectWithTag("ShootHere").transform;
         timeLeft = fireRate;
         onCooldown = false;
         updatePatrolPoints();
-        player = player.transform.GetChild(2).transform.GetChild(0);
 
 
     }
@@ -98,7 +97,7 @@ public class MobStats : MonoBehaviour
         }
 
     }
-    protected void patrol() //Går mot nästa patrullplats
+    protected void Patrol() //Går mot nästa patrullplats
     {
         if (destination != null)
         {
@@ -174,7 +173,5 @@ public class MobStats : MonoBehaviour
         }
         return false;
     }
-
-
 
 }

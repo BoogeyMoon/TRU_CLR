@@ -20,9 +20,11 @@ public class MC_ShootScript : MonoBehaviour
     float cooldown, fireRate, offsetZ, laserLength;
     [SerializeField]
     float[] cooldowns;
-
     LineRenderer laserLineRenderer;
     Vector3 startPosition, direction;
+    [SerializeField]
+    GameObject colorIndicator;
+    ColorIndicatior colorInd;
 
     void Start()
     {
@@ -30,6 +32,7 @@ public class MC_ShootScript : MonoBehaviour
         laserLength = 50f;
         laserLineRenderer = GetComponent<LineRenderer>();
         activeColor = (int)ColorProjectiles.Blue;
+        colorInd = colorIndicator.GetComponent<ColorIndicatior>();
     }
 
     void Update()
@@ -59,6 +62,7 @@ public class MC_ShootScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E))
         {
             activeColor = (activeColor + 1) % 3;
+            colorInd.SwitchColor(true);
         }
         if (Input.GetKeyDown(KeyCode.Q))
         {
@@ -67,6 +71,7 @@ public class MC_ShootScript : MonoBehaviour
             {
                 activeColor = colorsBullets.Length - 1;
             }
+            colorInd.SwitchColor(false);
         }
     }
 
