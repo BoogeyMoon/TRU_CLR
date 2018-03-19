@@ -39,24 +39,29 @@ public class FlyingMob : MobStats
             if (timeSinceSeenPlayer <= loseTrackOfPlayer)
             {
                 Move();
+                mode = "moving only";
                 if (burstTimer < 0)
                 {
                     if (timeLeft < 0)
                     {
+                        mode = "moving and shooting";
                         Shoot();
                     }
                 }
             }
             else
             {
+                mode = "patrol 1";
                 patrol();
             }
         }
         else
         {
+            mode = "patrol 2";
             patrol();
         }
 
+        
     }
 
     void Move() //Styr hur fienden rör sig.

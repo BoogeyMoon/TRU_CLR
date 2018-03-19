@@ -20,6 +20,8 @@ public class MobStats : MonoBehaviour
     protected bool onCooldown;
     protected float health, timeLeft, burstTimer, burstCounter;
     protected int patrolCounter;
+    [SerializeField]
+    protected string mode;
 
 
 
@@ -28,11 +30,10 @@ public class MobStats : MonoBehaviour
         
         patrolCounter = 0;
         health = maxHealth;
-        player = GameObject.Find("SK_MainCharacter_PF").transform;
+        player = GameObject.FindGameObjectWithTag("ShootHere").transform;
         timeLeft = fireRate;
         onCooldown = false;
         updatePatrolPoints();
-        player = player.transform.GetChild(2).transform.GetChild(0);
 
 
     }
