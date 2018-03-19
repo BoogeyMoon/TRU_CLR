@@ -18,22 +18,21 @@ public class MobStats : MonoBehaviour
     protected Transform player;
     protected List<Transform> patrolPointsList = new List<Transform>();
     protected bool onCooldown;
-    protected float health, timeLeft, burstTimer, burstCounter;
+    protected float health, timeLeft, burstTimer, burstCounter, playerDistance;
     protected int patrolCounter;
 
 
-
+    void Awake()
+    {
+        player = GameObject.FindGameObjectWithTag("ShootHere").transform;
+    }
     protected virtual void Start()
     {
-        
         patrolCounter = 0;
         health = maxHealth;
-        player = GameObject.FindGameObjectWithTag("ShootHere").transform;
         timeLeft = fireRate;
         onCooldown = false;
         updatePatrolPoints();
-
-
     }
     protected void updatePatrolPoints() //Kollar barnen på ett gameobject och lägger till dem i en lista.
     {

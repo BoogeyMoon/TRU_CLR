@@ -6,8 +6,8 @@ using UnityEngine;
 //Beskriver den flygande fiendens beteende, så som rörelsemönster 
 public class FlyingMob : MobStats
 {
-    protected float playerDistance, closestDistance, timeSinceSeenPlayer, loseTrackOfPlayer;
-    protected bool chase;
+    float closestDistance, timeSinceSeenPlayer, loseTrackOfPlayer;
+    bool chase;
     Rigidbody body;
 
     protected override void Start() //Ger fienden dess starvärden
@@ -42,16 +42,19 @@ public class FlyingMob : MobStats
 
         if (playerDistance <= aggroRange)
         {
-            transform.LookAt(player);
             if (timeSinceSeenPlayer <= loseTrackOfPlayer)
             {
-                Move();
                 if (burstTimer < 0)
                 {
                     if (timeLeft < 0)
                     {
                         Shoot();
                     }
+                }
+                else
+                {
+                    Move();
+                    transform.LookAt(player);
                 }
             }
             else
