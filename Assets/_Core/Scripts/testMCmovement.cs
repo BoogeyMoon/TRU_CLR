@@ -114,12 +114,15 @@ public class testMCmovement : MonoBehaviour
     {
         if (crouching)
         {
-            isCrouching = true;
-            GetComponent<CharacterController>().height = 1.2f;
+            animator.SetBool("isCrouching", true);
+            controller.height = 1.2f;
+            controller.center = new Vector3(0, 0.5f, 0);
         }
         if (!crouching)
         {
-            GetComponent<CharacterController>().height = 1.8f;
+            animator.SetBool("isCrouching", false);
+            controller.height = 1.8f;
+            controller.center = new Vector3(0, 1f, 0);
         }
     }
 
