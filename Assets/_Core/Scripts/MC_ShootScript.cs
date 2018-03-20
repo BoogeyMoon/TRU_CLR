@@ -12,6 +12,7 @@ public class MC_ShootScript : MonoBehaviour
     [SerializeField]
     GameObject rifleBarrel, shoulderAim;
     GameObject currentBullet;
+    Renderer charColor;
 
     enum ColorProjectiles { Blue, Yellow, Red };
     int activeColor;
@@ -52,13 +53,17 @@ public class MC_ShootScript : MonoBehaviour
                 Shoot();
             }
         }
-        else
+        if(Input.GetMouseButtonUp(0))
         {
-            //Om man vill kunna skjuta på en gång vid första klick så ta bort kommentaren från följande:
-            //fireRate = 0;
-
-            laserLineRenderer.enabled = false;
+            StartCoroutine(LaserLifeTime());
         }
+        //else
+        //{
+        //    //Om man vill kunna skjuta på en gång vid första klick så ta bort kommentaren från följande:
+        //    //fireRate = 0;
+
+        //    laserLineRenderer.enabled = false;
+        //}
         if (Input.GetKeyDown(KeyCode.E))
         {
             activeColor = (activeColor + 1) % 3;
@@ -79,6 +84,7 @@ public class MC_ShootScript : MonoBehaviour
     {
         if (activeColor == (int)ColorProjectiles.Red)
         {
+            print("hej");
             startPosition = rifleBarrel.transform.position;
             direction = rifleBarrel.transform.forward;
             Ray ray = new Ray(startPosition, direction);
@@ -102,5 +108,10 @@ public class MC_ShootScript : MonoBehaviour
         currentBullet = Instantiate(colorsBullets[activeColor],
         new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
         fireRate = cooldown;
+    }
+    IEnumerator LaserLifeTime()
+    {
+        yield return new WaitForSeconds(0.5f);
+        laserLineRenderer.enabled = false;
     }
 }
