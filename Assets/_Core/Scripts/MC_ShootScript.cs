@@ -12,7 +12,6 @@ public class MC_ShootScript : MonoBehaviour
     [SerializeField]
     GameObject rifleBarrel, shoulderAim;
     GameObject currentBullet;
-    Renderer charColor;
 
     enum ColorProjectiles { Blue, Yellow, Red };
     int activeColor;
@@ -26,9 +25,13 @@ public class MC_ShootScript : MonoBehaviour
     [SerializeField]
     GameObject colorIndicator;
     ColorIndicatior colorInd;
+    [SerializeField]
+    Material material;
+    Color[] colors;
 
     void Start()
     {
+        colors = new Color[] { Color.blue, Color.yellow, Color.red };
         offsetZ = -0.85f;
         laserLength = 50f;
         laserLineRenderer = GetComponent<LineRenderer>();
@@ -38,6 +41,8 @@ public class MC_ShootScript : MonoBehaviour
 
     void Update()
     {
+        material.color = colors[activeColor];
+        material.SetColor("_EmissionColor", colors[activeColor]);
         shoulderAim.transform.position = new Vector3(shoulderAim.transform.position.x, shoulderAim.transform.position.y, offsetZ);
         cooldown = cooldowns[activeColor];
 
@@ -57,13 +62,6 @@ public class MC_ShootScript : MonoBehaviour
         {
             StartCoroutine(LaserLifeTime());
         }
-        //else
-        //{
-        //    //Om man vill kunna skjuta på en gång vid första klick så ta bort kommentaren från följande:
-        //    //fireRate = 0;
-
-        //    laserLineRenderer.enabled = false;
-        //}
         if (Input.GetKeyDown(KeyCode.E))
         {
             activeColor = (activeColor + 1) % 3;
@@ -84,7 +82,6 @@ public class MC_ShootScript : MonoBehaviour
     {
         if (activeColor == (int)ColorProjectiles.Red)
         {
-            print("hej");
             startPosition = rifleBarrel.transform.position;
             direction = rifleBarrel.transform.forward;
             Ray ray = new Ray(startPosition, direction);

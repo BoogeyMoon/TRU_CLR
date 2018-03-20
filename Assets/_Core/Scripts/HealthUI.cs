@@ -22,7 +22,7 @@ public class HealthUI : MonoBehaviour
     void Start()
     {
         pos = new Vector2(10, 50);
-        size = new Vector2(200, 50);
+        size = new Vector2(180, 50);
     }
 
     void TakeDamage(int damage)
@@ -61,7 +61,7 @@ public class HealthUI : MonoBehaviour
     {
         //Rita bakgrunden för healthbaren
         GUI.BeginGroup(new Rect(pos.x, pos.y, size.x, size.y), emptyTexure, progressEmpty);
-        GUI.Box(new Rect(pos.x, pos.y, size.x, size.y), fullTexture, progressFull);
+        GUI.Box(new Rect(pos.x, pos.y, size.x, size.y), emptyTexure, progressEmpty);
 
         //Rita upp hälsan
         GUI.BeginGroup(new Rect(0, 0, size.x * healthDisplay / 100, size.y));
