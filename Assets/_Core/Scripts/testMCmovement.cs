@@ -13,7 +13,7 @@ public class testMCmovement : MonoBehaviour
 
     int jumps = 2, currentjump = 0;
 
-    bool facingRight, isGrounded;
+    bool facingRight, isGrounded, isCrouching;
 
     Animator animator;
 
@@ -26,6 +26,7 @@ public class testMCmovement : MonoBehaviour
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         facingRight = true;
+        isCrouching = false;
         airtime = 0;
     }
 
@@ -48,6 +49,14 @@ public class testMCmovement : MonoBehaviour
         if (Input.GetButtonDown("Jump") && currentjump < jumps) //Kollar ifall spelaren kan hoppa
         {
             JumpOrFall();
+        }
+        if (Input.GetKeyDown(KeyCode.LeftControl))
+        {
+            Crouching(true);
+        }
+        if (Input.GetKeyUp(KeyCode.LeftControl))
+        {
+            Crouching(false);
         }
 
         if (Input.mousePosition.x < Screen.width / 2 && facingRight == false) //Om muspekaren är på högra sidan av skärmen så vänder spelaren åt höger
@@ -99,6 +108,19 @@ public class testMCmovement : MonoBehaviour
         HeadbumbCheck();
         moveDirection = new Vector3(moveOnX, moveDirection.y, 0);
         moveDirection.x *= speed;
+    }
+
+    void Crouching(bool crouching)
+    {
+        if (crouching)
+        {
+            isCrouching = true;
+            GetComponent<CharacterController>().height = 1.2f;
+        }
+        if (!crouching)
+        {
+            GetComponent<CharacterController>().height = 1.8f;
+        }
     }
 
     void JumpOrFall() //Ifall spelaren hoppar eller faller
