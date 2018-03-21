@@ -56,12 +56,13 @@ public class MC_ShootScript : MonoBehaviour
             {
                 laserLineRenderer.enabled = false;
                 Shoot();
+                StartCoroutine(LaserLifeTime());
             }
         }
-        if(Input.GetMouseButtonUp(0))
-        {
-            StartCoroutine(LaserLifeTime());
-        }
+        //if(Input.GetMouseButtonUp(0))
+        //{
+
+        //}
         if (Input.GetKeyDown(KeyCode.E))
         {
             activeColor = (activeColor + 1) % 3;
