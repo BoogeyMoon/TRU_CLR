@@ -20,7 +20,7 @@ public class SpiderMobs : MobStats
     void Update()
     {
         timeLeft -= Time.deltaTime;
-
+        playerDistance = GetPlayerDistance(transform);
         if (body.velocity != Vector3.zero)
         {
             body.velocity = Vector3.zero;
@@ -30,8 +30,8 @@ public class SpiderMobs : MobStats
         {
             Move();
         }
-
-        if (timeLeft < 0)
+        
+        if (playerDistance < aggroRange && timeLeft < 0)
         {
             Shoot(); 
         }
