@@ -19,6 +19,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4470569981319942}
+  - component: {fileID: 65185753103711966}
   m_Layer: 0
   m_Name: Floor_Tile_01_loop
   m_TagString: Untagged
@@ -81,15 +82,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1122786654538484}
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -42.351, y: 0.49500012, z: -1.1479998}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -33.605953, y: 7.737067, z: -14.197943}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4966603423142230}
   - {fileID: 4104401426486296}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!4 &4966603423142230
 Transform:
   m_ObjectHideFlags: 1
@@ -177,14 +178,26 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1221111770094112}
-  m_Mesh: {fileID: 4300000, guid: 5e177997308c2964786efc5d2a014e23, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 8de5038ef815b02459237510795f9e64, type: 3}
 --- !u!33 &33807380907726920
 MeshFilter:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1420328642191762}
-  m_Mesh: {fileID: 4300000, guid: 5e177997308c2964786efc5d2a014e23, type: 3}
+  m_Mesh: {fileID: 4300000, guid: 8de5038ef815b02459237510795f9e64, type: 3}
+--- !u!65 &65185753103711966
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1122786654538484}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.0110717, y: 0.17550516, z: 6.0095534}
+  m_Center: {x: 0.0023611784, y: -0.08128095, z: -1.5030241}
 --- !u!95 &95757657671610384
 Animator:
   serializedVersion: 3
