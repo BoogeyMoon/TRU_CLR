@@ -16,7 +16,7 @@ public class Mob_Projectile : MonoBehaviour
 
     protected void Start()
     {
-        player = GameObject.Find("SK_MainCharacter_PF");
+        player = GameObject.FindGameObjectWithTag("Player");
 
         lifeTime = 10;
     }

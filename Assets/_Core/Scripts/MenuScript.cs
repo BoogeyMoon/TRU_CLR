@@ -12,38 +12,33 @@ public class MenuScript : MonoBehaviour
 {
     GameObject Panel, MainMenu, LoadMenu, SettingsMenu, ConfirmQuit, CreditsMenu, PauseMenu, ScenesParent, Scenes;
     List<GameObject> Menus;
-
     int numberOfSaves;
     string gameScene;
-
     bool paused,
          inGame;
-
     [SerializeField]
     Slider master, music, effects, dialogue;
-
     [SerializeField]
     AudioSource tempMaster; //Bara för att simulera ljud TA BORT SEN
-
 
     //Spara Canvas till nästa scen.
     void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
     }
-
     //Sätter alla värden
     void Start()
     {
         Panel = transform.GetChild(0).gameObject;
-        Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, CreditsMenu, ConfirmQuit, PauseMenu, Scenes };
+        Panel.SetActive(true);
 
+        Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, CreditsMenu, ConfirmQuit, PauseMenu, Scenes };
         for (int i = 0; i < Menus.Count; i++)
         {
             Menus[i] = Panel.transform.GetChild(i).gameObject;
         }
+        Menus[0].SetActive(true);
     }
-
     //Öppna och stänga pausmeny.
     void Update()
     {
@@ -52,23 +47,23 @@ public class MenuScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && inGame)
         {
             paused = !paused;
-
-            if (paused)
-            {
-                Time.timeScale = 0;
-                Panel.SetActive(true);
-                Menus[5].SetActive(true);
-            }
-            else
-            {
-                Time.timeScale = 1;
-                for (int i = 0; i < Menus.Count; i++)
-                {
-                    Menus[i].SetActive(false);
-                }
-                Panel.SetActive(false);
-            }
         }
+        if (paused && inGame)
+        {
+            Time.timeScale = 0;
+            Panel.SetActive(true);
+            Menus[5].SetActive(true);
+        }
+        else if(!paused && inGame)
+        {
+            Time.timeScale = 1;
+            for (int i = 0; i < Menus.Count; i++)
+            {
+                Menus[i].SetActive(false);
+            }
+            Panel.SetActive(false);
+        }
+
     }
 
     //Välj scen.
