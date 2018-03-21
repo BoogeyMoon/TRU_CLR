@@ -36,12 +36,16 @@ public class MenuScript : MonoBehaviour
     void Start()
     {
         Panel = transform.GetChild(0).gameObject;
+
         Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, CreditsMenu, ConfirmQuit, PauseMenu, Scenes };
+        paused = false;
 
         for (int i = 0; i < Menus.Count; i++)
         {
             Menus[i] = Panel.transform.GetChild(i).gameObject;
         }
+        Panel.SetActive(true);
+        Menus[0].SetActive(true);
     }
 
     //Öppna och stänga pausmeny.
@@ -52,23 +56,23 @@ public class MenuScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && inGame)
         {
             paused = !paused;
-
-            if (paused)
-            {
-                Time.timeScale = 0;
-                Panel.SetActive(true);
-                Menus[5].SetActive(true);
-            }
-            else
-            {
-                Time.timeScale = 1;
-                for (int i = 0; i < Menus.Count; i++)
-                {
-                    Menus[i].SetActive(false);
-                }
-                Panel.SetActive(false);
-            }
         }
+        if (paused && inGame)
+        {
+            Time.timeScale = 0;
+            Panel.SetActive(true);
+            Menus[5].SetActive(true);
+        }
+        else if(!paused && inGame)
+        {
+            Time.timeScale = 1;
+            for (int i = 0; i < Menus.Count; i++)
+            {
+                Menus[i].SetActive(false);
+            }
+            Panel.SetActive(false);
+        }
+
     }
 
     //Välj scen.
