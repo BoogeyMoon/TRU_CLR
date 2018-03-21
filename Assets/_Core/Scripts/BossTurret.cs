@@ -6,6 +6,7 @@ public class BossTurret : Turret
 {
     [SerializeField]
     Material[] mats;
+    [SerializeField]
     Material[] myMats;
 
     protected override void Start()
@@ -27,6 +28,7 @@ public class BossTurret : Turret
     {
         print("Color number: " + color);
         myMats[1] = mats[color];
+        head.GetComponent<Renderer>().materials = myMats;
     }
 
 
