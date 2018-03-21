@@ -917,7 +917,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1792648718854088}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 5.47, y: 0.40952402, z: -1.22}
+  m_LocalPosition: {x: -3.06, y: 1.25, z: -1.22}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4247366309600634}
@@ -1082,6 +1082,10 @@ MonoBehaviour:
   jumpSpeed: 12
   gravity: 20
   airtime: 0
+  crouchCenterOffsetY: 0
+  crouchHeightOffset: 0
+  crouchCenterOriginal: 0
+  crouchHeightOriginal: 0
 --- !u!114 &114269647725588438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1099,13 +1103,15 @@ MonoBehaviour:
   - {fileID: 1578950260938776, guid: d20adbc255b8ccd40bc43e03472c10ef, type: 2}
   rifleBarrel: {fileID: 1754493347678244}
   shoulderAim: {fileID: 1589744676811700}
-  laserDamage: 10
+  laserDamage: 3
   cooldowns:
   - 0.5
   - 0.5
   - 0.5
   colorIndicator: {fileID: 0}
   material: {fileID: 2100000, guid: 77da4f3e1cc5e0d498ea4419d585880d, type: 2}
+  shots:
+  - {fileID: 8300000, guid: 43694ece8a9a2ed4e820be2aaa03e440, type: 3}
 --- !u!114 &114471629714917582
 MonoBehaviour:
   m_ObjectHideFlags: 1
