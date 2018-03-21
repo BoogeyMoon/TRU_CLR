@@ -250,6 +250,7 @@ GameObject:
   - component: {fileID: 65587623299503086}
   - component: {fileID: 65511545566605604}
   - component: {fileID: 114281740545776424}
+  - component: {fileID: 195663280144999996}
   m_Layer: 0
   m_Name: SK_Mob_Spider_Red_PF
   m_TagString: Weakpoint
@@ -703,9 +704,9 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1795984615230386}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -1.91, y: 1.05, z: -1.5}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 12.754227, y: 1.75, z: -1}
+  m_LocalScale: {x: 0.50000024, y: 0.5, z: 0.50000024}
   m_Children:
   - {fileID: 4495117879158844}
   - {fileID: 4479379495500938}
@@ -862,3 +863,24 @@ SkinnedMeshRenderer:
     m_Center: {x: 0.083847046, y: -15.043686, z: 1.2171478}
     m_Extent: {x: 319.27448, y: 226.53926, z: 274.76886}
   m_DirtyAABB: 0
+--- !u!195 &195663280144999996
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1795984615230386}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4

@@ -28,10 +28,14 @@ public class MC_ShootScript : MonoBehaviour
     [SerializeField]
     Material material;
     Color[] colors;
+    [SerializeField]
+    AudioClip[] shots;
+    private SoundManager soundManager;
 
     void Start()
     {
-        colors = new Color[] { Color.blue, Color.yellow, Color.red };
+        soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
+        colors = new Color[] { Color.cyan, Color.yellow, Color.magenta };
         offsetZ = -0.85f;
         laserLength = 50f;
         laserLineRenderer = GetComponent<LineRenderer>();
@@ -56,11 +60,12 @@ public class MC_ShootScript : MonoBehaviour
             {
                 laserLineRenderer.enabled = false;
                 Shoot();
+
+                StartCoroutine(LaserLifeTime());
+
+                soundManager.RandomizeSfx(shots);
+
             }
-        }
-        if(Input.GetMouseButtonUp(0))
-        {
-            StartCoroutine(LaserLifeTime());
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
