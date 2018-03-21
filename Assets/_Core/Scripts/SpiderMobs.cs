@@ -6,17 +6,26 @@ public class SpiderMobs : MobStats
 {
 
     NavMeshAgent agent;
+    Rigidbody body;
+    Transform turret;
 
     protected override void Start()
     {
         base.Start();
         agent = GetComponent<NavMeshAgent>();
+        body = GetComponent<Rigidbody>();
+        turret = transform.GetChild(1).GetChild(0).GetChild(5).GetChild(0); //Hämtar barnet Turret_JNT
     }
 
     void Update()
     {
         timeLeft -= Time.deltaTime;
 
+        if (body.velocity != Vector3.zero)
+        {
+            body.velocity = Vector3.zero;
+        }
+        turret.LookAt(player);
         if (destination != null)
         {
             Move();
