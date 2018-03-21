@@ -10,7 +10,7 @@ public class UIHealth2 : MonoBehaviour
     [SerializeField]
     int startLives, currentHealth, heal;
 
-    int maxHealthAmount = 4, fullHealth;
+    int maxHealthAmount = 10, fullHealth;
 
     [SerializeField]
     Image[] healthImages;
@@ -41,7 +41,7 @@ public class UIHealth2 : MonoBehaviour
 
     public void TakeDamage(int health)
     {
-        currentHealth += health;
+        currentHealth = health;
         currentHealth = Mathf.Clamp(currentHealth, 0, startLives * heal);
         CheckHealth(health);
     }

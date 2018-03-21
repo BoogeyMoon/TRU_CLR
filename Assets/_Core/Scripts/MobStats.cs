@@ -6,10 +6,11 @@ using UnityEngine;
 // Håller koll på hälsa, fart, osv. för mobs
 public class MobStats : MonoBehaviour
 {
+    Score score;
     [SerializeField]
     protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, rotationBetweenBullets, health;
     [SerializeField]
-    protected int color, numberOfBulletsPerShot;
+    protected int color, numberOfBulletsPerShot, points;
     [SerializeField]
     protected GameObject[] bulletSpawners, eyes;
     [SerializeField]
@@ -28,6 +29,7 @@ public class MobStats : MonoBehaviour
     }
     protected virtual void Start()
     {
+        score = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<Score>();
         patrolCounter = 0;
         health = maxHealth;
         timeLeft = fireRate;
@@ -71,6 +73,7 @@ public class MobStats : MonoBehaviour
 
     void Die() //Mob:en dör.
     {
+        score.AddScore(points);
         Destroy(gameObject);
     }
 
@@ -103,7 +106,7 @@ public class MobStats : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, destination.transform.position, speed / 2 * Time.deltaTime);
             transform.LookAt(destination.transform.position);
         }
-           
+
     }
 
     protected virtual void Shoot() //Ser till att rätt antal skott skjuts samt räknar ut dess offset.
@@ -159,10 +162,10 @@ public class MobStats : MonoBehaviour
         {
             RaycastHit hit;
 
-            if (Physics.Raycast(eyes[i].transform.position, new Vector3 (player.position.x - eyes[i].transform.position.x, player.position.y - eyes[i].transform.position.y, player.position.z - eyes[i].transform.position.z), out hit, Mathf.Infinity))
+            if (Physics.Raycast(eyes[i].transform.position, new Vector3(player.position.x - eyes[i].transform.position.x, player.position.y - eyes[i].transform.position.y, player.position.z - eyes[i].transform.position.z), out hit, Mathf.Infinity))
             {
                 Debug.DrawRay(eyes[i].transform.position, new Vector3(player.position.x - transform.position.x, player.position.y - transform.position.y, player.position.z - transform.position.z), Color.blue);
-                if(hit.transform.gameObject.tag == "Player")
+                if (hit.transform.gameObject.tag == "Player")
                 {
                     return true;
                 }
