@@ -11,6 +11,8 @@ using UnityEngine.UI;
 public class MenuScript : MonoBehaviour
 {
     GameObject Panel, MainMenu, LoadMenu, SettingsMenu, ConfirmQuit, CreditsMenu, PauseMenu;
+    [SerializeField]
+    GameObject EventSystem;
     List<GameObject> Menus;
     int numberOfSaves;
     string gameScene;
@@ -25,6 +27,7 @@ public class MenuScript : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
+        DontDestroyOnLoad(EventSystem);
         gameObject.transform.parent = GameObject.Find("Canvas").transform;
     }
     //Sätter alla värden
