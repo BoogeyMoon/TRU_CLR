@@ -35,7 +35,7 @@ public class MC_ShootScript : MonoBehaviour
     void Start()
     {
         soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
-        colors = new Color[] { Color.blue, Color.yellow, Color.red };
+        colors = new Color[] { Color.cyan, Color.yellow, Color.magenta };
         offsetZ = -0.85f;
         laserLength = 50f;
         laserLineRenderer = GetComponent<LineRenderer>();
@@ -67,10 +67,6 @@ public class MC_ShootScript : MonoBehaviour
 
             }
         }
-        //if(Input.GetMouseButtonUp(0))
-        //{
-
-        //}
         if (Input.GetKeyDown(KeyCode.E))
         {
             activeColor = (activeColor + 1) % 3;
