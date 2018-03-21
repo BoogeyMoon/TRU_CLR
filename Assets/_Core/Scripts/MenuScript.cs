@@ -25,6 +25,7 @@ public class MenuScript : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
+        gameObject.transform.parent = GameObject.Find("Canvas").transform;
     }
     //Sätter alla värden
     void Start()
