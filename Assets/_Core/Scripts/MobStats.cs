@@ -10,7 +10,7 @@ public class MobStats : MonoBehaviour
     [SerializeField]
     protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, rotationBetweenBullets, health;
     [SerializeField]
-    protected int color, numberOfBulletsPerShot, points;
+    protected int color, numberOfBulletsPerShot, scoreValue;
     [SerializeField]
     protected GameObject[] bulletSpawners, eyes;
     [SerializeField]
@@ -73,7 +73,7 @@ public class MobStats : MonoBehaviour
 
     void Die() //Mob:en dör.
     {
-        score.AddScore(points);
+        score.AddScore(scoreValue);
         Destroy(gameObject);
     }
 
