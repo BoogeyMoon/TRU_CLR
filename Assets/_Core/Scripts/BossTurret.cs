@@ -1,0 +1,34 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BossTurret : Turret
+{
+    [SerializeField]
+    Material[] mats;
+    [SerializeField]
+    Material[] myMats;
+
+    protected override void Start()
+    {
+        base.Start();
+        myMats = head.GetComponent<Renderer>().materials;
+
+    }
+    public override void TakeDamage(float damage, int color)
+    {
+        base.TakeDamage(damage, color);
+        if (this.color == color)
+        {
+            this.color = (this.color + 1) % 3;
+        }
+        ChangeMaterial(this.color);
+    }
+    void ChangeMaterial(int color)
+    {
+        myMats[1] = mats[color];
+        head.GetComponent<Renderer>().materials = myMats;
+    }
+
+
+}

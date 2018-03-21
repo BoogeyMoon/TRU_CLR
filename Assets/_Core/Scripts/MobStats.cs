@@ -7,7 +7,7 @@ using UnityEngine;
 public class MobStats : MonoBehaviour
 {
     [SerializeField]
-    protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, rotationBetweenBullets;
+    protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, rotationBetweenBullets, health;
     [SerializeField]
     protected int color, numberOfBulletsPerShot;
     [SerializeField]
@@ -18,7 +18,7 @@ public class MobStats : MonoBehaviour
     protected Transform player;
     protected List<Transform> patrolPointsList = new List<Transform>();
     protected bool onCooldown;
-    protected float health, timeLeft, burstTimer, burstCounter, playerDistance;
+    protected float timeLeft, burstTimer, burstCounter, playerDistance;
     protected int patrolCounter;
 
 
