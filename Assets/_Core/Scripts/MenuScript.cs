@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class MenuScript : MonoBehaviour
 {
-    GameObject Panel, MainMenu, LoadMenu, SettingsMenu, ConfirmQuit, CreditsMenu, PauseMenu, ScenesParent, Scenes;
+    GameObject Panel, MainMenu, LoadMenu, SettingsMenu, ConfirmQuit, CreditsMenu, PauseMenu;
     List<GameObject> Menus;
     int numberOfSaves;
     string gameScene;
@@ -31,8 +31,10 @@ public class MenuScript : MonoBehaviour
     {
         Panel = transform.GetChild(0).gameObject;
         Panel.SetActive(true);
+        gameScene = "Lucas_DemoScene"; //Ändra det här till den färdiga scenen.
 
-        Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, CreditsMenu, ConfirmQuit, PauseMenu, Scenes };
+        Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, CreditsMenu, ConfirmQuit, PauseMenu };
+
         for (int i = 0; i < Menus.Count; i++)
         {
             Menus[i] = Panel.transform.GetChild(i).gameObject;
@@ -47,40 +49,38 @@ public class MenuScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Escape) && inGame)
         {
             paused = !paused;
+            if (paused)
+            {
+                Panel.SetActive(true);
+                Menus[5].SetActive(true);
+            }
+            else
+            {
+                for (int i = 0; i < Menus.Count; i++)
+                {
+                    Menus[i].SetActive(false);
+                }
+                Panel.SetActive(false);
+            }
         }
         if (paused && inGame)
         {
             Time.timeScale = 0;
-            Panel.SetActive(true);
-            Menus[5].SetActive(true);
         }
-        else if(!paused && inGame)
+        else if (!paused && inGame)
         {
             Time.timeScale = 1;
-            for (int i = 0; i < Menus.Count; i++)
-            {
-                Menus[i].SetActive(false);
-            }
-            Panel.SetActive(false);
         }
 
     }
-
-    //Välj scen.
-    public void SceneButtons(string text)
-    {
-        inGame = true;
-        Menus[6].SetActive(false); //behövs den här? (sätter "välj scen"-menyn till false)
-        Panel.SetActive(false);
-        SceneManager.LoadScene(text);
-    }
-
     //Följande metod är kopplat till OnClick() på knapparna i menyn i Unity.
     //Index är specificerat hos vardera knapp i Unity.
     public void ClickButtons(int index)
     {
-        Menus[0].SetActive(false);
-        Menus[5].SetActive(false);
+        for(int i = 0; i < Menus.Count; i++)
+        {
+            Menus[i].SetActive(false);
+        }
 
         //Settings, Credit och Confirm Quit.
         if (index == 2 || index == 3 || index == 4)
@@ -92,17 +92,20 @@ public class MenuScript : MonoBehaviour
         {
             //New Game-knappen (visar en meny med knappar där du kan välja vilken scen du vill gå in i).
             case 0:
-                Menus[6].SetActive(true);
+                inGame = true;
+                Panel.SetActive(false);
+                SceneManager.LoadScene(gameScene);
                 break;
 
-            //Load Game
+            //Load Game. Hela denna load-game funktionen ska ändras till någonting annat, som bör diskuteras kring vad vi vill ha. 
+            //Exempelvis upplåsta lvlar och inte sparade lvlar.
             case 1:
                 Menus[1].SetActive(true);
-                numberOfSaves = 5;          //Det här bör ändras till att den hämtar värde från vår spar-funktion.
+                numberOfSaves = 0; //Det här bör ändras till att den hämtar värde från vår spar-funktion.
 
                 if (numberOfSaves == 0)
                 {
-                    //Här ska "No saved games yet" texten aktiveras.
+                    Menus[1].transform.GetChild(9).gameObject.SetActive(true); //"No saved games yet"-texten. 
                 }
                 else
                 {
@@ -114,7 +117,7 @@ public class MenuScript : MonoBehaviour
                 break;
 
 
-            //Back-knappen, går till MainMenu on inGame är false, och till PauseMenu om inGame är true.
+            //Back-knappen, går till MainMenu om inGame är false, och till PauseMenu om inGame är true.
             case 5:
                 for (int i = 0; i < Menus.Count; i++)
                 {
