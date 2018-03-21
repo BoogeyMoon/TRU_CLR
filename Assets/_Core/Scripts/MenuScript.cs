@@ -12,42 +12,33 @@ public class MenuScript : MonoBehaviour
 {
     GameObject Panel, MainMenu, LoadMenu, SettingsMenu, ConfirmQuit, CreditsMenu, PauseMenu, ScenesParent, Scenes;
     List<GameObject> Menus;
-
     int numberOfSaves;
     string gameScene;
-
     bool paused,
          inGame;
-
     [SerializeField]
     Slider master, music, effects, dialogue;
-
     [SerializeField]
     AudioSource tempMaster; //Bara för att simulera ljud TA BORT SEN
-
 
     //Spara Canvas till nästa scen.
     void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
     }
-
     //Sätter alla värden
     void Start()
     {
         Panel = transform.GetChild(0).gameObject;
+        Panel.SetActive(true);
 
         Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, CreditsMenu, ConfirmQuit, PauseMenu, Scenes };
-        paused = false;
-
         for (int i = 0; i < Menus.Count; i++)
         {
             Menus[i] = Panel.transform.GetChild(i).gameObject;
         }
-        Panel.SetActive(true);
         Menus[0].SetActive(true);
     }
-
     //Öppna och stänga pausmeny.
     void Update()
     {

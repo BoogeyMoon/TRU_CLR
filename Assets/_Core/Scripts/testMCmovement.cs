@@ -7,7 +7,7 @@ using UnityEngine;
 public class testMCmovement : MonoBehaviour
 {
     [SerializeField]
-    float speed = 6.0f, rotationSpeed = 6.0f, jumpSpeed = 8.0f, gravity = 20.0f, airtime;
+    float speed = 6.0f, rotationSpeed = 6.0f, jumpSpeed = 8.0f, gravity = 20.0f, airtime, crouchCenterOffsetY, crouchHeightOffset, crouchCenterOriginal, crouchHeightOriginal;
     float moveOnX;
     float offsetZ = -0.85f;
 
@@ -115,14 +115,14 @@ public class testMCmovement : MonoBehaviour
         if (crouching)
         {
             animator.SetBool("isCrouching", true);
-            controller.height = 1.2f;
-            controller.center = new Vector3(0, 0.5f, 0);
+            controller.height = crouchHeightOffset;
+            controller.center = new Vector3(0, crouchCenterOffsetY, 0);
         }
         if (!crouching)
         {
             animator.SetBool("isCrouching", false);
-            controller.height = 1.8f;
-            controller.center = new Vector3(0, 1f, 0);
+            controller.height = crouchHeightOriginal;
+            controller.center = new Vector3(0, crouchCenterOriginal, 0);
         }
     }
 
