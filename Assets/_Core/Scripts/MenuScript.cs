@@ -31,7 +31,7 @@ public class MenuScript : MonoBehaviour
     {
         Panel = transform.GetChild(0).gameObject;
         Panel.SetActive(true);
-        gameScene = "Moa_DemoScene"; //Ändra det här till den färdiga scenen.
+        gameScene = "Lucas_DemoScene"; //Ändra det här till den färdiga scenen.
 
         Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, CreditsMenu, ConfirmQuit, PauseMenu };
 
