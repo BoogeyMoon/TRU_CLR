@@ -26,7 +26,6 @@ public class BossTurret : Turret
     }
     void ChangeMaterial(int color)
     {
-        print("Color number: " + color);
         myMats[1] = mats[color];
         head.GetComponent<Renderer>().materials = myMats;
     }
