@@ -31,7 +31,7 @@ public class RotateWithPause : MonoBehaviour {
                 {
                     desiredAngle = 360 - desiredAngle;
                 }
-                print("desired angle is" + desiredAngle);
+                //print("desired angle is" + desiredAngle);
 
                 rotateTo = Quaternion.Euler(0, 0, desiredAngle);
             }

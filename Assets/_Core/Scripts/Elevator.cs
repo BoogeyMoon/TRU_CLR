@@ -11,10 +11,15 @@ public class Elevator : MonoBehaviour {
     [SerializeField]
     float speed;
     private float time;
+    private float unparentPause;
+    private bool parenting;
+    private Transform getPlayer;
+    float dist; 
 
     void Start()
     {
         GotoNextPoint();
+        getPlayer = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void GotoNextPoint()
@@ -36,7 +41,21 @@ public class Elevator : MonoBehaviour {
         // Choose the next destination point when the agent gets
         // close to the current one.
         float step = speed * Time.deltaTime;
+
+        if ((dist > 6) & parenting)
+        {
+            getPlayer.parent = null;
+            parenting = false;
+            print("Unparented!");
+            dist = 0;
+        }
         time += Time.deltaTime;
+        if (parenting)
+        {
+            unparentPause = unparentPause + Time.deltaTime;
+            dist = Vector3.Distance(getPlayer.position, transform.position);
+            print(dist);
+        }
 
         if (Vector3.Distance(destinationLocal.position, transform.position) <= .1)
         {
@@ -44,6 +63,29 @@ public class Elevator : MonoBehaviour {
         }
         transform.position = Vector3.MoveTowards(transform.position, destinationLocal.position, step);
     }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if ((other.transform.tag == "Player") & !parenting)
+        {
+            other.transform.parent = this.transform;
+            parenting = true;
+            print("Parented!");
+        }
+    }
+    /*private void OnTriggerExit(Collider other)
+    {
+        if ((other.transform.tag == "Player") & (unparentPause > 0.1f) & parenting)
+        {
+            other.transform.parent = null;
+            unparentPause = 0;
+            print("Unparented!");
+            parenting = false;
+        }
+    }*/
+    
+
+    
 
 }
 
