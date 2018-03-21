@@ -5,29 +5,30 @@ using UnityEngine.UI;
 
 public class UIHealth2 : MonoBehaviour
 {
+    PlayerStats playerStats;
 
     [SerializeField]
-    int startLives, currentHealth;
+    int startLives, currentHealth, heal;
 
-    int maxHealthAmount = 10, fullHealth, heal;
+    int maxHealthAmount = 4, fullHealth;
 
     [SerializeField]
     Image[] healthImages;
 
-    [SerializeField]
-    Sprite[] healthSprites;
 
     void Start()
     {
+        playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
         currentHealth = startLives * heal;
         fullHealth = maxHealthAmount * heal;
+        CheckHealth(fullHealth);
     }
 
-    void CheckHealth()
+    void CheckHealth(int health)
     {
         for (int i = 0; i < maxHealthAmount; i++)
         {
-            if (startLives <= i)
+            if (health <= i)
             {
                 healthImages[i].enabled = false;
             }
@@ -35,55 +36,24 @@ public class UIHealth2 : MonoBehaviour
             {
                 healthImages[i].enabled = true;
             }
-
         }
     }
 
-    void TakeDamage(int damage)
+    public void TakeDamage(int health)
     {
-        currentHealth += damage;
+        currentHealth += health;
         currentHealth = Mathf.Clamp(currentHealth, 0, startLives * heal);
-        UpdateHealth();
+        CheckHealth(health);
     }
 
-    void AddHealth()
-    {
-        startLives++;
-        startLives = Mathf.Clamp(startLives, 0, maxHealthAmount);
+    /*   void AddHealth()
+       {
+           startLives++;
+           startLives = Mathf.Clamp(startLives, 0, maxHealthAmount);
 
-        // currentHealth = startLives * heal;
-        //  fullHealth = maxHealthAmount * heal;
+           // currentHealth = startLives * heal;
+           // fullHealth = maxHealthAmount * heal;
 
-        CheckHealth();
-    }
-    void UpdateHealth()
-    {
-        bool empty = false;
-        int i = 0;
-
-        foreach (Image image in healthImages)
-        {
-            if (empty)
-            {
-                image.sprite = healthSprites[0];
-            }
-            else
-            {
-                i++;
-                if (currentHealth >= i * heal)
-                {
-                    image.sprite = healthSprites[healthSprites.Length - 1];
-                }
-
-                else
-                {
-                    int currentLiveHealth = (int)(heal - (heal * i - currentHealth));
-                    int healthPerImage = heal / (healthSprites.Length - 1);
-                    int imageIndex = currentLiveHealth / healthPerImage;
-                    image.sprite = healthSprites[imageIndex];
-                    empty = true;
-                }
-            }
-        }
-    }
+           CheckHealth(startLives);
+       } */
 }
