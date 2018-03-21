@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
+    UIHealth2 uiHealth;
     [SerializeField]
     float maxHealth;
     [SerializeField]
@@ -17,11 +18,13 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
+        uiHealth = GameObject.FindGameObjectWithTag("Healthbar").GetComponent<UIHealth2>();
+
         if (PlayerPrefs.GetFloat("savedHealth") != -1)
         {
             health = cPHealth;
         }
-        
+
     }
 
     public void ChangeHealth(float value) //Lägg till eller ta bort hälsa från spelaren
@@ -37,6 +40,8 @@ public class PlayerStats : MonoBehaviour
         {
             PlayerDies();
         }
+
+        uiHealth.TakeDamage((int)health);
     }
 
     public void PlayerDies() //Ifall spelaren dör
@@ -51,6 +56,6 @@ public class PlayerStats : MonoBehaviour
     {
         this.checkpoint = checkpoint;
         cPHealth = health;
-        
+
     }
 }
