@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Turret : MobStats
 {
-    Transform head;
+    protected Transform head;
 
     protected override void Start()
     {
