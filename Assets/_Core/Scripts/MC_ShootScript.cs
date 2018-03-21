@@ -30,6 +30,7 @@ public class MC_ShootScript : MonoBehaviour
     Color[] colors;
     [SerializeField]
     AudioClip[] shots;
+    private SoundManager soundManager;
 
     void Start()
     {
