@@ -57,11 +57,14 @@ public class Elevator : MonoBehaviour {
             //print(dist);
         }
 
-        if (Vector3.Distance(destinationLocal.position, transform.position) <= .1)
+        if ((destinationLocal != null) && (Vector3.Distance(destinationLocal.position, transform.position) <= .1))
         {
             GotoNextPoint();
         }
-        transform.position = Vector3.MoveTowards(transform.position, destinationLocal.position, step);
+        if (destinationLocal != null)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, destinationLocal.position, step);
+        }
     }
 
     private void OnTriggerStay(Collider other)
