@@ -8,12 +8,12 @@ public class testMCmovement : MonoBehaviour
 {
     [SerializeField]
     float speed = 6.0f, rotationSpeed = 6.0f, jumpSpeed = 8.0f, gravity = 20.0f, airtime, crouchCenterOffsetY, crouchHeightOffset, crouchCenterOriginal, crouchHeightOriginal;
-    float moveOnX;
+    float moveOnX, startSpeed;
     float offsetZ = -0.85f;
 
     int jumps = 2, currentjump = 0;
 
-    bool facingRight, isGrounded, isCrouching;
+    bool facingRight, isGrounded, isCrouching, inAir;
 
     Animator animator;
 
@@ -27,7 +27,9 @@ public class testMCmovement : MonoBehaviour
         controller = GetComponent<CharacterController>();
         facingRight = true;
         isCrouching = false;
+        inAir = false;
         airtime = 0;
+        startSpeed = speed;
     }
 
     void Update()
@@ -35,7 +37,11 @@ public class testMCmovement : MonoBehaviour
         transform.position = new Vector3(transform.position.x, transform.position.y, offsetZ);
         GroundCheck();
         animator.SetBool("isGrounded", isGrounded);
-        moveOnX = Input.GetAxisRaw("Horizontal");
+
+        if (isGrounded || !isCrouching)
+        {
+            moveOnX = Input.GetAxisRaw("Horizontal");
+        }
 
         if (isGrounded) //Ifall spelaren är på marken
         {
@@ -114,15 +120,24 @@ public class testMCmovement : MonoBehaviour
     {
         if (crouching)
         {
+            isCrouching = true;
             animator.SetBool("isCrouching", true);
             controller.height = crouchHeightOffset;
             controller.center = new Vector3(0, crouchCenterOffsetY, 0);
+            speed = speed / 2;
+
+            if (!isGrounded)
+            {
+                speed = startSpeed;
+            }
         }
         if (!crouching)
         {
+            isCrouching = false;
             animator.SetBool("isCrouching", false);
             controller.height = crouchHeightOriginal;
             controller.center = new Vector3(0, crouchCenterOriginal, 0);
+            speed = startSpeed;
         }
     }
 
