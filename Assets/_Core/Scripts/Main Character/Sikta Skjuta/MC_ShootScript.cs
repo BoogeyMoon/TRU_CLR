@@ -34,7 +34,7 @@ public class MC_ShootScript : MonoBehaviour
     AudioClip[] shots;
     private SoundManager soundManager;
     private GameObject mcCharacter;
-    bool dashOnCooldown;
+    bool dashOnCooldown, doTheDash;
     float dashCooldown;
 
     void Start()
@@ -79,11 +79,19 @@ public class MC_ShootScript : MonoBehaviour
             { dashCooldown = 0; dashOnCooldown = false; }
         }
 
+        if (doTheDash) 
+        {
+            transform.position = Vector3.Lerp(transform.position, endDash, 8 * Time.deltaTime);
+        }
+
+        if (Vector3.Distance(transform.position, endDash) <= 1.5f)
+        { doTheDash = false; } 
+        
         if (Input.GetMouseButton(1) && !dashOnCooldown)
         {
-
             Dash();
         }
+
         if (Input.GetKeyDown(KeyCode.E))
         {
             activeColor = (activeColor + 1) % 3;
@@ -132,9 +140,19 @@ public class MC_ShootScript : MonoBehaviour
     void Dash ()
     {
         direction = rifleBarrel.transform.forward;        
-        endDash = transform.position + (10 * direction);
-        transform.position = endDash;
-        dashOnCooldown = true;
+        endDash = transform.position + (13 * direction);
+        /*Ray ray = new Ray(startPosition, direction);
+        RaycastHit raycastHit;
+
+        if (Physics.Raycast(ray, out raycastHit, 10))
+        {
+            endDash = raycastHit.point;
+        }*/
+
+            //transform.position = endDash;
+            dashOnCooldown = true;
+        doTheDash = true; 
+        
     }
 
     IEnumerator LaserLifeTime()
