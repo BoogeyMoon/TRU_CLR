@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//Av Timmy Alvelöv 
 
+//Beskriver Turretens skjutmönster
 public class Turret : MobStats
 {
     protected Transform head;
 
-    protected override void Start()
+    protected override void Start() // Sätter startvärden
     {
         base.Start();
         head = transform.GetChild(1);
     }
-	void Update()
+	void Update() //
     {
         playerDistance = GetPlayerDistance(transform);
         timeLeft -= Time.deltaTime;
