@@ -154,7 +154,7 @@ public class MobStats : MonoBehaviour
     }
     protected virtual float GetPlayerDistance(Transform position) //Ger tillbaka avståndet till spelaren med endast x -och yaxlarna i beaktning
     {
-        return Mathf.Sqrt(Mathf.Abs(Mathf.Pow((player.transform.position.x - position.position.x), 2) + Mathf.Pow((player.transform.position.y - position.position.y), 2)));
+        return ((player.transform.position - position.position).magnitude);
     }
     protected bool CanSeePlayer()
     {
