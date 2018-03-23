@@ -54,7 +54,7 @@ public class Elevator : MonoBehaviour {
         {
             unparentPause = unparentPause + Time.deltaTime;
             dist = Vector3.Distance(getPlayer.position, transform.position);
-            print(dist);
+            //print(dist);
         }
 
         if (Vector3.Distance(destinationLocal.position, transform.position) <= .1)

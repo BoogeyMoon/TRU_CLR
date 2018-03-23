@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 // Av Timmy Alvelöv
 // Vissa tillägg ang. röda projektilen av Moa Lindgren.
+// Also added to by Slavko Stojnic
 
 //Används för att skapa projektilerna som MC skjuter.
 public class MC_ShootScript : MonoBehaviour
@@ -22,6 +23,7 @@ public class MC_ShootScript : MonoBehaviour
     float[] cooldowns;
     LineRenderer laserLineRenderer;
     Vector3 startPosition, direction;
+    Vector3 endDash;
     [SerializeField]
     GameObject colorIndicator;
     ColorIndicatior colorInd;
@@ -31,6 +33,9 @@ public class MC_ShootScript : MonoBehaviour
     [SerializeField]
     AudioClip[] shots;
     private SoundManager soundManager;
+    private GameObject mcCharacter;
+    bool dashOnCooldown;
+    float dashCooldown;
 
     void Start()
     {
@@ -41,6 +46,7 @@ public class MC_ShootScript : MonoBehaviour
         laserLineRenderer = GetComponent<LineRenderer>();
         activeColor = (int)ColorProjectiles.Blue;
         colorInd = colorIndicator.GetComponent<ColorIndicatior>();
+        mcCharacter =  gameObject;
     }
 
     void Update()
@@ -62,10 +68,21 @@ public class MC_ShootScript : MonoBehaviour
                 Shoot();
 
                 StartCoroutine(LaserLifeTime());
-
                 soundManager.RandomizeSfx(shots);
 
             }
+        }
+        if (dashOnCooldown)
+        {
+            dashCooldown += Time.deltaTime;
+            if (dashCooldown >= 3)
+            { dashCooldown = 0; dashOnCooldown = false; }
+        }
+
+        if (Input.GetMouseButton(1) && !dashOnCooldown)
+        {
+
+            Dash();
         }
         if (Input.GetKeyDown(KeyCode.E))
         {
@@ -111,6 +128,15 @@ public class MC_ShootScript : MonoBehaviour
         new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
         fireRate = cooldown;
     }
+
+    void Dash ()
+    {
+        direction = rifleBarrel.transform.forward;        
+        endDash = transform.position + (10 * direction);
+        transform.position = endDash;
+        dashOnCooldown = true;
+    }
+
     IEnumerator LaserLifeTime()
     {
         yield return new WaitForSeconds(0.5f);
