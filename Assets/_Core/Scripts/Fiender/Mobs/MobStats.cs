@@ -175,5 +175,9 @@ public class MobStats : MonoBehaviour
         }
         return false;
     }
+    protected void LookAtPlayer(Transform Obj) //Kollar mot spelaren på x-y planet
+    {
+        Obj.transform.LookAt(new Vector3 (player.position.x, player.position.y, Obj.position.z));
+    }
 
 }

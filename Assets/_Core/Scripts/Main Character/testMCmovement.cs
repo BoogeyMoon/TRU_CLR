@@ -175,7 +175,8 @@ public class testMCmovement : MonoBehaviour
 
         if (moveDirection.y > 0 && Physics.SphereCast(transform.position + new Vector3(0, 1.85f, 0), 0.2f, transform.up, out hit, 0.1f))
         {
-            moveDirection.y = 0;
+            if (hit.transform.gameObject.tag != "PatrolPoint" && hit.transform.gameObject.tag != "Bullet")
+                moveDirection.y = 0;
         }
     }
 }

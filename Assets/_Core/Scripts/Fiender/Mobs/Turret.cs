@@ -13,15 +13,15 @@ public class Turret : MobStats
         base.Start();
         head = transform.GetChild(1);
     }
-	void Update() //
+    void Update() //Moben agerar
     {
+        LookAtPlayer(head);
         playerDistance = GetPlayerDistance(transform);
         timeLeft -= Time.deltaTime;
         burstTimer -= Time.deltaTime;
 
         if (aggroRange > GetPlayerDistance(transform))
         {
-            head.LookAt(player);
 
             if (burstTimer < 0)
             {
@@ -30,7 +30,7 @@ public class Turret : MobStats
                     Shoot();
                 }
             }
-            
+
         }
     }
 }
