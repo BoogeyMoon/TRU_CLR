@@ -25,12 +25,13 @@ public class Pretend_Bullet : Projectile
             if (coll.gameObject.tag == "Weakpoint")
                 coll.GetComponent<MobStats>().TakeDamage(damage, color);
             gameObject.GetComponent<ParticleKill>().Kill();
-            StartCoroutine(Die());
+            //StartCoroutine(Die());
+            Die();
         }
     }
-    IEnumerator Die() //Låter partikeleffekten kollidera innan jag förstör scriptet.
+    void Die() //Låter partikeleffekten kollidera innan jag förstör scriptet.
     {
-        yield return new WaitForSeconds(0);
+        //yield return new WaitForSeconds(0);
         Destroy(this);
     }
 }
