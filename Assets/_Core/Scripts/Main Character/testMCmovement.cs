@@ -20,7 +20,10 @@ public class testMCmovement : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
 
     CharacterController controller;
-
+    void Awake()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y, offsetZ);
+    }
     void Start()
     {
         animator = GetComponent<Animator>();

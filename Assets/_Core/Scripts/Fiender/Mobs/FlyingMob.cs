@@ -19,6 +19,7 @@ public class FlyingMob : MobStats
         closestDistance = aggroRange - distanceInterval;
         loseTrackOfPlayer = 1;
         timeSinceSeenPlayer = 0;
+        SetToPlayerPlane(gameObject.transform);
 
     }
     void Update() //Ser till att rätt metoder anropas när de ska.
@@ -54,7 +55,7 @@ public class FlyingMob : MobStats
                 else
                 {
                     Move();
-                    LookAtPlayer(player);
+                    LookAtPlayer(playerTarget);
                 }
             }
             else
@@ -74,14 +75,14 @@ public class FlyingMob : MobStats
     {
         
         if (chase)
-            transform.position = Vector3.MoveTowards(transform.position, player.transform.position, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, playerTarget.transform.position, speed * Time.deltaTime);
         else if(closestDistance > playerDistance)
         {
             transform.Translate(-Vector3.forward * Time.deltaTime * speed);
         }
 
 
-        transform.position = new Vector3 (transform.position.x, transform.position.y, player.transform.position.z);
+        transform.position = new Vector3 (transform.position.x, transform.position.y, playerTarget.transform.position.z);
     }
     void ChaseCheck() //Bestämmer om moben kommer att jaga spelaren eller inte.
     {

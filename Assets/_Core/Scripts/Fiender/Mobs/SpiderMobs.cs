@@ -25,7 +25,7 @@ public class SpiderMobs : MobStats
         {
             body.velocity = Vector3.zero;
         }
-        turret.LookAt(player);
+        turret.LookAt(playerTarget);
         if (destination != null)
         {
             Move();
