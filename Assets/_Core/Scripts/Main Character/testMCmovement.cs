@@ -162,7 +162,7 @@ public class testMCmovement : MonoBehaviour
     void GroundCheck() //Kollar om spelaren står på marken
     {
         RaycastHit hit;
-        isGrounded = Physics.SphereCast(transform.position + new Vector3(0, .25f, 0), 0.2f, -transform.up, out hit, 0.1f);
+        isGrounded = Physics.SphereCast(transform.position + new Vector3(0, .3f, 0), 0.2f, -transform.up, out hit, 0.1f);
         if (hit.transform != null)
         {
             if (hit.transform.gameObject.tag == "Bullet" || hit.transform.gameObject.tag == "PatrolPoint")
