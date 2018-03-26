@@ -6,14 +6,20 @@ using UnityEngine;
 //Beskriver Turretens skjutmönster
 public class Turret : MobStats
 {
+    [SerializeField]
     protected Transform head;
+
+    Animator animator;
 
     protected override void Start() // Sätter startvärden
     {
         base.Start();
-        head = transform.GetChild(1);
+        //head = transform.GetChild(1);
         SetToPlayerPlane(head);
+        animator = gameObject.GetComponent<Animator>();
+
     }
+
     void Update() //Moben agerar
     {
         LookAtPlayer(head);
@@ -21,14 +27,15 @@ public class Turret : MobStats
         timeLeft -= Time.deltaTime;
         burstTimer -= Time.deltaTime;
 
+
         if (aggroRange > playerDistance)
         {
-
             if (burstTimer < 0)
             {
                 if (timeLeft < 0)
                 {
                     Shoot();
+                    animator.SetTrigger("shoot");
                 }
             }
 
