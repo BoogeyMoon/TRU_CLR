@@ -20,7 +20,7 @@ public class Mob_bullet : Mob_Projectile
 
     void OnTriggerEnter(Collider coll) //Kollar om den kolliderar med något
     {
-        if(coll.gameObject.tag != "Weakpoint" && coll.gameObject.tag != "Bullet") // Ignorerar andra fiender och kulor 
+        if(coll.gameObject.tag != "Weakpoint" && coll.gameObject.tag != "Bullet" && coll.gameObject.tag != "PatrolPoint") // Ignorerar andra fiender, kulor och patrullpunkter 
         {
             if(coll.gameObject.tag == "Player")
             {
