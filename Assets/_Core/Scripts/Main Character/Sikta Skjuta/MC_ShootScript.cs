@@ -11,32 +11,28 @@ public class MC_ShootScript : MonoBehaviour
     [SerializeField]
     GameObject[] colorsBullets;
     [SerializeField]
-    GameObject rifleBarrel, shoulderAim;
-    GameObject currentBullet;
+    GameObject rifleBarrel, shoulderAim, shield, colorIndicator;
+    GameObject currentBullet, mcCharacter, currentShield;
 
     enum ColorProjectiles { Blue, Yellow, Red };
     int activeColor;
     [SerializeField]
     float laserDamage;
-    float cooldown, fireRate, offsetZ, laserLength;
+    float cooldown, fireRate, offsetZ, laserLength, dashCooldown;
     [SerializeField]
     float[] cooldowns;
+    bool dashOnCooldown, doTheDash;
+
     LineRenderer laserLineRenderer;
-    Vector3 startPosition, direction;
-    Vector3 endDash;
-    [SerializeField]
-    GameObject colorIndicator;
+    Vector3 startPosition, direction, endDash;
     ColorIndicatior colorInd;
     [SerializeField]
     Material material;
-
     Color[] colors;
     [SerializeField]
     AudioClip[] shots;
-    private SoundManager soundManager;
-    private GameObject mcCharacter;
-    bool dashOnCooldown, doTheDash;
-    float dashCooldown;
+    SoundManager soundManager;
+
 
     void Start()
     {
@@ -108,6 +104,14 @@ public class MC_ShootScript : MonoBehaviour
                 activeColor = colorsBullets.Length - 1;
             }
             colorInd.SwitchColor(false);
+        }
+
+        //Tillagt för shield:
+        if (Input.GetKeyDown(KeyCode.LeftShift))
+        {
+            currentShield = Instantiate(shield,
+            new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
+            currentShield.transform.rotation = rifleBarrel.transform.rotation;
         }
     }
 
