@@ -7,8 +7,8 @@ using UnityEngine;
 public class testMCmovement : MonoBehaviour
 {
     [SerializeField]
-    float speed = 6.0f, rotationSpeed = 6.0f, jumpSpeed = 8.0f, gravity = 20.0f, airtime, crouchCenterOffsetY, crouchHeightOffset, crouchCenterOriginal, crouchHeightOriginal;
-    float moveOnX, startSpeed;
+    float speed = 6.0f, rotationSpeed = 6.0f, jumpSpeed = 8.0f, gravity = 20.0f, airtime;
+    float moveOnX, startSpeed, crouchCenterOffsetY = 0.5f, crouchHeightOffset = 0.9f, crouchCenterOriginal = 1f, crouchHeightOriginal = 1.8f;
     float offsetZ = -0.85f;
 
     int jumps = 2, currentjump = 0;
@@ -20,7 +20,10 @@ public class testMCmovement : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
 
     CharacterController controller;
-
+    void Awake()
+    {
+        transform.position = new Vector3(transform.position.x, transform.position.y, offsetZ);
+    }
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -162,7 +165,7 @@ public class testMCmovement : MonoBehaviour
         isGrounded = Physics.SphereCast(transform.position + new Vector3(0, .25f, 0), 0.2f, -transform.up, out hit, 0.1f);
         if (hit.transform != null)
         {
-            if (hit.transform.gameObject.tag == "Bullet" && hit.transform.gameObject.tag == "Weakpoint")
+            if (hit.transform.gameObject.tag == "Bullet" || hit.transform.gameObject.tag == "PatrolPoint")
             {
                 isGrounded = false;
             }
@@ -177,6 +180,7 @@ public class testMCmovement : MonoBehaviour
         {
             if (hit.transform.gameObject.tag != "PatrolPoint" && hit.transform.gameObject.tag != "Bullet")
                 moveDirection.y = 0;
+
         }
     }
 }

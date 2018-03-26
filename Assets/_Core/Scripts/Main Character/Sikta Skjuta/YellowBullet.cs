@@ -12,7 +12,7 @@ public class YellowBullet : Projectile
     float gravity;
     float zOffSet;
     Vector3 position;
-    // Use this for initialization
+
     void Start()
     {
         base.Start();
@@ -33,7 +33,7 @@ public class YellowBullet : Projectile
     protected override void OnTriggerEnter(Collider coll)
     {
         base.OnTriggerEnter(coll);
-        if (coll.gameObject.tag != "Player" && coll.gameObject.tag != "Bullet")
+        if (coll.gameObject.tag != "Player" && coll.gameObject.tag != "Bullet" && coll.gameObject.tag != "PatrolPoint")
         {
             if (coll.gameObject.tag == "Weakpoint")
                 coll.GetComponent<MobStats>().TakeDamage(damage, color);

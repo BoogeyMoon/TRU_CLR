@@ -16,7 +16,7 @@ public class MobStats : MonoBehaviour
     [SerializeField]
     protected GameObject destination, bullet, patrolPoints;
     protected GameObject currentBullet;
-    protected Transform player;
+    protected Transform playerTarget, player;
     protected List<Transform> patrolPointsList = new List<Transform>();
     protected bool onCooldown;
     protected float timeLeft, burstTimer, burstCounter, playerDistance;
@@ -25,7 +25,8 @@ public class MobStats : MonoBehaviour
 
     void Awake()
     {
-        player = GameObject.FindGameObjectWithTag("ShootHere").transform;
+        playerTarget = GameObject.FindGameObjectWithTag("ShootHere").transform;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
     protected virtual void Start()
     {
@@ -154,17 +155,17 @@ public class MobStats : MonoBehaviour
     }
     protected virtual float GetPlayerDistance(Transform position) //Ger tillbaka avståndet till spelaren med endast x -och yaxlarna i beaktning
     {
-        return ((player.transform.position - position.position).magnitude);
+        return ((playerTarget.transform.position - position.position).magnitude);
     }
-    protected bool CanSeePlayer()
+    protected bool CanSeePlayer() //Ser om det finns en collder mellan spelaren och fienden
     {
         for (int i = 0; i < eyes.Length; i++)
         {
             RaycastHit hit;
 
-            if (Physics.Raycast(eyes[i].transform.position, new Vector3(player.position.x - eyes[i].transform.position.x, player.position.y - eyes[i].transform.position.y, player.position.z - eyes[i].transform.position.z), out hit, Mathf.Infinity))
+            if (Physics.Raycast(eyes[i].transform.position, new Vector3(playerTarget.position.x - eyes[i].transform.position.x, playerTarget.position.y - eyes[i].transform.position.y, playerTarget.position.z - eyes[i].transform.position.z), out hit, Mathf.Infinity))
             {
-                Debug.DrawRay(eyes[i].transform.position, new Vector3(player.position.x - transform.position.x, player.position.y - transform.position.y, player.position.z - transform.position.z), Color.blue);
+                Debug.DrawRay(eyes[i].transform.position, new Vector3(playerTarget.position.x - transform.position.x, playerTarget.position.y - transform.position.y, playerTarget.position.z - transform.position.z), Color.blue);
                 if (hit.transform.gameObject.tag == "Player")
                 {
                     return true;
@@ -177,7 +178,11 @@ public class MobStats : MonoBehaviour
     }
     protected void LookAtPlayer(Transform Obj) //Kollar mot spelaren på x-y planet
     {
-        Obj.transform.LookAt(new Vector3 (player.position.x, player.position.y, Obj.position.z));
+        Obj.transform.LookAt(new Vector3 (playerTarget.position.x, playerTarget.position.y, Obj.position.z));
+    }
+    protected void SetToPlayerPlane(Transform Obj)  
+    {
+        Obj.transform.position = new Vector3(Obj.transform.position.x, Obj.transform.position.y, player.transform.position.z);
     }
 
 }
