@@ -30,7 +30,7 @@ public class Pretend_Bullet : Projectile
     }
     IEnumerator Die() //Låter partikeleffekten kollidera innan jag förstör scriptet.
     {
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0);
         Destroy(this);
     }
 }

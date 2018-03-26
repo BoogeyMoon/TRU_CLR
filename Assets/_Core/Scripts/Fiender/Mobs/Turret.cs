@@ -12,15 +12,16 @@ public class Turret : MobStats
     {
         base.Start();
         head = transform.GetChild(1);
+        SetToPlayerPlane(head);
     }
     void Update() //Moben agerar
     {
         LookAtPlayer(head);
-        playerDistance = GetPlayerDistance(transform);
+        playerDistance = GetPlayerDistance(head.transform);
         timeLeft -= Time.deltaTime;
         burstTimer -= Time.deltaTime;
 
-        if (aggroRange > GetPlayerDistance(transform))
+        if (aggroRange > playerDistance)
         {
 
             if (burstTimer < 0)
