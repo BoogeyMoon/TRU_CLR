@@ -182,7 +182,6 @@ public class MobStats : MonoBehaviour
     }
     protected void SetToPlayerPlane(Transform Obj)  
     {
-        print(player.transform.position.z);
         Obj.transform.position = new Vector3(Obj.transform.position.x, Obj.transform.position.y, player.transform.position.z);
     }
 
