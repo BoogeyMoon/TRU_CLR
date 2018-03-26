@@ -20,7 +20,7 @@ public class Pretend_Bullet : Projectile
     protected override void OnTriggerEnter(Collider coll) //Tar hand om collisioner
     {
         base.OnTriggerEnter(coll);
-        if (coll.gameObject.tag != "Player" && coll.gameObject.tag != "Bullet")
+        if (coll.gameObject.tag != "Player" && coll.gameObject.tag != "Bullet" && coll.gameObject.tag != "PatrolPoint")
         {
             if (coll.gameObject.tag == "Weakpoint")
                 coll.GetComponent<MobStats>().TakeDamage(damage, color);
