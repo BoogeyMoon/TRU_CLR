@@ -55,7 +55,7 @@ public class FlyingMob : MobStats
                 else
                 {
                     Move();
-                    LookAtPlayer(playerTarget);
+                    LookAtPlayer(transform);
                 }
             }
             else
