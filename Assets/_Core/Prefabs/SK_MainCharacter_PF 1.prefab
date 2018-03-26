@@ -917,7 +917,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1792648718854088}
   m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 5.47, y: 0.40952402, z: -1.22}
+  m_LocalPosition: {x: -14.86, y: 1.21, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4247366309600634}
@@ -1079,13 +1079,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 6
   rotationSpeed: 6
-  jumpSpeed: 12
-  gravity: 20
+  jumpSpeed: 9
+  gravity: 18
   airtime: 0
-  crouchCenterOffsetY: 0
-  crouchHeightOffset: 0
-  crouchCenterOriginal: 0
-  crouchHeightOriginal: 0
 --- !u!114 &114269647725588438
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1103,12 +1099,13 @@ MonoBehaviour:
   - {fileID: 1578950260938776, guid: d20adbc255b8ccd40bc43e03472c10ef, type: 2}
   rifleBarrel: {fileID: 1754493347678244}
   shoulderAim: {fileID: 1589744676811700}
-  laserDamage: 3
+  shield: {fileID: 1059979422184458, guid: a0127f3e2ba2ddc498f12eb65850281c, type: 2}
+  colorIndicator: {fileID: 0}
+  laserDamage: 5
   cooldowns:
   - 0.5
   - 0.5
   - 0.52
-  colorIndicator: {fileID: 0}
   material: {fileID: 2100000, guid: 77da4f3e1cc5e0d498ea4419d585880d, type: 2}
   shots:
   - {fileID: 8300000, guid: 43694ece8a9a2ed4e820be2aaa03e440, type: 3}
@@ -1123,9 +1120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0148ea93b4495bf499579994920c464e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 20
+  maxHealth: 10
   health: 0
-  cPHealth: 20
+  cPHealth: 10
 --- !u!114 &114597605329760832
 MonoBehaviour:
   m_ObjectHideFlags: 1
