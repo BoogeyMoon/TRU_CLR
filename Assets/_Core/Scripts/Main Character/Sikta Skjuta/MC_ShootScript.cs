@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 // Av Timmy Alvelöv
@@ -29,6 +29,7 @@ public class MC_ShootScript : MonoBehaviour
     ColorIndicatior colorInd;
     [SerializeField]
     Material material;
+
     Color[] colors;
     [SerializeField]
     AudioClip[] shots;
@@ -53,6 +54,8 @@ public class MC_ShootScript : MonoBehaviour
     {
         material.color = colors[activeColor];
         material.SetColor("_EmissionColor", colors[activeColor]);
+        material.SetColor("_MKGlowColor", colors[activeColor]);
+        material.SetColor("_MKGlowTexColor", colors[activeColor]);
         shoulderAim.transform.position = new Vector3(shoulderAim.transform.position.x, shoulderAim.transform.position.y, offsetZ);
         cooldown = cooldowns[activeColor];
 
