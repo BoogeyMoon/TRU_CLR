@@ -18,13 +18,12 @@ public class MC_ShootScript : MonoBehaviour
     int activeColor;
     [SerializeField]
     float laserDamage;
-    float cooldown, fireRate, offsetZ, laserLength, dashCooldown;
+    float cooldown, fireRate, offsetZ, laserLength;
     [SerializeField]
     float[] cooldowns;
-    bool dashOnCooldown, doTheDash;
 
     LineRenderer laserLineRenderer;
-    Vector3 startPosition, direction, endDash;
+    Vector3 startPosition, direction;
     ColorIndicatior colorInd;
     [SerializeField]
     Material material;
@@ -69,27 +68,6 @@ public class MC_ShootScript : MonoBehaviour
         {
             fireRate -= Time.deltaTime;
         }
-
-        //Om dash är på cooldown, räkna ner i 3 sek, och gör sedan dash aktiv igen:
-        if (dashOnCooldown)
-        {
-            dashCooldown += Time.deltaTime;
-            if (dashCooldown >= 3)
-            {
-                dashCooldown = 0;
-                dashOnCooldown = false;
-            }
-        }
-
-        if (doTheDash)
-        {
-            transform.position = Vector3.Lerp(transform.position, endDash, 8 * Time.deltaTime);
-        }
-        if (Vector3.Distance(transform.position, endDash) <= 1.5f)
-        {
-            doTheDash = false;
-        }
-
     }
 
     void KeyPress()
@@ -106,11 +84,6 @@ public class MC_ShootScript : MonoBehaviour
             }
         }
 
-        //Dashar fram på höger musklick:
-        if (Input.GetMouseButton(1) && !dashOnCooldown)
-        {
-            Dash();
-        }
 
         //Byter färg/egenskap på E och Q:
         if (Input.GetKeyDown(KeyCode.E))
@@ -128,7 +101,7 @@ public class MC_ShootScript : MonoBehaviour
             colorInd.SwitchColor(false);
         }
 
-        //Skickar en sköld på höger Shift:
+        //Skickar en sköld på vänster Shift:
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             currentShield = Instantiate(shield,
@@ -167,23 +140,6 @@ public class MC_ShootScript : MonoBehaviour
         fireRate = cooldown;
     }
 
-    void Dash()
-    {
-        direction = rifleBarrel.transform.forward;
-        endDash = transform.position + (13 * direction);
-        /*Ray ray = new Ray(startPosition, direction);
-        RaycastHit raycastHit;
-
-        if (Physics.Raycast(ray, out raycastHit, 10))
-        {
-            endDash = raycastHit.point;
-        }*/
-
-        //transform.position = endDash;
-        dashOnCooldown = true;
-        doTheDash = true;
-
-    }
     IEnumerator LaserLifeTime()
     {
         yield return new WaitForSeconds(0.5f);

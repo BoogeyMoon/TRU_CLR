@@ -42,7 +42,7 @@ public class Elevator : MonoBehaviour {
         // close to the current one.
         float step = speed * Time.deltaTime;
 
-        if ((dist > 6) & parenting)
+        if ((dist > 6) & parenting) // check if need to unparent MC
         {
             getPlayer.parent = null;
             parenting = false;
@@ -50,18 +50,19 @@ public class Elevator : MonoBehaviour {
             dist = 0;
         }
         time += Time.deltaTime;
-        if (parenting)
+
+        /*if (parenting) // cooldown for parenting, probably unneessary
         {
             unparentPause = unparentPause + Time.deltaTime;
             dist = Vector3.Distance(getPlayer.position, transform.position);
             //print(dist);
-        }
+        }*/
 
-        if ((destinationLocal != null) && (Vector3.Distance(destinationLocal.position, transform.position) <= .1))
-        {
+        if ((destinationLocal != null) && (Vector3.Distance(destinationLocal.position, transform.position) <= .1)) // reached one patrol point? go to next one.
+         {
             GotoNextPoint();
         }
-        if (destinationLocal != null)
+        if (destinationLocal != null) // travel towards the next patrol point at a designated speed 
         {
             transform.position = Vector3.MoveTowards(transform.position, destinationLocal.position, step);
         }
@@ -76,7 +77,7 @@ public class Elevator : MonoBehaviour {
             print("Parented!");
         }
     }
-    /*private void OnTriggerExit(Collider other)
+    /*private void OnTriggerExit(Collider other) // older unparenting solution, probably unnecessary 
     {
         if ((other.transform.tag == "Player") & (unparentPause > 0.1f) & parenting)
         {

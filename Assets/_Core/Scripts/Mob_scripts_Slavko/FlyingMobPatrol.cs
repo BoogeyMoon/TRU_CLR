@@ -63,7 +63,7 @@ public class FlyingMobPatrol : MobStats {
     {
         // Choose the next destination point when the agent gets
         // close to the current one.
-        if ((Vector3.Distance(destinationLocal.position, transform.position) <= .1) && !aggro)
+        if (destinationLocal != null && (Vector3.Distance(destinationLocal.position, transform.position) <= .1) && !aggro)
         {
             GotoNextPoint();
             //Patrol();
@@ -71,7 +71,7 @@ public class FlyingMobPatrol : MobStats {
 
         float step = speed * Time.deltaTime;
         time += Time.deltaTime;
-        if (!aggro)
+        if (!aggro && destinationLocal !=null)
         {
             transform.position = Vector3.MoveTowards(transform.position, destinationLocal.position, step);
         }
