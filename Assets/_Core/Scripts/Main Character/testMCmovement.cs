@@ -13,6 +13,7 @@ public class testMCmovement : MonoBehaviour
 
     int jumps = 2, currentjump = 0;
 
+    [SerializeField]
     bool facingRight, isGrounded, isCrouching, inAir;
 
     Animator animator;
@@ -80,11 +81,6 @@ public class testMCmovement : MonoBehaviour
 
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
-
-        if (Input.GetKeyDown(KeyCode.KeypadEnter) && isGrounded)
-        {
-            animator.SetTrigger("wave");
-        }
     }
 
     void FlipPlayer() //Vänd spelaren åt motsatt rotation

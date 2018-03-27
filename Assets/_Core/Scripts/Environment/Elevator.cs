@@ -38,9 +38,15 @@ public class Elevator : MonoBehaviour {
 
     void Update()
     {
-        // Choose the next destination point when the agent gets
-        // close to the current one.
+
         float step = speed * Time.deltaTime;
+
+        if (parenting) // if parenting, calculate distance
+        {
+            //unparentPause = unparentPause + Time.deltaTime; // cooldown for parenting, probably unneessary
+            dist = Vector3.Distance(getPlayer.position, transform.position);
+            //print(dist);
+        }
 
         if ((dist > 6) & parenting) // check if need to unparent MC
         {
@@ -51,12 +57,7 @@ public class Elevator : MonoBehaviour {
         }
         time += Time.deltaTime;
 
-        /*if (parenting) // cooldown for parenting, probably unneessary
-        {
-            unparentPause = unparentPause + Time.deltaTime;
-            dist = Vector3.Distance(getPlayer.position, transform.position);
-            //print(dist);
-        }*/
+
 
         if ((destinationLocal != null) && (Vector3.Distance(destinationLocal.position, transform.position) <= .1)) // reached one patrol point? go to next one.
          {

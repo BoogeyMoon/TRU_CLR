@@ -58,4 +58,9 @@ public class PlayerStats : MonoBehaviour
         cPHealth = health;
 
     }
+
+    public void ChangeLayer(int layer)
+    {
+        gameObject.layer = layer;
+    }
 }

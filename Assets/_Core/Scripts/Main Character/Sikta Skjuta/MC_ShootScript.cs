@@ -142,7 +142,7 @@ public class MC_ShootScript : MonoBehaviour
 
     IEnumerator LaserLifeTime()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         laserLineRenderer.enabled = false;
     }
 }

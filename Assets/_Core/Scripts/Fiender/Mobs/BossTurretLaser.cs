@@ -5,18 +5,17 @@ using UnityEngine;
 public class BossTurretLaser : MobStats
 {
     [SerializeField]
-    float laserCooldown, maxLaserCharge, laserLength, laserDamage;
-    [SerializeField]
-    GameObject laserCannon;
+    float maxLaserCharge, laserLength,chargeUpTime, laserDuration;
+    float laserCooldown, laserDurTimer;
     LineRenderer bossLineRend;
-    bool hasShot, charging;
+    bool hasShot, cooldown, playerLayer;
     Vector3 startPosition, direction;
 
     protected override void Start()
     {
         base.Start();
         bossLineRend = GetComponent<LineRenderer>();
-        charging = true;
+        cooldown = true;
         hasShot = false;
     }
 
@@ -24,46 +23,45 @@ public class BossTurretLaser : MobStats
     {
         laserCooldown -= Time.deltaTime;
 
-        startPosition = laserCannon.transform.position;
-        direction = laserCannon.transform.forward;
-        Ray ray = new Ray(startPosition, direction);
-        RaycastHit raycastHit;
-        Vector3 endPosition = startPosition + (laserLength * direction);
-
-        if (Physics.Raycast(ray, out raycastHit, laserLength))
+        if (cooldown)
         {
-            endPosition = raycastHit.point;
-            if (raycastHit.transform.gameObject.tag == "Player")
-            {
-                raycastHit.transform.gameObject.GetComponent<PlayerStats>().ChangeHealth(laserDamage);
-            }
+            LookAtPlayer(bulletSpawners[0].transform);
         }
-
-        if (charging)
+        else if(bossLineRend.enabled == true)
         {
-            LookAtPlayer(laserCannon.transform);
+            laserDurTimer -= Time.deltaTime;
         }
 
         if (laserCooldown < 0)
         {
-            charging = false;
-            ShootLaser();
+            cooldown = false;
+            StartCoroutine(ShootLaser());
         }
-
-        if (hasShot)
+        if(laserDurTimer <= 0)
         {
-            charging = true;
             bossLineRend.enabled = false;
-            laserCooldown += maxLaserCharge;
+            laserDurTimer = laserDuration;
+            cooldown = true;
         }
     }
 
-
-    protected virtual void ShootLaser()
+    IEnumerator ShootLaser()
     {
+        startPosition = bulletSpawners[0].transform.position;
+        direction = bulletSpawners[0].transform.forward;
+        Ray ray = new Ray(startPosition, direction);
+        RaycastHit raycastHit;
+        Vector3 endPosition = startPosition + (laserLength * direction);
+        if (Physics.Raycast(ray, out raycastHit, laserLength))
+        {
+            endPosition = raycastHit.point;
+        }
+        laserCooldown = maxLaserCharge + chargeUpTime;
+        bossLineRend.SetPosition(0, startPosition);
+        bossLineRend.SetPosition(1, endPosition);
+        yield return new WaitForSeconds(chargeUpTime);
         bossLineRend.enabled = true;
-        //fixa skotten här
-        hasShot = true;
+        
     }
 
 }
