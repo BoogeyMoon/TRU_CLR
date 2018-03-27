@@ -58,7 +58,7 @@ public class MC_ShootScript : MonoBehaviour
 
         shoulderAim.transform.position = new Vector3(shoulderAim.transform.position.x, shoulderAim.transform.position.y, offsetZ);
 
-        if (Input.anyKeyDown)
+        if (Input.anyKey)
         {
             KeyPress();
         }
