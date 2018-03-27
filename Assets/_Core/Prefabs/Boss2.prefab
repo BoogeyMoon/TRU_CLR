@@ -135,8 +135,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4710037476509544}
   - component: {fileID: 114867310745297116}
-  - component: {fileID: 114416769314102784}
   - component: {fileID: 54805433770165452}
+  - component: {fileID: 114356185324231392}
   m_Layer: 0
   m_Name: Boss2
   m_TagString: Untagged
@@ -1296,7 +1296,7 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114416769314102784
+--- !u!114 &114356185324231392
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -1304,26 +1304,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1237718778110334}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c33b9c7e60cd57e44919e2192a9e4c5f, type: 3}
+  m_Script: {fileID: 11500000, guid: 75ee3ac85c53d1747a7848b287ff7709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
-  maxHealth: 100
-  fireRate: 1
-  aggroRange: 0
-  distanceInterval: 0
-  timeBetweenBurst: 0
-  shotsPerBurst: 0
-  rotationBetweenBullets: 0
-  health: 0
-  color: 0
-  numberOfBulletsPerShot: 0
-  scoreValue: 0
-  bulletSpawners: []
-  eyes: []
-  destination: {fileID: 0}
-  bullet: {fileID: 0}
-  patrolPoints: {fileID: 0}
+  points:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  speed: 4
 --- !u!114 &114601484492594694
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1354,6 +1344,7 @@ MonoBehaviour:
   destination: {fileID: 0}
   bullet: {fileID: 1391852344878852, guid: eb5fe13b20c43284fabd9f2d94d5927a, type: 2}
   patrolPoints: {fileID: 0}
+  head: {fileID: 4087417573898202}
 --- !u!114 &114630567052703242
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1384,6 +1375,7 @@ MonoBehaviour:
   destination: {fileID: 0}
   bullet: {fileID: 1391852344878852, guid: eb5fe13b20c43284fabd9f2d94d5927a, type: 2}
   patrolPoints: {fileID: 0}
+  head: {fileID: 4835531132578048}
 --- !u!114 &114867310745297116
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1427,6 +1419,7 @@ MonoBehaviour:
   destination: {fileID: 0}
   bullet: {fileID: 1391852344878852, guid: eb5fe13b20c43284fabd9f2d94d5927a, type: 2}
   patrolPoints: {fileID: 0}
+  head: {fileID: 4850926679171728}
 --- !u!198 &198140712925517418
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -18577,7 +18570,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 833236837
+  randomSeed: -1797131971
   InitialModule:
     serializedVersion: 3
     enabled: 1
