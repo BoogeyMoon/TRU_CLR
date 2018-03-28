@@ -81,14 +81,7 @@ public class testMCmovement : MonoBehaviour
         {
             FlipPlayer();
         }
-        if (zeroGravity)
-        {
-            gravity = 0;
-        }
-        else if(!zeroGravity)
-        {
-            gravity = 20f;
-        }
+        
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
 
@@ -192,6 +185,12 @@ public class testMCmovement : MonoBehaviour
     }
     public void ZeroGravity(bool dashing)
     {
-        zeroGravity = dashing;
+        if (dashing)
+        {
+            moveDirection.y = 0;
+            gravity = 0;
+        }
+        else
+            gravity = 20;
     }
 }

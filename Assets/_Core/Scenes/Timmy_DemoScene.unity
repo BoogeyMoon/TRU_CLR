@@ -634,6 +634,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 462967994}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &491826480 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1589744676811700, guid: 6c9ccb628c7356a469bdf3f83908a031,
+    type: 2}
+  m_PrefabInternal: {fileID: 1039551170}
 --- !u!1 &527506434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1529,6 +1534,21 @@ Prefab:
       propertyPath: m_Name
       value: SK_MainCharacter_PF
       objectReference: {fileID: 0}
+    - target: {fileID: 114195675379695040, guid: 6c9ccb628c7356a469bdf3f83908a031,
+        type: 2}
+      propertyPath: approxValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114195675379695040, guid: 6c9ccb628c7356a469bdf3f83908a031,
+        type: 2}
+      propertyPath: startObject
+      value: 
+      objectReference: {fileID: 491826480}
+    - target: {fileID: 114195675379695040, guid: 6c9ccb628c7356a469bdf3f83908a031,
+        type: 2}
+      propertyPath: moveSpeed
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c9ccb628c7356a469bdf3f83908a031, type: 2}
   m_IsPrefabParent: 0
@@ -2140,7 +2160,7 @@ Prefab:
         type: 2}
       propertyPath: Aim
       value: 
-      objectReference: {fileID: 1969562924}
+      objectReference: {fileID: 0}
     - target: {fileID: 1999699914322682, guid: 3b743160168889d48bb58ecd85747aef, type: 2}
       propertyPath: m_TagString
       value: Weakpoint
@@ -2164,6 +2184,10 @@ Prefab:
     - target: {fileID: 4440980256954848, guid: 3b743160168889d48bb58ecd85747aef, type: 2}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4643334129112344, guid: 3b743160168889d48bb58ecd85747aef, type: 2}
+      propertyPath: m_RootOrder
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3b743160168889d48bb58ecd85747aef, type: 2}
@@ -2501,11 +2525,6 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 075a3ac4cc79acd4c9cd56772b071579, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &1969562924 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4440980256954848, guid: 3b743160168889d48bb58ecd85747aef,
-    type: 2}
-  m_PrefabInternal: {fileID: 1384161306}
 --- !u!1 &2113598076
 GameObject:
   m_ObjectHideFlags: 0
