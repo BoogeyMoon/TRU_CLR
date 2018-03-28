@@ -1,21 +1,22 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//Av Andreas de Freitas 
+//Gör så att kameran följer efter spelaren
 public class CameraTestFreitas : MonoBehaviour
 {
-    [SerializeField]
-    Transform player;
-
     [SerializeField]
     int boundary = 50, speed = 30;
 
     int screenHeight, screenWidth;
 
+    Transform player;
+
     void Start()
     {
         screenWidth = Screen.width / 2;
         screenHeight = Screen.height;
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     void Update()
