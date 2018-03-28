@@ -10,11 +10,13 @@ public class testMCmovement : MonoBehaviour
     float speed = 6.0f, rotationSpeed = 6.0f, jumpSpeed = 8.0f, gravity = 20.0f, airtime;
     float moveOnX, startSpeed, crouchCenterOffsetY = 0.5f, crouchHeightOffset = 0.9f, crouchCenterOriginal = 1f, crouchHeightOriginal = 1.8f;
     float offsetZ = -0.85f;
+    
 
     int jumps = 2, currentjump = 0;
 
     [SerializeField]
     bool facingRight, isGrounded, isCrouching, inAir;
+    bool zeroGravity;
 
     Animator animator;
 
@@ -32,6 +34,7 @@ public class testMCmovement : MonoBehaviour
         facingRight = true;
         isCrouching = false;
         inAir = false;
+        zeroGravity = false;
         airtime = 0;
         startSpeed = speed;
     }
@@ -78,9 +81,17 @@ public class testMCmovement : MonoBehaviour
         {
             FlipPlayer();
         }
-
+        if (zeroGravity)
+        {
+            gravity = 0;
+        }
+        else if(!zeroGravity)
+        {
+            gravity = 20f;
+        }
         moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
+
     }
 
     void FlipPlayer() //Vänd spelaren åt motsatt rotation
@@ -178,5 +189,9 @@ public class testMCmovement : MonoBehaviour
                 moveDirection.y = 0;
 
         }
+    }
+    public void ZeroGravity(bool dashing)
+    {
+        zeroGravity = dashing;
     }
 }
