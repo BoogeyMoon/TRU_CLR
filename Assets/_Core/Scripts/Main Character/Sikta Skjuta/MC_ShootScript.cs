@@ -58,7 +58,7 @@ public class MC_ShootScript : MonoBehaviour
 
         shoulderAim.transform.position = new Vector3(shoulderAim.transform.position.x, shoulderAim.transform.position.y, offsetZ);
 
-        if (Input.anyKey)
+        if (Input.anyKey || Input.GetAxis("Mouse ScrollWheel") != 0)
         {
             KeyPress();
         }
@@ -85,13 +85,13 @@ public class MC_ShootScript : MonoBehaviour
         }
 
 
-        //Byter färg/egenskap på E och Q:
-        if (Input.GetKeyDown(KeyCode.E))
+        //Byter färg/egenskap på E och Q eller scroll:
+        if (Input.GetKeyDown(KeyCode.E) || Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             activeColor = (activeColor + 1) % 3;
             colorInd.SwitchColor(true);
         }
-        if (Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetAxis("Mouse ScrollWheel") < 0)
         {
             activeColor--;
             if (activeColor < 0)
