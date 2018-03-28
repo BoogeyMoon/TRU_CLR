@@ -20,6 +20,7 @@ public class DashScript : MonoBehaviour
     void Start()
     {
         MovementScript = gameObject.GetComponent<testMCmovement>();
+        startObject = GameObject.FindGameObjectWithTag("ShoulderAim");
     }
 
     void Update()
