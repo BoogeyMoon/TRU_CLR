@@ -479,6 +479,7 @@ GameObject:
   - component: {fileID: 114269647725588438}
   - component: {fileID: 114471629714917582}
   - component: {fileID: 120694736767487686}
+  - component: {fileID: 114195675379695040}
   m_Layer: 0
   m_Name: SK_MainCharacter_PF 1
   m_TagString: Player
@@ -1082,6 +1083,28 @@ MonoBehaviour:
   jumpSpeed: 9
   gravity: 18
   airtime: 0
+  facingRight: 0
+  isGrounded: 0
+  isCrouching: 0
+  inAir: 0
+--- !u!114 &114195675379695040
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1792648718854088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d4bb87b8709cafb44b6cc27ff04bfbd0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rifleBarrel: {fileID: 1754493347678244}
+  startObject: {fileID: 1589744676811700}
+  lengthOfDash: 10
+  dashCooldown: 2
+  moveSpeed: 5
+  approxValue: 1
+  dashing: 0
 --- !u!114 &114269647725588438
 MonoBehaviour:
   m_ObjectHideFlags: 1
