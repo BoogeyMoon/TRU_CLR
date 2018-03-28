@@ -3000,14 +3000,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da020ecd8db2174682ed6edbe04c5e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 0
   speed: 5
-  maxHealth: 25
-  fireCooldown: 0
+  maxHealth: 20
+  fireRate: 0
+  aggroRange: 0
+  distanceInterval: 0
+  timeBetweenBurst: 0
+  shotsPerBurst: 0
+  rotationBetweenBullets: 0
+  health: 0
   color: 0
+  numberOfBulletsPerShot: 0
+  scoreValue: 0
+  bulletSpawners: []
+  eyes: []
   destination: {fileID: 0}
   bullet: {fileID: 0}
-  bulletSpawner: {fileID: 0}
+  patrolPoints: {fileID: 0}
   points:
   - {fileID: 0}
   - {fileID: 0}
@@ -3017,7 +3026,8 @@ MonoBehaviour:
   - {fileID: 0}
   speedWhenAggro: 10
   target: {fileID: 0}
-  radiusOfReaction: 20
+  radiusOfReaction: 30
+  lookAtMc: 1
 --- !u!114 &114502761633699040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3415,7 +3425,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 866436926
+  randomSeed: -2116794139
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -6821,7 +6831,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1672784817
+  randomSeed: 649471487
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -10188,7 +10198,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 1064349082
+  randomSeed: 1622624011
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -13549,7 +13559,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -402972781
+  randomSeed: 1059833346
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -16955,7 +16965,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1566406111
+  randomSeed: -1587472316
   InitialModule:
     serializedVersion: 3
     enabled: 1

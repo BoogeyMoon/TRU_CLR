@@ -5,7 +5,7 @@ using UnityEngine;
 //Gör så att bossens laserstråle kan skada spelaren
 public class LaserCollision : MonoBehaviour
 {
-    float timer;
+    float timer, nextActionTime = 0.0f;
     [SerializeField]
     float timeBetweenTicks;
 
@@ -16,13 +16,17 @@ public class LaserCollision : MonoBehaviour
             if (coll.transform.tag == "Player")
             {
                 timer = timeBetweenTicks;
-                coll.GetComponent<PlayerStats>().ChangeHealth(-1);
 
+                if (Time.time > nextActionTime) //Så spelaren endast tar skada vid varje x sekund hen befinner sig i laserstrålen
+                {
+                    nextActionTime += timeBetweenTicks;
+                    coll.GetComponent<PlayerStats>().ChangeHealth(-1);
+                }
             }
         }
     }
 
-    void Update()
+    void Update() //Hanterar nedräkning
     {
         timer -= Time.deltaTime;
     }
