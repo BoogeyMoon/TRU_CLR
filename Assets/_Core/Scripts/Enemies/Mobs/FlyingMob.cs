@@ -6,6 +6,8 @@ using UnityEngine;
 //Beskriver den flygande fiendens beteende, så som rörelsemönster 
 public class FlyingMob : MobStats
 {
+    [SerializeField]
+    Transform Aim;
     float closestDistance, timeSinceSeenPlayer, loseTrackOfPlayer;
     bool chase;
     Rigidbody body;
@@ -55,7 +57,7 @@ public class FlyingMob : MobStats
                 else
                 {
                     Move();
-                    LookAtPlayer(transform);
+                    LookAtPlayer(Aim);
                 }
             }
             else
