@@ -26,7 +26,9 @@ public class FlyingMob : MobStats
     }
     void Update() //Ser till att rätt metoder anropas när de ska.
     {
-        if(CanSeePlayer())
+
+        //print("x: " + Aim.eulerAngles.x);
+        if (CanSeePlayer())
         {
             timeSinceSeenPlayer = 0;
         }
