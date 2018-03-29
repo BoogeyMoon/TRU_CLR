@@ -20,6 +20,7 @@ public class FlyingMobPatrol : MobStats {
     float radiusOfReaction;
     [SerializeField]
     bool lookAtMc;
+    float howMuchToJiggle;
 
     /*
     [SerializeField] Transform bullet;
@@ -33,6 +34,7 @@ public class FlyingMobPatrol : MobStats {
         damageParticles = GetComponentsInChildren<ParticleSystem>();
         target = GameObject.FindWithTag("Player").transform;
         timesGotHit = 0;
+        howMuchToJiggle = 2.5f/maxHealth;
         //target = GameObject.Find("SK_DemoDude_PF").transform;
         aggro = false;
         foreach (ParticleSystem damageParticle in damageParticles)
@@ -86,7 +88,7 @@ public class FlyingMobPatrol : MobStats {
                     transform.LookAt(target.position); // turn towards MC
                 }
 
-            Vector2 randomVector = new Vector2(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f));
+            Vector2 randomVector = new Vector2(Random.Range(-(howMuchToJiggle*timesGotHit), (howMuchToJiggle * timesGotHit)), Random.Range(-(howMuchToJiggle * timesGotHit), (howMuchToJiggle * timesGotHit)));
             transform.Translate(randomVector * Time.deltaTime * 5, Space.World); // jiggle about randomly because it's shitty if the mob stands still
             transform.position = Vector3.MoveTowards(transform.position, target.position, step);
 
@@ -117,11 +119,12 @@ public class FlyingMobPatrol : MobStats {
     {
         aggro = true;
         base.TakeDamage(damage, color);
+        timesGotHit++;
         if ((color == this.color) && (timesGotHit <= damageParticles.Length -1))
         {
             var emission = damageParticles[timesGotHit].emission;
             emission.enabled = true;
-            timesGotHit++;
+
         }
 
 
