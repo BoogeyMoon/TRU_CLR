@@ -27,7 +27,7 @@ public class FlyingMob : MobStats
     void Update() //Ser till att rätt metoder anropas när de ska.
     {
 
-        //print("x: " + Aim.eulerAngles.x);
+        print("x: " + Aim.localEulerAngles.x);
         if (CanSeePlayer())
         {
             timeSinceSeenPlayer = 0;
@@ -36,7 +36,7 @@ public class FlyingMob : MobStats
         {
             timeSinceSeenPlayer += Time.deltaTime;
         }
-        if(body.velocity != Vector3.zero)
+        if (body.velocity != Vector3.zero)
         {
             body.velocity = Vector3.zero;
         }
@@ -72,20 +72,21 @@ public class FlyingMob : MobStats
             Patrol();
         }
 
-        
+
     }
 
     void Move() //Styr hur fienden rör sig.
     {
         if (chase)
             transform.position = Vector3.MoveTowards(transform.position, playerTarget.transform.position, speed * Time.deltaTime);
-        else if(closestDistance > playerDistance)
+        else if (closestDistance > playerDistance)
         {
-            transform.Translate(-Vector3.Normalize(player.position - transform.position)*speed/2 * Time.deltaTime);
+            Vector3 directionToPlayer = new Vector3(player.position.x - transform.position.x, player.position.y - transform.position.y, transform.position.z);
+            transform.Translate(Vector3.Normalize(directionToPlayer) * -speed / 2 * Time.deltaTime);
         }
 
 
-        transform.position = new Vector3 (transform.position.x, transform.position.y, playerTarget.transform.position.z);
+        transform.position = new Vector3(transform.position.x, transform.position.y, playerTarget.transform.position.z);
     }
     void ChaseCheck() //Bestämmer om moben kommer att jaga spelaren eller inte.
     {
@@ -93,7 +94,7 @@ public class FlyingMob : MobStats
         {
             chase = false;
         }
-        else if (playerDistance > (closestDistance + distanceInterval)*0.7f)
+        else if (playerDistance > (closestDistance + distanceInterval) * 0.7f)
         {
             chase = true;
         }
