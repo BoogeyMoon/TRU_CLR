@@ -26,8 +26,6 @@ public class FlyingMob : MobStats
     }
     void Update() //Ser till att rätt metoder anropas när de ska.
     {
-
-        print("x: " + Aim.localEulerAngles.x);
         if (CanSeePlayer())
         {
             timeSinceSeenPlayer = 0;
@@ -39,6 +37,10 @@ public class FlyingMob : MobStats
         if (body.velocity != Vector3.zero)
         {
             body.velocity = Vector3.zero;
+        }
+        if (transform.rotation != startRot)
+        {
+            transform.rotation = startRot;
         }
         playerDistance = GetPlayerDistance(transform);
         timeLeft -= Time.deltaTime;
@@ -53,13 +55,15 @@ public class FlyingMob : MobStats
                 {
                     if (timeLeft < 0)
                     {
-                        Shoot();
+                        if (player.position.y < Aim.transform.position.y)
+                            Shoot();
                     }
                 }
                 else
                 {
                     Move();
-                    LookAtPlayer(Aim);
+                    if (player.position.y < Aim.transform.position.y)
+                        LookAtPlayer(Aim);
                 }
             }
             else

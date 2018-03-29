@@ -21,6 +21,7 @@ public class MobStats : MonoBehaviour
     protected bool onCooldown;
     protected float timeLeft, burstTimer, burstCounter, playerDistance;
     protected int patrolCounter;
+    protected Quaternion startRot;
 
 
     void Awake()
@@ -36,6 +37,7 @@ public class MobStats : MonoBehaviour
         timeLeft = fireRate;
         onCooldown = false;
         updatePatrolPoints();
+        startRot = transform.rotation;
     }
     protected void updatePatrolPoints() //Kollar barnen på ett gameobject och lägger till dem i en lista.
     {

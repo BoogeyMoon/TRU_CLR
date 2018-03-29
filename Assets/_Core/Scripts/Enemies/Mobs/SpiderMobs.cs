@@ -15,6 +15,7 @@ public class SpiderMobs : MobStats
         base.Start();
         agent = GetComponent<NavMeshAgent>();
         body = GetComponent<Rigidbody>();
+        SetToPlayerPlane(transform);
     }
 
     void Update()

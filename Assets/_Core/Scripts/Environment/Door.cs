@@ -7,8 +7,11 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, Interactable
 {
+    bool boolen = true;
     public void Activated() //Öppnar en dörr
     {
+        boolen = !boolen;
+        gameObject.SetActive(boolen);
         //Code goes here
         print("Door is opening");
     }
