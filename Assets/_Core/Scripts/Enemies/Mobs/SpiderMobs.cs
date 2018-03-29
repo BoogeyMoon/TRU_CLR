@@ -7,14 +7,14 @@ public class SpiderMobs : MobStats
 
     NavMeshAgent agent;
     Rigidbody body;
-    Transform turret;
+    [SerializeField]
+    Transform head;
 
     protected override void Start()
     {
         base.Start();
         agent = GetComponent<NavMeshAgent>();
         body = GetComponent<Rigidbody>();
-        turret = transform.GetChild(1).GetChild(0).GetChild(5).GetChild(0); //Hämtar barnet Turret_JNT
     }
 
     void Update()
@@ -25,7 +25,6 @@ public class SpiderMobs : MobStats
         {
             body.velocity = Vector3.zero;
         }
-        turret.LookAt(playerTarget);
         if (destination != null)
         {
             Move();
@@ -34,6 +33,10 @@ public class SpiderMobs : MobStats
         if (playerDistance < aggroRange && timeLeft < 0)
         {
             Shoot(); 
+        }
+        else
+        {
+            LookAtPlayer(head);
         }
 
     }

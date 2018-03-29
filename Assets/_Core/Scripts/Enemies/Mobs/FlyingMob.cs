@@ -75,12 +75,11 @@ public class FlyingMob : MobStats
 
     void Move() //Styr hur fienden rör sig.
     {
-        
         if (chase)
             transform.position = Vector3.MoveTowards(transform.position, playerTarget.transform.position, speed * Time.deltaTime);
         else if(closestDistance > playerDistance)
         {
-            transform.Translate(-Vector3.forward * Time.deltaTime * speed);
+            transform.Translate(-Vector3.Normalize(player.position - transform.position)*speed/2 * Time.deltaTime);
         }
 
 
