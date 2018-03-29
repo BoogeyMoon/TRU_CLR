@@ -127,7 +127,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1599244378320356
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,20 +488,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   maxHealth: 20
-  fireRate: 0
-  aggroRange: 0
-  distanceInterval: 0
-  timeBetweenBurst: 0
-  shotsPerBurst: 0
+  fireRate: 0.1
+  aggroRange: 15
+  distanceInterval: 7
+  timeBetweenBurst: 1
+  shotsPerBurst: 5
   rotationBetweenBullets: 0
   health: 0
   color: 0
-  numberOfBulletsPerShot: 0
+  numberOfBulletsPerShot: 2
   scoreValue: 0
-  bulletSpawners: []
-  eyes: []
+  bulletSpawners:
+  - {fileID: 1584867688107086}
+  eyes:
+  - {fileID: 1584867688107086}
   destination: {fileID: 0}
-  bullet: {fileID: 0}
+  bullet: {fileID: 1818929279630042, guid: 918ed8ba5f2aaa849be485125ec24e68, type: 2}
   patrolPoints: {fileID: 0}
   points:
   - {fileID: 0}
@@ -597,7 +599,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 896882770
+  randomSeed: 2060083863
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4003,7 +4005,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1322365074
+  randomSeed: 169211147
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7409,7 +7411,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1566570640
+  randomSeed: -37283266
   InitialModule:
     serializedVersion: 3
     enabled: 1
