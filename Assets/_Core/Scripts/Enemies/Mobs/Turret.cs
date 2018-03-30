@@ -41,4 +41,9 @@ public class Turret : MobStats
 
         }
     }
+    public void Upgrade() //Gör att fienden blir argare och farligare
+    {
+        numberOfBulletsPerShot++;
+        shotsPerBurst = shotsPerBurst + 2;
+    }
 }

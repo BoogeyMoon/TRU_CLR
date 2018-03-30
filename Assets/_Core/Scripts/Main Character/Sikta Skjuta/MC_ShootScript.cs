@@ -129,6 +129,10 @@ public class MC_ShootScript : MonoBehaviour
                 {
                     raycastHit.transform.gameObject.GetComponent<MobStats>().TakeDamage(laserDamage, activeColor);
                 }
+                else if (raycastHit.transform.tag == "Interactable")
+                {
+
+                }
             }
             laserLineRenderer.SetPosition(0, startPosition);
             laserLineRenderer.SetPosition(1, endPosition);

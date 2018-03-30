@@ -24,6 +24,7 @@ public class BossTurretLaser : MobStats
         bossLineRend.enabled = false;
         beam = transform.GetChild(0).GetComponent<Collider>();
         beam.enabled = false;
+        transform.position = new Vector3 (transform.position.x,transform.position.y,player.transform.position.z);
     }
 
     void Update() //Hanterar cooldown conditions 
@@ -32,7 +33,7 @@ public class BossTurretLaser : MobStats
 
         if (cooldown) //Ifall lasern är på cooldown så fortsätter den kolla efter spelaren
         {
-            LookAtPlayer(eyes[0].transform);
+            LookAtPlayer(raycastOrigin[0].transform);
         }
         else if (bossLineRend.enabled == true) //Kollar när lasern ska avaktiveras
         {
@@ -73,6 +74,11 @@ public class BossTurretLaser : MobStats
         bossLineRend.enabled = true;
         beam.enabled = true;
 
+    }
+    public void Upgrade()
+    {
+        if (maxLaserCharge > 1)
+            maxLaserCharge = maxLaserCharge - 1;
     }
 
 }

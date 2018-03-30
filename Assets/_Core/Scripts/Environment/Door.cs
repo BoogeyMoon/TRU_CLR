@@ -28,12 +28,10 @@ public class Door : MonoBehaviour, Interactable
         {
             if(openDoor && transform.position.y < startY + height)
             {
-                print("Uppåt!");
                 transform.Translate(Vector3.up * speed * Time.deltaTime);
             }
             else if(closeDoor && transform.position.y > startY)
             {
-                print("Nedåt!");
                 transform.Translate(Vector3.up * -speed * Time.deltaTime);
             }
         }

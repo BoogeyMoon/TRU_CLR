@@ -8,11 +8,11 @@ public class MobStats : MonoBehaviour
 {
     Score score;
     [SerializeField]
-    protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, rotationBetweenBullets, health;
+    protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, spread, health;
     [SerializeField]
     protected int color, numberOfBulletsPerShot, scoreValue;
     [SerializeField]
-    protected GameObject[] bulletSpawners, eyes;
+    protected GameObject[] bulletSpawners, raycastOrigin;
     [SerializeField]
     protected GameObject destination, bullet, patrolPoints;
     protected GameObject currentBullet;
@@ -107,7 +107,6 @@ public class MobStats : MonoBehaviour
         if (destination != null)
         {
             transform.position = Vector3.MoveTowards(transform.position, destination.transform.position, speed / 2 * Time.deltaTime);
-            transform.LookAt(destination.transform.position);
         }
 
     }
@@ -118,17 +117,17 @@ public class MobStats : MonoBehaviour
         onCooldown = true;
         if (numberOfBulletsPerShot % 2 == 0) //Om vi har ett jämnt antal kulor
         {
-            startRot = ((numberOfBulletsPerShot / 2) - 1) * rotationBetweenBullets;
-            startRot += rotationBetweenBullets / 2;
+            startRot = ((numberOfBulletsPerShot / 2) - 1) * spread;
+            startRot += spread / 2;
         }
         else //Om vi har ett udda antal kulor
         {
             int n = numberOfBulletsPerShot / 2;
-            startRot = n * rotationBetweenBullets;
+            startRot = n * spread;
         }
         for (int i = 0; i < numberOfBulletsPerShot; i++)
         {
-            ShootABullet(startRot - rotationBetweenBullets * i);
+            ShootABullet(startRot - spread * i);
         }
         burstCounter--;
         if (burstCounter <= 0) //Räknar om vi är klara med bursten eller inte.
@@ -161,13 +160,13 @@ public class MobStats : MonoBehaviour
     }
     protected bool CanSeePlayer() //Ser om det finns en collder mellan spelaren och fienden
     {
-        for (int i = 0; i < eyes.Length; i++)
+        for (int i = 0; i < raycastOrigin.Length; i++)
         {
             RaycastHit hit;
 
-            if (Physics.Raycast(eyes[i].transform.position, new Vector3(playerTarget.position.x - eyes[i].transform.position.x, playerTarget.position.y - eyes[i].transform.position.y, playerTarget.position.z - eyes[i].transform.position.z), out hit, Mathf.Infinity))
+            if (Physics.Raycast(raycastOrigin[i].transform.position, new Vector3(playerTarget.position.x - raycastOrigin[i].transform.position.x, playerTarget.position.y - raycastOrigin[i].transform.position.y, playerTarget.position.z - raycastOrigin[i].transform.position.z), out hit, Mathf.Infinity))
             {
-                Debug.DrawRay(eyes[i].transform.position, new Vector3(playerTarget.position.x - transform.position.x, playerTarget.position.y - transform.position.y, playerTarget.position.z - transform.position.z), Color.blue);
+                Debug.DrawRay(raycastOrigin[i].transform.position, new Vector3(playerTarget.position.x - transform.position.x, playerTarget.position.y - transform.position.y, playerTarget.position.z - transform.position.z), Color.blue);
                 if (hit.transform.gameObject.tag == "Player")
                 {
                     return true;
