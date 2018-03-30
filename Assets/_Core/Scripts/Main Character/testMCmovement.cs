@@ -165,7 +165,7 @@ public class testMCmovement : MonoBehaviour
         isGrounded = Physics.SphereCast(transform.position + new Vector3(0, .3f, 0), 0.2f, -transform.up, out hit, 0.1f);
         if (hit.transform != null)
         {
-            if (hit.transform.gameObject.tag == "Bullet" || hit.transform.gameObject.tag == "PatrolPoint")
+            if (hit.transform.tag == "Bullet" || hit.transform.tag == "PatrolPoint" && hit.transform.tag != "Interactable")
             {
                 isGrounded = false;
             }
@@ -178,8 +178,11 @@ public class testMCmovement : MonoBehaviour
 
         if (moveDirection.y > 0 && Physics.SphereCast(transform.position + new Vector3(0, 1.85f, 0), 0.2f, transform.up, out hit, 0.1f))
         {
-            if (hit.transform.gameObject.tag != "PatrolPoint" && hit.transform.gameObject.tag != "Bullet")
+            if (hit.transform.tag != "PatrolPoint" && hit.transform.tag != "Bullet" && hit.transform.tag != "Interactable")
+            {
                 moveDirection.y = 0;
+            }
+                
 
         }
     }

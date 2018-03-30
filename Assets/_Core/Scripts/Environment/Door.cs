@@ -7,13 +7,36 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, Interactable
 {
-    bool boolen = true;
+
+    bool openDoor, closeDoor = true, activated = false;
+    float speed = 1, height = 7.4f, startY; 
+    void Start()
+    {
+        startY = transform.position.y;
+    }
     public void Activated() //Öppnar en dörr
     {
-        boolen = !boolen;
-        gameObject.SetActive(boolen);
-        //Code goes here
-        print("Door is opening");
+        if (!activated)
+            activated = true;
+        openDoor = !openDoor;
+        closeDoor = !closeDoor;
+
+    }
+    void Update()
+    {
+        if(activated)
+        {
+            if(openDoor && transform.position.y < startY + height)
+            {
+                print("Uppåt!");
+                transform.Translate(Vector3.up * speed * Time.deltaTime);
+            }
+            else if(closeDoor && transform.position.y > startY)
+            {
+                print("Nedåt!");
+                transform.Translate(Vector3.up * -speed * Time.deltaTime);
+            }
+        }
     }
 	
 }

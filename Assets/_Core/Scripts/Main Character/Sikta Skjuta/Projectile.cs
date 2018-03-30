@@ -32,6 +32,7 @@ public class Projectile : MonoBehaviour
         if(coll.transform.gameObject.tag == "Interactable")
         {
             coll.GetComponent<SwitchInteract>().Trigger(color);
+            Destroy(gameObject);
         }
     }
 }
