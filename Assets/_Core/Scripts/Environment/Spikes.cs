@@ -9,7 +9,7 @@ public class Spikes : Enviromental {
     protected float damageOfSpikes;
 
 
-	void OnTriggerEnter (Collider coll) //När spelaren träffar spikesen
+	void OnCollisionEnter (Collision coll) //När spelaren träffar spikesen
     {
         if (coll.gameObject.tag == "Player")
         {
