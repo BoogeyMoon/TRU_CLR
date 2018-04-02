@@ -31,7 +31,7 @@ public class testMCmovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
-        facingRight = true;
+        facingRight = false;
         isCrouching = false;
         inAir = false;
         zeroGravity = false;
