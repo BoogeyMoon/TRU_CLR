@@ -1,11 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+// by Slavko Stojnic
+// Script can be used both for the "elements" that mobs leave behind them and for homing missiles
 
 public class FeedTheMC : MonoBehaviour {
 
     private Transform wheresMC;
     private float dist;
+    [SerializeField]
+    bool doIdestroy;
+    [SerializeField]
+    float speed;
 
 	// Use this for initialization
 	void Start () {
@@ -14,8 +20,8 @@ public class FeedTheMC : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        transform.position = Vector3.MoveTowards(transform.position, wheresMC.transform.position, 5*Time.deltaTime);
-        if (Vector3.Distance(wheresMC.position, transform.position) <=.1f)
+        transform.position = Vector3.MoveTowards(transform.position, wheresMC.transform.position, speed*Time.deltaTime);
+        if ((Vector3.Distance(wheresMC.position, transform.position) <=.1f) && doIdestroy)
         {
             Destroy(gameObject, 1);
         }

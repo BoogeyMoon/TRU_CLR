@@ -235,7 +235,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1105864025820046}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 81.3, y: 31.8, z: -0.9}
+  m_LocalPosition: {x: 61.3, y: 28.8, z: -0.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4127191667172820}
@@ -371,14 +371,14 @@ MonoBehaviour:
   distanceInterval: 7
   timeBetweenBurst: 1
   shotsPerBurst: 3
-  rotationBetweenBullets: 15
+  spread: 0
   health: 0
   color: 0
   numberOfBulletsPerShot: 2
   scoreValue: 0
   bulletSpawners:
   - {fileID: 1970814700210750}
-  eyes:
+  raycastOrigin:
   - {fileID: 1970814700210750}
   destination: {fileID: 0}
   bullet: {fileID: 1818929279630042, guid: 918ed8ba5f2aaa849be485125ec24e68, type: 2}
@@ -469,7 +469,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -2032704693
+  randomSeed: 1226148870
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -3830,7 +3830,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 808780209
+  randomSeed: 293591448
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7197,7 +7197,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1938723976
+  randomSeed: 546848457
   InitialModule:
     serializedVersion: 3
     enabled: 1
