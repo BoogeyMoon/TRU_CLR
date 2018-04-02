@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 // Av Timmy Alvelöv
 // Vissa tillägg ang. röda projektilen av Moa Lindgren.
-// Also added to by Slavko Stojnic.
+// Soundactivation av Slavko Stojnic
 
 //Används för att skapa projektilerna som MC skjuter.
 public class MC_ShootScript : MonoBehaviour
@@ -31,6 +31,7 @@ public class MC_ShootScript : MonoBehaviour
     [SerializeField]
     AudioClip[] shots;
     SoundManager soundManager;
+    PlayerStats playerStats;
 
 
     void Start()
@@ -43,30 +44,34 @@ public class MC_ShootScript : MonoBehaviour
         activeColor = (int)ColorProjectiles.Blue;
         colorInd = colorIndicator.GetComponent<ColorIndicatior>();
         mcCharacter = gameObject;
+        playerStats = GetComponent<PlayerStats>();
     }
 
     void Update()
     {
-        //Förrändrar material på karaktären beroende på vilken färg som är aktiv:
-        material.color = colors[activeColor];
-        material.SetColor("_EmissionColor", colors[activeColor]);
-        material.SetColor("_MKGlowColor", colors[activeColor]);
-        material.SetColor("_MKGlowTexColor", colors[activeColor]);
-
-        //Cooldown är olika beroende på vilken färg som är aktiv:
-        cooldown = cooldowns[activeColor];
-
-        shoulderAim.transform.position = new Vector3(shoulderAim.transform.position.x, shoulderAim.transform.position.y, offsetZ);
-
-        if (Input.anyKey || Input.GetAxis("Mouse ScrollWheel") != 0)
+        if (!playerStats.Dead)
         {
-            KeyPress();
-        }
+            //Förrändrar material på karaktären beroende på vilken färg som är aktiv:
+            material.color = colors[activeColor];
+            material.SetColor("_EmissionColor", colors[activeColor]);
+            material.SetColor("_MKGlowColor", colors[activeColor]);
+            material.SetColor("_MKGlowTexColor", colors[activeColor]);
 
-        //Firerate räknar ner så länge den är över 0:
-        if (fireRate > 0)
-        {
-            fireRate -= Time.deltaTime;
+            //Cooldown är olika beroende på vilken färg som är aktiv:
+            cooldown = cooldowns[activeColor];
+
+            shoulderAim.transform.position = new Vector3(shoulderAim.transform.position.x, shoulderAim.transform.position.y, offsetZ);
+
+            if (Input.anyKey || Input.GetAxis("Mouse ScrollWheel") != 0)
+            {
+                KeyPress();
+            }
+
+            //Firerate räknar ner så länge den är över 0:
+            if (fireRate > 0)
+            {
+                fireRate -= Time.deltaTime;
+            }
         }
     }
 

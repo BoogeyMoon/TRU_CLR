@@ -22,6 +22,8 @@ public class testMCmovement : MonoBehaviour
 
     Vector3 moveDirection = Vector3.zero;
 
+    PlayerStats playerStats;
+
     CharacterController controller;
     void Awake()
     {
@@ -31,6 +33,7 @@ public class testMCmovement : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
+        playerStats = GetComponent<PlayerStats>();
         facingRight = false;
         isCrouching = false;
         inAir = false;
@@ -41,50 +44,52 @@ public class testMCmovement : MonoBehaviour
 
     void Update()
     {
-        transform.position = new Vector3(transform.position.x, transform.position.y, offsetZ);
-        GroundCheck();
-        animator.SetBool("isGrounded", isGrounded);
+        if (!playerStats.Dead)
+        {
+            transform.position = new Vector3(transform.position.x, transform.position.y, offsetZ);
+            GroundCheck();
+            animator.SetBool("isGrounded", isGrounded);
 
-        if (isGrounded || !isCrouching)
-        {
-            moveOnX = Input.GetAxisRaw("Horizontal");
-        }
+            if (isGrounded || !isCrouching)
+            {
+                moveOnX = Input.GetAxisRaw("Horizontal");
+            }
 
-        if (isGrounded) //Ifall spelaren är på marken
-        {
-            Grounded();
-        }
-        else //Ifall spelaren är i luften
-        {
-            Airbourne();
-        }
+            if (isGrounded) //Ifall spelaren är på marken
+            {
+                Grounded();
+            }
+            else //Ifall spelaren är i luften
+            {
+                Airbourne();
+            }
 
-        if (Input.GetButtonDown("Jump") && currentjump < jumps) //Kollar ifall spelaren kan hoppa
-        {
-            JumpOrFall();
-        }
-        if (Input.GetKeyDown(KeyCode.LeftControl))
-        {
-            Crouching(true);
-        }
-        if (Input.GetKeyUp(KeyCode.LeftControl))
-        {
-            Crouching(false);
-        }
+            if (Input.GetButtonDown("Jump") && currentjump < jumps) //Kollar ifall spelaren kan hoppa
+            {
+                JumpOrFall();
+            }
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                Crouching(true);
+            }
+            if (Input.GetKeyUp(KeyCode.LeftControl))
+            {
+                Crouching(false);
+            }
 
-        if (Input.mousePosition.x < Screen.width / 2 && facingRight == false) //Om muspekaren är på högra sidan av skärmen så vänder spelaren åt höger
-        {
-            FlipPlayer();
-        }
+            if (Input.mousePosition.x < Screen.width / 2 && facingRight == false) //Om muspekaren är på högra sidan av skärmen så vänder spelaren åt höger
+            {
+                FlipPlayer();
+            }
 
-        if (Input.mousePosition.x > Screen.width / 2 && facingRight == true) //Om muspekaren är på vänstra sidan av skärmen så vänder spelaren åt vänster
-        {
-            FlipPlayer();
-        }
-        
-        moveDirection.y -= gravity * Time.deltaTime;
-        controller.Move(moveDirection * Time.deltaTime);
+            if (Input.mousePosition.x > Screen.width / 2 && facingRight == true) //Om muspekaren är på vänstra sidan av skärmen så vänder spelaren åt vänster
+            {
+                FlipPlayer();
+            }
 
+            moveDirection.y -= gravity * Time.deltaTime;
+            controller.Move(moveDirection * Time.deltaTime);
+        }
     }
 
     void FlipPlayer() //Vänd spelaren åt motsatt rotation
@@ -165,7 +170,7 @@ public class testMCmovement : MonoBehaviour
         isGrounded = Physics.SphereCast(transform.position + new Vector3(0, .3f, 0), 0.2f, -transform.up, out hit, 0.1f);
         if (hit.transform != null)
         {
-            if (hit.transform.tag == "Bullet" || hit.transform.tag == "PatrolPoint" && hit.transform.tag != "Interactable" && hit.transform.tag != "Shield")
+            if (hit.transform.tag == "Bullet" || hit.transform.tag == "PatrolPoint" || hit.transform.tag == "Interactable" || hit.transform.tag == "Shield")
             {
                 isGrounded = false;
             }
@@ -178,7 +183,7 @@ public class testMCmovement : MonoBehaviour
 
         if (moveDirection.y > 0 && Physics.SphereCast(transform.position + new Vector3(0, 1.85f, 0), 0.2f, transform.up, out hit, 0.1f))
         {
-            if (hit.transform.tag != "PatrolPoint" && hit.transform.tag != "Bullet" && hit.transform.tag != "Interactable" && hit.transform.tag != "Shield")
+            if (hit.transform.tag == "Bullet" || hit.transform.tag == "PatrolPoint" || hit.transform.tag == "Interactable" || hit.transform.tag == "Shield")
             {
                 moveDirection.y = 0;
             }

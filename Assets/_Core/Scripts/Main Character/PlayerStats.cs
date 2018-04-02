@@ -11,8 +11,14 @@ public class PlayerStats : MonoBehaviour
     UIHealth2 uiHealth;
     [SerializeField]
     float maxHealth;
-    [SerializeField]
-    float health, cPHealth;
+    float health;
+    Animator anim;
+    bool dead;
+    public bool Dead
+    {
+        get { return dead; }
+    }
+
 
     string checkpoint;
 
@@ -22,43 +28,53 @@ public class PlayerStats : MonoBehaviour
 
         if (PlayerPrefs.GetFloat("savedHealth") != -1)
         {
-            health = cPHealth;
+            health = maxHealth;
         }
 
     }
 
     public void ChangeHealth(float value) //Lägg till eller ta bort hälsa från spelaren
     {
-        health += value;
-
-        if (health >= maxHealth)
+        if (health > 0)
         {
-            health = maxHealth;
+            health += value;
+
+            if (health >= maxHealth)
+            {
+                health = maxHealth;
+            }
+
+            if (health <= 0)
+            {
+                PlayerDies();
+            }
+
+            uiHealth.TakeDamage((int)health);
         }
 
-        if (health <= 0)
-        {
-            PlayerDies();
-        }
 
-        uiHealth.TakeDamage((int)health);
     }
 
     public void PlayerDies() //Ifall spelaren dör
     {
-        PlayerPrefs.SetFloat("savedHealth", cPHealth);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        health = cPHealth;
-        //  Lastcheckpoint();
+        dead = true;
+        GameObject.FindGameObjectWithTag("MCWeapon").GetComponent<Renderer>().enabled = false;
+        GetComponent<testMCmovement>().enabled = false;
+        GetComponent<MC_ShootScript>().enabled = false;
+        anim = GetComponent<Animator>();
+        anim.SetLayerWeight(2, 1);
+        anim.SetLayerWeight(1, 0);
+        PlayerPrefs.SetFloat("savedHealth", maxHealth);
+        StartCoroutine(GoToMenu());
+        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        //health = maxHealth;
     }
 
-    public void SetCheckpoint(string checkpoint) //Bestämmer checkpointen för spelaren
+    IEnumerator GoToMenu()
     {
-        this.checkpoint = checkpoint;
-        cPHealth = health;
-
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene(0);
     }
-
     public void ChangeLayer(int layer)
     {
         gameObject.layer = layer;
