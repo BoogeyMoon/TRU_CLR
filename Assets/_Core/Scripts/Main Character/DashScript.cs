@@ -16,6 +16,7 @@ public class DashScript : MonoBehaviour
     bool dashing;
     bool dashOnCooldown;
     testMCmovement MovementScript;
+    float dist;
 
     void Start()
     {
@@ -36,17 +37,18 @@ public class DashScript : MonoBehaviour
 
         if(dashing)
         {
-            endDashX = endDash.x;
-            endDashY = endDash.y;
-            charX = transform.position.x;
-            charY = transform.position.y;
+            dist = Vector3.Distance(transform.position, endDash);
+            //endDashX = endDash.x;
+            //endDashY = endDash.y;
+            //charX = transform.position.x;
+            //charY = transform.position.y;
 
             //Följande gör att spelaren dashar:
             float step = moveSpeed * Time.deltaTime;
             transform.position = Vector3.Lerp(transform.position, endDash, step);
 
             //Kollar om spelaren är nära raycastens slutposition (endDash). Vilket leder till att spelaren slutar dasha:
-            if (endDashX - charX <= approxValue && endDashY - charY <= approxValue)
+            if (dist <= approxValue)
             {
                 dashing = false;
                 MovementScript.ZeroGravity(dashing);
