@@ -11,6 +11,6 @@ public class WinScript : MonoBehaviour
         ScoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<Score>();
     }
 
-    void OnTriggerEnter()
+ 
 	
 }
