@@ -12,5 +12,9 @@ public class WinScript : MonoBehaviour
     }
 
     void OnTriggerEnter()
+    {
+        print(ScoreManager.GetGrade());
+
+    }
 	
 }

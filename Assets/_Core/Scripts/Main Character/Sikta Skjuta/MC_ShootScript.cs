@@ -11,7 +11,7 @@ public class MC_ShootScript : MonoBehaviour
     [SerializeField]
     GameObject[] colorsBullets;
     [SerializeField]
-    GameObject rifleBarrel, shoulderAim, shield, colorIndicator;
+    GameObject rifleBarrel, shoulderAim, shield;
     GameObject currentBullet, mcCharacter, currentShield;
 
     enum ColorProjectiles { Blue, Yellow, Red };
@@ -150,7 +150,7 @@ public class MC_ShootScript : MonoBehaviour
                 }
                 else if (raycastHit.transform.tag == "Interactable")
                 {
-
+                    raycastHit.transform.GetComponent<SwitchInteract>().Trigger(2);
                 }
             }
             laserLineRenderer.SetPosition(0, startPosition);
