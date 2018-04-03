@@ -97,6 +97,7 @@ public class MobStats : MonoBehaviour
                         patrolCounter = 0;
                     }
                     destination = patrolPointsList[patrolCounter].gameObject;
+
                 }
             }
         }
