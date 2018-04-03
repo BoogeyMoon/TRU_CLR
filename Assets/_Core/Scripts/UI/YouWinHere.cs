@@ -18,7 +18,6 @@ public class YouWinHere : MonoBehaviour {
 	void Update () {
 		if (waitForKey)
         {
-            print("waiting for enter");
             if (Input.GetKeyDown(KeyCode.Return))
             { 
                 Destroy(winText.gameObject);
