@@ -198,7 +198,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1970287622373258}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 5.14, y: 3.73, z: -1.54}
+  m_LocalPosition: {x: 7.4552813, y: 4.589432, z: 0.4788285}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4967007076213540}
@@ -297,15 +297,15 @@ MonoBehaviour:
   distanceInterval: 7
   timeBetweenBurst: 1
   shotsPerBurst: 5
-  rotationBetweenBullets: 15
+  spread: 0
   health: 0
   color: 0
   numberOfBulletsPerShot: 2
   scoreValue: 0
   bulletSpawners:
   - {fileID: 1776682645903862}
-  eyes:
-  - {fileID: 1690887777765454}
+  raycastOrigin:
+  - {fileID: 1776682645903862}
   destination: {fileID: 0}
   bullet: {fileID: 1391852344878852, guid: eb5fe13b20c43284fabd9f2d94d5927a, type: 2}
   patrolPoints: {fileID: 0}

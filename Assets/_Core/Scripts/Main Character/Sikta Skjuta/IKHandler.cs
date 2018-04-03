@@ -12,14 +12,17 @@ public class IKHandler : MonoBehaviour
     Animator animator;
 
     Vector3 lookObj = new Vector3(0.0f, 0.0f, 0.0f);
+    PlayerStats playerStats;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        playerStats = GetComponent<PlayerStats>();
     }
 
     void Update() //Uppdaterar muspekarens position som avataren ska titta på
     {
+        if(!playerStats.Dead)
         SettingAimPosition();
     }
 
@@ -37,39 +40,43 @@ public class IKHandler : MonoBehaviour
 
     void OnAnimatorIK() //Använder inverted kinematics för att få armarna att följa med vapnet
     {
-        if (lookObj != null)
+        if (!playerStats.Dead)
         {
-            animator.SetLookAtWeight(1);
-            animator.SetLookAtPosition(lookObj);
-            shoulder.LookAt(lookObj);
-        }
+            if (lookObj != null)
+            {
+                animator.SetLookAtWeight(1);
+                animator.SetLookAtPosition(lookObj);
+                shoulder.LookAt(lookObj);
+            }
 
-        if (rightHand != null)
-        {
-            animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
-            animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
-            animator.SetIKPosition(AvatarIKGoal.RightHand, rightHand.position);
-            animator.SetIKRotation(AvatarIKGoal.RightHand, rightHand.rotation);
-        }
+            if (rightHand != null)
+            {
+                animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+                animator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1);
+                animator.SetIKPosition(AvatarIKGoal.RightHand, rightHand.position);
+                animator.SetIKRotation(AvatarIKGoal.RightHand, rightHand.rotation);
+            }
 
-        if (leftHand != null)
-        {
-            animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
-            animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
-            animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHand.position);
-            animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHand.rotation);
-        }
+            if (leftHand != null)
+            {
+                animator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1);
+                animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
+                animator.SetIKPosition(AvatarIKGoal.LeftHand, leftHand.position);
+                animator.SetIKRotation(AvatarIKGoal.LeftHand, leftHand.rotation);
+            }
 
-        if(elbow_L != null && elbow_R != null)
-        {
-            animator.SetIKHintPositionWeight(AvatarIKHint.LeftElbow, 1);
-            animator.SetIKHintPositionWeight(AvatarIKHint.RightElbow, 1);
+            if (elbow_L != null && elbow_R != null)
+            {
+                animator.SetIKHintPositionWeight(AvatarIKHint.LeftElbow, 1);
+                animator.SetIKHintPositionWeight(AvatarIKHint.RightElbow, 1);
 
-            animator.SetIKHintPosition(AvatarIKHint.LeftElbow, elbow_L.position);
-            animator.SetIKHintPosition(AvatarIKHint.RightElbow, elbow_R.position);
+                animator.SetIKHintPosition(AvatarIKHint.LeftElbow, elbow_L.position);
+                animator.SetIKHintPosition(AvatarIKHint.RightElbow, elbow_R.position);
 
-            animator.SetIKHintPosition(AvatarIKHint.LeftElbow, elbow_L.position);
-            animator.SetIKHintPosition(AvatarIKHint.RightElbow, elbow_R.position);
-        }
+                animator.SetIKHintPosition(AvatarIKHint.LeftElbow, elbow_L.position);
+                animator.SetIKHintPosition(AvatarIKHint.RightElbow, elbow_R.position);
+
+            }
+        }   
     }
 }

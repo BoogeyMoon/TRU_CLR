@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 114569189772383944}
   - component: {fileID: 114674853088870590}
   m_Layer: 0
-  m_Name: SpawnerSilo
+  m_Name: SM_SpawnerSilo_PF
   m_TagString: Weakpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -335,7 +335,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a239bb193ac1e247a9b88043fc1553c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnThis: {fileID: 1105864025820046, guid: 5011cffc4e8faba49b7c0af387c891ec, type: 2}
+  spawnedEnemies: []
   interval: 2
   spawnPoint: {fileID: 4506567514709320}
   aggroRange: 20
@@ -357,13 +357,13 @@ MonoBehaviour:
   distanceInterval: 0
   timeBetweenBurst: 0
   shotsPerBurst: 0
-  rotationBetweenBullets: 0
+  spread: 0
   health: 0
   color: 0
   numberOfBulletsPerShot: 0
   scoreValue: 0
   bulletSpawners: []
-  eyes: []
+  raycastOrigin: []
   destination: {fileID: 0}
   bullet: {fileID: 0}
   patrolPoints: {fileID: 0}

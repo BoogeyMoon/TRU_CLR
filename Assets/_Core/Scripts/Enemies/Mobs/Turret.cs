@@ -14,7 +14,6 @@ public class Turret : MobStats
     protected override void Start() // Sätter startvärden
     {
         base.Start();
-        //head = transform.GetChild(1);
         SetToPlayerPlane(head);
         animator = gameObject.GetComponent<Animator>();
 
