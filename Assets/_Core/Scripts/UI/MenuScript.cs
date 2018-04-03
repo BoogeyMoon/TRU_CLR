@@ -14,8 +14,8 @@ public class MenuScript : MonoBehaviour
     [SerializeField]
     GameObject EventSystem;
     List<GameObject> Menus;
-    int numberOfSaves;
-    string gameScene;
+    int numberOfLevels;
+    //string gameScene;
     bool paused,
          inGame;
     [SerializeField]
@@ -35,7 +35,8 @@ public class MenuScript : MonoBehaviour
     {
         Panel = transform.GetChild(0).gameObject;
         Panel.SetActive(true);
-        gameScene = "Lucas_DemoScene"; //Ändra det här till den färdiga scenen.
+        inGame = false;
+        //gameScene = "Lucas_DemoScene"; //Ändra det här till den färdiga scenen.
 
         Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, CreditsMenu, ConfirmQuit, PauseMenu };
 
@@ -77,64 +78,115 @@ public class MenuScript : MonoBehaviour
         }
 
     }
+    public void LoadGame(string gameScene)
+    {
+        Menus[1].SetActive(false);
+        inGame = true;
+        Panel.SetActive(false);
+        SceneManager.LoadScene(gameScene);
+    }
+
+    public void LevelSelect()
+    {
+        //Numberoflevels Det här bör ändras till att den hämtar värde från vår spar-funktion.
+        Menus[1].SetActive(true);
+
+        //Hämta värde från xml:
+        int unlockedLevels = 8;
+        numberOfLevels = 8;
+        for (int i = 0; i < numberOfLevels; i++)
+        {
+            Menus[1].transform.GetChild(i).gameObject.SetActive(true);
+
+            for (int j = 0; j < unlockedLevels; j++)
+            {
+                Menus[1].transform.GetChild(j).transform.GetChild(0).gameObject.SetActive(true);
+            }
+            for (int k = unlockedLevels; k < numberOfLevels; k++)
+            {
+                Menus[1].transform.GetChild(k).transform.GetChild(1).gameObject.SetActive(true);
+            }
+
+        }
+    }
+
+    public void GeneralIndexButton(int index)
+    {
+        Menus[index].SetActive(true);
+    }
+
+    public void Back()
+    {
+        for (int i = 0; i < Menus.Count; i++)
+        {
+            Menus[i].SetActive(false);
+        }
+        if (inGame)
+        {
+            Menus[5].SetActive(true);
+        }
+        else
+        {
+            Menus[0].SetActive(true);
+        }
+    }
+
+    public void ResumeGame()
+    {
+        paused = false;
+        Panel.SetActive(false);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    public void MainMenuButton()
+    {
+        inGame = false;
+        Panel.SetActive(false);
+        SceneManager.LoadScene("MenuScene");
+    }
+
     //Följande metod är kopplat till OnClick() på knapparna i menyn i Unity.
     //Index är specificerat hos vardera knapp i Unity.
     public void ClickButtons(int index)
     {
-        for(int i = 0; i < Menus.Count; i++)
+        for (int i = 0; i < Menus.Count; i++)
         {
             Menus[i].SetActive(false);
         }
 
-        //Settings, Credit och Confirm Quit.
-        if (index == 2 || index == 3 || index == 4)
-        {
-            Menus[index].SetActive(true);
-        }
+
 
         switch (index)
         {
-            //New Game-knappen (visar en meny med knappar där du kan välja vilken scen du vill gå in i).
+            //New Game-knappen (visar en meny med knappar där du kan välja vilken scen du vill gå in i). KAN TAS BORT SÅ FORT RESTEN AV ALLA SWITCHES ÄR FIXADE
             case 0:
-                inGame = true;
-                Panel.SetActive(false);
-                SceneManager.LoadScene(gameScene);
+
+                //SceneManager.LoadScene(gameScene);
                 break;
 
-            //Load Game. Hela denna load-game funktionen ska ändras till någonting annat, som bör diskuteras kring vad vi vill ha. 
-            //Exempelvis upplåsta lvlar och inte sparade lvlar.
+            //Levelselect. 
             case 1:
-                Menus[1].SetActive(true);
-                numberOfSaves = 0; //Det här bör ändras till att den hämtar värde från vår spar-funktion.
 
-                if (numberOfSaves == 0)
-                {
-                    Menus[1].transform.GetChild(9).gameObject.SetActive(true); //"No saved games yet"-texten. 
-                }
-                else
-                {
-                    for (int i = 0; i < numberOfSaves; i++)
-                    {
-                        Menus[1].transform.GetChild(i).gameObject.SetActive(true);
-                    }
-                }
+
+
+
+                //Menus[1].transform.GetChild(9).gameObject.SetActive(true);
+                //Menus[1].transform.GetChild(numberOfLevels).gameObject.SetActive(true); //Visar hur många levels som är tillgängliga
+
+                //for (int i = 0; i < numberOfLevels; i++)
+                //{
+                //    Menus[1].transform.GetChild(i).gameObject.SetActive(true);
+                //}
+
                 break;
-
 
             //Back-knappen, går till MainMenu om inGame är false, och till PauseMenu om inGame är true.
             case 5:
-                for (int i = 0; i < Menus.Count; i++)
-                {
-                    Menus[i].SetActive(false);
-                }
-                if (inGame)
-                {
-                    Menus[5].SetActive(true);
-                }
-                else
-                {
-                    Menus[0].SetActive(true);
-                }
+
                 break;
 
             //Yes-knapp i ConfirmQuit.
@@ -144,15 +196,12 @@ public class MenuScript : MonoBehaviour
 
             //Return knappen
             case 7:
-                paused = false;
-                Panel.SetActive(false);
+
                 break;
 
             //Main menu knappen. Saknar dock en confirm knapp.
             case 8:
-                inGame = false;
-                Panel.SetActive(false);
-                SceneManager.LoadScene("MenuScene");
+
                 break;
 
 
