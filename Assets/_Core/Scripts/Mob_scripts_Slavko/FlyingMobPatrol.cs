@@ -98,22 +98,7 @@ public class FlyingMobPatrol : MobStats {
             transform.position = new Vector3(transform.position.x, transform.position.y + 0.1f, transform.position.z);
         }
     }
-        /*
-        if (time >= howOftenToShoot && dist < radiusOfReaction) // stop shooting if MC is far away
-        {
-            if (bulletCount == 0) // shoot five times with .15 second pause (Phase 1)
-            { howOftenToShoot = 0.15f; } 
-            time = 0.0f;
-            
-            Instantiate(bullet, bulletSpawnPoint.position, bullet.rotation);
-            bulletCount++;
 
-            if (bulletCount == 5)
-            {
-                howOftenToShoot = 2f; // pause for 2 seconds (Phase 2)
-                bulletCount = 0;
-            }
-        }*/
     }
     public override void TakeDamage(float damage, int color) //Om mob:en blir träffad av en kula som korresponderar med mob:ens färg så tar den skada.
     {
