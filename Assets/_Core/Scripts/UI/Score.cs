@@ -14,6 +14,8 @@ public class Score : MonoBehaviour
     [SerializeField]
     float multiplierSpeed, startCounter;
 
+    int[] gradesCaps = new int[4];
+
     void Start()
     {
         currentScore = startScore;
@@ -25,7 +27,7 @@ public class Score : MonoBehaviour
         displayScore.text = "Score: " + currentScore.ToString();
     }
 
-    public void LooseScore() //Kommer ta in score parametrar sen
+    public void LooseScore(int score) //Kommer ta in score parametrar sen
     {
         currentScore -= scoreMultiplier;
     }
