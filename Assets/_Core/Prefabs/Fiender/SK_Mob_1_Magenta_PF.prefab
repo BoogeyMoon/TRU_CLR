@@ -563,7 +563,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1515005480612622}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -2.0584474, y: 2.0586653, z: -2.3330631}
+  m_LocalPosition: {x: 2.3564632, y: 0.40952402, z: -0.87445915}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4331527264784574}
@@ -761,7 +761,7 @@ Animator:
   m_GameObject: {fileID: 1515005480612622}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9587e92bc2098904eaa67c2b8f5a2bc8, type: 3}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1522846e452a7b641bb1de34e1d00efa, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -787,15 +787,14 @@ MonoBehaviour:
   distanceInterval: 7
   timeBetweenBurst: 1
   shotsPerBurst: 3
-  rotationBetweenBullets: 5
+  spread: 0
   health: 0
   color: 2
   numberOfBulletsPerShot: 1
   scoreValue: 0
   bulletSpawners:
   - {fileID: 1277123797204200}
-  eyes:
-  - {fileID: 1098972155755078}
+  raycastOrigin: []
   destination: {fileID: 0}
   bullet: {fileID: 1391852344878852, guid: eb5fe13b20c43284fabd9f2d94d5927a, type: 2}
   patrolPoints: {fileID: 0}
