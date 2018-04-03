@@ -42,7 +42,7 @@ public class SoundManager : MonoBehaviour
 
     public void RandomizeSfx(params AudioClip[] clips) //Används för att slumpmässigt spela upp ljud och ändra pitchen på dem
     {
-        int randomIndex = Random.Range(0, clips.Length);
+        int randomIndex = Random.Range(0, clips.Length-1);
         float randomPitch = Random.Range(lowPitchRange, highPitchRange);
         efxSource.pitch = randomPitch;
         efxSource.clip = clips[randomIndex];

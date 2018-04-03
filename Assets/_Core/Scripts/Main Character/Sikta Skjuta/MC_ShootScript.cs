@@ -11,25 +11,24 @@ public class MC_ShootScript : MonoBehaviour
     [SerializeField]
     GameObject[] colorsBullets;
     [SerializeField]
-    GameObject rifleBarrel, shoulderAim, shield, colorIndicator;
+    GameObject rifleBarrel, shoulderAim, shield;
     GameObject currentBullet, mcCharacter, currentShield;
 
     enum ColorProjectiles { Blue, Yellow, Red };
     int activeColor;
     [SerializeField]
-    float laserDamage;
-    float cooldown, fireRate, offsetZ, laserLength;
+    float laserDamage, shieldCooldown;
+    float cooldown, fireRate, offsetZ, laserLength, currentShieldCooldown;
     [SerializeField]
     float[] cooldowns;
 
     LineRenderer laserLineRenderer;
     Vector3 startPosition, direction;
-    ColorIndicatior colorInd;
     [SerializeField]
     Material material;
     Color[] colors;
     [SerializeField]
-    AudioClip[] shots;
+    AudioClip[] shotsBlue, shotsYellow, shotsMagenta;
     SoundManager soundManager;
     PlayerStats playerStats;
 
@@ -42,7 +41,6 @@ public class MC_ShootScript : MonoBehaviour
         laserLength = 50f;
         laserLineRenderer = GetComponent<LineRenderer>();
         activeColor = (int)ColorProjectiles.Blue;
-        colorInd = colorIndicator.GetComponent<ColorIndicatior>();
         mcCharacter = gameObject;
         playerStats = GetComponent<PlayerStats>();
     }
@@ -72,6 +70,7 @@ public class MC_ShootScript : MonoBehaviour
             {
                 fireRate -= Time.deltaTime;
             }
+                currentShieldCooldown -= Time.deltaTime;
         }
     }
 
@@ -83,7 +82,19 @@ public class MC_ShootScript : MonoBehaviour
             if (fireRate <= 0)
             {
                 laserLineRenderer.enabled = false;
-                soundManager.RandomizeSfx(shots);
+                switch (activeColor)
+                {
+                    case 0:
+                        soundManager.RandomizeSfx(shotsBlue);
+                        break;
+                    case 1:
+                        soundManager.RandomizeSfx(shotsYellow);
+                        break;
+                    case 2:
+                        soundManager.RandomizeSfx(shotsMagenta);
+                        break;
+                }
+
                 StartCoroutine(LaserLifeTime());
                 Shoot();
             }
@@ -94,7 +105,6 @@ public class MC_ShootScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.E) || Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             activeColor = (activeColor + 1) % 3;
-            colorInd.SwitchColor(true);
         }
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetAxis("Mouse ScrollWheel") < 0)
         {
@@ -103,15 +113,19 @@ public class MC_ShootScript : MonoBehaviour
             {
                 activeColor = colorsBullets.Length - 1;
             }
-            colorInd.SwitchColor(false);
         }
 
         //Skickar en sköld på vänster Shift:
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            if (currentShieldCooldown <= 0)
+            {
             currentShield = Instantiate(shield,
             new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
             currentShield.transform.rotation = rifleBarrel.transform.rotation;
+                currentShieldCooldown = shieldCooldown;
+            }
+            
         }
     }
 
@@ -136,7 +150,7 @@ public class MC_ShootScript : MonoBehaviour
                 }
                 else if (raycastHit.transform.tag == "Interactable")
                 {
-
+                    raycastHit.transform.GetComponent<SwitchInteract>().Trigger(2);
                 }
             }
             laserLineRenderer.SetPosition(0, startPosition);

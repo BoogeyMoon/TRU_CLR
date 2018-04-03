@@ -65,7 +65,7 @@ public class DashScript : MonoBehaviour
         //Om spelaren försöker dasha in mot ett objekt:
         if (Physics.Raycast(ray, out raycastHit, lengthOfDash))
         {
-            endDash = raycastHit.point;
+            endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z) ;
         }
         else
         {
