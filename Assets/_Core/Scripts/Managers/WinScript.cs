@@ -5,6 +5,7 @@ using UnityEngine;
 public class WinScript : MonoBehaviour
 {
     Score ScoreManager;
+    List<bool> winConditions = new List<bool>();
 
     void Start()
     {
@@ -13,8 +14,13 @@ public class WinScript : MonoBehaviour
 
     void OnTriggerEnter()
     {
+        for (int i = 0; i < winConditions.Count; i++)
+        {
+
+        }
         print(ScoreManager.GetGrade());
 
     }
-	
+
 }
+

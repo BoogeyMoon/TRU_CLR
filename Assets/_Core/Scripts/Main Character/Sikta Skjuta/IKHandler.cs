@@ -11,7 +11,7 @@ public class IKHandler : MonoBehaviour
 
     Animator animator;
 
-    Vector3 lookObj = new Vector3(0.0f, 0.0f, 0.0f);
+    Vector3 lookObj = Vector3.zero;
     PlayerStats playerStats;
 
     void Start()

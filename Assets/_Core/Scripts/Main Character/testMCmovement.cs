@@ -9,7 +9,7 @@ public class testMCmovement : MonoBehaviour
     [SerializeField]
     float speed = 6.0f, rotationSpeed = 6.0f, jumpSpeed = 8.0f, gravity = 20.0f, airtime;
     float moveOnX, startSpeed, crouchCenterOffsetY = 0.5f, crouchHeightOffset = 0.9f, crouchCenterOriginal = 1f, crouchHeightOriginal = 1.8f;
-    float offsetZ = -0.85f;
+    float offsetZ = 0;
     
 
     int jumps = 2, currentjump = 0;
