@@ -293,7 +293,7 @@ GameObject:
   - component: {fileID: 23720677152137240}
   m_Layer: 0
   m_Name: SM_mainweapon_01
-  m_TagString: Untagged
+  m_TagString: MCWeapon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1125,6 +1125,7 @@ MonoBehaviour:
   shield: {fileID: 1059979422184458, guid: a0127f3e2ba2ddc498f12eb65850281c, type: 2}
   colorIndicator: {fileID: 0}
   laserDamage: 1
+  shieldCooldown: 0
   cooldowns:
   - 0.5
   - 0.5
@@ -1145,8 +1146,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
-  health: 0
-  cPHealth: 10
 --- !u!114 &114597605329760832
 MonoBehaviour:
   m_ObjectHideFlags: 1
