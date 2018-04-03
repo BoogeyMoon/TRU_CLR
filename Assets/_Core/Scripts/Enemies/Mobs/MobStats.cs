@@ -91,12 +91,12 @@ public class MobStats : MonoBehaviour
             {
                 if (patrolPointsList.Count != 1)
                 {
+                    patrolCounter++;
                     if (patrolCounter > patrolPointsList.Count - 1)
                     {
                         patrolCounter = 0;
                     }
                     destination = patrolPointsList[patrolCounter].gameObject;
-                    patrolCounter++;
                 }
             }
         }
@@ -179,9 +179,9 @@ public class MobStats : MonoBehaviour
     }
     protected void LookAtPlayer(Transform Obj) //Kollar mot spelaren på x-y planet
     {
-        Obj.transform.LookAt(new Vector3 (playerTarget.position.x, playerTarget.position.y, Obj.position.z));
+        Obj.transform.LookAt(new Vector3(playerTarget.position.x, playerTarget.position.y, Obj.position.z));
     }
-    protected void SetToPlayerPlane(Transform Obj)  
+    protected void SetToPlayerPlane(Transform Obj)
     {
         Obj.transform.position = new Vector3(Obj.transform.position.x, Obj.transform.position.y, player.transform.position.z);
     }
