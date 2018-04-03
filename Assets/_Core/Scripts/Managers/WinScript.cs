@@ -16,7 +16,8 @@ public class WinScript : MonoBehaviour
     {
         for (int i = 0; i < winConditions.Count; i++)
         {
-
+            if (!winConditions[i])
+                return;
         }
         print(ScoreManager.GetGrade());
 
