@@ -28,7 +28,7 @@ public class MC_ShootScript : MonoBehaviour
     Material material;
     Color[] colors;
     [SerializeField]
-    AudioClip[] shots;
+    AudioClip[] shotsBlue, shotsYellow, shotsMagenta;
     SoundManager soundManager;
     PlayerStats playerStats;
 
@@ -82,7 +82,19 @@ public class MC_ShootScript : MonoBehaviour
             if (fireRate <= 0)
             {
                 laserLineRenderer.enabled = false;
-                soundManager.RandomizeSfx(shots);
+                switch (activeColor)
+                {
+                    case 0:
+                        soundManager.RandomizeSfx(shotsBlue);
+                        break;
+                    case 1:
+                        soundManager.RandomizeSfx(shotsYellow);
+                        break;
+                    case 2:
+                        soundManager.RandomizeSfx(shotsMagenta);
+                        break;
+                }
+
                 StartCoroutine(LaserLifeTime());
                 Shoot();
             }
