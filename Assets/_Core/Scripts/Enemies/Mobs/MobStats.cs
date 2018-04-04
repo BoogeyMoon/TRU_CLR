@@ -8,7 +8,7 @@ public class MobStats : MonoBehaviour
 {
     Score score;
     [SerializeField]
-    protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, spread, health;
+    protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, spread, health, deathAnimDuration = 2;
     [SerializeField]
     protected int color, numberOfBulletsPerShot, scoreValue;
     [SerializeField]
@@ -80,10 +80,13 @@ public class MobStats : MonoBehaviour
     {
         score.AddScore(scoreValue);
         dead = true;
-        //ERIK HÄR SKA DU AKTIVERA ANIMATIONEN!
         animator.SetTrigger("deathTrigger");
     }
-
+    IEnumerator GetDestroyed()
+    {
+        yield return new WaitForSeconds(deathAnimDuration);
+        Destroy(gameObject);
+    }
 
     public void ChangeDestination(GameObject newDestination, GameObject lastDestination) //Ger en mob sitt nästa mål, om input är null går den till nästa mål i sin lista.
     {
