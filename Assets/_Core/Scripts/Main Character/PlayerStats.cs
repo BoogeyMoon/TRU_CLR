@@ -10,28 +10,37 @@ public class PlayerStats : MonoBehaviour
 {
     UIHealth2 uiHealth;
     [SerializeField]
-    float maxHealth, health;
-    //float health;
+    float maxHealth;
+    float health;
     Animator anim;
     bool dead;
     public bool Dead
     {
         get { return dead; }
     }
-
+    public float Health
+    {
+        get
+        {
+            return health;
+        }
+    }
 
     string checkpoint;
 
-    void Start()
+    void Awake()
     {
-        uiHealth = GameObject.FindGameObjectWithTag("Healthbar").GetComponent<UIHealth2>();
-
         if (PlayerPrefs.GetFloat("savedHealth") != -1)
         {
             health = maxHealth / 2;
         }
-
     }
+
+    void Start()
+    {
+        uiHealth = GameObject.FindGameObjectWithTag("Healthbar").GetComponent<UIHealth2>();
+    }
+
 
     public void ChangeHealth(float value) //Lägg till eller ta bort hälsa från spelaren
     {
@@ -48,11 +57,8 @@ public class PlayerStats : MonoBehaviour
             {
                 PlayerDies();
             }
-            print(health);
             uiHealth.TakeDamage((int)health);
         }
-
-
     }
 
     public void PlayerDies() //Ifall spelaren dör
