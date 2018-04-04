@@ -11,6 +11,7 @@ public class PlayerStats : MonoBehaviour
     UIHealth2 uiHealth;
     [SerializeField]
     float maxHealth;
+    [SerializeField]
     float health;
     Animator anim;
     bool dead;
@@ -44,7 +45,7 @@ public class PlayerStats : MonoBehaviour
 
     public void ChangeHealth(float value) //Lägg till eller ta bort hälsa från spelaren
     {
-        if (health > 0)
+        if (health > 0 )
         {
             health += value;
 
