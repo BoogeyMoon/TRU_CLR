@@ -15,29 +15,35 @@ public class SpiderMobs : MobStats
         base.Start();
         agent = GetComponent<NavMeshAgent>();
         body = GetComponent<Rigidbody>();
-        StartCoroutine(setPlaneToPlayer());
     }
 
     void Update()
     {
-        timeLeft -= Time.deltaTime;
-        playerDistance = GetPlayerDistance(transform);
-        if (body.velocity != Vector3.zero)
+        if (!dead)
         {
-            body.velocity = Vector3.zero;
-        }
-        if (destination != null)
-        {
-            Move();
-        }
-        
-        if (playerDistance < aggroRange && timeLeft < 0)
-        {
-            Shoot(); 
-        }
-        else
-        {
-            LookAtPlayer(head);
+            timeLeft -= Time.deltaTime;
+            playerDistance = GetPlayerDistance(transform);
+            if (transform.position.z != player.transform.position.z)
+            {
+                SetToPlayerPlane(transform);
+            }
+            if (body.velocity != Vector3.zero)
+            {
+                body.velocity = Vector3.zero;
+            }
+            if (destination != null)
+            {
+                Move();
+            }
+
+            if (playerDistance < aggroRange && timeLeft < 0)
+            {
+                Shoot();
+            }
+            else
+            {
+                LookAtPlayer(head);
+            }
         }
 
     }
@@ -46,9 +52,5 @@ public class SpiderMobs : MobStats
     {
         transform.position = Vector3.MoveTowards(agent.transform.position, destination.transform.position, speed * Time.deltaTime);
     }
-	IEnumerator setPlaneToPlayer()
-    {
-        yield return new WaitForSeconds(0.5f);
-        SetToPlayerPlane(transform);
-    }
+	
 }

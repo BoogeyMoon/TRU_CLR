@@ -21,23 +21,26 @@ public class Turret : MobStats
 
     void Update() //Moben agerar
     {
-        LookAtPlayer(head);
-        playerDistance = GetPlayerDistance(head.transform);
-        timeLeft -= Time.deltaTime;
-        burstTimer -= Time.deltaTime;
-
-
-        if (aggroRange > playerDistance)
+        if (!dead)
         {
-            if (burstTimer < 0)
-            {
-                if (timeLeft < 0)
-                {
-                    Shoot();
-                    animator.SetTrigger("shoot");
-                }
-            }
+            LookAtPlayer(head);
+            playerDistance = GetPlayerDistance(head.transform);
+            timeLeft -= Time.deltaTime;
+            burstTimer -= Time.deltaTime;
 
+
+            if (aggroRange > playerDistance)
+            {
+                if (burstTimer < 0)
+                {
+                    if (timeLeft < 0)
+                    {
+                        Shoot();
+                        animator.SetTrigger("shoot");
+                    }
+                }
+
+            }
         }
     }
     public void Upgrade() //Gör att fienden blir argare och farligare

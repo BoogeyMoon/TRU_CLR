@@ -18,7 +18,7 @@ public class MobStats : MonoBehaviour
     protected GameObject currentBullet;
     protected Transform playerTarget, player;
     protected List<Transform> patrolPointsList = new List<Transform>();
-    protected bool onCooldown;
+    protected bool onCooldown, dead;
     protected float timeLeft, burstTimer, burstCounter, playerDistance;
     protected int patrolCounter;
     protected Quaternion startRot;
@@ -58,7 +58,7 @@ public class MobStats : MonoBehaviour
         if (color == this.color)
         {
             health -= damage;
-            if (health <= 0)
+            if (!dead && health <= 0)
             {
                 Die();
             }
@@ -77,7 +77,9 @@ public class MobStats : MonoBehaviour
     void Die() //Mob:en dör.
     {
         score.AddScore(scoreValue);
-        Destroy(gameObject);
+        dead = true;
+        //ERIK HÄR SKA DU AKTIVERA ANIMATIONEN!
+
     }
 
 

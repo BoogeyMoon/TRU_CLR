@@ -26,44 +26,51 @@ public class FlyingMob : MobStats
     }
     void Update() //Ser till att rätt metoder anropas när de ska.
     {
-        if (CanSeePlayer())
+        if (!dead)
         {
-            timeSinceSeenPlayer = 0;
-        }
-        else
-        {
-            timeSinceSeenPlayer += Time.deltaTime;
-        }
-        if (body.velocity != Vector3.zero)
-        {
-            body.velocity = Vector3.zero;
-        }
-        if (transform.rotation != startRot)
-        {
-            transform.rotation = startRot;
-        }
-        playerDistance = GetPlayerDistance(transform);
-        timeLeft -= Time.deltaTime;
-        burstTimer -= Time.deltaTime;
-        ChaseCheck();
-
-        if (playerDistance <= aggroRange)
-        {
-            if (timeSinceSeenPlayer <= loseTrackOfPlayer)
+            if (CanSeePlayer())
             {
-                if (burstTimer < 0)
+                timeSinceSeenPlayer = 0;
+            }
+            else
+            {
+                timeSinceSeenPlayer += Time.deltaTime;
+            }
+            if (body.velocity != Vector3.zero)
+            {
+                body.velocity = Vector3.zero;
+            }
+            if (transform.rotation != startRot)
+            {
+                transform.rotation = startRot;
+            }
+            playerDistance = GetPlayerDistance(transform);
+            timeLeft -= Time.deltaTime;
+            burstTimer -= Time.deltaTime;
+            ChaseCheck();
+
+            if (playerDistance <= aggroRange)
+            {
+                if (timeSinceSeenPlayer <= loseTrackOfPlayer)
                 {
-                    if (timeLeft < 0)
+                    if (burstTimer < 0)
                     {
+                        if (timeLeft < 0)
+                        {
+                            if (player.position.y < Aim.transform.position.y)
+                                Shoot();
+                        }
+                    }
+                    else
+                    {
+                        Move();
                         if (player.position.y < Aim.transform.position.y)
-                            Shoot();
+                            LookAtPlayer(Aim);
                     }
                 }
                 else
                 {
-                    Move();
-                    if (player.position.y < Aim.transform.position.y)
-                        LookAtPlayer(Aim);
+                    Patrol();
                 }
             }
             else
@@ -71,12 +78,6 @@ public class FlyingMob : MobStats
                 Patrol();
             }
         }
-        else
-        {
-            Patrol();
-        }
-
-
     }
 
     void Move() //Styr hur fienden rör sig.

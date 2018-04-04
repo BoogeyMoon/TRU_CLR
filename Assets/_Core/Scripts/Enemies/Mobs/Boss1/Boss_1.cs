@@ -10,7 +10,7 @@ public class Boss_1 : MonoBehaviour {
     void Start()
     {
         turrets = new List<BossTurret>();
-        laser = transform.GetChild(0).GetComponent<BossTurretLaser>();
+        laser = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<BossTurretLaser>();
         for (int i = 0; i < 2; i++)
         {
             turrets.Add(transform.GetChild(i+1).GetComponent<BossTurret>());
@@ -19,7 +19,6 @@ public class Boss_1 : MonoBehaviour {
     public void AngryBoss(BossTurret bossT)
     {
         turrets.Remove(bossT);
-        print(turrets.Count);
         laser.Upgrade();
         if(turrets.Count <= 0)
         {

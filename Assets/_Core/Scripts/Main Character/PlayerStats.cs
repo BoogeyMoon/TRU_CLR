@@ -10,8 +10,8 @@ public class PlayerStats : MonoBehaviour
 {
     UIHealth2 uiHealth;
     [SerializeField]
-    float maxHealth;
-    float health;
+    float maxHealth, health;
+    //float health;
     Animator anim;
     bool dead;
     public bool Dead
