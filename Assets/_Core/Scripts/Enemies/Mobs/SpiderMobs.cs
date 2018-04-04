@@ -15,7 +15,7 @@ public class SpiderMobs : MobStats
         base.Start();
         agent = GetComponent<NavMeshAgent>();
         body = GetComponent<Rigidbody>();
-        SetToPlayerPlane(transform);
+        StartCoroutine(setPlaneToPlayer());
     }
 
     void Update()
@@ -46,5 +46,9 @@ public class SpiderMobs : MobStats
     {
         transform.position = Vector3.MoveTowards(agent.transform.position, destination.transform.position, speed * Time.deltaTime);
     }
-	
+	IEnumerator setPlaneToPlayer()
+    {
+        yield return new WaitForSeconds(0.5f);
+        SetToPlayerPlane(transform);
+    }
 }

@@ -46,8 +46,7 @@ public class Score : MonoBehaviour
         {
             if(currentScore >= gradesCaps[gradesCaps.Length -1-i])
             {
-                print("Score: " + currentScore + "gradesCap[gradesCaps.Length-1"+i+"]: " + gradesCaps[gradesCaps.Length-1-i]);
-                return grades[i + 1];
+                return grades[grades.Length - i -1];
             }
         }
         return grades[0];
