@@ -17,11 +17,7 @@ public class MCSpawner : MonoBehaviour
         timer += Time.deltaTime;
         if(timer > 1.5f)
         {
-            player.GetComponent<testMCmovement>().enabled = true;
-            player.GetComponent<MC_ShootScript>().enabled = true;
-            //player.GetComponent<IKHandler>().enabled = true;
-            player.GetComponent<Animator>().SetLayerWeight(1, 1);
-
+            
         }
     }
 
