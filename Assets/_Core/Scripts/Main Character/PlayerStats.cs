@@ -28,7 +28,7 @@ public class PlayerStats : MonoBehaviour
 
         if (PlayerPrefs.GetFloat("savedHealth") != -1)
         {
-            health = maxHealth;
+            health = maxHealth / 2;
         }
 
     }
@@ -48,7 +48,7 @@ public class PlayerStats : MonoBehaviour
             {
                 PlayerDies();
             }
-
+            print(health);
             uiHealth.TakeDamage((int)health);
         }
 

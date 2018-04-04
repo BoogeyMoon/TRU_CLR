@@ -33,6 +33,7 @@ public class FlyingMobPatrol : MobStats {
         aggro = false;
         foreach (ParticleSystem damageParticle in damageParticles)
         {
+
             var emission = damageParticle.emission;
             emission.enabled = false;
         }
@@ -103,6 +104,7 @@ public class FlyingMobPatrol : MobStats {
         if ((color == this.color) && (timesGotHit <= damageParticles.Length -1))
         {
             var emission = damageParticles[timesGotHit].emission;
+            print(damageParticles[timesGotHit]);
             emission.enabled = true;
 
         }
