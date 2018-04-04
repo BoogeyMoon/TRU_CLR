@@ -48,7 +48,6 @@ public class PlayerStats : MonoBehaviour
             {
                 PlayerDies();
             }
-            print(health);
             uiHealth.TakeDamage((int)health);
         }
 

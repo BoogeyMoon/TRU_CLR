@@ -22,7 +22,7 @@ public class MobStats : MonoBehaviour
     protected float timeLeft, burstTimer, burstCounter, playerDistance;
     protected int patrolCounter;
     protected Quaternion startRot;
-    Animator animator;
+    protected Animator animator;
 
 
     void Awake()
