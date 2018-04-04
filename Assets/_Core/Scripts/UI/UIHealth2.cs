@@ -2,38 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+// Av Andreas de Freitas
+//Hanterar det visuella för spelarens hälsa
 public class UIHealth2 : MonoBehaviour
 {
     PlayerStats playerStats;
 
     [SerializeField]
-    int startLives, currentHealth, heal;
+    int startLives, currentHealth;
 
-    int maxHealthAmount = 10, fullHealth;
+    int maxHealth = 20, fullHealth;
 
     [SerializeField]
     Image[] healthImages;
 
-
     void Start()
     {
         playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
-        currentHealth = startLives * heal;
-        fullHealth = maxHealthAmount * heal;
-        CheckHealth(fullHealth);
+        currentHealth = startLives;
+        fullHealth = maxHealth;
+        CheckHealth(startLives);
     }
 
     void CheckHealth(int health)
     {
-        for (int i = 0; i < maxHealthAmount; i++)
+
+        for (int i = 0; i < maxHealth; i++)
         {
+            healthImages[i].enabled = false;
+
             if (health <= i)
             {
+
                 healthImages[i].enabled = false;
             }
             else
             {
+
                 healthImages[i].enabled = true;
             }
         }
@@ -41,8 +46,8 @@ public class UIHealth2 : MonoBehaviour
 
     public void TakeDamage(int health)
     {
+
         currentHealth = health;
-        currentHealth = Mathf.Clamp(currentHealth, 0, startLives * heal);
         CheckHealth(health);
     }
 
