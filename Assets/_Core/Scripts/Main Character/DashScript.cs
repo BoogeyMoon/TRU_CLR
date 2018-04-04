@@ -33,7 +33,7 @@ public class DashScript : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && !dashOnCooldown)
         {
             dashOnCooldown = true;
-            soundManager.PlaySingle(dashSound); // play Dash sound
+            soundManager.PlaySingle(dashSound,1); // play Dash sound
             startPosition = startObject.transform.position;
             direction = rifleBarrel.transform.forward;
             Dash();
