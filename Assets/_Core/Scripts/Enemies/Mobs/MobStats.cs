@@ -8,7 +8,7 @@ public class MobStats : MonoBehaviour
 {
     Score score;
     [SerializeField]
-    protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, spread, health, deathAnimDuration = 2;
+    protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, spread, health, deathAnimDuration;
     [SerializeField]
     protected int color, numberOfBulletsPerShot, scoreValue;
     [SerializeField]
@@ -40,6 +40,10 @@ public class MobStats : MonoBehaviour
         onCooldown = false;
         updatePatrolPoints();
         startRot = transform.rotation;
+        if(deathAnimDuration == 0)
+        {
+            deathAnimDuration = 2;
+        }
     }
     protected void updatePatrolPoints() //Kollar barnen på ett gameobject och lägger till dem i en lista.
     {
