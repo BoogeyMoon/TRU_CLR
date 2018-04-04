@@ -12,6 +12,11 @@ public class HealthPack : Enviromental
     [SerializeField]
     protected float healthGain;
 
+    void Start()
+    {
+        soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
+    }
+
     void OnTriggerEnter(Collider coll) //När spelaren träffar spikesen
     {
         if (coll.gameObject.tag == "Player")

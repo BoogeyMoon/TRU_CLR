@@ -131,7 +131,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1948665011048228}
   m_LocalRotation: {x: -1, y: -0, z: 0, w: 0}
-  m_LocalPosition: {x: -31.899986, y: -44.100006, z: 30.1}
+  m_LocalPosition: {x: -49.8, y: -13.9, z: 10.8}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
   - {fileID: 4313694016964406}
@@ -159,7 +159,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1056454953134392}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.3, y: 0, z: 0}
+  m_LocalPosition: {x: -46.9, y: 63.1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4633201064099200}
@@ -172,7 +172,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1365604029662512}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 40.62, y: 14.31, z: -0.93}
+  m_LocalPosition: {x: 89.4, y: 25.1, z: -0.93}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_Children:
   - {fileID: 4506567514709320}
@@ -335,10 +335,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a239bb193ac1e247a9b88043fc1553c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnedEnemies: []
-  interval: 2
+  spawnedEnemies:
+  - {fileID: 1105864025820046, guid: 5011cffc4e8faba49b7c0af387c891ec, type: 2}
+  - {fileID: 1994240622069318, guid: 144903cd6fd1a9f49a03d87146307910, type: 2}
+  - {fileID: 1961155904786234, guid: a7b8c2e248c0f74449d163e0b50074ac, type: 2}
+  - {fileID: 1970287622373258, guid: ce5dc780defe28343bee0e7e3a616133, type: 2}
+  interval: 3
   spawnPoint: {fileID: 4506567514709320}
-  aggroRange: 20
+  aggroRange: 15
 --- !u!114 &114674853088870590
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -432,7 +436,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 1912644921
+  randomSeed: 1376251787
   InitialModule:
     serializedVersion: 3
     enabled: 1
