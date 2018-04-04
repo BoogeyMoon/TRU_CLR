@@ -10,6 +10,7 @@ public class WinScript : MonoBehaviour
     void Start()
     {
         ScoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<Score>();
+
     }
 
     void OnTriggerEnter()
@@ -20,7 +21,6 @@ public class WinScript : MonoBehaviour
                 return;
         }
         print(ScoreManager.GetGrade());
-
     }
 
 }
