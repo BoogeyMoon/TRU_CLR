@@ -183,9 +183,8 @@ public class testMCmovement : MonoBehaviour
 
         if (moveDirection.y > 0 && Physics.SphereCast(transform.position + new Vector3(0, 1.85f, 0), 0.2f, transform.up, out hit, 0.1f))
         {
-            if (hit.transform.tag == "Bullet" || hit.transform.tag == "PatrolPoint" || hit.transform.tag == "Interactable" || hit.transform.tag == "Shield")
+            if (hit.transform.tag != "Bullet" && hit.transform.tag != "PatrolPoint" && hit.transform.tag != "Interactable" && hit.transform.tag != "Shield")
             {
-                print("näenäe " + hit.transform.gameObject.name);
                 moveDirection.y = 0;
             }
                 

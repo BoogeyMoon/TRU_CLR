@@ -19,16 +19,19 @@ public class BossTurret : Turret
     }
     public override void TakeDamage(float damage, int color) //En anpassad version av TakeDamage för Bossturreten som kommunicerar med Boss_1 scriptet samt ändrar färg varje gång den blir träffad
     {
-        if (color == this.color && health - damage <= 0)
-            boss.AngryBoss(this);
-
-        base.TakeDamage(damage, color);
-        if (this.color == color)
+        if (!dead)
         {
-            this.color = (this.color + 1) % 3;
-        }
-        ChangeMaterial(this.color);
+            if (color == this.color && health - damage <= 0)
+                boss.AngryBoss(this);
 
+            base.TakeDamage(damage, color);
+
+            if (this.color == color)
+            {
+                this.color = (this.color + 1) % 3;
+            }
+            ChangeMaterial(this.color);
+        }
     }
     void ChangeMaterial(int color) //Byter material till den motsvarande
     {

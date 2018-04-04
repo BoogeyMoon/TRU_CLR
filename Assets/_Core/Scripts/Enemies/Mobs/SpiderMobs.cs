@@ -19,28 +19,31 @@ public class SpiderMobs : MobStats
 
     void Update()
     {
-        timeLeft -= Time.deltaTime;
-        playerDistance = GetPlayerDistance(transform);
-        if(transform.position.z != player.transform.position.z)
+        if (!dead)
         {
-            SetToPlayerPlane(transform);
-        }
-        if (body.velocity != Vector3.zero)
-        {
-            body.velocity = Vector3.zero;
-        }
-        if (destination != null)
-        {
-            Move();
-        }
-        
-        if (playerDistance < aggroRange && timeLeft < 0)
-        {
-            Shoot(); 
-        }
-        else
-        {
-            LookAtPlayer(head);
+            timeLeft -= Time.deltaTime;
+            playerDistance = GetPlayerDistance(transform);
+            if (transform.position.z != player.transform.position.z)
+            {
+                SetToPlayerPlane(transform);
+            }
+            if (body.velocity != Vector3.zero)
+            {
+                body.velocity = Vector3.zero;
+            }
+            if (destination != null)
+            {
+                Move();
+            }
+
+            if (playerDistance < aggroRange && timeLeft < 0)
+            {
+                Shoot();
+            }
+            else
+            {
+                LookAtPlayer(head);
+            }
         }
 
     }
