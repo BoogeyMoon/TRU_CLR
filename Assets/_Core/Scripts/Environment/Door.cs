@@ -7,9 +7,10 @@ using UnityEngine;
 
 public class Door : MonoBehaviour, Interactable
 {
-
+    [SerializeField]
+    float speed;
     bool openDoor, closeDoor = true, activated = false;
-    float speed = 1, height = 7.4f, startY; 
+    float height = 7.4f, startY; 
     void Start()
     {
         startY = transform.position.y;
