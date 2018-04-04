@@ -20,7 +20,6 @@ public class WinScript : MonoBehaviour
             if (!winConditions[i])
                 return;
         }
-        print(ScoreManager.GetGrade());
     }
 
 }

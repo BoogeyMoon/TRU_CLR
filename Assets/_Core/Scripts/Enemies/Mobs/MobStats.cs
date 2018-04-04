@@ -8,7 +8,7 @@ public class MobStats : MonoBehaviour
 {
     Score score;
     [SerializeField]
-    protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, spread, health;
+    protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, spread, health, deathAnimDuration;
     [SerializeField]
     protected int color, numberOfBulletsPerShot, scoreValue;
     [SerializeField]
@@ -22,7 +22,7 @@ public class MobStats : MonoBehaviour
     protected float timeLeft, burstTimer, burstCounter, playerDistance;
     protected int patrolCounter;
     protected Quaternion startRot;
-    Animator animator;
+    protected Animator animator;
 
 
     void Awake()
@@ -40,6 +40,10 @@ public class MobStats : MonoBehaviour
         onCooldown = false;
         updatePatrolPoints();
         startRot = transform.rotation;
+        if(deathAnimDuration == 0)
+        {
+            deathAnimDuration = 2;
+        }
     }
     protected void updatePatrolPoints() //Kollar barnen på ett gameobject och lägger till dem i en lista.
     {
@@ -80,10 +84,14 @@ public class MobStats : MonoBehaviour
     {
         score.AddScore(scoreValue);
         dead = true;
-        //ERIK HÄR SKA DU AKTIVERA ANIMATIONEN!
         animator.SetTrigger("deathTrigger");
+        StartCoroutine(GetDestroyed());
     }
-
+    IEnumerator GetDestroyed()
+    {
+        yield return new WaitForSeconds(deathAnimDuration);
+        Destroy(gameObject);
+    }
 
     public void ChangeDestination(GameObject newDestination, GameObject lastDestination) //Ger en mob sitt nästa mål, om input är null går den till nästa mål i sin lista.
     {

@@ -9,13 +9,10 @@ public class Turret : MobStats
     [SerializeField]
     protected Transform head;
 
-    Animator animator;
-
     protected override void Start() // Sätter startvärden
     {
         base.Start();
         SetToPlayerPlane(head);
-        animator = gameObject.GetComponent<Animator>();
 
     }
 

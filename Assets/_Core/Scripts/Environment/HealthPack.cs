@@ -7,24 +7,20 @@ public class HealthPack : Enviromental
 
     [SerializeField]
     AudioClip healthSound;
-    SoundManager soundManager;
 
     [SerializeField]
     protected float healthGain;
 
-    void Start()
-    {
-        soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
-    }
 
     void OnTriggerEnter(Collider coll) //När spelaren träffar spikesen
     {
         if (coll.gameObject.tag == "Player")
         {
-
-            player.GetComponent<PlayerStats>().ChangeHealth(+healthGain); //Spelaren tar skada
+            soundManager.PlaySingle(healthSound); // play HealthPack sound
+            player.GetComponent<PlayerStats>().ChangeHealth(+healthGain); //Spelaren får hälsa
             Destroy(gameObject);
-            // soundManager.PlaySingle(healthSound); // play HealthPack sound
+            print("walla");
+
         }
     }
 

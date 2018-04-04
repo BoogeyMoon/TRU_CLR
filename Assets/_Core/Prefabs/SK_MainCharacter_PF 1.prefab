@@ -962,8 +962,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1792648718854088}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -10.41, y: 1.2099998, z: -1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -14.96, y: 15.03, z: -5.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4247366309600634}
@@ -1138,7 +1138,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 6
-  jumpSpeed: 13
+  jumpSpeed: 12
   gravity: 24
   facingRight: 0
   isGrounded: 0
@@ -1155,6 +1155,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4bb87b8709cafb44b6cc27ff04bfbd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  dashSound: {fileID: 0}
   rifleBarrel: {fileID: 1589744676811700}
   startObject: {fileID: 1463476199200570}
   lengthOfDash: 8
@@ -1188,12 +1189,12 @@ MonoBehaviour:
   - 0.5
   material: {fileID: 2100000, guid: 77da4f3e1cc5e0d498ea4419d585880d, type: 2}
   shotsBlue:
-  - {fileID: 8300000, guid: b810d633e5a463243bc4a2dd5a14cbef, type: 3}
-  - {fileID: 8300000, guid: 2f21fe924c2ce064bb67e95b45863a1f, type: 3}
+  - {fileID: 8300000, guid: ee5c7fcb1946a684ebe899bfff14b4b8, type: 3}
   shotsYellow:
   - {fileID: 8300000, guid: 0ceaac3bf4dd8a1468b84bd16a9c8d30, type: 3}
   shotsMagenta:
-  - {fileID: 8300000, guid: bc4fc413e9298af4484053d18ae9a42a, type: 3}
+  - {fileID: 8300000, guid: 701283d0233e09b4a92e8c5288c31e89, type: 3}
+  - {fileID: 8300000, guid: 43694ece8a9a2ed4e820be2aaa03e440, type: 3}
 --- !u!114 &114471629714917582
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1205,8 +1206,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0148ea93b4495bf499579994920c464e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
-  health: 0
+  maxHealth: 20
 --- !u!114 &114484365356757524
 MonoBehaviour:
   m_ObjectHideFlags: 1
