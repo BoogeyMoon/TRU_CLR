@@ -40,12 +40,13 @@ public class Score : MonoBehaviour
     {
         currentScore += score;
     }
-    public string GetGrade()
+    public string GetGrade() //Återlämnar vilket betyg spelaren skulle få med sin nuvarande poäng
     {
         for (int i = 0; i < gradesCaps.Length; i++)
         {
             if(currentScore >= gradesCaps[gradesCaps.Length -1-i])
             {
+                print("Score: " + currentScore + "gradesCap[gradesCaps.Length-1"+i+"]: " + gradesCaps[gradesCaps.Length-1-i]);
                 return grades[i + 1];
             }
         }

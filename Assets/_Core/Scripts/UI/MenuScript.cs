@@ -15,7 +15,6 @@ public class MenuScript : MonoBehaviour
     GameObject EventSystem;
     List<GameObject> Menus;
     int numberOfLevels;
-    //string gameScene;
     bool paused,
          inGame;
     [SerializeField]
@@ -36,7 +35,6 @@ public class MenuScript : MonoBehaviour
         Panel = transform.GetChild(0).gameObject;
         Panel.SetActive(true);
         inGame = false;
-        //gameScene = "Lucas_DemoScene"; //Ändra det här till den färdiga scenen.
 
         Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, CreditsMenu, ConfirmQuit, PauseMenu };
 
@@ -78,9 +76,10 @@ public class MenuScript : MonoBehaviour
         }
 
     }
+
     public void LoadGame(string gameScene)
     {
-        Menus[1].SetActive(false);
+        Menus[1].SetActive(false); //varför?
         inGame = true;
         Panel.SetActive(false);
         SceneManager.LoadScene(gameScene);
@@ -88,11 +87,11 @@ public class MenuScript : MonoBehaviour
 
     public void LevelSelect()
     {
-        //Numberoflevels Det här bör ändras till att den hämtar värde från vår spar-funktion.
+        Menus[0].SetActive(false);
         Menus[1].SetActive(true);
 
         //Hämta värde från xml:
-        int unlockedLevels = 8;
+        int unlockedLevels = 3;
         numberOfLevels = 8;
         for (int i = 0; i < numberOfLevels; i++)
         {
@@ -112,6 +111,7 @@ public class MenuScript : MonoBehaviour
 
     public void GeneralIndexButton(int index)
     {
+        Menus[0].SetActive(false);
         Menus[index].SetActive(true);
     }
 
@@ -149,64 +149,7 @@ public class MenuScript : MonoBehaviour
         SceneManager.LoadScene("MenuScene");
     }
 
-    //Följande metod är kopplat till OnClick() på knapparna i menyn i Unity.
-    //Index är specificerat hos vardera knapp i Unity.
-    public void ClickButtons(int index)
-    {
-        for (int i = 0; i < Menus.Count; i++)
-        {
-            Menus[i].SetActive(false);
-        }
-
-
-
-        switch (index)
-        {
-            //New Game-knappen (visar en meny med knappar där du kan välja vilken scen du vill gå in i). KAN TAS BORT SÅ FORT RESTEN AV ALLA SWITCHES ÄR FIXADE
-            case 0:
-
-                //SceneManager.LoadScene(gameScene);
-                break;
-
-            //Levelselect. 
-            case 1:
-
-
-
-
-                //Menus[1].transform.GetChild(9).gameObject.SetActive(true);
-                //Menus[1].transform.GetChild(numberOfLevels).gameObject.SetActive(true); //Visar hur många levels som är tillgängliga
-
-                //for (int i = 0; i < numberOfLevels; i++)
-                //{
-                //    Menus[1].transform.GetChild(i).gameObject.SetActive(true);
-                //}
-
-                break;
-
-            //Back-knappen, går till MainMenu om inGame är false, och till PauseMenu om inGame är true.
-            case 5:
-
-                break;
-
-            //Yes-knapp i ConfirmQuit.
-            case 6:
-                Application.Quit();
-                break;
-
-            //Return knappen
-            case 7:
-
-                break;
-
-            //Main menu knappen. Saknar dock en confirm knapp.
-            case 8:
-
-                break;
-
-
-        }
-    }
+    
 
 }
 

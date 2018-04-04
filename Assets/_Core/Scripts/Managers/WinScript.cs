@@ -10,16 +10,17 @@ public class WinScript : MonoBehaviour
     void Start()
     {
         ScoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<Score>();
+
     }
 
     void OnTriggerEnter()
     {
         for (int i = 0; i < winConditions.Count; i++)
         {
-
+            if (!winConditions[i])
+                return;
         }
         print(ScoreManager.GetGrade());
-
     }
 
 }
