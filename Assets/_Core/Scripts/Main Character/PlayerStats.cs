@@ -69,8 +69,7 @@ public class PlayerStats : MonoBehaviour
         GetComponent<testMCmovement>().enabled = false;
         GetComponent<MC_ShootScript>().enabled = false;
         anim = GetComponent<Animator>();
-        anim.SetLayerWeight(2, 1);
-        anim.SetLayerWeight(1, 0);
+        anim.SetLayerWeight(1, 1);
         PlayerPrefs.SetFloat("savedHealth", maxHealth);
         StartCoroutine(GoToMenu());
         //SceneManager.LoadScene(SceneManager.GetActiveScene().name);

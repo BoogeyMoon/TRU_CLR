@@ -5,18 +5,31 @@ using UnityEngine;
 public class MCSpawner : MonoBehaviour
 {
     float timer;
-    Transform player;
+    Transform player, introPlayer;
+    CameraManager camera;
 	// Use this for initialization
 	void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        player.transform.position = transform.position - new Vector3 (0.5f,1,0);
+        introPlayer = GameObject.FindGameObjectWithTag("IntroPlayer").transform;
+        introPlayer.GetComponent<Animator>().enabled = false;
+        camera = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraManager>();
 	}
     void Update()
     {
         timer += Time.deltaTime;
         if(timer > 1.5f)
         {
+            if(timer > 5f)
+            {
+                camera.AnimDone = true;
+                player.position = introPlayer.position;
+                Destroy(introPlayer.gameObject);
+                Destroy(this);
+            }
+            introPlayer.GetComponent<Animator>().enabled = true;
+            introPlayer.transform.position = transform.position + new Vector3(2f, -1.5f, 0.1f);
+
             
         }
     }
