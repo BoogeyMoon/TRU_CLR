@@ -7,7 +7,7 @@ using UnityEngine;
 public class testMCmovement : MonoBehaviour
 {
     [SerializeField]
-    float speed = 6.0f, rotationSpeed = 6.0f, jumpSpeed = 8.0f, gravity = 20.0f;
+    float speed = 6.0f, jumpSpeed = 8.0f, gravity = 20.0f;
     float moveOnX, startSpeed, crouchCenterOffsetY = 0.5f, crouchHeightOffset = 0.9f, crouchCenterOriginal = 1f, crouchHeightOriginal = 1.8f,startingGravity, airtime,offsetZ = -0.85f;
     
 
