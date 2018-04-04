@@ -5,13 +5,11 @@ using UnityEngine;
 public class Enviromental : MonoBehaviour {
 
     protected GameObject player;
+    protected SoundManager soundManager;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
     }
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }
