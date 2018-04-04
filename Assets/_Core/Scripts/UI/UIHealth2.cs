@@ -9,7 +9,7 @@ public class UIHealth2 : MonoBehaviour
     PlayerStats playerStats;
 
     [SerializeField]
-    int startLives, currentHealth;
+    int currentHealth;
 
     int maxHealth = 20, fullHealth;
 
@@ -19,9 +19,9 @@ public class UIHealth2 : MonoBehaviour
     void Start()
     {
         playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
-        currentHealth = startLives;
+        currentHealth = (int)playerStats.Health;
         fullHealth = maxHealth;
-        CheckHealth(startLives);
+        CheckHealth(currentHealth);
     }
 
     void CheckHealth(int health)
@@ -46,7 +46,6 @@ public class UIHealth2 : MonoBehaviour
 
     public void TakeDamage(int health)
     {
-
         currentHealth = health;
         CheckHealth(health);
     }
