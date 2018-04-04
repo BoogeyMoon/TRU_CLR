@@ -22,12 +22,6 @@ public class FlyingMobPatrol : MobStats {
     bool lookAtMc;
     float howMuchToJiggle;
 
-    /*
-    [SerializeField] Transform bullet;
-    private float howOftenToShoot;
-    [SerializeField] Transform bulletSpawnPoint;
-    private int bulletCount;*/
-
     void Start () {
         base.Start();
         GotoNextPoint();
@@ -90,6 +84,7 @@ public class FlyingMobPatrol : MobStats {
 
             Vector2 randomVector = new Vector2(Random.Range(-(howMuchToJiggle*timesGotHit), (howMuchToJiggle * timesGotHit)), Random.Range(-(howMuchToJiggle * timesGotHit), (howMuchToJiggle * timesGotHit)));
             transform.Translate(randomVector * Time.deltaTime * 5, Space.World); // jiggle about randomly because it's shitty if the mob stands still
+            // transform.position = Vector2.Lerp(transform.position, (new Vector2(transform.position.x, transform.position.y) + randomVector), 5 * Time.deltaTime); // good effect to turn on when mob is about to die
             transform.position = Vector3.MoveTowards(transform.position, target.position, step);
 
         }
