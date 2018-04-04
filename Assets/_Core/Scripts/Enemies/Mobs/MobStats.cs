@@ -22,6 +22,7 @@ public class MobStats : MonoBehaviour
     protected float timeLeft, burstTimer, burstCounter, playerDistance;
     protected int patrolCounter;
     protected Quaternion startRot;
+    Animator animator;
 
 
     void Awake()
@@ -32,6 +33,7 @@ public class MobStats : MonoBehaviour
     protected virtual void Start()
     {
         score = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<Score>();
+        animator = gameObject.GetComponent<Animator>();
         patrolCounter = 0;
         health = maxHealth;
         timeLeft = fireRate;
@@ -79,7 +81,7 @@ public class MobStats : MonoBehaviour
         score.AddScore(scoreValue);
         dead = true;
         //ERIK HÄR SKA DU AKTIVERA ANIMATIONEN!
-
+        animator.SetTrigger("deathTrigger");
     }
 
 
