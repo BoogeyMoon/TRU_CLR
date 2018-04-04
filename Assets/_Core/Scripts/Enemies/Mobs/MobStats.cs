@@ -58,7 +58,7 @@ public class MobStats : MonoBehaviour
         if (color == this.color)
         {
             health -= damage;
-            if (health <= 0)
+            if (!dead && health <= 0)
             {
                 Die();
             }
