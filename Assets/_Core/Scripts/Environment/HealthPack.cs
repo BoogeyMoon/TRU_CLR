@@ -5,6 +5,10 @@ using UnityEngine;
 public class HealthPack : Enviromental {
 
     [SerializeField]
+    AudioClip healthSound;
+    SoundManager soundManager;
+
+    [SerializeField]
     protected float healthGain;
 
     void OnTriggerEnter(Collider coll) //När spelaren träffar spikesen
@@ -13,7 +17,7 @@ public class HealthPack : Enviromental {
         {
             player.GetComponent<PlayerStats>().ChangeHealth(+healthGain); //Spelaren tar skada
             Destroy(gameObject);
-            
+            soundManager.PlaySingle(healthSound); // play HealthPack sound
         }
     }
 

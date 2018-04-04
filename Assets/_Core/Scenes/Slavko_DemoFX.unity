@@ -10295,7 +10295,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4623581017182572, guid: 144903cd6fd1a9f49a03d87146307910, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 144903cd6fd1a9f49a03d87146307910, type: 2}
@@ -19303,7 +19303,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4633201064099200, guid: cac8e6dd18fd2354bbba9932131d272b, type: 2}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 114569189772383944, guid: cac8e6dd18fd2354bbba9932131d272b,
         type: 2}
@@ -22280,7 +22280,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1712950039
+  randomSeed: -1441912104
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -28240,7 +28240,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4549508479519072, guid: ce5dc780defe28343bee0e7e3a616133, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 114422119657716240, guid: ce5dc780defe28343bee0e7e3a616133,
         type: 2}
@@ -28698,7 +28698,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1795113761
+  randomSeed: 978513812
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -33239,7 +33239,7 @@ Transform:
   - {fileID: 1432292026}
   - {fileID: 83527638}
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1458834683
 MonoBehaviour:
@@ -36552,7 +36552,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 199523827
+  randomSeed: 38535850
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -39982,8 +39982,13 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4691475358789658, guid: 71b4569762bd2ca41bd17d5405f5c094, type: 2}
       propertyPath: m_RootOrder
-      value: 7
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114528701024968284, guid: 71b4569762bd2ca41bd17d5405f5c094,
+        type: 2}
+      propertyPath: displayScore
+      value: 
+      objectReference: {fileID: 1999765699}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 71b4569762bd2ca41bd17d5405f5c094, type: 2}
   m_IsPrefabParent: 0
@@ -41707,7 +41712,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4335177783697296, guid: a7b8c2e248c0f74449d163e0b50074ac, type: 2}
       propertyPath: m_RootOrder
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a7b8c2e248c0f74449d163e0b50074ac, type: 2}
@@ -41785,6 +41790,11 @@ Prefab:
         type: 2}
       propertyPath: fireRate
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114838790813643818, guid: f1d3ec0ef399c9d42a25c7d7a092ccc6,
+        type: 2}
+      propertyPath: maxHealth
+      value: 20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f1d3ec0ef399c9d42a25c7d7a092ccc6, type: 2}
@@ -42028,7 +42038,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4010292027728554, guid: e8b80ca5d9d93ef45aa3c0585bdefa72, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4010292027728554, guid: e8b80ca5d9d93ef45aa3c0585bdefa72, type: 2}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -43129,6 +43139,21 @@ Prefab:
         type: 2}
       propertyPath: maxHealth
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114083143309694892, guid: 6c9ccb628c7356a469bdf3f83908a031,
+        type: 2}
+      propertyPath: gravity
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 114083143309694892, guid: 6c9ccb628c7356a469bdf3f83908a031,
+        type: 2}
+      propertyPath: jumpSpeed
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 114269647725588438, guid: 6c9ccb628c7356a469bdf3f83908a031,
+        type: 2}
+      propertyPath: cooldowns.Array.data[0]
+      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c9ccb628c7356a469bdf3f83908a031, type: 2}

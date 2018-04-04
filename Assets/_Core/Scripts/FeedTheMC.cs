@@ -21,7 +21,7 @@ public class FeedTheMC : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         transform.position = Vector3.MoveTowards(transform.position, wheresMC.transform.position, speed*Time.deltaTime);
-        if ((Vector3.Distance(wheresMC.position, transform.position) <=.1f) && doIdestroy)
+        if ((Vector3.Distance(wheresMC.position, transform.position) <=.3f) && doIdestroy)
         {
             Destroy(gameObject, 1);
         }
