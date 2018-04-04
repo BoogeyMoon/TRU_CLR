@@ -185,6 +185,7 @@ public class testMCmovement : MonoBehaviour
         {
             if (hit.transform.tag == "Bullet" || hit.transform.tag == "PatrolPoint" || hit.transform.tag == "Interactable" || hit.transform.tag == "Shield")
             {
+                print("näenäe " + hit.transform.gameObject.name);
                 moveDirection.y = 0;
             }
                 
