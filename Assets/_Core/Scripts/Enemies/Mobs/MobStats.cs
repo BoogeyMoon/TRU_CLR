@@ -81,6 +81,7 @@ public class MobStats : MonoBehaviour
         score.AddScore(scoreValue);
         dead = true;
         animator.SetTrigger("deathTrigger");
+        StartCoroutine(GetDestroyed());
     }
     IEnumerator GetDestroyed()
     {
