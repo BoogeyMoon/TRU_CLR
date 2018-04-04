@@ -7,6 +7,10 @@ using UnityEngine;
 public class DashScript : MonoBehaviour
 {
     [SerializeField]
+    AudioClip dashSound;
+    SoundManager soundManager;
+
+    [SerializeField]
     GameObject rifleBarrel, startObject;
     [SerializeField]
     float lengthOfDash, dashCooldown, moveSpeed, approxValue;
@@ -21,6 +25,7 @@ public class DashScript : MonoBehaviour
     void Start()
     {
         MovementScript = gameObject.GetComponent<testMCmovement>();
+        soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
     }
 
     void Update()
@@ -28,6 +33,7 @@ public class DashScript : MonoBehaviour
         if (Input.GetMouseButtonDown(1) && !dashOnCooldown)
         {
             dashOnCooldown = true;
+            soundManager.PlaySingle(dashSound); // play Dash sound
             startPosition = startObject.transform.position;
             direction = rifleBarrel.transform.forward;
             Dash();
