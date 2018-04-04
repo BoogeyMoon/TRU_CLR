@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//Av Andreas de Freitas
+//Av Andreas de Freitas och Slavko Stojnic
 //Hanterar alla våra ljud i spelet.
 public class SoundManager : MonoBehaviour
 {
     [SerializeField]
-    AudioSource efxSource, musicSource;
-
+    AudioSource musicSource;
+    [SerializeField]
+    AudioSource[] efxSource;
     [SerializeField]
     static SoundManager instance = null;
 
@@ -34,18 +35,18 @@ public class SoundManager : MonoBehaviour
         musicSource.Play();
     }
 
-    public void PlaySingle(AudioClip clip) //Används för att spela upp enspårsljud
+    public void PlaySingle(AudioClip clip, int whichSource) //Används för att spela upp enspårsljud
     {
-        efxSource.clip = clip;
-        efxSource.Play();
+        efxSource[whichSource].clip = clip;
+        efxSource[whichSource].Play();
     }
 
-    public void RandomizeSfx(params AudioClip[] clips) //Används för att slumpmässigt spela upp ljud och ändra pitchen på dem
+    public void RandomizeSfx(AudioClip[] clips, int whichSource) //Används för att slumpmässigt spela upp ljud och ändra pitchen på dem
     {
         int randomIndex = Random.Range(0, clips.Length-1);
         float randomPitch = Random.Range(lowPitchRange, highPitchRange);
-        efxSource.pitch = randomPitch;
-        efxSource.clip = clips[randomIndex];
-        efxSource.Play();
+        efxSource[whichSource].pitch = randomPitch;
+        efxSource[whichSource].clip = clips[randomIndex];
+        efxSource[whichSource].Play();
     }
 }

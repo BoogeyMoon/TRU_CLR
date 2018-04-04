@@ -85,13 +85,13 @@ public class MC_ShootScript : MonoBehaviour
                 switch (activeColor)
                 {
                     case 0:
-                        soundManager.RandomizeSfx(shotsBlue);
+                        soundManager.RandomizeSfx(shotsBlue,0);
                         break;
                     case 1:
-                        soundManager.RandomizeSfx(shotsYellow);
+                        soundManager.RandomizeSfx(shotsYellow,0);
                         break;
                     case 2:
-                        soundManager.RandomizeSfx(shotsMagenta);
+                        soundManager.RandomizeSfx(shotsMagenta,0);
                         break;
                 }
 
