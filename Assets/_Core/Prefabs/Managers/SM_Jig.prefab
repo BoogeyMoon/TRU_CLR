@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 82596638937530700}
   - component: {fileID: 82213584481193462}
   - component: {fileID: 82094442852243490}
+  - component: {fileID: 114535225660385684}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -78,7 +79,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1704802977203936}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 73.136444, y: 36.34, z: 0.3183849}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4871567601815660}
@@ -404,7 +405,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -428,7 +429,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!82 &82601274856673272
 AudioSource:
   m_ObjectHideFlags: 1
@@ -745,6 +746,33 @@ MonoBehaviour:
   cursorTexture: {fileID: 2800000, guid: ad7900f6d69a57f4f961fdaf7c0a928b, type: 3}
   cursorMode: 0
   hotSpot: {x: 0, y: 0}
+--- !u!114 &114535225660385684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1590669784911036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f87e4989c5e703e428df4339d59e2c72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showMainBehavior: 1
+  showInnerGlowBehavior: 0
+  rtFormat: 7
+  blurShader: {fileID: 4800000, guid: 1855d9636fad3914bacc4a543165c974, type: 3}
+  compositeShader: {fileID: 4800000, guid: e384de4389ba527479054baf0ddb1d3e, type: 3}
+  selectiveRenderShader: {fileID: 4800000, guid: c04b7cae8accdfb4e9c2648823ff39d7,
+    type: 3}
+  glowLayer:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  glowType: 0
+  glowTint: {r: 1, g: 1, b: 1, a: 0}
+  blurSpreadInner: 0.6
+  blurIterations: 5
+  glowIntensityInner: 0.4
+  samples: 2
 --- !u!114 &114737408332007760
 MonoBehaviour:
   m_ObjectHideFlags: 1
