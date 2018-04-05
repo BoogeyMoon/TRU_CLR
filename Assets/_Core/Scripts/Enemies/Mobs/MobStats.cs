@@ -15,6 +15,14 @@ public class MobStats : MonoBehaviour
     protected GameObject[] bulletSpawners, raycastOrigin;
     [SerializeField]
     protected GameObject destination, bullet, patrolPoints;
+    public GameObject PatrolPoints
+    {
+        set
+        {
+            patrolPoints = value;
+            updatePatrolPoints();
+        }
+    }
     protected GameObject currentBullet;
     protected Transform playerTarget, player;
     protected List<Transform> patrolPointsList = new List<Transform>();
@@ -40,7 +48,7 @@ public class MobStats : MonoBehaviour
         onCooldown = false;
         updatePatrolPoints();
         startRot = transform.rotation;
-        if(deathAnimDuration == 0)
+        if (deathAnimDuration == 0)
         {
             deathAnimDuration = 2;
         }
