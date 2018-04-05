@@ -39,7 +39,7 @@ public class BossTurret : Turret
     }
     void ChangeMaterial(int color) //Byter material till den motsvarande
     {
-        myMats[1] = mats[color];
+        myMats[myMats.Length -1] = mats[color];
         Turret.GetComponent<Renderer>().materials = myMats;
     }
     

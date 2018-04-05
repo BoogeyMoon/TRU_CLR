@@ -107,7 +107,9 @@ public class MobStats : MonoBehaviour
     }
     IEnumerator GetDestroyed()
     {
-        if (transform.GetChild(0).GetComponent<SkinnedMeshRenderer>() != null)
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer rend in renderers)
         {
             SkinnedMeshRenderer mesh = transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
             int numberOfBlinks = 3;
@@ -118,10 +120,6 @@ public class MobStats : MonoBehaviour
                 mesh.enabled = !mesh.enabled;
                 yield return new WaitForSeconds(((deathAnimDuration * 3) / numberOfBlinks) / 4);
             }
-        }
-        else
-        {
-            yield return new WaitForSeconds(deathAnimDuration);
         }
         Destroy(gameObject);
     }
@@ -233,18 +231,29 @@ public class MobStats : MonoBehaviour
     }
     IEnumerator Flicker()
     {
-        Material[] mats = transform.GetChild(0).GetComponent<Renderer>().materials;
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
 
-        for (int i = 0; i < 2; i++)
+        foreach (Renderer rend in renderers)
         {
-            mats[0].SetColor("_EmissionColor", Color.white);
-            transform.GetChild(0).GetComponent<Renderer>().materials = mats;
-            yield return new WaitForSeconds(0.1f);
-            mats[0].SetColor("_EmissionColor", Color.black);
-            transform.GetChild(0).GetComponent<Renderer>().materials = mats;
-            yield return new WaitForSeconds(0.1f);
+            Material[] mats = transform.GetChild(0).GetComponent<Renderer>().materials;
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < mats.Length; j++)
+                {
+                    mats[j].SetColor("_EmissionColor", Color.white);
+                }
+                transform.GetChild(0).GetComponent<Renderer>().materials = mats;
+                yield return new WaitForSeconds(0.1f);
+                for (int j = 0; j < mats.Length; j++)
+                {
+                    mats[j].SetColor("_EmissionColor", Color.black);
+                }
+                transform.GetChild(0).GetComponent<Renderer>().materials = mats;
+                yield return new WaitForSeconds(0.1f);
 
+            }
         }
+
 
     }
 

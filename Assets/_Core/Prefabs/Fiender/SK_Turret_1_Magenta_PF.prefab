@@ -380,7 +380,7 @@ Transform:
   m_Children:
   - {fileID: 4150368262388338}
   m_Father: {fileID: 4850847698453132}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4771194378638936
 Transform:
@@ -393,7 +393,7 @@ Transform:
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children: []
   m_Father: {fileID: 4850847698453132}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4850847698453132
 Transform:
@@ -402,11 +402,11 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1708031600143232}
   m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: -4.17, y: 4.7595882, z: 0.28339803}
+  m_LocalPosition: {x: 7.778533, y: 3.9467826, z: 0.4788285}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4728685819281334}
   - {fileID: 4771194378638936}
+  - {fileID: 4728685819281334}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: -90}
@@ -496,15 +496,15 @@ MonoBehaviour:
   distanceInterval: 0
   timeBetweenBurst: 1
   shotsPerBurst: 1
-  rotationBetweenBullets: 0
+  spread: 0
   health: 0
+  deathAnimDuration: 0
   color: 2
   numberOfBulletsPerShot: 1
   scoreValue: 0
   bulletSpawners:
   - {fileID: 1268949216435210}
-  eyes:
-  - {fileID: 1268949216435210}
+  raycastOrigin: []
   destination: {fileID: 0}
   bullet: {fileID: 1391852344878852, guid: eb5fe13b20c43284fabd9f2d94d5927a, type: 2}
   patrolPoints: {fileID: 0}
