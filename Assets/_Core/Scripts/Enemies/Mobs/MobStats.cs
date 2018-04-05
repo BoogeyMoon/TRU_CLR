@@ -41,7 +41,12 @@ public class MobStats : MonoBehaviour
     protected virtual void Start()
     {
         score = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<Score>();
-        animator = gameObject.GetComponent<Animator>();
+        if (GetComponent<Animator>() != null)
+            animator = gameObject.GetComponent<Animator>();
+        else
+        {
+            animator = null;
+        }
         patrolCounter = 0;
         health = maxHealth;
         timeLeft = fireRate;
@@ -69,12 +74,16 @@ public class MobStats : MonoBehaviour
 
     public virtual void TakeDamage(float damage, int color) //Om mob:en blir träffad av en kula som korresponderar med mob:ens färg så tar den skada.
     {
-        if (color == this.color)
+        if (color == this.color && health > 0)
         {
             health -= damage;
             if (!dead && health <= 0)
             {
                 Die();
+            }
+            else
+            {
+                StartCoroutine(Flicker());
             }
         }
     }
@@ -92,12 +101,22 @@ public class MobStats : MonoBehaviour
     {
         score.AddScore(scoreValue);
         dead = true;
-        animator.SetTrigger("deathTrigger");
+        if (animator != null)
+            animator.SetTrigger("deathTrigger");
         StartCoroutine(GetDestroyed());
     }
     IEnumerator GetDestroyed()
     {
-        yield return new WaitForSeconds(deathAnimDuration);
+        SkinnedMeshRenderer mesh = transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
+        int numberOfBlinks = 3;
+        for (int i = 0; i < numberOfBlinks; i++)
+        {
+            mesh.enabled = !mesh.enabled;
+            yield return new WaitForSeconds((deathAnimDuration / 96) / numberOfBlinks);
+            mesh.enabled = !mesh.enabled;
+            yield return new WaitForSeconds((deathAnimDuration / 48) / numberOfBlinks);
+            yield return new WaitForSeconds((deathAnimDuration / 96) / numberOfBlinks);
+        }
         Destroy(gameObject);
     }
 
@@ -205,6 +224,22 @@ public class MobStats : MonoBehaviour
     protected void SetToPlayerPlane(Transform Obj)
     {
         Obj.transform.position = new Vector3(Obj.transform.position.x, Obj.transform.position.y, player.transform.position.z);
+    }
+    IEnumerator Flicker()
+    {
+        Material[] mats = transform.GetChild(0).GetComponent<Renderer>().materials;
+
+        for (int i = 0; i < 2; i++)
+        {
+            mats[0].SetColor("_EmissionColor", Color.white);
+            transform.GetChild(0).GetComponent<Renderer>().materials = mats;
+            yield return new WaitForSeconds(0.1f);
+            mats[0].SetColor("_EmissionColor", Color.black);
+            transform.GetChild(0).GetComponent<Renderer>().materials = mats;
+            yield return new WaitForSeconds(0.1f);
+
+        }
+
     }
 
 }
