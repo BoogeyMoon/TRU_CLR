@@ -10,29 +10,39 @@ public class WipeScript : MonoBehaviour
     [SerializeField]
     GameObject wipePrefab, startObject, directionObject;
     GameObject wipe;
-    bool wipeReady;
+    bool wipeDestroyed;
+    bool wipeActive;
     [SerializeField]
-    float wipeLifeTime;
+    float wipeLifeTime, wipeCooldown;
 
     //Sätter wipe till aktiv vid start, ta bort det här om den inte ska vara aktiv vid start. Men då bör ett annat condition implementeras.
     void Start()
     {
-        wipeReady = true;
+        wipeDestroyed = true;
     }
 
     //Wipen instansieras på ett objekt som befinner sig något framför GunBarrel.
     //Den har samma riktning som ShoulderAim.
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S) && wipeReady)
+        if (Input.GetKeyDown(KeyCode.S) && wipeDestroyed && wipeActive)
         {
-            wipeReady = false;
+            wipeActive = false;
+            wipeDestroyed = false;
             wipe = Instantiate(wipePrefab,
                               new Vector3(startObject.transform.position.x, startObject.transform.position.y, startObject.transform.position.z),
                               Quaternion.identity);
 
             wipe.transform.rotation = directionObject.transform.rotation;
             StartCoroutine(WipeLifetime());
+        }
+        if(!wipeActive)
+        {
+            wipeCooldown = wipeCooldown - Time.deltaTime;
+            if(wipeCooldown <= 0)
+            {
+                wipeActive = true;
+            }
         }
     }
 
@@ -41,6 +51,6 @@ public class WipeScript : MonoBehaviour
     {
         yield return new WaitForSeconds(wipeLifeTime);
         Destroy(wipe);
-        wipeReady = true;
+        wipeDestroyed = true;
     }
 }
