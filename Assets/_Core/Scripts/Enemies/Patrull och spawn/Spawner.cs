@@ -6,6 +6,9 @@ public class Spawner : MonoBehaviour
 {
     [SerializeField]
     GameObject[] spawnedEnemies;
+    [SerializeField]
+    GameObject patrolpoints;
+
 
     [SerializeField]
     float interval;
@@ -16,6 +19,8 @@ public class Spawner : MonoBehaviour
     Transform getPlayer;
     [SerializeField]
     float aggroRange;
+    
+    
 
 
     // Use this for initialization
@@ -32,7 +37,8 @@ public class Spawner : MonoBehaviour
         if ((time >= interval) && (dist <= aggroRange))
         {
             int r = Random.Range(0,spawnedEnemies.Length);
-            Instantiate(spawnedEnemies[r], spawnPoint.position, spawnedEnemies[r].transform.rotation);
+            GameObject mob = Instantiate(spawnedEnemies[r], spawnPoint.position, spawnedEnemies[r].transform.rotation);
+            mob.GetComponent<FlyingMob>().PatrolPoints = patrolpoints;
             time = 0;
         }
     }
