@@ -107,14 +107,21 @@ public class MobStats : MonoBehaviour
     }
     IEnumerator GetDestroyed()
     {
-        SkinnedMeshRenderer mesh = transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
-        int numberOfBlinks = 3;
-        for (int i = 0; i < numberOfBlinks; i++)
+        if (transform.GetChild(0).GetComponent<SkinnedMeshRenderer>() != null)
         {
-            mesh.enabled = !mesh.enabled;
-            yield return new WaitForSeconds((deathAnimDuration/numberOfBlinks) / 4);
-            mesh.enabled = !mesh.enabled;
-            yield return new WaitForSeconds(((deathAnimDuration *3)/numberOfBlinks) / 4);
+            SkinnedMeshRenderer mesh = transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
+            int numberOfBlinks = 3;
+            for (int i = 0; i < numberOfBlinks; i++)
+            {
+                mesh.enabled = !mesh.enabled;
+                yield return new WaitForSeconds((deathAnimDuration / numberOfBlinks) / 4);
+                mesh.enabled = !mesh.enabled;
+                yield return new WaitForSeconds(((deathAnimDuration * 3) / numberOfBlinks) / 4);
+            }
+        }
+        else
+        {
+            yield return new WaitForSeconds(deathAnimDuration);
         }
         Destroy(gameObject);
     }

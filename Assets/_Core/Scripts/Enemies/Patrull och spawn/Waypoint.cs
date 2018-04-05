@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 // Av Timmy Alvelöv 
 
-//Håller koll på vilken som är nästa vägpoäng
+//Håller koll på vilken som är nästa vägpoäng, om en sådan finns
 public class Waypoint : MonoBehaviour
 {
     [SerializeField]

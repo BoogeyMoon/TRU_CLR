@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+//Av Timmy Alvelöv  
+
+//Beskriver spindelmobens skjut och rörelsemönster.
 public class SpiderMobs : MobStats
 {
 

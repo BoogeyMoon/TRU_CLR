@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 //Av Andreas de Freitas och Timmy Alvelöv.
+//Ser till att huvudkameran följer efterspelaren eller andra bestämda platser.
 public class CameraManager : MonoBehaviour
 {
     [SerializeField]
