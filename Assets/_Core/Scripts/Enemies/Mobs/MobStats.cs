@@ -112,10 +112,10 @@ public class MobStats : MonoBehaviour
         for (int i = 0; i < numberOfBlinks; i++)
         {
             mesh.enabled = !mesh.enabled;
-            yield return new WaitForSeconds((deathAnimDuration / 96) / numberOfBlinks);
+            yield return new WaitForSeconds((deathAnimDuration / 24) / numberOfBlinks);
             mesh.enabled = !mesh.enabled;
-            yield return new WaitForSeconds((deathAnimDuration / 48) / numberOfBlinks);
-            yield return new WaitForSeconds((deathAnimDuration / 96) / numberOfBlinks);
+            yield return new WaitForSeconds((deathAnimDuration / 12) / numberOfBlinks);
+            yield return new WaitForSeconds((deathAnimDuration / 24) / numberOfBlinks);
         }
         Destroy(gameObject);
     }
