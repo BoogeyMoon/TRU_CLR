@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 //Av Timmy Alvelöv (och Erik Qvarnström på ett hörn)
+
+//Hanterar starten av varje bana
 public class MCSpawner : MonoBehaviour
 {
     float timer;

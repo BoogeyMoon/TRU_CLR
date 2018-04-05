@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//Av Timmy Alvelöv 
 
+//Scriptet ser till att bossturreten beter sig som en bossturret och inte en vanlig turret.
 public class BossTurret : Turret
 {
     [SerializeField]

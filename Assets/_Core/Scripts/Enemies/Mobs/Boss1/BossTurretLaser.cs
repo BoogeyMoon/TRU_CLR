@@ -64,15 +64,6 @@ public class BossTurretLaser : MobStats
         startPosition = bulletSpawners[0].transform.position;
         direction = bulletSpawners[0].transform.forward;
         endPosition = transform.GetChild(1).position;
-        /*Ray ray = new Ray(startPosition, direction);
-        RaycastHit raycastHit;
-        Vector3 endPosition = startPosition + (laserLength * direction);
-
-        if (Physics.Raycast(ray, out raycastHit, laserLength))
-        {
-            endPosition = raycastHit.point;
-        }*/
-
         laserCooldown = maxLaserCharge + chargeUpTime;
         bossLineRend.SetPosition(0, startPosition);
         bossLineRend.SetPosition(1, endPosition);

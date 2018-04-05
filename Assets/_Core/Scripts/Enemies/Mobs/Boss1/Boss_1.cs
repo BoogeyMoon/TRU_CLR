@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//Av Timmy Alvelöv
 
+//Beskriver bossen som helhet, har koll på sina underkomponenter (två boss turrets och en laser)
 public class Boss_1 : MonoBehaviour {
 
     BossTurretLaser laser;
     List<BossTurret> turrets;
+    WinScript win;
 
     void Start()
     {
@@ -15,8 +18,9 @@ public class Boss_1 : MonoBehaviour {
         {
             turrets.Add(transform.GetChild(i+1).GetComponent<BossTurret>());
         }
+        win = GameObject.FindGameObjectWithTag("Win").GetComponent<WinScript>();
     }
-    public void AngryBoss(BossTurret bossT)
+    public void AngryBoss(BossTurret bossT) //Ser till att uppgradera alla aktiva komponenter.
     {
         turrets.Remove(bossT);
         laser.Upgrade();
@@ -31,6 +35,7 @@ public class Boss_1 : MonoBehaviour {
     }
     void Die()
     {
+        win.WinConFinished(transform);
         Destroy(gameObject);
     }
 }
