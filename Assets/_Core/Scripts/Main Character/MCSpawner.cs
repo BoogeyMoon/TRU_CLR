@@ -6,23 +6,23 @@ public class MCSpawner : MonoBehaviour
 {
     float timer;
     Transform player, introPlayer;
-    CameraManager camera;
-	// Use this for initialization
+    CameraManager ourCamera;
+
 	void Start ()
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         introPlayer = GameObject.FindGameObjectWithTag("IntroPlayer").transform;
         introPlayer.GetComponent<Animator>().enabled = false;
-        camera = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraManager>();
+        ourCamera = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraManager>();
 	}
-    void Update()
+    void Update() // Ser till att animationen spelas och att rätt objekt är på rätt plats.
     {
         timer += Time.deltaTime;
         if(timer > 1.5f)
         {
             if(timer > 5f)
             {
-                camera.AnimDone = true;
+                ourCamera.AnimDone = true;
                 player.position = introPlayer.position;
                 Destroy(introPlayer.gameObject);
                 Destroy(this);

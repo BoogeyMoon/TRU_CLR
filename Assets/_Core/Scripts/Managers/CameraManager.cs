@@ -28,7 +28,7 @@ public class CameraManager : MonoBehaviour
 
     void Update()
     {
-        if (animDone)
+        if (animDone) //Följer spelaren om startanimationen är klar
         {
             transform.position = Vector3.Lerp(transform.position, player.position, 12f * Time.deltaTime);
 
@@ -49,7 +49,7 @@ public class CameraManager : MonoBehaviour
                 transform.Translate(new Vector3(0, 0, -speed * Time.deltaTime)); //-Z Axeln
             }
         }
-        else
+        else //Följer spawnpunkten
         {
             transform.position = Vector3.Lerp(transform.position, spawner.position, 12f * Time.deltaTime);
         }
