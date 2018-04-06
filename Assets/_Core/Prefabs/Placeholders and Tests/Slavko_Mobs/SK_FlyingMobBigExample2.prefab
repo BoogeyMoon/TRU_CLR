@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 135032824810816184}
   - component: {fileID: 23300554625660680}
   - component: {fileID: 114725638564401658}
+  - component: {fileID: 95852473891814876}
   m_Layer: 0
   m_Name: SK_FlyingMobBigExample2
   m_TagString: Weakpoint
@@ -246,7 +247,7 @@ Transform:
   m_LocalScale: {x: 0.20924968, y: 0.33741486, z: 0.20924962}
   m_Children: []
   m_Father: {fileID: 4436044297573950}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 90}
 --- !u!4 &4221164428906082
 Transform:
@@ -259,7 +260,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4436044297573950}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4436044297573950
 Transform:
@@ -271,12 +272,12 @@ Transform:
   m_LocalPosition: {x: 39.658394, y: 33.502163, z: -0.7}
   m_LocalScale: {x: 2.1061478, y: 2.1061494, z: 2.1061494}
   m_Children:
+  - {fileID: 4621535395024154}
   - {fileID: 4838777497377070}
   - {fileID: 4695784968543624}
   - {fileID: 4185400011767462}
   - {fileID: 4221164428906082}
   - {fileID: 4907971099230084}
-  - {fileID: 4621535395024154}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
@@ -305,7 +306,7 @@ Transform:
   m_Children:
   - {fileID: 4989301345790644}
   m_Father: {fileID: 4436044297573950}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90.00001, z: 0}
 --- !u!4 &4695784968543624
 Transform:
@@ -319,7 +320,7 @@ Transform:
   m_Children:
   - {fileID: 4915067105363456}
   m_Father: {fileID: 4436044297573950}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4838777497377070
 Transform:
@@ -335,7 +336,7 @@ Transform:
   - {fileID: 4082292264419882}
   - {fileID: 4484837824421224}
   m_Father: {fileID: 4436044297573950}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4907971099230084
 Transform:
@@ -348,7 +349,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 4436044297573950}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: -3.06, y: 0, z: 0}
 --- !u!4 &4915067105363456
 Transform:
@@ -499,6 +500,23 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1321060390965400}
   m_Mesh: {fileID: 4300000, guid: 663945ec14672d64c8e5a8f83b636866, type: 3}
+--- !u!95 &95852473891814876
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1953969791071214}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: dbe84c96ee244764b847aab5170fff04, type: 3}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!108 &108913051727375106
 Light:
   m_ObjectHideFlags: 1
@@ -555,6 +573,7 @@ MonoBehaviour:
   shotsPerBurst: 5
   spread: 0
   health: 10
+  deathAnimDuration: 0
   color: 0
   numberOfBulletsPerShot: 2
   scoreValue: 0
@@ -659,7 +678,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1979431736
+  randomSeed: 2113350223
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -4065,7 +4084,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -975213507
+  randomSeed: 1759567905
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -7471,7 +7490,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -2111751352
+  randomSeed: -1039041852
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -10877,7 +10896,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 318919221
+  randomSeed: 340983769
   InitialModule:
     serializedVersion: 3
     enabled: 1
