@@ -111,13 +111,12 @@ public class MobStats : MonoBehaviour
 
         foreach (Renderer rend in renderers)
         {
-            SkinnedMeshRenderer mesh = transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
             int numberOfBlinks = 3;
             for (int i = 0; i < numberOfBlinks; i++)
             {
-                mesh.enabled = !mesh.enabled;
+                rend.enabled = !rend.enabled;
                 yield return new WaitForSeconds((deathAnimDuration / numberOfBlinks) / 4);
-                mesh.enabled = !mesh.enabled;
+                rend.enabled = !rend.enabled;
                 yield return new WaitForSeconds(((deathAnimDuration * 3) / numberOfBlinks) / 4);
             }
         }
