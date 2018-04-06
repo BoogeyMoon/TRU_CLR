@@ -15,12 +15,14 @@ public class SwitchInteract : MonoBehaviour {
     int color;
     [SerializeField]
     GameObject Object;
+    bool activated;
 
 
     public void Trigger(int color) //Om switchen träffas av rätt färg
     {
-        if(this.color == color)
+        if(this.color == color && !activated)
         {
+            activated = true;
             Object.GetComponent<Interactable>().Activated();
         }
     }
