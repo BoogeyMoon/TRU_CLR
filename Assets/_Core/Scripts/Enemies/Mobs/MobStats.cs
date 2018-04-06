@@ -55,7 +55,7 @@ public class MobStats : MonoBehaviour
         startRot = transform.rotation;
         if (deathAnimDuration == 0)
         {
-            deathAnimDuration = 2;
+            deathAnimDuration = 0.5f;
         }
     }
     protected void updatePatrolPoints() //Kollar barnen på ett gameobject och lägger till dem i en lista.
@@ -232,23 +232,22 @@ public class MobStats : MonoBehaviour
     IEnumerator Flicker()
     {
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
-
         foreach (Renderer rend in renderers)
         {
-            Material[] mats = transform.GetChild(0).GetComponent<Renderer>().materials;
+            Material[] mats = rend.materials;
             for (int i = 0; i < 2; i++)
             {
                 for (int j = 0; j < mats.Length; j++)
                 {
                     mats[j].SetColor("_EmissionColor", Color.white);
                 }
-                transform.GetChild(0).GetComponent<Renderer>().materials = mats;
+                rend.materials = mats;
                 yield return new WaitForSeconds(0.1f);
                 for (int j = 0; j < mats.Length; j++)
                 {
                     mats[j].SetColor("_EmissionColor", Color.black);
                 }
-                transform.GetChild(0).GetComponent<Renderer>().materials = mats;
+                rend.materials = mats;
                 yield return new WaitForSeconds(0.1f);
 
             }
