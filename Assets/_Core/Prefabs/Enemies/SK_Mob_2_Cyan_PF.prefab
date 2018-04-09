@@ -291,25 +291,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  maxHealth: 1
+  maxHealth: 5
   fireRate: 0.1
   aggroRange: 15
   distanceInterval: 7
-  timeBetweenBurst: 1
-  shotsPerBurst: 5
+  timeBetweenBurst: 0.8
+  shotsPerBurst: 1
   spread: 0
   health: 0
+  deathAnimDuration: 0
   color: 0
-  numberOfBulletsPerShot: 2
+  numberOfBulletsPerShot: 1
   scoreValue: 0
   bulletSpawners:
-  - {fileID: 1776682645903862}
+  - {fileID: 1776682645903862, guid: ce5dc780defe28343bee0e7e3a616133, type: 2}
   raycastOrigin:
-  - {fileID: 1776682645903862}
+  - {fileID: 1776682645903862, guid: ce5dc780defe28343bee0e7e3a616133, type: 2}
   destination: {fileID: 0}
   bullet: {fileID: 1391852344878852, guid: eb5fe13b20c43284fabd9f2d94d5927a, type: 2}
   patrolPoints: {fileID: 0}
-  Aim: {fileID: 4519376866525348}
+  Aim: {fileID: 4519376866525348, guid: ce5dc780defe28343bee0e7e3a616133, type: 2}
 --- !u!136 &136278651199865142
 CapsuleCollider:
   m_ObjectHideFlags: 1
