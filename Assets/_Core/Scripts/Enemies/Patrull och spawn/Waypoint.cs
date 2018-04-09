@@ -19,5 +19,9 @@ public class Waypoint : MonoBehaviour
         {
             coll.gameObject.GetComponent<MobStats>().ChangeDestination(nextWaypoint, gameObject);
         }
+        else if(coll.gameObject.tag == "Boss")
+        {
+            coll.GetComponent<BossPatrol>().ChangeDestination(nextWaypoint, gameObject);
+        }
     }
 }

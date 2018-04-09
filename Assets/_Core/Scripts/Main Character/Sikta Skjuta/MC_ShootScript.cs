@@ -160,9 +160,9 @@ public class MC_ShootScript : MonoBehaviour
             if (Physics.Raycast(ray, out raycastHit, laserLength))
             {
                 endPosition = raycastHit.point;
-                if (raycastHit.transform.gameObject.tag == "Weakpoint")
+                if (raycastHit.collider.transform.gameObject.tag == "Weakpoint")
                 {
-                    raycastHit.transform.gameObject.GetComponent<MobStats>().TakeDamage(laserDamage, activeColor);
+                    raycastHit.collider.transform.gameObject.GetComponent<MobStats>().TakeDamage(laserDamage, activeColor);
                 }
                 else if (raycastHit.transform.tag == "Interactable")
                 {
