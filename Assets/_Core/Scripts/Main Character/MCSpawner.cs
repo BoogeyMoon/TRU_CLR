@@ -24,7 +24,7 @@ public class MCSpawner : MonoBehaviour
         {
             if(timer > 5f)
             {
-                ourCamera.AnimDone = true;
+                ourCamera.FollowPlayer = true;
                 player.position = introPlayer.position;
                 Destroy(introPlayer.gameObject);
                 Destroy(this);

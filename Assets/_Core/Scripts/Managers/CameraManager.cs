@@ -14,22 +14,24 @@ public class CameraManager : MonoBehaviour
     [SerializeField]
     int boundary = 50, speed = 30;
 
-    bool animDone;
-    public bool AnimDone
+    bool followPlayer;
+    public bool FollowPlayer
     {
-        set { animDone = value; }
+        set { followPlayer = value; }
     }
+    Transform CamPos;
 
     void Start()
     {
         spawner = GameObject.FindGameObjectWithTag("Spawner").transform;
         screenHeight = Screen.height;
         screenWidth = Screen.width;
+        CamPos = spawner;
     }
 
     void Update()
     {
-        if (animDone) //Följer spelaren om startanimationen är klar
+        if (followPlayer) //Följer spelaren om startanimationen är klar
         {
             transform.position = Vector3.Lerp(transform.position, player.position, 12f * Time.deltaTime);
 
@@ -52,8 +54,23 @@ public class CameraManager : MonoBehaviour
         }
         else //Följer spawnpunkten
         {
-            transform.position = Vector3.Lerp(transform.position, spawner.position, 12f * Time.deltaTime);
+            transform.position = Vector3.Lerp(transform.position, CamPos.position, 1.5f * Time.deltaTime);
         }
+
+    }
+
+    public void SetCameraPosition(Transform newPos) //Välj ett nytt object som cameran ska följa, om null så följer den spelaren
+    {
+        if (newPos != null)
+        {
+            CamPos = newPos;
+            followPlayer = false;
+        }
+        else
+        {
+            followPlayer = true;
+        }
+
     }
 
 
