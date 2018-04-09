@@ -7,7 +7,8 @@ public class BossPatrol : MonoBehaviour
     [SerializeField]
     float speed;
     [SerializeField]
-    Transform patrolPoints , destination;
+    Transform patrolPoints;
+    GameObject destination;
     //Transform destination;
     List<Transform> patrolPointsList;
     int patrolCounter;
@@ -25,16 +26,7 @@ public class BossPatrol : MonoBehaviour
         SetToPlayerPlane(transform);
         
     }
-    void Update()
-    {
-        if(body.velocity != Vector3.zero)
-        {
-            body.velocity = Vector3.zero;
-        }
-        Patrol();
-
-        transform.rotation = startRot;
-    }
+    
 
     protected void Patrol() //Går mot nästa patrullplats
     {
@@ -54,7 +46,7 @@ public class BossPatrol : MonoBehaviour
                 patrolPointsList.Add(patrolPoints.transform.GetChild(i));
             }
             if (patrolPointsList.Count > 0)
-                destination = patrolPointsList[0];
+                destination = patrolPointsList[0].gameObject;
         }
 
     }
@@ -62,9 +54,9 @@ public class BossPatrol : MonoBehaviour
     {
         if (lastDestination == destination) //Ser till att vi inte krockar in i fel patrullställe
         {
-            print("HÄRÄRJAG");
+            
             if (newDestination != null) //Sätter ny destination
-                destination = newDestination.transform;
+                destination = newDestination;
             else //Går till nästa plats i listan
             {
                 if (patrolPointsList.Count != 1)
@@ -75,7 +67,7 @@ public class BossPatrol : MonoBehaviour
                     {
                         patrolCounter = 0;
                     }
-                    destination = patrolPointsList[patrolCounter];
+                    destination = patrolPointsList[patrolCounter].gameObject;
 
                 }
             }
@@ -86,4 +78,6 @@ public class BossPatrol : MonoBehaviour
     {
         Obj.transform.position = new Vector3(Obj.transform.position.x, Obj.transform.position.y, player.transform.position.z);
     }
+
+    
 }

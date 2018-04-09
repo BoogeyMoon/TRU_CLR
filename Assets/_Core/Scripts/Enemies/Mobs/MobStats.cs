@@ -97,7 +97,7 @@ public class MobStats : MonoBehaviour
         }
     }
 
-    void Die() //Mob:en dör.
+    protected void Die() //Mob:en dör.
     {
         score.AddScore(scoreValue);
         dead = true;

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// by Slavko Stojnic
+// by Slavko Stojnic with some additions by Timmy Alvelöv
 public class Spawner : MonoBehaviour
 {
     [SerializeField]
@@ -27,6 +27,10 @@ public class Spawner : MonoBehaviour
     void Start()
     {
         getPlayer = GameObject.FindGameObjectWithTag("Player").transform;
+        if(spawnPoint != null)
+        {
+            spawnPoint= transform;
+        }
     }
 
     // Update is called once per frame
@@ -41,5 +45,10 @@ public class Spawner : MonoBehaviour
             mob.GetComponent<FlyingMob>().PatrolPoints = patrolpoints;
             time = 0;
         }
+    }
+
+    public void Upgrade()
+    {
+        interval = interval - interval/3;
     }
 }
