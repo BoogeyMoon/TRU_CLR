@@ -962,8 +962,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1792648718854088}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -14.96, y: 15.03, z: -5.01}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -2.3, y: -6.26, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4247366309600634}
@@ -1137,7 +1137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 517de7a27a46de7488d977f6f62e52c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 6
+  speed: 9
   jumpSpeed: 12
   gravity: 24
   facingRight: 0
@@ -1158,9 +1158,9 @@ MonoBehaviour:
   dashSound: {fileID: 8300000, guid: 5ecfd567b27a1914e88319d6a675174a, type: 3}
   rifleBarrel: {fileID: 1589744676811700}
   startObject: {fileID: 1463476199200570}
-  lengthOfDash: 8
-  dashCooldown: 0.1
-  moveSpeed: 9
+  lengthOfDash: 6
+  dashCooldown: 2
+  moveSpeed: 4
   approxValue: 3
   dashing: 0
 --- !u!114 &114269647725588438
@@ -1184,9 +1184,9 @@ MonoBehaviour:
   laserDamage: 1
   shieldCooldown: 3
   cooldowns:
-  - 0.5
-  - 0.5
-  - 0.5
+  - 0.1
+  - 0.01
+  - 1
   material: {fileID: 2100000, guid: 77da4f3e1cc5e0d498ea4419d585880d, type: 2}
   shotsBlue:
   - {fileID: 8300000, guid: b810d633e5a463243bc4a2dd5a14cbef, type: 3}
@@ -1223,6 +1223,7 @@ MonoBehaviour:
   startObject: {fileID: 1409750991231440}
   directionObject: {fileID: 1589744676811700}
   wipeLifeTime: 0.5
+  wipeCooldown: 5
 --- !u!114 &114597605329760832
 MonoBehaviour:
   m_ObjectHideFlags: 1
