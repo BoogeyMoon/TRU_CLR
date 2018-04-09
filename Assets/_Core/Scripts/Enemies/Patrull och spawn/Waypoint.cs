@@ -15,13 +15,9 @@ public class Waypoint : MonoBehaviour
     }
     void OnTriggerEnter(Collider coll)
     {
-        if (coll.gameObject.tag == "Weakpoint")
+        if (coll.gameObject.tag == "Weakpoint" || coll.gameObject.tag == "Boss")
         {
             coll.gameObject.GetComponent<MobStats>().ChangeDestination(nextWaypoint, gameObject);
-        }
-        else if(coll.gameObject.tag == "Boss")
-        {
-            coll.GetComponent<BossPatrol>().ChangeDestination(nextWaypoint, gameObject);
         }
     }
 }

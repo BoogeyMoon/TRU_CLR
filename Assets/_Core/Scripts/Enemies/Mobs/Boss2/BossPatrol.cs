@@ -7,8 +7,8 @@ public class BossPatrol : MonoBehaviour
     [SerializeField]
     float speed;
     [SerializeField]
-    Transform patrolPoints , destination;
-    //Transform destination;
+    Transform patrolPoints;
+    Transform destination;
     List<Transform> patrolPointsList;
     int patrolCounter;
     Rigidbody body;
