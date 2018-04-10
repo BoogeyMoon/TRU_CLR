@@ -12,6 +12,9 @@ public class DashScript : MonoBehaviour
     private ParticleSystem[] dashParticles;
 
     [SerializeField]
+    GameObject dashEmitter;
+
+    [SerializeField]
     GameObject rifleBarrel, startObject;
     [SerializeField]
     float lengthOfDash, dashCooldown, moveSpeed, approxValue;
@@ -25,7 +28,7 @@ public class DashScript : MonoBehaviour
 
     void Start()
     {
-        dashParticles = GetComponentsInChildren<ParticleSystem>();
+        dashParticles = dashEmitter.GetComponentsInChildren<ParticleSystem>();
         MovementScript = gameObject.GetComponent<testMCmovement>();
         soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
         foreach (ParticleSystem dashParticle in dashParticles)
