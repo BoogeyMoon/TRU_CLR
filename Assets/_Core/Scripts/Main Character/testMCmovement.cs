@@ -21,6 +21,7 @@ public class testMCmovement : MonoBehaviour
     GameObject feet;
 
     ParticleSystem jumpParticle;
+    ParticleSystem[] jumpParticleChildren;
 
     Animator animator;
 
@@ -35,7 +36,8 @@ public class testMCmovement : MonoBehaviour
     }
     void Start()
     {
-        jumpParticle = feet.GetComponent<ParticleSystem>();
+        //jumpParticle = feet.GetComponent<ParticleSystem>();
+        jumpParticleChildren = feet.GetComponentsInChildren<ParticleSystem>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         playerStats = GetComponent<PlayerStats>();
@@ -163,7 +165,14 @@ public class testMCmovement : MonoBehaviour
         if (currentjump == 2)
         {
             animator.SetTrigger("doubleJump");
-            jumpParticle.Play(true);
+
+            foreach (ParticleSystem particle in jumpParticleChildren)
+            {
+                particle.Clear();
+                particle.Simulate(0f, true, true);
+                particle.Play();
+            }
+            
         }
         else
         {
