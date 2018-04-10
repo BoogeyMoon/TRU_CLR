@@ -14,6 +14,7 @@ public class WinScript : MonoBehaviour
     void Start()
     {
         ScoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<Score>();
+        print(winCons.Count);
         winConditions = new bool[winCons.Count];
     }
 

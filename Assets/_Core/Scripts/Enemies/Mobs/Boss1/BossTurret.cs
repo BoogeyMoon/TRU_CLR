@@ -28,21 +28,22 @@ public class BossTurret : Turret
             if (color == this.color && health - damage <= 0)
                 boss.AngryBoss(this);
 
-            base.TakeDamage(damage, color);
-
             if (this.color == color)
             {
                 this.color = (this.color + 1) % 3;
+                ChangeMaterial(this.color);
+                base.TakeDamage(damage, this.color, Turret.transform);
             }
-            ChangeMaterial(this.color);
+            
+
         }
     }
-    void ChangeMaterial(int color) //Byter material till den motsvarande
+    void ChangeMaterial(int color) //Byter material till det specificerade
     {
-        myMats[myMats.Length -1] = mats[color];
+        myMats[myMats.Length - 1] = mats[color];
         Turret.GetComponent<Renderer>().materials = myMats;
     }
-    
+
 
 
 }

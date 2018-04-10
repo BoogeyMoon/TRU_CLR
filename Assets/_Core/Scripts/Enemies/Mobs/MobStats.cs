@@ -88,6 +88,22 @@ public class MobStats : MonoBehaviour
         }
     }
 
+    public virtual void TakeDamage(float damage, int color, Transform obj) //Om mob:en blir träffad av en kula som korresponderar med mob:ens färg så tar den skada.
+    {
+        if (color == this.color && health > 0)
+        {
+            health -= damage;
+            if (!dead && health <= 0)
+            {
+                Die(obj);
+            }
+            else
+            {
+                StartCoroutine(Flicker(obj));
+            }
+        }
+    }
+
     public void GainHealth(float life) //Ökar mob:ens hälsa
     {
         health += life;
@@ -105,6 +121,16 @@ public class MobStats : MonoBehaviour
             animator.SetTrigger("deathTrigger");
         StartCoroutine(GetDestroyed());
     }
+    
+    protected void Die(Transform obj) //Mob:en dör.
+    {
+        score.AddScore(scoreValue);
+        dead = true;
+        if (animator != null)
+            animator.SetTrigger("deathTrigger");
+        StartCoroutine(GetDestroyed());
+    }
+
     IEnumerator GetDestroyed()
     {
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
@@ -121,6 +147,24 @@ public class MobStats : MonoBehaviour
             }
         }
         Destroy(gameObject);
+    }
+
+    IEnumerator GetDestroyed(Transform obj)
+    {
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer rend in renderers)
+        {
+            int numberOfBlinks = 3;
+            for (int i = 0; i < numberOfBlinks; i++)
+            {
+                rend.enabled = !rend.enabled;
+                yield return new WaitForSeconds((deathAnimDuration / numberOfBlinks) / 4);
+                rend.enabled = !rend.enabled;
+                yield return new WaitForSeconds(((deathAnimDuration * 3) / numberOfBlinks) / 4);
+            }
+        }
+        Destroy(obj.gameObject);
     }
 
     public void ChangeDestination(GameObject newDestination, GameObject lastDestination) //Ger en mob sitt nästa mål, om input är null går den till nästa mål i sin lista.
@@ -251,8 +295,32 @@ public class MobStats : MonoBehaviour
 
             }
         }
+    }
 
+    IEnumerator Flicker(Transform obj)
+    {
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+        foreach (Renderer rend in renderers)
+        {
+            Material[] mats = rend.materials;
+            
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < mats.Length; j++)
+                {
+                    mats[j].SetColor("_EmissionColor", Color.white);
+                }
+                rend.materials = mats;
+                yield return new WaitForSeconds(0.1f);
+                for (int j = 0; j < mats.Length; j++)
+                {
+                    mats[j].SetColor("_EmissionColor", Color.black);
+                }
+                rend.materials = mats;
+                yield return new WaitForSeconds(0.1f);
 
+            }
+        }
     }
 
 }
