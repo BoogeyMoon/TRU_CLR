@@ -9,6 +9,10 @@ public class DashScript : MonoBehaviour
     [SerializeField]
     AudioClip dashSound;
     SoundManager soundManager;
+    private ParticleSystem[] dashParticles;
+
+    [SerializeField]
+    GameObject dashEmitter;
 
     [SerializeField]
     GameObject rifleBarrel, startObject;
@@ -24,8 +28,14 @@ public class DashScript : MonoBehaviour
 
     void Start()
     {
+        dashParticles = dashEmitter.GetComponentsInChildren<ParticleSystem>();
         MovementScript = gameObject.GetComponent<testMCmovement>();
         soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
+        foreach (ParticleSystem dashParticle in dashParticles)
+        {
+            var emission = dashParticle.emission;
+            emission.enabled = false;
+        }
     }
 
     void Update()
@@ -39,6 +49,11 @@ public class DashScript : MonoBehaviour
             Dash();
             dashing = true;
             MovementScript.ZeroGravity(dashing);
+            foreach (ParticleSystem dashParticle in dashParticles)
+            {
+                var emission = dashParticle.emission;
+                emission.enabled = true;
+            }
         }
 
         if(dashing)
@@ -58,6 +73,11 @@ public class DashScript : MonoBehaviour
             {
                 dashing = false;
                 MovementScript.ZeroGravity(dashing);
+                foreach (ParticleSystem dashParticle in dashParticles)
+                {
+                    var emission = dashParticle.emission;
+                    emission.enabled = false;
+                }
             }
         }
     }
