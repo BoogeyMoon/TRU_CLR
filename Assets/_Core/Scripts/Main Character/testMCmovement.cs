@@ -17,6 +17,11 @@ public class testMCmovement : MonoBehaviour
     bool facingRight, isGrounded, isCrouching, inAir;
     bool zeroGravity;
 
+    [SerializeField]
+    GameObject feet;
+
+    ParticleSystem jumpParticle;
+
     Animator animator;
 
     Vector3 moveDirection = Vector3.zero;
@@ -30,6 +35,7 @@ public class testMCmovement : MonoBehaviour
     }
     void Start()
     {
+        jumpParticle = feet.GetComponent<ParticleSystem>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         playerStats = GetComponent<PlayerStats>();
@@ -157,6 +163,7 @@ public class testMCmovement : MonoBehaviour
         if (currentjump == 2)
         {
             animator.SetTrigger("doubleJump");
+            jumpParticle.Play(true);
         }
         else
         {
