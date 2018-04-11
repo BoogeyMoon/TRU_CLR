@@ -36,7 +36,6 @@ public class PlayerMovement : MonoBehaviour
     }
     void Start()
     {
-        //jumpParticle = feet.GetComponent<ParticleSystem>();
         jumpParticleChildren = jumpParticles.GetComponentsInChildren<ParticleSystem>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
@@ -170,7 +169,7 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
-    public void ZeroGravity(bool dashing)
+    public void ZeroGravity(bool dashing) //Ser till att nollställa gravitiationen och gravitationspåverkan på spelaren eller sätta tillbaka gravitationen
     {
         if (dashing)
         {

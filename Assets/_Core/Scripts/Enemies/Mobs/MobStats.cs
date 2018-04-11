@@ -122,7 +122,7 @@ public class MobStats : MonoBehaviour
         StartCoroutine(GetDestroyed());
     }
     
-    protected void Die(Transform obj) //Mob:en dör.
+    protected void Die(Transform obj) //Mob:en dör men renderern sitter på en annan plats än scriptet
     {
         score.AddScore(scoreValue);
         dead = true;
@@ -131,7 +131,7 @@ public class MobStats : MonoBehaviour
         StartCoroutine(GetDestroyed());
     }
 
-    IEnumerator GetDestroyed()
+    IEnumerator GetDestroyed() //Blinkande effekt
     {
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
 
@@ -149,7 +149,7 @@ public class MobStats : MonoBehaviour
         Destroy(gameObject);
     }
 
-    IEnumerator GetDestroyed(Transform obj)
+    IEnumerator GetDestroyed(Transform obj) //Blinkande effekt men renderern sitter på en annan plats än scriptet
     {
         Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
 
@@ -268,11 +268,11 @@ public class MobStats : MonoBehaviour
     {
         Obj.transform.LookAt(new Vector3(playerTarget.position.x, playerTarget.position.y, Obj.position.z));
     }
-    protected void SetToPlayerPlane(Transform Obj)
+    protected void SetToPlayerPlane(Transform Obj) //Sätter objeket den tar till till samma z-värde som spelaren
     {
         Obj.transform.position = new Vector3(Obj.transform.position.x, Obj.transform.position.y, player.transform.position.z);
     }
-    IEnumerator Flicker()
+    IEnumerator Flicker() //Gör att renderern blinkar vitt
     {
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
         foreach (Renderer rend in renderers)
@@ -297,7 +297,7 @@ public class MobStats : MonoBehaviour
         }
     }
 
-    IEnumerator Flicker(Transform obj)
+    IEnumerator Flicker(Transform obj) //Gör att renderern på det intagna objektet blinkar vitt
     {
         Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
         foreach (Renderer rend in renderers)

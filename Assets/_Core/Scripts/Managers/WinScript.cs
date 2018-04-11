@@ -28,7 +28,7 @@ public class WinScript : MonoBehaviour
         }
         Win();
     }
-    void Win()
+    void Win() //Sparar {värden som ska sparas} i XML och {annat som ska hända när man vinner}
     {
         print("Du vann! Du fick betyget: " + ScoreManager.GetGrade());
     }

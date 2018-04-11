@@ -20,7 +20,7 @@ public class Mob_Projectile : MonoBehaviour
 
         lifeTime = 10;
     }
-    protected void Update()
+    protected virtual void Update()
     {
         startTime += Time.deltaTime;
         if (startTime >= lifeTime) //Förstör kulan efter en angiven tid

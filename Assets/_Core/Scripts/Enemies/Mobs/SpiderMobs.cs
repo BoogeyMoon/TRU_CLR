@@ -51,7 +51,7 @@ public class SpiderMobs : MobStats
 
     }
 
-    void Move()
+    void Move() //Rör sig mot en destination
     {
         transform.position = Vector3.MoveTowards(agent.transform.position, destination.transform.position, speed * Time.deltaTime);
     }
