@@ -44,6 +44,8 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         uiHealth = GameObject.FindGameObjectWithTag("Healthbar").GetComponent<UIHealth2>();
+
+        //Återställer vignetten
         vignetteSettings = ppProfile.vignette.settings;
         vignetteSettings.intensity = 0.0f;
         ppProfile.vignette.settings = vignetteSettings;
@@ -65,17 +67,19 @@ public class PlayerStats : MonoBehaviour
             {
                 PlayerDies();
             }
+
+            else if (value < 0 && vignetteSettings.intensity < 0.4f) //Ökar värdet på vignette effekten när man tagit skada
+            {
+                vignetteSettings.intensity = vignetteSettings.intensity + 0.1f;
+                ppProfile.vignette.settings = vignetteSettings;
+                StopCoroutine("LerpDamageEffect");
+                StartCoroutine("LerpDamageEffect");
+            }
             uiHealth.TakeDamage((int)health);
 
         }
 
-        if (value < 0 && vignetteSettings.intensity < 0.4f)
-        {
-            vignetteSettings.intensity = vignetteSettings.intensity + 0.1f;
-            ppProfile.vignette.settings = vignetteSettings;
-            StopCoroutine("LerpDamageEffect");
-            StartCoroutine("LerpDamageEffect");
-        }
+        
     }
 
     public void PlayerDies() //Ifall spelaren dör
@@ -100,12 +104,17 @@ public class PlayerStats : MonoBehaviour
         gameObject.layer = layer;
     }
 
-    IEnumerator LerpDamageEffect()
+    IEnumerator LerpDamageEffect() //Lerpar bort den röda effekten långsamt när man tagit skada
     {
         while (vignetteSettings.intensity > 0f)
         {
             yield return new WaitForSeconds(0.1f);
-            vignetteSettings.intensity -= 0.015f;
+            vignetteSettings.intensity -= 0.02f;
+
+            if (vignetteSettings.intensity < 0.02)
+            {
+                vignetteSettings.intensity = 0;
+            }
             ppProfile.vignette.settings = vignetteSettings;
         }
     }
