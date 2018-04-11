@@ -18,6 +18,8 @@ public class Turret : MobStats
 
     void Update() //Moben agerar
     {
+        if(head.position.z != player.position.z)
+            SetToPlayerPlane(head);
         if (!dead)
         {
             LookAtPlayer(head);

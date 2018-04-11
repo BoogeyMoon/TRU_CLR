@@ -66,7 +66,7 @@ public class PlayerStats : MonoBehaviour
     {
         dead = true;
         GameObject.FindGameObjectWithTag("MCWeapon").GetComponent<Renderer>().enabled = false;
-        GetComponent<testMCmovement>().enabled = false;
+        GetComponent<PlayerMovement>().enabled = false;
         GetComponent<MC_ShootScript>().enabled = false;
         anim = GetComponent<Animator>();
         anim.SetLayerWeight(1, 1);
