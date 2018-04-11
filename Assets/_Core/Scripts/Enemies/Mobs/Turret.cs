@@ -33,7 +33,6 @@ public class Turret : MobStats
                     if (timeLeft < 0)
                     {
                         Shoot();
-                        animator.SetTrigger("shoot");
                     }
                 }
 

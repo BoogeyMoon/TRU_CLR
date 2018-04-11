@@ -16,7 +16,7 @@ public class Boss_1 : MonoBehaviour {
         laser = transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<BossTurretLaser>();
         for (int i = 0; i < 2; i++)
         {
-            turrets.Add(transform.GetChild(i+1).GetComponent<BossTurret>());
+            turrets.Add(transform.GetChild(0).GetChild(i+1).GetChild(0).GetComponent<BossTurret>());
         }
         win = GameObject.FindGameObjectWithTag("Win").GetComponent<WinScript>();
     }

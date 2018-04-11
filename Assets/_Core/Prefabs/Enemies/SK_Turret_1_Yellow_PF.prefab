@@ -268,15 +268,15 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1590843607126116}
-  m_LocalRotation: {x: -0.5, y: 0.5, z: -0.5, w: 0.5}
-  m_LocalPosition: {x: 7.837441, y: 8.255924, z: 0.4788285}
+  m_LocalRotation: {x: -0.7071068, y: 0.7071068, z: -0, w: 0}
+  m_LocalPosition: {x: 182.29999, y: 16.924894, z: -0.85}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4186970705004232}
   - {fileID: 4941107678274828}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: -90}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: -90}
 --- !u!4 &4186970705004232
 Transform:
   m_ObjectHideFlags: 1
@@ -459,8 +459,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 11.196637, z: 1.7053103}
-  m_Center: {x: 0, y: 6.1949067, z: 0.20912123}
+  m_Size: {x: 1.5179076, y: 2.1486046, z: 1.7053105}
+  m_Center: {x: 0.0011916757, y: 1.0958048, z: 0.20912123}
 --- !u!95 &95312934029826982
 Animator:
   serializedVersion: 3
@@ -490,17 +490,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 0
-  maxHealth: 2
+  maxHealth: 25
   fireRate: 0.1
-  aggroRange: 10
+  aggroRange: 45
   distanceInterval: 0
-  timeBetweenBurst: 1
+  timeBetweenBurst: 3
   shotsPerBurst: 1
-  spread: 0
+  spread: 25
   health: 0
   deathAnimDuration: 0
   color: 1
-  numberOfBulletsPerShot: 1
+  numberOfBulletsPerShot: 3
   scoreValue: 0
   bulletSpawners:
   - {fileID: 1950254145204100}
