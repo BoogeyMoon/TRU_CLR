@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.PostProcessing;
 //Av Andreas de Freitas och Timmy Alvelöv.
 
 //Håller koll på spelarens hälsa och liknande
@@ -15,7 +16,12 @@ public class PlayerStats : MonoBehaviour
     float health;
     Animator anim;
     bool dead;
+    [SerializeField]
+    PostProcessingProfile ppProfile;
+    VignetteModel.Settings vignetteSettings;
     public bool Dead
+    
+
     {
         get { return dead; }
     }
@@ -38,6 +44,9 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         uiHealth = GameObject.FindGameObjectWithTag("Healthbar").GetComponent<UIHealth2>();
+        vignetteSettings = ppProfile.vignette.settings;
+        vignetteSettings.intensity = 0.0f;
+        ppProfile.vignette.settings = vignetteSettings;
     }
 
 
@@ -57,6 +66,15 @@ public class PlayerStats : MonoBehaviour
                 PlayerDies();
             }
             uiHealth.TakeDamage((int)health);
+
+        }
+
+        if (value < 0 && vignetteSettings.intensity < 0.4f)
+        {
+            vignetteSettings.intensity = vignetteSettings.intensity + 0.1f;
+            ppProfile.vignette.settings = vignetteSettings;
+            StopCoroutine("LerpDamageEffect");
+            StartCoroutine("LerpDamageEffect");
         }
     }
 
@@ -80,5 +98,15 @@ public class PlayerStats : MonoBehaviour
     public void ChangeLayer(int layer)
     {
         gameObject.layer = layer;
+    }
+
+    IEnumerator LerpDamageEffect()
+    {
+        while (vignetteSettings.intensity > 0f)
+        {
+            yield return new WaitForSeconds(0.1f);
+            vignetteSettings.intensity -= 0.015f;
+            ppProfile.vignette.settings = vignetteSettings;
+        }
     }
 }
