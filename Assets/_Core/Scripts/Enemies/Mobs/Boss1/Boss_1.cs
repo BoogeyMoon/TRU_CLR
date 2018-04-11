@@ -33,7 +33,7 @@ public class Boss_1 : MonoBehaviour {
             turrets[i].Upgrade();
         }
     }
-    void Die()
+    void Die() //Hanterar döden på boss 1
     {
         win.WinConFinished(transform);
         Destroy(gameObject);

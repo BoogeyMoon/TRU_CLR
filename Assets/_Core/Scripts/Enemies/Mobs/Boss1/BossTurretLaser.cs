@@ -72,7 +72,7 @@ public class BossTurretLaser : MobStats
         beam.enabled = true;
 
     }
-    public void Upgrade()
+    public void Upgrade() //Gör så att cooldownen på bossen minskar
     {
         if (maxLaserCharge > 1)
             maxLaserCharge = maxLaserCharge - 1;
