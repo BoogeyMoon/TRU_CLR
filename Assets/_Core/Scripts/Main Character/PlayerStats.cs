@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 //Av Andreas de Freitas och Timmy Alvelöv.
 
-//Håller koll på spelarens hälsa och checkpoints
+//Håller koll på spelarens hälsa och liknande
 
 public class PlayerStats : MonoBehaviour
 {
@@ -26,8 +26,6 @@ public class PlayerStats : MonoBehaviour
             return health;
         }
     }
-
-    string checkpoint;
 
     void Awake()
     {
@@ -72,8 +70,6 @@ public class PlayerStats : MonoBehaviour
         anim.SetLayerWeight(1, 1);
         PlayerPrefs.SetFloat("savedHealth", maxHealth);
         StartCoroutine(GoToMenu());
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        //health = maxHealth;
     }
 
     IEnumerator GoToMenu()
