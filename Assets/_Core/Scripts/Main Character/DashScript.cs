@@ -23,13 +23,13 @@ public class DashScript : MonoBehaviour
     [SerializeField]
     bool dashing;
     bool dashOnCooldown;
-    testMCmovement MovementScript;
+    PlayerMovement playerMovement;
     float dist;
 
     void Start()
     {
         dashParticles = dashEmitter.GetComponentsInChildren<ParticleSystem>();
-        MovementScript = gameObject.GetComponent<testMCmovement>();
+        playerMovement = gameObject.GetComponent<PlayerMovement>();
         soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
         foreach (ParticleSystem dashParticle in dashParticles)
         {
@@ -48,7 +48,7 @@ public class DashScript : MonoBehaviour
             direction = rifleBarrel.transform.forward;
             Dash();
             dashing = true;
-            MovementScript.ZeroGravity(dashing);
+            playerMovement.ZeroGravity(dashing);
             foreach (ParticleSystem dashParticle in dashParticles)
             {
                 var emission = dashParticle.emission;
@@ -72,7 +72,7 @@ public class DashScript : MonoBehaviour
             if (dist <= approxValue)
             {
                 dashing = false;
-                MovementScript.ZeroGravity(dashing);
+                playerMovement.ZeroGravity(dashing);
                 foreach (ParticleSystem dashParticle in dashParticles)
                 {
                     var emission = dashParticle.emission;

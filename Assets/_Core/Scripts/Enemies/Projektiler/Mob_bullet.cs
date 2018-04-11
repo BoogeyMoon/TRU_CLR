@@ -6,9 +6,7 @@ using UnityEngine;
 //En generisk kula som åker mot spelaren
 public class Mob_bullet : Mob_Projectile
 {
-    
-
-    void Update()
+    protected override void Update()
     {
         base.Update();
         transform.Translate(Vector3.forward * startVelocity * Time.deltaTime); //Åker framåt

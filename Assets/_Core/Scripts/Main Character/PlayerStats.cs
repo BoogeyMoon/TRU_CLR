@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 //Av Andreas de Freitas och Timmy Alvelöv.
 
-//Håller koll på spelarens hälsa och checkpoints
+//Håller koll på spelarens hälsa och liknande
 
 public class PlayerStats : MonoBehaviour
 {
@@ -26,8 +26,6 @@ public class PlayerStats : MonoBehaviour
             return health;
         }
     }
-
-    string checkpoint;
 
     void Awake()
     {
@@ -66,17 +64,15 @@ public class PlayerStats : MonoBehaviour
     {
         dead = true;
         GameObject.FindGameObjectWithTag("MCWeapon").GetComponent<Renderer>().enabled = false;
-        GetComponent<testMCmovement>().enabled = false;
+        GetComponent<PlayerMovement>().enabled = false;
         GetComponent<MC_ShootScript>().enabled = false;
         anim = GetComponent<Animator>();
         anim.SetLayerWeight(1, 1);
         PlayerPrefs.SetFloat("savedHealth", maxHealth);
         StartCoroutine(GoToMenu());
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        //health = maxHealth;
     }
 
-    IEnumerator GoToMenu()
+    IEnumerator GoToMenu() //Väntar i tre sekunder innan den går till menyn
     {
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene(0);

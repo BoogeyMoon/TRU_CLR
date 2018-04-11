@@ -35,15 +35,15 @@ public class Boss3 : MobStats
 
             if (transform.childCount == 0)
             {
-                dead = true;
-                win.WinConFinished(transform);
+                dead = true;       //Ser till att den inte fortsätter göra något medan den är i sitt dödsstadie
+                win.WinConFinished(transform); //Låter winmanagern veta att det här winconditionet är slutfört
                 Die();
             }
-            else if (rotTimer <= 0)
+            else if (rotTimer <= 0) //Rotera
             {
                Rotate();
             }
-            if(rotDoneTimer <= 0)
+            if(rotDoneTimer <= 0) //Nollställ värden & setup för nästa rotation
             {
                 rotDoneTimer = timeBetweenRotation + 0.7f;
                 rotTimer = timeBetweenRotation;
@@ -52,7 +52,7 @@ public class Boss3 : MobStats
         }
 
     }
-    void Rotate()
+    void Rotate() //Roterar bossen 120 grader (en tredjedels vard)
     {
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles.x,transform.rotation.eulerAngles.y,rotateAngle), 5 *Time.deltaTime);
     }

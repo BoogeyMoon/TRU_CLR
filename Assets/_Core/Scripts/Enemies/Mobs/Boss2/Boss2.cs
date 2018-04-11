@@ -33,11 +33,11 @@ public class Boss2 : MobStats
         }
         Patrol();
         transform.rotation = startRot;
-        if (childs != childsLastFrame)
+        if (childs != childsLastFrame) //Om en mob dör så blir bossen starkare
         {
             spawner.Upgrade();
         }
-        if (childs < 2)
+        if (childs < 2) //om bossen har slut på bollar så dör den
         {
             win.WinConFinished(transform);
             Die();

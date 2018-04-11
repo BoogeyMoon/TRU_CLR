@@ -751,13 +751,13 @@ GameObject:
   - component: {fileID: 4736814985587400}
   - component: {fileID: 95430205769352792}
   - component: {fileID: 143743454121341928}
-  - component: {fileID: 114083143309694892}
   - component: {fileID: 114597605329760832}
   - component: {fileID: 114269647725588438}
   - component: {fileID: 114471629714917582}
   - component: {fileID: 120694736767487686}
   - component: {fileID: 114195675379695040}
   - component: {fileID: 114484365356757524}
+  - component: {fileID: 114966829462484222}
   m_Layer: 0
   m_Name: SK_MainCharacter_PF 1
   m_TagString: Player
@@ -1439,8 +1439,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1792648718854088}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -47.73, y: 0.9, z: -1}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -14.2, y: 5.2, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4247366309600634}
@@ -1674,25 +1674,6 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
---- !u!114 &114083143309694892
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1792648718854088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 517de7a27a46de7488d977f6f62e52c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 8
-  jumpSpeed: 12
-  gravity: 24
-  facingRight: 0
-  isGrounded: 0
-  isCrouching: 0
-  inAir: 0
-  feet: {fileID: 1787899745460274}
 --- !u!114 &114195675379695040
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1710,7 +1691,7 @@ MonoBehaviour:
   startObject: {fileID: 1463476199200570}
   lengthOfDash: 7.5
   dashCooldown: 2
-  moveSpeed: 4
+  moveSpeed: 6
   approxValue: 3
   dashing: 0
 --- !u!114 &114269647725588438
@@ -1734,7 +1715,7 @@ MonoBehaviour:
   laserDamage: 1
   shieldCooldown: 3
   cooldowns:
-  - 0.1
+  - 0.15
   - 0.01
   - 1
   material: {fileID: 2100000, guid: 77da4f3e1cc5e0d498ea4419d585880d, type: 2}
@@ -1771,7 +1752,7 @@ MonoBehaviour:
   wipePrefab: {fileID: 1622197955817896, guid: 9b3002bb6beb1594b939b57cf832596e, type: 2}
   startObject: {fileID: 1409750991231440}
   directionObject: {fileID: 1589744676811700}
-  wipeLifeTime: 0.5
+  wipeLifeTime: 0.05
   wipeCooldown: 5
 --- !u!114 &114597605329760832
 MonoBehaviour:
@@ -1789,6 +1770,24 @@ MonoBehaviour:
   shoulder: {fileID: 4107994161368130}
   elbow_L: {fileID: 4236258756065668}
   elbow_R: {fileID: 4649688814203898}
+--- !u!114 &114966829462484222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1792648718854088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5ba4ed94db6c0a4cac9979128e69d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 9
+  jumpSpeed: 12
+  gravity: 24
+  facingRight: 0
+  isGrounded: 0
+  inAir: 0
+  jumpParticles: {fileID: 1787899745460274}
 --- !u!120 &120694736767487686
 LineRenderer:
   m_ObjectHideFlags: 1
