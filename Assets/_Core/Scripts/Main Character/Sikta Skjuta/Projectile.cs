@@ -18,7 +18,7 @@ public class Projectile : MonoBehaviour
         transform.rotation = rotation.transform.rotation;
         lifeTime = 10;
     }
-    protected void Update() //Förstör kulan om den missar kolliders.
+    protected virtual void Update() //Förstör kulan om den missar kolliders.
     {
         startTime += Time.deltaTime;
         if (startTime >= lifeTime)
@@ -27,7 +27,7 @@ public class Projectile : MonoBehaviour
         }
     }
 
-    protected virtual void OnTriggerEnter(Collider coll)
+    protected virtual void OnTriggerEnter(Collider coll) //Triggar switchar av rätt färg
     {
         if(coll.transform.gameObject.tag == "Interactable")
         {

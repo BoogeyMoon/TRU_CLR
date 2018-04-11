@@ -10,7 +10,7 @@ public class MCSpawner : MonoBehaviour
     Transform player, introPlayer;
     CameraManager ourCamera;
 
-	void Start ()
+	void Start () //Hämtar komponenter
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         introPlayer = GameObject.FindGameObjectWithTag("IntroPlayer").transform;

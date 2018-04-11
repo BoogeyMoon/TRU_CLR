@@ -21,7 +21,7 @@ public class CameraManager : MonoBehaviour
     }
     Transform CamPos;
 
-    void Start()
+    void Start() //Hämtar komponenter och sätter startvärden
     {
         spawner = GameObject.FindGameObjectWithTag("Spawner").transform;
         screenHeight = Screen.height;

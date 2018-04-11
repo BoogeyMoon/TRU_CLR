@@ -9,6 +9,7 @@ public class Boss3 : MobStats
     [SerializeField]
     float timeBetweenRotation;
     float rotTimer, rotDoneTimer, rotateAngle = 120;
+    int startChilds;
     WinScript win;
 
 
@@ -23,17 +24,20 @@ public class Boss3 : MobStats
         rotTimer = timeBetweenRotation;
         rotDoneTimer = timeBetweenRotation + 0.7f;
         win = GameObject.FindGameObjectWithTag("Win").GetComponent<WinScript>();
+        startChilds = transform.childCount;
     }
 
     void Update()
     {
         if (!dead)
         {
+            timeLeft -= Time.deltaTime;
+            burstTimer -= Time.deltaTime;
             rotTimer -= Time.deltaTime;
             rotDoneTimer -= Time.deltaTime;
             Patrol();
 
-            if (transform.childCount == 0)
+            if (transform.childCount == startChilds-3)
             {
                 dead = true;       //Ser till att den inte fortsätter göra något medan den är i sitt dödsstadie
                 win.WinConFinished(transform); //Låter winmanagern veta att det här winconditionet är slutfört
@@ -48,6 +52,14 @@ public class Boss3 : MobStats
                 rotDoneTimer = timeBetweenRotation + 0.7f;
                 rotTimer = timeBetweenRotation;
                 rotateAngle = (rotateAngle + 120) % 360;
+            }
+            if (GetPlayerDistance(transform) < aggroRange && burstTimer < 0)
+            {
+                
+                if (timeLeft < 0)
+                {
+                        Shoot();
+                }
             }
         }
 

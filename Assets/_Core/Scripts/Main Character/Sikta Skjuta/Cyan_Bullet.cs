@@ -3,15 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 //Av Timmy Alvelöv
 
-//Ett exempel på hur en projektil skulle kunna se ut, används som demoversion
-public class Pretend_Bullet : Projectile
+//Beskriver den blå kulans beteende
+public class Cyan_Bullet : Projectile
 {
-    void Start()
-    {
-        base.Start();
-    }
     
-    void Update() //Åker framåt
+    protected override void Update() //Åker framåt
     {
         base.Update();
         transform.Translate(Vector3.forward * startVelocity * Time.deltaTime);
@@ -25,13 +21,7 @@ public class Pretend_Bullet : Projectile
             if (coll.gameObject.tag == "Weakpoint")
                 coll.GetComponent<MobStats>().TakeDamage(damage, color);
             gameObject.GetComponent<ParticleKill>().Kill();
-            //StartCoroutine(Die());
-            Die();
+            Destroy(this);     //Låter partikeleffekten kollidera innan jag förstör scriptet.
         }
-    }
-    void Die() //Låter partikeleffekten kollidera innan jag förstör scriptet.
-    {
-        //yield return new WaitForSeconds(0);
-        Destroy(this);
     }
 }

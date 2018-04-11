@@ -69,7 +69,7 @@ public class MC_ShootScript : MonoBehaviour
         }
     }
 
-    void KeyPress()
+    void KeyPress() //Kollar vad vi klickat på och exikverar rätt kod
     {
         //Skjuter på vänster musklick:
         if (Input.GetMouseButton(0))
@@ -94,7 +94,7 @@ public class MC_ShootScript : MonoBehaviour
                 Shoot();
             }
         }
-
+        //Ändrar till en specifik knapp
         if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3))
         {
             activeColor = 0;
@@ -179,7 +179,7 @@ public class MC_ShootScript : MonoBehaviour
         fireRate = cooldown;
     }
 
-    IEnumerator LaserLifeTime()
+    IEnumerator LaserLifeTime() //Stänger av line renderern efter en angiven tid
     {
         yield return new WaitForSeconds(0.1f);
         laserLineRenderer.enabled = false;

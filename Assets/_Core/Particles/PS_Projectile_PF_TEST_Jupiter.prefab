@@ -108,8 +108,8 @@ GameObject:
   - component: {fileID: 199502934967986776}
   - component: {fileID: 54768307068401128}
   - component: {fileID: 135312624926286366}
-  - component: {fileID: 114952601230773938}
   - component: {fileID: 114381520857635060}
+  - component: {fileID: 114030365441622088}
   m_Layer: 2
   m_Name: PS_Projectile_PF_TEST_Jupiter
   m_TagString: Bullet
@@ -246,19 +246,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &114381520857635060
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1869981467609374}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ef0e2218f321994d99c55d82ea3a38a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  killTime: 1.5
---- !u!114 &114952601230773938
+--- !u!114 &114030365441622088
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -274,6 +262,18 @@ MonoBehaviour:
   startTime: 0
   lifeTime: 0
   color: 0
+--- !u!114 &114381520857635060
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1869981467609374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ef0e2218f321994d99c55d82ea3a38a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  killTime: 1.5
 --- !u!135 &135312624926286366
 SphereCollider:
   m_ObjectHideFlags: 1
