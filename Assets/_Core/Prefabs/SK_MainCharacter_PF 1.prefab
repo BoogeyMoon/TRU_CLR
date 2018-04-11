@@ -758,6 +758,7 @@ GameObject:
   - component: {fileID: 120694736767487686}
   - component: {fileID: 114195675379695040}
   - component: {fileID: 114484365356757524}
+  - component: {fileID: 114966829462484222}
   m_Layer: 0
   m_Name: SK_MainCharacter_PF 1
   m_TagString: Player
@@ -1439,8 +1440,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1792648718854088}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -5.5, y: 7.4, z: 2.5}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -31.77, y: 15.03, z: -5.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4247366309600634}
@@ -1733,7 +1734,7 @@ MonoBehaviour:
   laserDamage: 1
   shieldCooldown: 3
   cooldowns:
-  - 0.1
+  - 0.15
   - 0.01
   - 1
   material: {fileID: 2100000, guid: 77da4f3e1cc5e0d498ea4419d585880d, type: 2}
@@ -1770,7 +1771,7 @@ MonoBehaviour:
   wipePrefab: {fileID: 1622197955817896, guid: 9b3002bb6beb1594b939b57cf832596e, type: 2}
   startObject: {fileID: 1409750991231440}
   directionObject: {fileID: 1589744676811700}
-  wipeLifeTime: 0.5
+  wipeLifeTime: 0.05
   wipeCooldown: 5
 --- !u!114 &114597605329760832
 MonoBehaviour:
@@ -1788,6 +1789,24 @@ MonoBehaviour:
   shoulder: {fileID: 4107994161368130}
   elbow_L: {fileID: 4236258756065668}
   elbow_R: {fileID: 4649688814203898}
+--- !u!114 &114966829462484222
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1792648718854088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5ba4ed94db6c0a4cac9979128e69d95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 6
+  jumpSpeed: 8
+  gravity: 20
+  facingRight: 0
+  isGrounded: 0
+  inAir: 0
+  jumpParticles: {fileID: 1787899745460274}
 --- !u!120 &120694736767487686
 LineRenderer:
   m_ObjectHideFlags: 1

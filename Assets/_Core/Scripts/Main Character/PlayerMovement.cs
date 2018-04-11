@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     bool zeroGravity;
 
     [SerializeField]
-    GameObject feet;
+    GameObject jumpParticles;
 
     ParticleSystem jumpParticle;
     ParticleSystem[] jumpParticleChildren;
@@ -37,7 +37,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         //jumpParticle = feet.GetComponent<ParticleSystem>();
-        jumpParticleChildren = feet.GetComponentsInChildren<ParticleSystem>();
+        jumpParticleChildren = jumpParticles.GetComponentsInChildren<ParticleSystem>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         playerStats = GetComponent<PlayerStats>();
