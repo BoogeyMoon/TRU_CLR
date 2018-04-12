@@ -8,6 +8,10 @@ public class MobStats : MonoBehaviour
 {
     Score score;
     [SerializeField]
+    AudioClip [] damageCyan, damageYellow, damageMagenta;
+    SoundManager soundManager;
+
+    [SerializeField]
     protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, spread, health, deathAnimDuration;
     [SerializeField]
     protected int color, numberOfBulletsPerShot, scoreValue;
@@ -37,6 +41,7 @@ public class MobStats : MonoBehaviour
     {
         playerTarget = GameObject.FindGameObjectWithTag("ShootHere").transform;
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
     }
     protected virtual void Start()
     {
@@ -77,6 +82,18 @@ public class MobStats : MonoBehaviour
         if (color == this.color && health > 0)
         {
             health -= damage;
+            switch (this.color)
+            {
+                case 0:
+                    if (damageCyan != null) soundManager.RandomizeSfx(damageCyan, 3);
+                    break;
+                case 1:
+                    if (damageYellow!= null) soundManager.RandomizeSfx(damageYellow, 3);
+                    break;
+                case 2:
+                    if (damageMagenta != null) soundManager.RandomizeSfx(damageMagenta, 3);
+                    break;
+            }
             if (!dead && health <= 0)
             {
                 Die();
@@ -93,6 +110,7 @@ public class MobStats : MonoBehaviour
         if (color == this.color && health > 0)
         {
             health -= damage;
+ 
             if (!dead && health <= 0)
             {
                 Die(obj);
