@@ -10538,8 +10538,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56078b8790b9cbc449ccbf55324aef5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  efxSource: {fileID: 1122306646}
   musicSource: {fileID: 1122306645}
+  efxSource:
+  - {fileID: 0}
   lowPitchRange: 0.95
   highPitchRange: 1
 --- !u!82 &1122306645
@@ -13757,6 +13758,17 @@ Prefab:
     - target: {fileID: 4736814985587400, guid: 6c9ccb628c7356a469bdf3f83908a031, type: 2}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114484365356757524, guid: 6c9ccb628c7356a469bdf3f83908a031,
+        type: 2}
+      propertyPath: wipePrefab
+      value: 
+      objectReference: {fileID: 1622197955817896, guid: 9b3002bb6beb1594b939b57cf832596e,
+        type: 2}
+    - target: {fileID: 114484365356757524, guid: 6c9ccb628c7356a469bdf3f83908a031,
+        type: 2}
+      propertyPath: wipeCooldown
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c9ccb628c7356a469bdf3f83908a031, type: 2}
