@@ -210,11 +210,6 @@ Prefab:
       propertyPath: m_Name
       value: SK_Mob_2_Yellow_PF (2)
       objectReference: {fileID: 0}
-    - target: {fileID: 114247897837894888, guid: fb68f0460c9e648479ee243d3caec159,
-        type: 2}
-      propertyPath: patrolPoints
-      value: 
-      objectReference: {fileID: 1004275491}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb68f0460c9e648479ee243d3caec159, type: 2}
   m_IsPrefabParent: 0
@@ -230,6 +225,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114330596155165648, guid: 388f3b8302edb9542acefa1951f96bb8,
+        type: 2}
+      propertyPath: damageCyan.Array.size
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4546683239751968, guid: 388f3b8302edb9542acefa1951f96bb8, type: 2}
       propertyPath: m_LocalPosition.x
       value: 6.48
@@ -6120,15 +6120,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
-    - target: {fileID: 1961155904786234, guid: fb68f0460c9e648479ee243d3caec159, type: 2}
-      propertyPath: m_Name
-      value: SK_Mob_2_Yellow_PF (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 114247897837894888, guid: fb68f0460c9e648479ee243d3caec159,
         type: 2}
       propertyPath: patrolPoints
       value: 
       objectReference: {fileID: 1004275491}
+    - target: {fileID: 1961155904786234, guid: fb68f0460c9e648479ee243d3caec159, type: 2}
+      propertyPath: m_Name
+      value: SK_Mob_2_Yellow_PF (1)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: fb68f0460c9e648479ee243d3caec159, type: 2}
   m_IsPrefabParent: 0
@@ -14763,11 +14763,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 114325860384542954, guid: 144903cd6fd1a9f49a03d87146307910,
-        type: 2}
-      propertyPath: patrolPoints
-      value: 
-      objectReference: {fileID: 1004275491}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 144903cd6fd1a9f49a03d87146307910, type: 2}
   m_IsPrefabParent: 0
@@ -20331,7 +20326,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -451499051
+  randomSeed: 1819256703
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -24121,7 +24116,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 698564616
+  randomSeed: 95978385
   InitialModule:
     serializedVersion: 3
     enabled: 1

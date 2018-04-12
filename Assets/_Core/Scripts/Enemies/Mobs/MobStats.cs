@@ -85,13 +85,13 @@ public class MobStats : MonoBehaviour
             switch (this.color)
             {
                 case 0:
-                    soundManager.RandomizeSfx(damageCyan, 3);
+                    if (damageCyan != null) soundManager.RandomizeSfx(damageCyan, 3);
                     break;
                 case 1:
-                    soundManager.RandomizeSfx(damageYellow, 3);
+                    if (damageYellow!= null) soundManager.RandomizeSfx(damageYellow, 3);
                     break;
                 case 2:
-                    soundManager.RandomizeSfx(damageMagenta, 3);
+                    if (damageMagenta != null) soundManager.RandomizeSfx(damageMagenta, 3);
                     break;
             }
             if (!dead && health <= 0)
