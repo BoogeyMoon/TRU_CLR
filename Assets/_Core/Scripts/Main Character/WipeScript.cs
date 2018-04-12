@@ -8,7 +8,7 @@ using UnityEngine;
 public class WipeScript : MonoBehaviour
 {
     [SerializeField]
-    GameObject wipePrefab, startObject, directionObject;
+    GameObject wipePrefab, startObject, directionObject, wipeEffect;
     GameObject wipe;
     bool wipeDestroyed;
     bool wipeActive;
@@ -34,7 +34,12 @@ public class WipeScript : MonoBehaviour
                               new Vector3(startObject.transform.position.x, startObject.transform.position.y, startObject.transform.position.z),
                               Quaternion.identity);
 
+            wipeEffect = Instantiate(wipeEffect,
+                              new Vector3(startObject.transform.position.x, startObject.transform.position.y, startObject.transform.position.z),
+                              Quaternion.identity);
+
             wipe.transform.rotation = directionObject.transform.rotation;
+            wipeEffect.transform.rotation = directionObject.transform.rotation;
             StartCoroutine(WipeLifetime());
         }
         if(!wipeActive)
