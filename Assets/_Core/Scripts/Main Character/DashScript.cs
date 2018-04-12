@@ -25,9 +25,12 @@ public class DashScript : MonoBehaviour
     bool dashOnCooldown;
     PlayerMovement playerMovement;
     float dist;
+    Animator animator;
+
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         dashParticles = dashEmitter.GetComponentsInChildren<ParticleSystem>();
         playerMovement = gameObject.GetComponent<PlayerMovement>();
         soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
@@ -49,6 +52,7 @@ public class DashScript : MonoBehaviour
             Dash();
             dashing = true;
             playerMovement.ZeroGravity(dashing);
+            animator.SetBool("isDashing", dashing);
             foreach (ParticleSystem dashParticle in dashParticles)
             {
                 var emission = dashParticle.emission;
@@ -72,6 +76,7 @@ public class DashScript : MonoBehaviour
             if (dist <= approxValue)
             {
                 dashing = false;
+                animator.SetBool("isDashing", dashing);
                 playerMovement.ZeroGravity(dashing);
                 foreach (ParticleSystem dashParticle in dashParticles)
                 {
