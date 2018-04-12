@@ -13,9 +13,9 @@ public class Waypoint : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, GameObject.FindGameObjectWithTag("Player").transform.position.z);
     }
-    void OnTriggerEnter(Collider coll)
+    void OnTriggerEnter(Collider coll) //Tilldelar en ny patrullpunkt till något med rätt tag
     {
-        if (coll.gameObject.tag == "Weakpoint")
+        if (coll.gameObject.tag == "Weakpoint" || coll.gameObject.tag == "Boss")
         {
             coll.gameObject.GetComponent<MobStats>().ChangeDestination(nextWaypoint, gameObject);
         }

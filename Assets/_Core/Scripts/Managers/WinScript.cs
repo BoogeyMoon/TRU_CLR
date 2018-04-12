@@ -17,8 +17,10 @@ public class WinScript : MonoBehaviour
         winConditions = new bool[winCons.Count];
     }
 
-    void OnTriggerEnter()
+    public void WinConFinished(Transform winConHolder) //Anropas av något när dess winCondition är färdigt
     {
+        winCons.Remove(winConHolder);
+        winConditions[winCons.Count] = true;
         for (int i = 0; i < winConditions.Length; i++)
         {
             if (!winConditions[i])
@@ -26,15 +28,9 @@ public class WinScript : MonoBehaviour
         }
         Win();
     }
-    public void WinConFinished(Transform winConHolder) //Anropas av något när dess winCondition är färdigt
+    void Win() //Sparar {värden som ska sparas} i XML och {annat som ska hända när man vinner}
     {
-        winCons.Remove(winConHolder);
-        winConditions[winCons.Count] = true;
-        
-    }
-    void Win()
-    {
-
+        print("Du vann! Du fick betyget: " + ScoreManager.GetGrade());
     }
 
 }

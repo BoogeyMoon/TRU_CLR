@@ -10,7 +10,7 @@ public class MCSpawner : MonoBehaviour
     Transform player, introPlayer;
     CameraManager ourCamera;
 
-	void Start ()
+	void Start () //Hämtar komponenter
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
         introPlayer = GameObject.FindGameObjectWithTag("IntroPlayer").transform;
@@ -24,7 +24,7 @@ public class MCSpawner : MonoBehaviour
         {
             if(timer > 5f)
             {
-                ourCamera.AnimDone = true;
+                ourCamera.FollowPlayer = true;
                 player.position = introPlayer.position;
                 Destroy(introPlayer.gameObject);
                 Destroy(this);

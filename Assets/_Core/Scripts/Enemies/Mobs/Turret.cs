@@ -18,6 +18,8 @@ public class Turret : MobStats
 
     void Update() //Moben agerar
     {
+        if(head.position.z != player.position.z)
+            SetToPlayerPlane(head);
         if (!dead)
         {
             LookAtPlayer(head);
@@ -33,7 +35,6 @@ public class Turret : MobStats
                     if (timeLeft < 0)
                     {
                         Shoot();
-                        animator.SetTrigger("shoot");
                     }
                 }
 

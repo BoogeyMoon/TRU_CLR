@@ -19,6 +19,7 @@ public class WipeScript : MonoBehaviour
     void Start()
     {
         wipeDestroyed = true;
+        wipeActive = true;
     }
 
     //Wipen instansieras på ett objekt som befinner sig något framför GunBarrel.
@@ -38,7 +39,7 @@ public class WipeScript : MonoBehaviour
         }
         if(!wipeActive)
         {
-            wipeCooldown = wipeCooldown - Time.deltaTime;
+            wipeCooldown -= Time.deltaTime;
             if(wipeCooldown <= 0)
             {
                 wipeActive = true;

@@ -6,9 +6,7 @@ using UnityEngine;
 //En generisk kula som åker mot spelaren
 public class Mob_bullet : Mob_Projectile
 {
-    
-
-    void Update()
+    protected override void Update()
     {
         base.Update();
         transform.Translate(Vector3.forward * startVelocity * Time.deltaTime); //Åker framåt
@@ -16,7 +14,7 @@ public class Mob_bullet : Mob_Projectile
 
     void OnTriggerEnter(Collider coll) //Kollar om den kolliderar med något
     {
-        if(coll.gameObject.tag != "Weakpoint" && coll.gameObject.tag != "Bullet" && coll.gameObject.tag != "PatrolPoint") // Ignorerar andra fiender, kulor och patrullpunkter 
+        if(coll.gameObject.tag != "Weakpoint" && coll.gameObject.tag != "Bullet" && coll.gameObject.tag != "PatrolPoint" && coll.tag != "Boss") // Ignorerar andra fiender, kulor och patrullpunkter 
         {
             if(coll.gameObject.tag == "Player")
             {

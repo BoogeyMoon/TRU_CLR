@@ -55,7 +55,7 @@ public class MobStats : MonoBehaviour
         startRot = transform.rotation;
         if (deathAnimDuration == 0)
         {
-            deathAnimDuration = 2;
+            deathAnimDuration = 0.5f;
         }
     }
     protected void updatePatrolPoints() //Kollar barnen på ett gameobject och lägger till dem i en lista.
@@ -88,6 +88,22 @@ public class MobStats : MonoBehaviour
         }
     }
 
+    public virtual void TakeDamage(float damage, int color, Transform obj) //Om mob:en blir träffad av en kula som korresponderar med mob:ens färg så tar den skada.
+    {
+        if (color == this.color && health > 0)
+        {
+            health -= damage;
+            if (!dead && health <= 0)
+            {
+                Die(obj);
+            }
+            else
+            {
+                StartCoroutine(Flicker(obj));
+            }
+        }
+    }
+
     public void GainHealth(float life) //Ökar mob:ens hälsa
     {
         health += life;
@@ -97,7 +113,7 @@ public class MobStats : MonoBehaviour
         }
     }
 
-    void Die() //Mob:en dör.
+    protected void Die() //Mob:en dör.
     {
         score.AddScore(scoreValue);
         dead = true;
@@ -105,25 +121,50 @@ public class MobStats : MonoBehaviour
             animator.SetTrigger("deathTrigger");
         StartCoroutine(GetDestroyed());
     }
-    IEnumerator GetDestroyed()
+    
+    protected void Die(Transform obj) //Mob:en dör men renderern sitter på en annan plats än scriptet
     {
-        if (transform.GetChild(0).GetComponent<SkinnedMeshRenderer>() != null)
+        score.AddScore(scoreValue);
+        dead = true;
+        if (animator != null)
+            animator.SetTrigger("deathTrigger");
+        StartCoroutine(GetDestroyed());
+    }
+
+    IEnumerator GetDestroyed() //Blinkande effekt
+    {
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer rend in renderers)
         {
-            SkinnedMeshRenderer mesh = transform.GetChild(0).GetComponent<SkinnedMeshRenderer>();
             int numberOfBlinks = 3;
             for (int i = 0; i < numberOfBlinks; i++)
             {
-                mesh.enabled = !mesh.enabled;
+                rend.enabled = !rend.enabled;
                 yield return new WaitForSeconds((deathAnimDuration / numberOfBlinks) / 4);
-                mesh.enabled = !mesh.enabled;
+                rend.enabled = !rend.enabled;
                 yield return new WaitForSeconds(((deathAnimDuration * 3) / numberOfBlinks) / 4);
             }
         }
-        else
-        {
-            yield return new WaitForSeconds(deathAnimDuration);
-        }
         Destroy(gameObject);
+    }
+
+    IEnumerator GetDestroyed(Transform obj) //Blinkande effekt men renderern sitter på en annan plats än scriptet
+    {
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+
+        foreach (Renderer rend in renderers)
+        {
+            int numberOfBlinks = 3;
+            for (int i = 0; i < numberOfBlinks; i++)
+            {
+                rend.enabled = !rend.enabled;
+                yield return new WaitForSeconds((deathAnimDuration / numberOfBlinks) / 4);
+                rend.enabled = !rend.enabled;
+                yield return new WaitForSeconds(((deathAnimDuration * 3) / numberOfBlinks) / 4);
+            }
+        }
+        Destroy(obj.gameObject);
     }
 
     public void ChangeDestination(GameObject newDestination, GameObject lastDestination) //Ger en mob sitt nästa mål, om input är null går den till nästa mål i sin lista.
@@ -227,25 +268,59 @@ public class MobStats : MonoBehaviour
     {
         Obj.transform.LookAt(new Vector3(playerTarget.position.x, playerTarget.position.y, Obj.position.z));
     }
-    protected void SetToPlayerPlane(Transform Obj)
+    protected void SetToPlayerPlane(Transform Obj) //Sätter objeket den tar till till samma z-värde som spelaren
     {
         Obj.transform.position = new Vector3(Obj.transform.position.x, Obj.transform.position.y, player.transform.position.z);
     }
-    IEnumerator Flicker()
+    IEnumerator Flicker() //Gör att renderern blinkar vitt
     {
-        Material[] mats = transform.GetChild(0).GetComponent<Renderer>().materials;
-
-        for (int i = 0; i < 2; i++)
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (Renderer rend in renderers)
         {
-            mats[0].SetColor("_EmissionColor", Color.white);
-            transform.GetChild(0).GetComponent<Renderer>().materials = mats;
-            yield return new WaitForSeconds(0.1f);
-            mats[0].SetColor("_EmissionColor", Color.black);
-            transform.GetChild(0).GetComponent<Renderer>().materials = mats;
-            yield return new WaitForSeconds(0.1f);
+            Material[] mats = rend.materials;
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < mats.Length; j++)
+                {
+                    mats[j].SetColor("_EmissionColor", Color.white);
+                }
+                rend.materials = mats;
+                yield return new WaitForSeconds(0.1f);
+                for (int j = 0; j < mats.Length; j++)
+                {
+                    mats[j].SetColor("_EmissionColor", Color.black);
+                }
+                rend.materials = mats;
+                yield return new WaitForSeconds(0.1f);
 
+            }
         }
+    }
 
+    IEnumerator Flicker(Transform obj) //Gör att renderern på det intagna objektet blinkar vitt
+    {
+        Renderer[] renderers = obj.GetComponentsInChildren<Renderer>();
+        foreach (Renderer rend in renderers)
+        {
+            Material[] mats = rend.materials;
+            
+            for (int i = 0; i < 2; i++)
+            {
+                for (int j = 0; j < mats.Length; j++)
+                {
+                    mats[j].SetColor("_EmissionColor", Color.white);
+                }
+                rend.materials = mats;
+                yield return new WaitForSeconds(0.1f);
+                for (int j = 0; j < mats.Length; j++)
+                {
+                    mats[j].SetColor("_EmissionColor", Color.black);
+                }
+                rend.materials = mats;
+                yield return new WaitForSeconds(0.1f);
+
+            }
+        }
     }
 
 }

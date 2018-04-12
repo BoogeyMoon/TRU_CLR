@@ -41,6 +41,7 @@ public class MC_ShootScript : MonoBehaviour
         laserLength = 50f;
         laserLineRenderer = GetComponent<LineRenderer>();
         activeColor = (int)ColorProjectiles.Blue;
+        SetMCColor();
         mcCharacter = gameObject;
         playerStats = GetComponent<PlayerStats>();
     }
@@ -49,12 +50,6 @@ public class MC_ShootScript : MonoBehaviour
     {
         if (!playerStats.Dead)
         {
-            //Förrändrar material på karaktären beroende på vilken färg som är aktiv:
-            material.color = colors[activeColor];
-            material.SetColor("_EmissionColor", colors[activeColor]);
-            material.SetColor("_MKGlowColor", colors[activeColor]);
-            material.SetColor("_MKGlowTexColor", colors[activeColor]);
-
             //Cooldown är olika beroende på vilken färg som är aktiv:
             cooldown = cooldowns[activeColor];
 
@@ -74,7 +69,7 @@ public class MC_ShootScript : MonoBehaviour
         }
     }
 
-    void KeyPress()
+    void KeyPress() //Kollar vad vi klickat på och exikverar rätt kod
     {
         //Skjuter på vänster musklick:
         if (Input.GetMouseButton(0))
@@ -99,12 +94,32 @@ public class MC_ShootScript : MonoBehaviour
                 Shoot();
             }
         }
+        //Ändrar till en specifik knapp
+        if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            activeColor = 0;
+            if(Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                activeColor = 0;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                activeColor = 1;
+            }
+            else if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                activeColor = 2;
+            }
 
+            SetMCColor();
+        }
+        
 
         //Byter färg/egenskap på E och Q eller scroll:
         if (Input.GetKeyDown(KeyCode.E) || Input.GetAxis("Mouse ScrollWheel") > 0)
         {
             activeColor = (activeColor + 1) % 3;
+            SetMCColor();
         }
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetAxis("Mouse ScrollWheel") < 0)
         {
@@ -113,6 +128,7 @@ public class MC_ShootScript : MonoBehaviour
             {
                 activeColor = colorsBullets.Length - 1;
             }
+            SetMCColor();
         }
 
         //Skickar en sköld på vänster Shift:
@@ -144,9 +160,9 @@ public class MC_ShootScript : MonoBehaviour
             if (Physics.Raycast(ray, out raycastHit, laserLength))
             {
                 endPosition = raycastHit.point;
-                if (raycastHit.transform.gameObject.tag == "Weakpoint")
+                if (raycastHit.collider.transform.gameObject.tag == "Weakpoint")
                 {
-                    raycastHit.transform.gameObject.GetComponent<MobStats>().TakeDamage(laserDamage, activeColor);
+                    raycastHit.collider.transform.gameObject.GetComponent<MobStats>().TakeDamage(laserDamage, activeColor);
                 }
                 else if (raycastHit.transform.tag == "Interactable")
                 {
@@ -163,9 +179,16 @@ public class MC_ShootScript : MonoBehaviour
         fireRate = cooldown;
     }
 
-    IEnumerator LaserLifeTime()
+    IEnumerator LaserLifeTime() //Stänger av line renderern efter en angiven tid
     {
         yield return new WaitForSeconds(0.1f);
         laserLineRenderer.enabled = false;
+    }
+    void SetMCColor() //Förrändrar material på karaktären beroende på vilken färg som är aktiv:
+    {
+        material.color = colors[activeColor];
+        material.SetColor("_EmissionColor", colors[activeColor]);
+        material.SetColor("_MKGlowColor", colors[activeColor]);
+        material.SetColor("_MKGlowTexColor", colors[activeColor]);
     }
 }

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.PostProcessing;
 //Av Andreas de Freitas och Timmy Alvelöv.
 
-//Håller koll på spelarens hälsa och checkpoints
+//Håller koll på spelarens hälsa och liknande
 
 public class PlayerStats : MonoBehaviour
 {
@@ -15,7 +16,12 @@ public class PlayerStats : MonoBehaviour
     float health;
     Animator anim;
     bool dead;
+    [SerializeField]
+    PostProcessingProfile ppProfile;
+    VignetteModel.Settings vignetteSettings;
     public bool Dead
+    
+
     {
         get { return dead; }
     }
@@ -26,8 +32,6 @@ public class PlayerStats : MonoBehaviour
             return health;
         }
     }
-
-    string checkpoint;
 
     void Awake()
     {
@@ -40,6 +44,11 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         uiHealth = GameObject.FindGameObjectWithTag("Healthbar").GetComponent<UIHealth2>();
+
+        //Återställer vignetten
+        vignetteSettings = ppProfile.vignette.settings;
+        vignetteSettings.intensity = 0.0f;
+        ppProfile.vignette.settings = vignetteSettings;
     }
 
 
@@ -58,25 +67,34 @@ public class PlayerStats : MonoBehaviour
             {
                 PlayerDies();
             }
+
+            else if (value < 0 && vignetteSettings.intensity < 0.4f) //Ökar värdet på vignette effekten när man tagit skada
+            {
+                vignetteSettings.intensity = vignetteSettings.intensity + 0.1f;
+                ppProfile.vignette.settings = vignetteSettings;
+                StopCoroutine("LerpDamageEffect");
+                StartCoroutine("LerpDamageEffect");
+            }
             uiHealth.TakeDamage((int)health);
+
         }
+
+        
     }
 
     public void PlayerDies() //Ifall spelaren dör
     {
         dead = true;
         GameObject.FindGameObjectWithTag("MCWeapon").GetComponent<Renderer>().enabled = false;
-        GetComponent<testMCmovement>().enabled = false;
+        GetComponent<PlayerMovement>().enabled = false;
         GetComponent<MC_ShootScript>().enabled = false;
         anim = GetComponent<Animator>();
         anim.SetLayerWeight(1, 1);
         PlayerPrefs.SetFloat("savedHealth", maxHealth);
         StartCoroutine(GoToMenu());
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        //health = maxHealth;
     }
 
-    IEnumerator GoToMenu()
+    IEnumerator GoToMenu() //Väntar i tre sekunder innan den går till menyn
     {
         yield return new WaitForSeconds(3);
         SceneManager.LoadScene(0);
@@ -84,5 +102,20 @@ public class PlayerStats : MonoBehaviour
     public void ChangeLayer(int layer)
     {
         gameObject.layer = layer;
+    }
+
+    IEnumerator LerpDamageEffect() //Lerpar bort den röda effekten långsamt när man tagit skada
+    {
+        while (vignetteSettings.intensity > 0f)
+        {
+            yield return new WaitForSeconds(0.1f);
+            vignetteSettings.intensity -= 0.02f;
+
+            if (vignetteSettings.intensity < 0.02)
+            {
+                vignetteSettings.intensity = 0;
+            }
+            ppProfile.vignette.settings = vignetteSettings;
+        }
     }
 }

@@ -18,9 +18,12 @@ public class Mob_Projectile : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
 
-        lifeTime = 10;
+        if(lifeTime == 0)
+        {
+            lifeTime = 5;
+        }
     }
-    protected void Update()
+    protected virtual void Update()
     {
         startTime += Time.deltaTime;
         if (startTime >= lifeTime) //Förstör kulan efter en angiven tid
