@@ -10,7 +10,7 @@ using UnityEngine.UI;
 
 public class MenuScript : MonoBehaviour
 {
-    GameObject Panel, MainMenu, LoadMenu, SettingsMenu, ConfirmQuit, CreditsMenu, PauseMenu;
+    GameObject MainMenu, LoadMenu, SettingsMenu, ConfirmQuit, CreditsMenu, PauseMenu;
     [SerializeField]
     GameObject EventSystem;
     List<GameObject> Menus;
@@ -32,15 +32,13 @@ public class MenuScript : MonoBehaviour
     //Sätter alla värden
     void Start()
     {
-        Panel = transform.GetChild(0).gameObject;
-        Panel.SetActive(true);
         inGame = false;
 
         Menus = new List<GameObject>() { MainMenu, LoadMenu, SettingsMenu, CreditsMenu, ConfirmQuit, PauseMenu };
 
         for (int i = 0; i < Menus.Count; i++)
         {
-            Menus[i] = Panel.transform.GetChild(i).gameObject;
+            Menus[i] = transform.GetChild(i).gameObject;
         }
         Menus[0].SetActive(true);
     }
@@ -49,23 +47,23 @@ public class MenuScript : MonoBehaviour
     {
         tempMaster.volume = master.value; //Här sätter man ljudetsvolym LÄGG IN RESTEN SEN
 
-        if (Input.GetKeyDown(KeyCode.Escape) && inGame)
-        {
-            paused = !paused;
-            if (paused)
-            {
-                Panel.SetActive(true);
-                Menus[5].SetActive(true);
-            }
-            else
-            {
-                for (int i = 0; i < Menus.Count; i++)
-                {
-                    Menus[i].SetActive(false);
-                }
-                Panel.SetActive(false);
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.Escape) && inGame)
+        //{
+        //    paused = !paused;
+        //    if (paused)
+        //    {
+        //        //Canvas.SetActive(true);
+        //        Menus[5].SetActive(true);
+        //    }
+        //    else
+        //    {
+        //        for (int i = 0; i < Menus.Count; i++)
+        //        {
+        //            Menus[i].SetActive(false);
+        //        }
+        //        //Canvas.SetActive(false);
+        //    }
+        //}
         if (paused && inGame)
         {
             Time.timeScale = 0;
@@ -81,7 +79,7 @@ public class MenuScript : MonoBehaviour
     {
         Menus[1].SetActive(false); //varför?
         inGame = true;
-        Panel.SetActive(false);
+        //Canvas.SetActive(false);
         SceneManager.LoadScene(gameScene);
     }
 
@@ -134,7 +132,7 @@ public class MenuScript : MonoBehaviour
     public void ResumeGame()
     {
         paused = false;
-        Panel.SetActive(false);
+        //Canvas.SetActive(false);
     }
 
     public void QuitGame()
@@ -145,7 +143,7 @@ public class MenuScript : MonoBehaviour
     public void MainMenuButton()
     {
         inGame = false;
-        Panel.SetActive(false);
+        //Canvas.SetActive(false);
         SceneManager.LoadScene("MenuScene");
     }
 
