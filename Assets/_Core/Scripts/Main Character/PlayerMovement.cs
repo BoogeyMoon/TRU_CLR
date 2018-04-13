@@ -34,6 +34,7 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, offsetZ);
     }
+    DashScript dash;
     void Start()
     {
         jumpParticleChildren = jumpParticles.GetComponentsInChildren<ParticleSystem>();
@@ -46,6 +47,7 @@ public class PlayerMovement : MonoBehaviour
         airtime = 0;
         startSpeed = speed;
         startingGravity = gravity;
+        dash = GetComponent<DashScript>();
     }
 
     void Update()
@@ -103,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetFloat("running", (moveOnX), .01f, Time.deltaTime);
         currentjump = 0;
         airtime = 0;
+        dash.DashReady = true;
     }
 
     void Airbourne() //Ifall spelaren befinner sig i luften
