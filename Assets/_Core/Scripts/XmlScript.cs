@@ -79,7 +79,7 @@ public class XmlScript : MonoBehaviour
         {
             level = doc.CreateElement("level_" + i);
             level.SetAttribute("score", "0");
-            level.SetAttribute("grade", "");
+            level.SetAttribute("grade", "0");
             username.AppendChild(level);
         }
         doc.DocumentElement.AppendChild(player);
@@ -88,6 +88,7 @@ public class XmlScript : MonoBehaviour
         {
             doc.Save(filePath);
         }
+        InlogPage();
     }
 
     public void InlogPage()
@@ -182,6 +183,42 @@ public class XmlScript : MonoBehaviour
         }
     }
 
-    
-
+    public int GetScore(int level) //Återlämnar poängen för en given level
+    {
+        foreach (XmlNode player in accounts)
+        {
+            if(player.FirstChild.InnerText == currentPlayer)
+            {
+                foreach (XmlNode lvl in player.FirstChild)
+                {
+                    if(lvl.Name == "level_" + level)
+                    {
+                        string scoreText =  lvl.Attributes[0].Value;
+                        return int.Parse(scoreText);
+                    }
+                }
+            }
+        }
+        return -1;
+    }
+    public int GetGrade(int level)//Återlämnar betyget för en given level
+    {
+        foreach (XmlNode player in accounts)
+        {
+            if (player.FirstChild.InnerText == currentPlayer)
+            {
+                foreach (XmlNode lvl in player.FirstChild)
+                {
+                    if (lvl.Name == "level_" + level)
+                    {
+                        string gradeText = lvl.Attributes[1].Value;
+                        int grade = int.Parse(gradeText);
+                        
+                        return grade;
+                    }
+                }
+            }
+        }
+        return -1;
+    }
 }
