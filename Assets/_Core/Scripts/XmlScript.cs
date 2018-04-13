@@ -153,7 +153,6 @@ public class XmlScript : MonoBehaviour
                             string tempScore = level.Attributes[0].Value;
                             score = int.Parse(tempScore);
                             scoreList.Add(score);
-                            print("level_" + i + ": " + score);
                         }
                     }
                 }

@@ -21,7 +21,6 @@ public class PlayButton : MonoBehaviour
     {
         GameObject userButton = transform.parent.gameObject;
         currentPlayer = userButton.GetComponentInChildren<Text>().text;
-        print(currentPlayer);
         xmlScript.GetStats(currentPlayer);
         SceneManager.LoadScene("MenuScene");
     }

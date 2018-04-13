@@ -92,7 +92,6 @@ public class MenuScript : MonoBehaviour
         Menus[0].SetActive(false);
         Menus[1].SetActive(true);
         numberOfLevels = xmlScript.numberOfLevels;
-        print(numberOfLevels);
         for (int i = 0; i < numberOfLevels; i++)
         {
             Menus[1].transform.GetChild(i).gameObject.SetActive(true); //Sätter parent aktiv.
