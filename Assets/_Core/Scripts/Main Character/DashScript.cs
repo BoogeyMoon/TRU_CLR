@@ -35,11 +35,6 @@ public class DashScript : MonoBehaviour
         dashParticles = dashEmitter.GetComponentsInChildren<ParticleSystem>();
         playerMovement = gameObject.GetComponent<PlayerMovement>();
         soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
-        foreach (ParticleSystem dashParticle in dashParticles)
-        {
-            var emission = dashParticle.emission;
-            emission.enabled = false;
-        }
     }
 
     void Update()
@@ -57,30 +52,24 @@ public class DashScript : MonoBehaviour
             animator.SetBool("isDashing", dashing);
             foreach (ParticleSystem dashParticle in dashParticles)
             {
-                var emission = dashParticle.emission;
-                emission.enabled = true;
+                dashParticle.Clear();
+                dashParticle.Simulate(0f, true, true);
+                dashParticle.Play();
             }
         }
 
         if(dashing)
         {
             dist = Vector3.Distance(transform.position, endDash);
-
             //Följande gör att spelaren dashar:
             float step = moveSpeed * Time.deltaTime;
             transform.position = Vector3.Lerp(transform.position, endDash, step);
-
             //Kollar om spelaren är nära raycastens slutposition (endDash). Vilket leder till att spelaren slutar dasha:
             if (dist <= approxValue)
             {
                 dashing = false;
                 animator.SetBool("isDashing", dashing);
                 playerMovement.ZeroGravity(dashing);
-                foreach (ParticleSystem dashParticle in dashParticles)
-                {
-                    var emission = dashParticle.emission;
-                    emission.enabled = false;
-                }
             }
         }
     }

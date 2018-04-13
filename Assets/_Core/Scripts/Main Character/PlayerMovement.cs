@@ -20,7 +20,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     GameObject jumpParticles;
 
-    ParticleSystem jumpParticle;
     ParticleSystem[] jumpParticleChildren;
 
     Animator animator;
