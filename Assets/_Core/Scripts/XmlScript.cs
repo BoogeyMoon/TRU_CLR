@@ -16,15 +16,16 @@ using UnityEngine.UI;
 public class XmlScript : MonoBehaviour
 {
     string filePath, usernameInput;
-    int counter, numberOfLevels, score;
+    int counter, score;
+    public int numberOfLevels;
     float offset;
 
     [SerializeField]
-    GameObject contentObject, userButtonPrefab, inlogObject, registerAccountObject;
+    GameObject contentObject, userButtonPrefab, inlogObject, registerAccountObject, loginPage;
     [SerializeField]
     List<string> players;
     [SerializeField]
-    List<int> scoreList;
+    public List<int> scoreList;
     TextAsset path;
     Button buttonPrefab;
 
@@ -133,13 +134,16 @@ public class XmlScript : MonoBehaviour
 
     public void GetStats(string currentPlayer)
     {
+        loginPage.SetActive(false);
         foreach (XmlNode player in accounts)
         {
+
             if (player.FirstChild.InnerText == currentPlayer)
             {
+
                 foreach (XmlNode level in player.FirstChild)
                 {
-                    for(int i = 0; i < numberOfLevels; i++)
+                    for(int i = 0; i < numberOfLevels; i++) //varför??? gör inte foreach detta redan??
                     {
                         if (level.Name == "level_" + i)
                         {
@@ -165,6 +169,7 @@ public class XmlScript : MonoBehaviour
                     {
                         level.Attributes[0].Value = score.ToString();
                         level.Attributes[1].Value = grade.ToString();
+                        scoreList[levelNumber] = score;
                         using (writer)
                         {
                             doc.Save(filePath);
@@ -177,7 +182,7 @@ public class XmlScript : MonoBehaviour
 
     public void TempChangeStats(string currentPlayer)
     {
-        int level = 0;
+        int level = 1;
         int score = 300;
         int grade = 1;
         ChangeStats(currentPlayer, level, score, grade);
