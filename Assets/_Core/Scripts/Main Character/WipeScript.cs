@@ -14,12 +14,14 @@ public class WipeScript : MonoBehaviour
     bool wipeActive;
     [SerializeField]
     float wipeLifeTime, wipeCooldown;
+    float cooldownTimer;
 
     //Sätter wipe till aktiv vid start, ta bort det här om den inte ska vara aktiv vid start. Men då bör ett annat condition implementeras.
     void Start()
     {
         wipeDestroyed = true;
         wipeActive = true;
+        cooldownTimer = wipeCooldown;
     }
 
     //Wipen instansieras på ett objekt som befinner sig något framför GunBarrel.
@@ -44,10 +46,11 @@ public class WipeScript : MonoBehaviour
         }
         if(!wipeActive)
         {
-            wipeCooldown -= Time.deltaTime;
-            if(wipeCooldown <= 0)
+            cooldownTimer -= Time.deltaTime;
+            if(cooldownTimer <= 0)
             {
                 wipeActive = true;
+                cooldownTimer = wipeCooldown;
             }
         }
     }
