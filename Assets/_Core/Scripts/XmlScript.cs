@@ -9,6 +9,7 @@ using UnityEngine.UI;
  * Scriptet hanterar:
  *          - Att hämta information ang. score hos användare från xml.
  *          - Registrering av nya användare. 
+ *          
  * Skapat av Moa Lindgren med hjälp från Timmy Alvelöv samt Björn Andersson*/
     
 
@@ -16,7 +17,7 @@ public class XmlScript : MonoBehaviour
 {
     string filePath, usernameInput;
     int counter, numberOfLevels, score;
-    float offset = 2;
+    float offset;
 
     [SerializeField]
     GameObject contentObject, userButtonPrefab, inlogObject, registerAccountObject;
@@ -37,6 +38,7 @@ public class XmlScript : MonoBehaviour
         players = new List<string>();
         scoreList = new List<int>();
         numberOfLevels = 3;
+        offset = 2;
         SetUpXML();
         InlogPage();
     }
@@ -73,9 +75,9 @@ public class XmlScript : MonoBehaviour
         player.AppendChild(username);
         for (int i = 0; i < numberOfLevels; i++)
         {
-            int levelNumber = i + 1;
-            level = doc.CreateElement("level_" + levelNumber);
+            level = doc.CreateElement("level_" + i);
             level.SetAttribute("score", "0");
+            level.SetAttribute("grade", "");
             username.AppendChild(level);
         }
         doc.DocumentElement.AppendChild(player);
@@ -84,8 +86,6 @@ public class XmlScript : MonoBehaviour
         {
             doc.Save(filePath);
         }
-
-
     }
 
     public void InlogPage()
@@ -139,17 +139,48 @@ public class XmlScript : MonoBehaviour
             {
                 foreach (XmlNode level in player.FirstChild)
                 {
-                    //Hämtar inte levels här. Kan det ha att göra med att det är attributer inblandat?
-
-                    //print(level.Name);
-                    //string tempScore = level.Attributes[0].Value;
-                    //score = int.Parse(tempScore);
-                    //scoreList.Add(score);
+                    for(int i = 0; i < numberOfLevels; i++)
+                    {
+                        if (level.Name == "level_" + i)
+                        {
+                            string tempScore = level.Attributes[0].Value;
+                            score = int.Parse(tempScore);
+                            scoreList.Add(score);
+                            print("level_" + i + ": " + score);
+                        }
+                    }
                 }
             }
-
         }
+    }
+    void ChangeStats(string currentPlayer, int levelNumber, int score, int grade)
+    {
+        foreach (XmlNode player in accounts)
+        {
+            if (player.FirstChild.InnerText == currentPlayer)
+            {
+                foreach (XmlNode level in player.FirstChild)
+                {
+                    if(level.Name == "level_" + levelNumber)
+                    {
+                        level.Attributes[0].Value = score.ToString();
+                        level.Attributes[1].Value = grade.ToString();
+                        using (writer)
+                        {
+                            doc.Save(filePath);
+                        }
+                    }
+                }
+            }
+        }
+    }
 
+    public void TempChangeStats(string currentPlayer)
+    {
+        int level = 0;
+        int score = 300;
+        int grade = 1;
+        ChangeStats(currentPlayer, level, score, grade);
     }
 
 }
