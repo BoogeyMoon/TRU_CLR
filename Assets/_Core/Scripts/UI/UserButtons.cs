@@ -5,20 +5,19 @@ using UnityEngine.UI;
 
 public class UserButtons : MonoBehaviour
 {
-    [SerializeField]
-    Text username;
     string currentPlayer;
-    XmlScript xmlScript;
+    [SerializeField]
+    GameObject playButton;
 
     void Awake()
     {
-        xmlScript = GameObject.FindGameObjectWithTag("Canvas").GetComponent<XmlScript>();
-        GetComponent<Button>().onClick.AddListener(GetName);
+        GetComponent<Button>().onClick.AddListener(OnClick);
     }
-    void GetName()
+    void OnClick()
     {
-        currentPlayer = username.text;
-        xmlScript.GetStats(currentPlayer);
+        GameObject play = Instantiate(playButton) as GameObject;
+        play.SetActive(true);
+        play.transform.SetParent(gameObject.transform, false);
     }
 
 }

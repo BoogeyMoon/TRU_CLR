@@ -26,6 +26,7 @@ public class DashScript : MonoBehaviour
     PlayerMovement playerMovement;
     float dist;
     Animator animator;
+    public bool DashReady { get; set; }
 
 
     void Start()
@@ -43,9 +44,10 @@ public class DashScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && !dashOnCooldown)
+        if (Input.GetMouseButtonDown(1) && !dashOnCooldown && DashReady)
         {
             dashOnCooldown = true;
+            DashReady = false;
             soundManager.PlaySingle(dashSound,1); // play Dash sound
             startPosition = startObject.transform.position;
             direction = rifleBarrel.transform.forward;
@@ -63,10 +65,6 @@ public class DashScript : MonoBehaviour
         if(dashing)
         {
             dist = Vector3.Distance(transform.position, endDash);
-            //endDashX = endDash.x;
-            //endDashY = endDash.y;
-            //charX = transform.position.x;
-            //charY = transform.position.y;
 
             //Följande gör att spelaren dashar:
             float step = moveSpeed * Time.deltaTime;

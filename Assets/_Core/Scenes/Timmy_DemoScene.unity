@@ -710,6 +710,11 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 462967994}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &485501825 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4877020167027074, guid: 43457659388034f47889632de8b96c0a,
+    type: 2}
+  m_PrefabInternal: {fileID: 738901252}
 --- !u!1 &527506434
 GameObject:
   m_ObjectHideFlags: 0
@@ -1474,6 +1479,16 @@ Prefab:
     - target: {fileID: 4736814985587400, guid: 6c9ccb628c7356a469bdf3f83908a031, type: 2}
       propertyPath: m_RootOrder
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114484365356757524, guid: 6c9ccb628c7356a469bdf3f83908a031,
+        type: 2}
+      propertyPath: wipeCooldown
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114195675379695040, guid: 6c9ccb628c7356a469bdf3f83908a031,
+        type: 2}
+      propertyPath: dashCooldown
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6c9ccb628c7356a469bdf3f83908a031, type: 2}
@@ -2422,7 +2437,7 @@ Prefab:
         type: 2}
       propertyPath: winCons.Array.data[0]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 485501825}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3a7e2c8780aa9d548ab5e56a2a0fcebe, type: 2}
   m_IsPrefabParent: 0

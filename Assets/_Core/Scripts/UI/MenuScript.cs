@@ -1,12 +1,12 @@
-﻿
-//Meny-script som hanterar alla menyer och knappar.
-//Skapat av Moa Lindgren.
-
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+
+
+//Meny-script som hanterar alla menyer och knappar.
+//Skapat av Moa Lindgren.
 
 public class MenuScript : MonoBehaviour
 {
@@ -14,9 +14,12 @@ public class MenuScript : MonoBehaviour
     [SerializeField]
     GameObject EventSystem;
     List<GameObject> Menus;
-    int numberOfLevels;
-    bool paused,
-         inGame;
+    int numberOfLevels, unlockedLevels;
+    int score;
+    bool paused, inGame;
+
+    XmlScript xmlScript;
+
     [SerializeField]
     Slider master, music, effects, dialogue;
     [SerializeField]
@@ -28,6 +31,7 @@ public class MenuScript : MonoBehaviour
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(EventSystem);
         gameObject.transform.parent = GameObject.Find("Canvas").transform;
+        xmlScript = GameObject.FindGameObjectWithTag("Canvas").GetComponent<XmlScript>();
     }
     //Sätter alla värden
     void Start()
@@ -87,24 +91,28 @@ public class MenuScript : MonoBehaviour
     {
         Menus[0].SetActive(false);
         Menus[1].SetActive(true);
-
-        //Hämta värde från xml:
-        int unlockedLevels = 3;
-        numberOfLevels = 8;
+        numberOfLevels = xmlScript.numberOfLevels;
+        print(numberOfLevels);
         for (int i = 0; i < numberOfLevels; i++)
         {
-            Menus[1].transform.GetChild(i).gameObject.SetActive(true);
-
-            for (int j = 0; j < unlockedLevels; j++)
+            Menus[1].transform.GetChild(i).gameObject.SetActive(true); //Sätter parent aktiv.
+            int tempScore = xmlScript.scoreList[i];
+            Menus[1].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
+            unlockedLevels = i + 1; //+1 för att nästa level ska låsas upp när en level är avklarad.
+            if (tempScore > 0) //bör vara grade istället.
             {
-                Menus[1].transform.GetChild(j).transform.GetChild(0).gameObject.SetActive(true);
+                //Följande sätter alla upplåsta levels aktiva:
+                Menus[1].transform.GetChild(unlockedLevels).transform.GetChild(0).gameObject.SetActive(true);
             }
-            for (int k = unlockedLevels; k < numberOfLevels; k++)
+            //Följande sätter alla låsta levels aktiva:
+            else
             {
-                Menus[1].transform.GetChild(k).transform.GetChild(1).gameObject.SetActive(true);
+                Menus[1].transform.GetChild(unlockedLevels).transform.GetChild(1).gameObject.SetActive(true);
             }
 
         }
+
+
     }
 
     public void GeneralIndexButton(int index)
@@ -115,10 +123,19 @@ public class MenuScript : MonoBehaviour
 
     public void Back()
     {
+        for (int i = 0; i < numberOfLevels; i++)
+        {
+            for (int j = 0; j < Menus[1].transform.GetChild(i).childCount; j++)
+            {
+                Menus[1].transform.GetChild(i).GetChild(j).gameObject.SetActive(false);
+            }
+        }
         for (int i = 0; i < Menus.Count; i++)
         {
             Menus[i].SetActive(false);
         }
+        
+
         if (inGame)
         {
             Menus[5].SetActive(true);
@@ -147,7 +164,7 @@ public class MenuScript : MonoBehaviour
         SceneManager.LoadScene("MenuScene");
     }
 
-    
+
 
 }
 
