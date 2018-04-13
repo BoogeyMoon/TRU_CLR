@@ -9,17 +9,19 @@ public class DashScript : MonoBehaviour
     [SerializeField]
     AudioClip dashSound;
     SoundManager soundManager;
-    private ParticleSystem[] dashParticles;
 
     [SerializeField]
     GameObject dashEmitter;
+    ParticleSystem dashParticle;
 
     [SerializeField]
     GameObject rifleBarrel, startObject;
+
     [SerializeField]
     float lengthOfDash, dashCooldown, moveSpeed, approxValue;
     float endDashX, endDashY, charX, charY;
     Vector3 direction, endDash, startPosition;
+
     [SerializeField]
     bool dashing;
     bool dashOnCooldown;
@@ -32,9 +34,9 @@ public class DashScript : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        dashParticles = dashEmitter.GetComponentsInChildren<ParticleSystem>();
         playerMovement = gameObject.GetComponent<PlayerMovement>();
         soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
+        dashParticle = dashEmitter.GetComponent<ParticleSystem>();
     }
 
     void Update()
@@ -50,12 +52,7 @@ public class DashScript : MonoBehaviour
             dashing = true;
             playerMovement.ZeroGravity(dashing);
             animator.SetBool("isDashing", dashing);
-            foreach (ParticleSystem dashParticle in dashParticles)
-            {
-                dashParticle.Clear();
-                dashParticle.Simulate(0f, true, true);
-                dashParticle.Play();
-            }
+            dashParticle.Play(true);
         }
 
         if(dashing)
