@@ -9,17 +9,19 @@ public class DashScript : MonoBehaviour
     [SerializeField]
     AudioClip dashSound;
     SoundManager soundManager;
-    private ParticleSystem[] dashParticles;
 
     [SerializeField]
     GameObject dashEmitter;
+    ParticleSystem dashParticle;
 
     [SerializeField]
     GameObject rifleBarrel, startObject;
+
     [SerializeField]
     float lengthOfDash, dashCooldown, moveSpeed, approxValue;
     float endDashX, endDashY, charX, charY;
     Vector3 direction, endDash, startPosition;
+
     [SerializeField]
     bool dashing;
     bool dashOnCooldown;
@@ -32,14 +34,9 @@ public class DashScript : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        dashParticles = dashEmitter.GetComponentsInChildren<ParticleSystem>();
         playerMovement = gameObject.GetComponent<PlayerMovement>();
         soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
-        foreach (ParticleSystem dashParticle in dashParticles)
-        {
-            var emission = dashParticle.emission;
-            emission.enabled = false;
-        }
+        dashParticle = dashEmitter.GetComponent<ParticleSystem>();
     }
 
     void Update()
@@ -55,32 +52,21 @@ public class DashScript : MonoBehaviour
             dashing = true;
             playerMovement.ZeroGravity(dashing);
             animator.SetBool("isDashing", dashing);
-            foreach (ParticleSystem dashParticle in dashParticles)
-            {
-                var emission = dashParticle.emission;
-                emission.enabled = true;
-            }
+            dashParticle.Play(true);
         }
 
         if(dashing)
         {
             dist = Vector3.Distance(transform.position, endDash);
-
             //Följande gör att spelaren dashar:
             float step = moveSpeed * Time.deltaTime;
             transform.position = Vector3.Lerp(transform.position, endDash, step);
-
             //Kollar om spelaren är nära raycastens slutposition (endDash). Vilket leder till att spelaren slutar dasha:
             if (dist <= approxValue)
             {
                 dashing = false;
                 animator.SetBool("isDashing", dashing);
                 playerMovement.ZeroGravity(dashing);
-                foreach (ParticleSystem dashParticle in dashParticles)
-                {
-                    var emission = dashParticle.emission;
-                    emission.enabled = false;
-                }
             }
         }
     }

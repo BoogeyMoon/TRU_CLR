@@ -18,9 +18,8 @@ public class PlayerMovement : MonoBehaviour
     bool zeroGravity;
 
     [SerializeField]
-    GameObject jumpParticles;
+    GameObject jumpParticleParent;
 
-    ParticleSystem jumpParticle;
     ParticleSystem[] jumpParticleChildren;
 
     Animator animator;
@@ -37,7 +36,7 @@ public class PlayerMovement : MonoBehaviour
     DashScript dash;
     void Start()
     {
-        jumpParticleChildren = jumpParticles.GetComponentsInChildren<ParticleSystem>();
+        jumpParticleChildren = jumpParticleParent.GetComponentsInChildren<ParticleSystem>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         playerStats = GetComponent<PlayerStats>();
@@ -133,8 +132,6 @@ public class PlayerMovement : MonoBehaviour
 
             foreach (ParticleSystem particle in jumpParticleChildren)
             {
-                particle.Clear();
-                particle.Simulate(0f, true, true);
                 particle.Play();
             }
 
