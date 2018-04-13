@@ -28,6 +28,7 @@ public class XmlScript : MonoBehaviour
     public List<int> scoreList;
     TextAsset path;
     Button buttonPrefab;
+    string currentPlayer;
 
     XmlDocument doc;
     XmlElement player, username, level;
@@ -134,6 +135,7 @@ public class XmlScript : MonoBehaviour
 
     public void GetStats(string currentPlayer)
     {
+        this.currentPlayer = currentPlayer;
         loginPage.SetActive(false);
         foreach (XmlNode player in accounts)
         {
@@ -157,7 +159,7 @@ public class XmlScript : MonoBehaviour
             }
         }
     }
-    void ChangeStats(string currentPlayer, int levelNumber, int score, int grade)
+    public void ChangeStats(int levelNumber, int score, int grade)
     {
         foreach (XmlNode player in accounts)
         {
@@ -180,12 +182,6 @@ public class XmlScript : MonoBehaviour
         }
     }
 
-    public void TempChangeStats(string currentPlayer)
-    {
-        int level = 1;
-        int score = 300;
-        int grade = 1;
-        ChangeStats(currentPlayer, level, score, grade);
-    }
+    
 
 }

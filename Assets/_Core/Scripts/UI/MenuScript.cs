@@ -97,17 +97,17 @@ public class MenuScript : MonoBehaviour
         {
             Menus[1].transform.GetChild(i).gameObject.SetActive(true); //Sätter parent aktiv.
             int tempScore = xmlScript.scoreList[i];
+            Menus[1].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
+            unlockedLevels = i + 1; //+1 för att nästa level ska låsas upp när en level är avklarad.
             if (tempScore > 0) //bör vara grade istället.
             {
-                unlockedLevels = i + 1; //+1 för att nästa level ska låsas upp när en level är avklarad.
-
                 //Följande sätter alla upplåsta levels aktiva:
                 Menus[1].transform.GetChild(unlockedLevels).transform.GetChild(0).gameObject.SetActive(true);
             }
             //Följande sätter alla låsta levels aktiva:
-            for (int k = unlockedLevels; k < numberOfLevels; k++)
+            else
             {
-                Menus[1].transform.GetChild(k).transform.GetChild(1).gameObject.SetActive(true);
+                Menus[1].transform.GetChild(unlockedLevels).transform.GetChild(1).gameObject.SetActive(true);
             }
 
         }
@@ -123,10 +123,19 @@ public class MenuScript : MonoBehaviour
 
     public void Back()
     {
+        for (int i = 0; i < numberOfLevels; i++)
+        {
+            for (int j = 0; j < Menus[1].transform.GetChild(i).childCount; j++)
+            {
+                Menus[1].transform.GetChild(i).GetChild(j).gameObject.SetActive(false);
+            }
+        }
         for (int i = 0; i < Menus.Count; i++)
         {
             Menus[i].SetActive(false);
         }
+        
+
         if (inGame)
         {
             Menus[5].SetActive(true);
