@@ -21,8 +21,13 @@ public class XmlScript : MonoBehaviour
     bool validName;
 
     [SerializeField]
-    GameObject contentObject, userButtonPrefab, inlogObject, registerAccountObject, loginPage;
-    public List<int> scoreList;
+    GameObject contentObject, userButtonPrefab, inlogObject, registerAccountObject, loginPage, eventSystem;
+
+    List<int> scoreList;
+    public List<int> ScoreList
+    {
+        get { return scoreList; }
+    }
     TextAsset path;
     string currentPlayer;
 
@@ -32,7 +37,9 @@ public class XmlScript : MonoBehaviour
     XmlNodeList playerNodeList;
 
     void Start()
-    { 
+    {
+        DontDestroyOnLoad(transform.gameObject);
+        DontDestroyOnLoad(eventSystem);
         numberOfLevels = 5;
         SetUpXML();
         InlogPage();
@@ -152,7 +159,7 @@ public class XmlScript : MonoBehaviour
 
 
     }
-    
+
     //Om namnet som ska registreras är godkänt så skickas det till följande metod som alltså registrerar namnet i xml-dokumentet.
     void ValidName()
     {

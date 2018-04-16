@@ -31,6 +31,7 @@ public class MC_ShootScript : MonoBehaviour
     AudioClip[] shotsBlue, shotsYellow, shotsMagenta;
     SoundManager soundManager;
     PlayerStats playerStats;
+    MenuScript menu;
 
 
     void Start()
@@ -44,11 +45,12 @@ public class MC_ShootScript : MonoBehaviour
         SetMCColor();
         mcCharacter = gameObject;
         playerStats = GetComponent<PlayerStats>();
+        menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
     }
 
     void Update()
     {
-        if (!playerStats.Dead)
+        if (!playerStats.Dead && !menu.Paused)
         {
             //Cooldown är olika beroende på vilken färg som är aktiv:
             cooldown = cooldowns[activeColor];
