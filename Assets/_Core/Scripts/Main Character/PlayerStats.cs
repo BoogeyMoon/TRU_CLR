@@ -97,7 +97,7 @@ public class PlayerStats : MonoBehaviour
     IEnumerator GoToMenu() //Väntar i tre sekunder innan den går till menyn
     {
         yield return new WaitForSeconds(3);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     public void ChangeLayer(int layer)
     {

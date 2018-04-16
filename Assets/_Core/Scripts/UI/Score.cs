@@ -53,13 +53,11 @@ public class Score : MonoBehaviour
                 int gradeIndex;
                 i1 = grades[grades.Length - i - 1];
                 gradeIndex = grades.Length - i;
-                print("Du fick scoren: " + currentScore + "Du fick betyget: " + i1 + " och det motsvarar siffran " + gradeIndex);
                 if (xml.GetScore(levelIndex) < currentScore)
                     xml.ChangeStats(levelIndex, currentScore, gradeIndex);
                 return grades.Length - i;
             }
         }
-        print("Du fick scoren: " + currentScore + "Du fick betyget: " + grades[0] + " och det motsvarar siffran 1");
         if (xml.GetScore(levelIndex) < currentScore)
             xml.ChangeStats(levelIndex, currentScore, 1);
         return 1;
