@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField]
     bool facingRight, isGrounded, inAir;
+
+    public bool FacingRight { get { return facingRight; } }
+
     bool zeroGravity;
 
     [SerializeField]

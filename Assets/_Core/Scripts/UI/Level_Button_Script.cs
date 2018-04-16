@@ -11,9 +11,9 @@ public class Level_Button_Script : MonoBehaviour {
 
     public void ChangeText(int score, int grade)
     {
-        if(score != -1 && grade != -1)
+        if(score != -1 && grade != 0)
         {
-            text = transform.GetChild(0).GetComponent<Text>();
+            text = transform.GetChild(transform.childCount-1).GetComponent<Text>();
             string myGrade;
             switch (grade)
             {
@@ -36,7 +36,8 @@ public class Level_Button_Script : MonoBehaviour {
                     myGrade = "NO GRADE";
                     break;
             }
-            text.text = "\nGame" + gameNumber + "\n score: " + score + "\nGrade " + myGrade;
+            text.text = "\nGame" + gameNumber + "\n score: " + score;
+            transform.GetChild(grade - 1).gameObject.SetActive(true);
         }
         else
         {

@@ -12,7 +12,7 @@ public class DashScript : MonoBehaviour
 
     [SerializeField]
     GameObject dashEmitter;
-    ParticleSystem dashParticle;
+    ParticleSystem [] dashParticles;
 
     [SerializeField]
     GameObject rifleBarrel, startObject;
@@ -36,7 +36,7 @@ public class DashScript : MonoBehaviour
         animator = GetComponent<Animator>();
         playerMovement = gameObject.GetComponent<PlayerMovement>();
         soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
-        dashParticle = dashEmitter.GetComponent<ParticleSystem>();
+        dashParticles = dashEmitter.GetComponentsInChildren<ParticleSystem>();
     }
 
     void Update()
@@ -52,11 +52,16 @@ public class DashScript : MonoBehaviour
             dashing = true;
             playerMovement.ZeroGravity(dashing);
             animator.SetBool("isDashing", dashing);
-            dashParticle.Play(true);
+            foreach (ParticleSystem particle in dashParticles)
+                if (!playerMovement.FacingRight)
+                    dashParticles[0].Play(true);
+                else
+                    dashParticles[4].Play(true);
         }
 
         if(dashing)
         {
+            print(dashParticles.Length);
             dist = Vector3.Distance(transform.position, endDash);
             //Följande gör att spelaren dashar:
             float step = moveSpeed * Time.deltaTime;

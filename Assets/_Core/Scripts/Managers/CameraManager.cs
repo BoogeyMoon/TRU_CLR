@@ -5,7 +5,6 @@ using UnityEngine;
 //Ser till att huvudkameran följer efterspelaren eller andra bestämda platser.
 public class CameraManager : MonoBehaviour
 {
-    [SerializeField]
     Transform player;
     Transform spawner;
 
@@ -23,6 +22,7 @@ public class CameraManager : MonoBehaviour
 
     void Start() //Hämtar komponenter och sätter startvärden
     {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         spawner = GameObject.FindGameObjectWithTag("Spawner").transform;
         screenHeight = Screen.height;
         screenWidth = Screen.width;
