@@ -158,7 +158,6 @@ public class MobStats : MonoBehaviour
         scoreCanvasInstance.GetComponentInChildren<Text>().text = scoreValue.ToString();
         Animator anim = scoreCanvasInstance.GetComponentInChildren<Animator>();
         AnimatorClipInfo[] clipinfo = anim.GetCurrentAnimatorClipInfo(0);
-
         Destroy(scoreCanvasInstance, clipinfo[0].clip.length + 10);
         
     }

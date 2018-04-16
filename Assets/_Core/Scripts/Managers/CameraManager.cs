@@ -27,6 +27,7 @@ public class CameraManager : MonoBehaviour
         screenHeight = Screen.height;
         screenWidth = Screen.width;
         CamPos = spawner;
+        this.transform.position = spawner.transform.position;
     }
 
     void Update()
