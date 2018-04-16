@@ -14,23 +14,18 @@ public class PlayerStats : MonoBehaviour
     float maxHealth;
     [SerializeField]
     float health;
+    public float Health
+    {
+        get { return health; }
+    }
     Animator anim;
     bool dead;
     [SerializeField]
     PostProcessingProfile ppProfile;
     VignetteModel.Settings vignetteSettings;
     public bool Dead
-    
-
     {
         get { return dead; }
-    }
-    public float Health
-    {
-        get
-        {
-            return health;
-        }
     }
 
     void Awake()
