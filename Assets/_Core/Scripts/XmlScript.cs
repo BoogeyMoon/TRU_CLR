@@ -11,40 +11,34 @@ using UnityEngine.UI;
  *          - Registrering av nya användare. 
  *          
  * Skapat av Moa Lindgren med hjälp från Timmy Alvelöv samt Björn Andersson*/
-    
+
 
 public class XmlScript : MonoBehaviour
 {
     string filePath, usernameInput;
     int counter, score;
     public int numberOfLevels;
-    float offset;
+    bool validName;
 
     [SerializeField]
     GameObject contentObject, userButtonPrefab, inlogObject, registerAccountObject, loginPage;
-    [SerializeField]
-    List<string> players;
-    [SerializeField]
     public List<int> scoreList;
     TextAsset path;
-    Button buttonPrefab;
     string currentPlayer;
 
     XmlDocument doc;
     XmlElement player, username, level;
     XmlWriter writer;
-    XmlNodeList accounts;
+    XmlNodeList playerNodeList;
 
     void Start()
-    {
-        players = new List<string>();
-        scoreList = new List<int>();
-        numberOfLevels = 3;
-        offset = 2;
+    { 
+        numberOfLevels = 5;
         SetUpXML();
         InlogPage();
     }
 
+    //Laddar och "plockar fram" samt sparar xml-dokumentet som ska användas för att hämta eller registrera användare.
     void SetUpXML()
     {
         doc = new XmlDocument();
@@ -59,7 +53,6 @@ public class XmlScript : MonoBehaviour
             doc.LoadXml(path.text);
         }
         filePath = Application.persistentDataPath + "/Players.xml";
-        print(filePath);
         XmlWriterSettings settings = new XmlWriterSettings();
         settings.Indent = true;
         using (writer = XmlWriter.Create(Application.persistentDataPath + "/Players.xml", settings))
@@ -68,9 +61,101 @@ public class XmlScript : MonoBehaviour
         }
     }
 
+    //Om spelaren går in i ingloggnings-menyn så gör följande metod att samtliga användare som registrerats visas i en lista.
+    public void InlogPage()
+    {
+        registerAccountObject.SetActive(false);
+        inlogObject.SetActive(true);
+
+        playerNodeList = doc.GetElementsByTagName("player");
+
+        foreach (XmlNode player in playerNodeList)
+        {
+            if (player.Name == "player")
+            {
+                foreach (XmlNode username in player)
+                {
+                    if (username.Name == "username")
+                    {
+                        counter++;
+                        GameObject user = Instantiate(userButtonPrefab) as GameObject;
+                        user.SetActive(true);
+                        user.transform.SetParent(contentObject.transform, false);
+                        user.GetComponentInChildren<Text>().text = username.InnerText;
+                    }
+                }
+            }
+        }
+    }
+
+    //Vid klick på "Register Account" så tar följande metod in den text som skrivits i inputField och går igenom ifall det är ett godkänt namn att registrera.
     public void RegisterAccount(Text inputField)
     {
+        playerNodeList = doc.GetElementsByTagName("player");
         usernameInput = inputField.text;
+        validName = true;
+
+        if (playerNodeList.Count == 0)
+        {
+            if (usernameInput.Length < 3)
+            {
+                validName = false;
+                print("Name too short");
+            }
+
+            if (usernameInput.Length > 20)
+            {
+                validName = false;
+                print("Name too long");
+            }
+            else if (validName)
+            {
+                ValidName();
+            }
+        }
+        else
+        {
+            foreach (XmlNode playerNode in playerNodeList)
+            {
+                if (playerNode.Name == "player")
+                {
+                    foreach (XmlNode usernameNode in playerNode)
+                    {
+                        if (usernameNode.Name == "username")
+                        {
+                            if (usernameNode.InnerText == usernameInput)
+                            {
+                                validName = false;
+                                print("Name taken");
+                            }
+                            else if (usernameInput.Length < 3)
+                            {
+                                validName = false;
+                                print("Name too short");
+                            }
+                            else if (usernameInput.Length > 20)
+                            {
+                                validName = false;
+                                print("Name too long");
+                            }
+
+                        }
+                    }
+
+                }
+            }
+            if (validName)
+            {
+                ValidName();
+            }
+        }
+
+
+    }
+    
+    //Om namnet som ska registreras är godkänt så skickas det till följande metod som alltså registrerar namnet i xml-dokumentet.
+    void ValidName()
+    {
         player = doc.CreateElement("player");
         username = doc.CreateElement("username");
         username.InnerText = usernameInput;
@@ -91,37 +176,11 @@ public class XmlScript : MonoBehaviour
         InlogPage();
     }
 
-    public void InlogPage()
-    {
-        registerAccountObject.SetActive(false);
-        inlogObject.SetActive(true);
-
-        accounts = doc.GetElementsByTagName("player");
-
-        foreach (XmlNode player in accounts)
-        {
-            if (player.Name == "player")
-            {
-                foreach (XmlNode username in player)
-                {
-                    if (username.Name == "username")
-                    {
-                        counter++;
-                        players.Add(username.InnerText);
-                        GameObject user = Instantiate(userButtonPrefab) as GameObject;
-                        user.name = "butt #" + counter;
-                        user.SetActive(true);
-                        user.transform.SetParent(contentObject.transform, false);
-                        user.GetComponentInChildren<Text>().text = username.InnerText;
-                    }
-                }
-            }
-        }
-    }
-
+    //Om man går från ingloggnings-menyn till "registrera konto"-menyn så sätts menyerna inaktiva,
+    //samt alla användares knappar förstörs (så nya kan skapas om användar-listan uppdateras).
     public void RegisterAccountPage()
     {
-        for (int i = 0; i < accounts.Count; i++)
+        for (int i = 0; i < playerNodeList.Count; i++)
         {
             Destroy(contentObject.transform.GetChild(i).gameObject);
         }
@@ -129,16 +188,12 @@ public class XmlScript : MonoBehaviour
         registerAccountObject.SetActive(true);
     }
 
-    public void Quit()
-    {
-        Application.Quit();
-    }
-
     public void GetStats(string currentPlayer)
     {
+        scoreList = new List<int>();
         this.currentPlayer = currentPlayer;
         loginPage.SetActive(false);
-        foreach (XmlNode player in accounts)
+        foreach (XmlNode player in playerNodeList)
         {
 
             if (player.FirstChild.InnerText == currentPlayer)
@@ -146,7 +201,7 @@ public class XmlScript : MonoBehaviour
 
                 foreach (XmlNode level in player.FirstChild)
                 {
-                    for(int i = 0; i < numberOfLevels; i++) //varför??? gör inte foreach detta redan??
+                    for (int i = 0; i < numberOfLevels; i++)
                     {
                         if (level.Name == "level_" + i)
                         {
@@ -159,15 +214,16 @@ public class XmlScript : MonoBehaviour
             }
         }
     }
+
     public void ChangeStats(int levelNumber, int score, int grade)
     {
-        foreach (XmlNode player in accounts)
+        foreach (XmlNode player in playerNodeList)
         {
             if (player.FirstChild.InnerText == currentPlayer)
             {
                 foreach (XmlNode level in player.FirstChild)
                 {
-                    if(level.Name == "level_" + levelNumber)
+                    if (level.Name == "level_" + levelNumber)
                     {
                         level.Attributes[0].Value = score.ToString();
                         level.Attributes[1].Value = grade.ToString();
@@ -184,15 +240,15 @@ public class XmlScript : MonoBehaviour
 
     public int GetScore(int level) //Återlämnar poängen för en given level
     {
-        foreach (XmlNode player in accounts)
+        foreach (XmlNode player in playerNodeList)
         {
-            if(player.FirstChild.InnerText == currentPlayer)
+            if (player.FirstChild.InnerText == currentPlayer)
             {
                 foreach (XmlNode lvl in player.FirstChild)
                 {
-                    if(lvl.Name == "level_" + level)
+                    if (lvl.Name == "level_" + level)
                     {
-                        string scoreText =  lvl.Attributes[0].Value;
+                        string scoreText = lvl.Attributes[0].Value;
                         return int.Parse(scoreText);
                     }
                 }
@@ -202,7 +258,7 @@ public class XmlScript : MonoBehaviour
     }
     public int GetGrade(int level)//Återlämnar betyget för en given level
     {
-        foreach (XmlNode player in accounts)
+        foreach (XmlNode player in playerNodeList)
         {
             if (player.FirstChild.InnerText == currentPlayer)
             {
@@ -212,12 +268,17 @@ public class XmlScript : MonoBehaviour
                     {
                         string gradeText = lvl.Attributes[1].Value;
                         int grade = int.Parse(gradeText);
-                        
+
                         return grade;
                     }
                 }
             }
         }
         return -1;
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
     }
 }

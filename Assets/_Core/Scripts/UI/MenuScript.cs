@@ -81,7 +81,7 @@ public class MenuScript : MonoBehaviour
 
     public void LoadGame(string gameScene)
     {
-        Menus[1].SetActive(false); //varför?
+        Menus[1].SetActive(false);
         inGame = true;
         //Canvas.SetActive(false);
         SceneManager.LoadScene(gameScene);
