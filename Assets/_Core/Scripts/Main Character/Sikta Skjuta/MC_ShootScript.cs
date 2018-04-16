@@ -45,12 +45,12 @@ public class MC_ShootScript : MonoBehaviour
         SetMCColor();
         mcCharacter = gameObject;
         playerStats = GetComponent<PlayerStats>();
-        menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
+        //menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
     }
 
     void Update()
     {
-        if (!playerStats.Dead && !menu.Paused)
+        if (!playerStats.Dead /*&& !menu.Paused*/)
         {
             //Cooldown är olika beroende på vilken färg som är aktiv:
             cooldown = cooldowns[activeColor];
