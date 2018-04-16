@@ -52,7 +52,7 @@ public class MobStats : MonoBehaviour
     protected virtual void Start()
     {
         scoreCanvas = Resources.Load("ScorePopupCanvas") as GameObject;
-        deadMob = this.transform.position;
+        
 
         score = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<Score>();
         if (GetComponent<Animator>() != null)
@@ -152,14 +152,14 @@ public class MobStats : MonoBehaviour
 
     protected void FloatingScore() //Skapar en popup textruta som visar hur mycket score som laggts till ens total. 
     {
-
+        deadMob = this.transform.position; 
         GameObject scoreCanvasInstance = Instantiate(scoreCanvas);
         scoreCanvasInstance.transform.position = deadMob;
         scoreCanvasInstance.GetComponentInChildren<Text>().text = scoreValue.ToString();
         Animator anim = scoreCanvasInstance.GetComponentInChildren<Animator>();
         AnimatorClipInfo[] clipinfo = anim.GetCurrentAnimatorClipInfo(0);
 
-        Destroy(scoreCanvasInstance, clipinfo[0].clip.length);
+        Destroy(scoreCanvasInstance, clipinfo[0].clip.length + 10);
         
     }
 
