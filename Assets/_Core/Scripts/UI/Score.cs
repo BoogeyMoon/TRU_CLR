@@ -11,6 +11,7 @@ public class Score : MonoBehaviour
 
     [SerializeField]
     int startScore, currentScore, scoreMultiplier, levelIndex;
+    int scorePerLife;
 
     [SerializeField]
     int[] gradesCaps = new int[4];
@@ -21,11 +22,14 @@ public class Score : MonoBehaviour
     string[] grades = new string[] { "Pass", "Good", "Great", "Amazing", "TRU_CLR!" };
 
     XmlScript xml;
+    PlayerStats player;
 
     void Start()
     {
+        scorePerLife = 50;
         currentScore = startScore;
         InvokeRepeating("LooseScore", startCounter, multiplierSpeed);
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
         xml = GameObject.FindGameObjectWithTag("Canvas").GetComponent<XmlScript>();
     }
 
@@ -53,13 +57,12 @@ public class Score : MonoBehaviour
                 int gradeIndex;
                 i1 = grades[grades.Length - i - 1];
                 gradeIndex = grades.Length - i;
-                print("Du fick scoren: " + currentScore + "Du fick betyget: " + i1 + " och det motsvarar siffran " + gradeIndex);
+                currentScore += (int)player.Health * scorePerLife;
                 if (xml.GetScore(levelIndex) < currentScore)
                     xml.ChangeStats(levelIndex, currentScore, gradeIndex);
                 return grades.Length - i;
             }
         }
-        print("Du fick scoren: " + currentScore + "Du fick betyget: " + grades[0] + " och det motsvarar siffran 1");
         if (xml.GetScore(levelIndex) < currentScore)
             xml.ChangeStats(levelIndex, currentScore, 1);
         return 1;

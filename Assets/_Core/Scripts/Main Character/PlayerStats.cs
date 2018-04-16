@@ -14,23 +14,18 @@ public class PlayerStats : MonoBehaviour
     float maxHealth;
     [SerializeField]
     float health;
+    public float Health
+    {
+        get { return health; }
+    }
     Animator anim;
     bool dead;
     [SerializeField]
     PostProcessingProfile ppProfile;
     VignetteModel.Settings vignetteSettings;
     public bool Dead
-    
-
     {
         get { return dead; }
-    }
-    public float Health
-    {
-        get
-        {
-            return health;
-        }
     }
 
     void Awake()
@@ -97,7 +92,7 @@ public class PlayerStats : MonoBehaviour
     IEnumerator GoToMenu() //Väntar i tre sekunder innan den går till menyn
     {
         yield return new WaitForSeconds(3);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     public void ChangeLayer(int layer)
     {
