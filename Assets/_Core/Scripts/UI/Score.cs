@@ -18,7 +18,7 @@ public class Score : MonoBehaviour
     [SerializeField]
     float multiplierSpeed, startCounter;
 
-    string[] grades = new string[] {"Pass","Good","Great","Amazing","TRU_CLR!"};
+    string[] grades = new string[] { "Pass", "Good", "Great", "Amazing", "TRU_CLR!" };
 
     XmlScript xml;
 
@@ -43,23 +43,25 @@ public class Score : MonoBehaviour
     {
         currentScore += score;
     }
-    public int GetGrade() //Återlämnar vilket betyg spelaren skulle få med sin nuvarande poäng
+    public int GetGrade() //Återlämnar vilket betyg spelaren skulle få med sin nuvarande poäng och sparar det i XML-databasen om det är ett rekord
     {
         for (int i = 0; i < gradesCaps.Length; i++)
         {
-            if(currentScore >= gradesCaps[gradesCaps.Length -1-i])
+            if (currentScore >= gradesCaps[gradesCaps.Length - 1 - i])
             {
                 string i1;
                 int gradeIndex;
                 i1 = grades[grades.Length - i - 1];
                 gradeIndex = grades.Length - i;
                 print("Du fick scoren: " + currentScore + "Du fick betyget: " + i1 + " och det motsvarar siffran " + gradeIndex);
-                xml.ChangeStats(levelIndex,currentScore,gradeIndex);
+                if (xml.GetScore(levelIndex) < currentScore)
+                    xml.ChangeStats(levelIndex, currentScore, gradeIndex);
                 return grades.Length - i;
             }
         }
-        print("Du fick scoren: " + currentScore + "Du fick betyget: " +  grades[0] + " och det motsvarar siffran 1");
-        xml.ChangeStats(levelIndex, currentScore, 1);
+        print("Du fick scoren: " + currentScore + "Du fick betyget: " + grades[0] + " och det motsvarar siffran 1");
+        if (xml.GetScore(levelIndex) < currentScore)
+            xml.ChangeStats(levelIndex, currentScore, 1);
         return 1;
     }
 }
