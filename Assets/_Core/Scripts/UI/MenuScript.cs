@@ -17,6 +17,10 @@ public class MenuScript : MonoBehaviour
     int numberOfLevels, unlockedLevels;
     int score;
     bool paused, inGame;
+    public bool Paused
+    {
+        get { return paused; }
+    }
 
     XmlScript xmlScript;
 
@@ -29,7 +33,6 @@ public class MenuScript : MonoBehaviour
     void Awake()
     {
         DontDestroyOnLoad(transform.gameObject);
-        DontDestroyOnLoad(EventSystem);
         gameObject.transform.parent = GameObject.Find("Canvas").transform;
         xmlScript = GameObject.FindGameObjectWithTag("Canvas").GetComponent<XmlScript>();
     }
@@ -51,23 +54,21 @@ public class MenuScript : MonoBehaviour
     {
         tempMaster.volume = master.value; //Här sätter man ljudetsvolym LÄGG IN RESTEN SEN
 
-        //if (Input.GetKeyDown(KeyCode.Escape) && inGame)
-        //{
-        //    paused = !paused;
-        //    if (paused)
-        //    {
-        //        //Canvas.SetActive(true);
-        //        Menus[5].SetActive(true);
-        //    }
-        //    else
-        //    {
-        //        for (int i = 0; i < Menus.Count; i++)
-        //        {
-        //            Menus[i].SetActive(false);
-        //        }
-        //        //Canvas.SetActive(false);
-        //    }
-        //}
+        if (Input.GetKeyDown(KeyCode.Escape) && inGame)
+        {
+            paused = !paused;
+            if (paused)
+            {
+                Menus[5].SetActive(true);
+            }
+            else
+            {
+                for (int i = 0; i < Menus.Count; i++)
+                {
+                    Menus[i].SetActive(false);
+                }
+            }
+        }
         if (paused && inGame)
         {
             Time.timeScale = 0;
@@ -81,9 +82,9 @@ public class MenuScript : MonoBehaviour
 
     public void LoadGame(string gameScene)
     {
-        Menus[1].SetActive(false); //varför?
+        //Menus[1].SetActive(false);
+        SetMenusInActive();
         inGame = true;
-        //Canvas.SetActive(false);
         SceneManager.LoadScene(gameScene);
     }
 
@@ -95,7 +96,7 @@ public class MenuScript : MonoBehaviour
         for (int i = 0; i < numberOfLevels; i++)
         {
             Menus[1].transform.GetChild(i).gameObject.SetActive(true); //Sätter parent aktiv.
-            int tempScore = xmlScript.scoreList[i];
+            int tempScore = xmlScript.ScoreList[i];
             Menus[1].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
             Menus[1].transform.GetChild(0).transform.GetChild(0).GetComponent<Level_Button_Script>().ChangeText(xmlScript.GetScore(0), xmlScript.GetGrade(0));
             unlockedLevels = i + 1; //+1 för att nästa level ska låsas upp när en level är avklarad.
@@ -119,23 +120,24 @@ public class MenuScript : MonoBehaviour
 
     public void GeneralIndexButton(int index)
     {
-        Menus[0].SetActive(false);
+        SetMenusInActive();
         Menus[index].SetActive(true);
     }
 
     public void Back()
     {
-        for (int i = 0; i < numberOfLevels; i++)
-        {
-            for (int j = 0; j < Menus[1].transform.GetChild(i).childCount; j++)
-            {
-                Menus[1].transform.GetChild(i).GetChild(j).gameObject.SetActive(false);
-            }
-        }
-        for (int i = 0; i < Menus.Count; i++)
-        {
-            Menus[i].SetActive(false);
-        }
+        SetMenusInActive();
+        //for (int i = 0; i < numberOfLevels; i++)
+        //{
+        //    for (int j = 0; j < Menus[1].transform.GetChild(i).childCount; j++)
+        //    {
+        //        Menus[1].transform.GetChild(i).GetChild(j).gameObject.SetActive(false);
+        //    }
+        //}
+        //for (int i = 0; i < Menus.Count; i++)
+        //{
+        //    Menus[i].SetActive(false);
+        //}
         if (inGame)
         {
             Menus[5].SetActive(true);
@@ -149,7 +151,7 @@ public class MenuScript : MonoBehaviour
     public void ResumeGame()
     {
         paused = false;
-        //Canvas.SetActive(false);
+        SetMenusInActive();
     }
 
     public void QuitGame()
@@ -159,11 +161,18 @@ public class MenuScript : MonoBehaviour
 
     public void MainMenuButton()
     {
+        SetMenusInActive();
         inGame = false;
-        //Canvas.SetActive(false);
         SceneManager.LoadScene("MenuScene");
     }
 
+    void SetMenusInActive()
+    {
+        for(int i = 0; i < transform.childCount; i++)
+        {
+            Menus[i].SetActive(false);
+        }
+    }
 
 
 }
