@@ -22,14 +22,13 @@ public class Turret : MobStats
             SetToPlayerPlane(head);
         if (!dead)
         {
-            LookAtPlayer(head);
             playerDistance = GetPlayerDistance(head.transform);
             timeLeft -= Time.deltaTime;
             burstTimer -= Time.deltaTime;
 
-
             if (aggroRange > playerDistance)
             {
+                LookAtPlayer(head);
                 if (CanSeePlayer())
                 {
                     if (burstTimer < 0)
