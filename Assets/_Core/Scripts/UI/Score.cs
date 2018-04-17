@@ -26,7 +26,7 @@ public class Score : MonoBehaviour
 
     void Start()
     {
-        scorePerLife = 50;
+        scorePerLife = 80;
         currentScore = startScore;
         InvokeRepeating("LooseScore", startCounter, multiplierSpeed);
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
