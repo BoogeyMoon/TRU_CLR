@@ -71,6 +71,11 @@ public class MobStats : MonoBehaviour
         {
             deathAnimDuration = 0.5f;
         }
+        if (bulletSpawners.Length != 0 && raycastOrigin.Length == 0)
+        {
+            raycastOrigin = new GameObject[1];
+            raycastOrigin[0] = bulletSpawners[0];
+        }
     }
     protected void updatePatrolPoints() //Kollar barnen på ett gameobject och lägger till dem i en lista.
     {
