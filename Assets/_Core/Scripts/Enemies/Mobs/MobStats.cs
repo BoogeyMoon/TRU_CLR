@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 // Av Andreas de Freitas Timmy Alvelöv
 
 // Håller koll på hälsa, fart, osv. för mobs
@@ -10,6 +11,11 @@ public class MobStats : MonoBehaviour
     [SerializeField]
     AudioClip [] damageCyan, damageYellow, damageMagenta;
     SoundManager soundManager;
+
+    //score popup memes :)
+    GameObject scoreCanvas;
+    protected Vector3 deadMob;
+
 
     [SerializeField]
     protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, spread, health, deathAnimDuration;
@@ -45,6 +51,9 @@ public class MobStats : MonoBehaviour
     }
     protected virtual void Start()
     {
+        scoreCanvas = Resources.Load("ScorePopupCanvas") as GameObject;
+        
+
         score = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<Score>();
         if (GetComponent<Animator>() != null)
             animator = gameObject.GetComponent<Animator>();
@@ -85,13 +94,13 @@ public class MobStats : MonoBehaviour
             switch (this.color)
             {
                 case 0:
-                    if (damageCyan != null) { soundManager.RandomizeSfx(damageCyan, 3); }
+                    if (damageCyan != null) { soundManager.RandomizeSfx(damageCyan, 3, true); }
                     break;
                 case 1:
-                    if (damageYellow != null) { soundManager.RandomizeSfx(damageYellow, 3); }
+                    if (damageYellow != null) { soundManager.RandomizeSfx(damageYellow, 3, true); }
                     break;
                 case 2:
-                    if (damageMagenta != null) { soundManager.RandomizeSfx(damageMagenta, 3); }
+                    if (damageMagenta != null) { soundManager.RandomizeSfx(damageMagenta, 3, false); }
                     break;
             }
             if (!dead && health <= 0)
@@ -134,12 +143,26 @@ public class MobStats : MonoBehaviour
     protected void Die() //Mob:en dör.
     {
         score.AddScore(scoreValue);
+        FloatingScore();
         dead = true;
         if (animator != null)
             animator.SetTrigger("deathTrigger");
         StartCoroutine(GetDestroyed());
     }
-    
+
+    protected void FloatingScore() //Skapar en popup textruta som visar hur mycket score som laggts till ens total. 
+    {
+        deadMob = this.transform.position; 
+        GameObject scoreCanvasInstance = Instantiate(scoreCanvas);
+        scoreCanvasInstance.transform.position = deadMob;
+        scoreCanvasInstance.GetComponentInChildren<Text>().text = scoreValue.ToString();
+        Animator anim = scoreCanvasInstance.GetComponentInChildren<Animator>();
+        AnimatorClipInfo[] clipinfo = anim.GetCurrentAnimatorClipInfo(0);
+        Destroy(scoreCanvasInstance, clipinfo[0].clip.length + 10);
+        
+    }
+
+
     protected void Die(Transform obj) //Mob:en dör men renderern sitter på en annan plats än scriptet
     {
         score.AddScore(scoreValue);

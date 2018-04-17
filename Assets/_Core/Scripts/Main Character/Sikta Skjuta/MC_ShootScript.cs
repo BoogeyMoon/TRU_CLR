@@ -45,12 +45,12 @@ public class MC_ShootScript : MonoBehaviour
         SetMCColor();
         mcCharacter = gameObject;
         playerStats = GetComponent<PlayerStats>();
-        menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
+        //menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
     }
 
     void Update()
     {
-        if (!playerStats.Dead && !menu.Paused)
+        if (!playerStats.Dead /*&& !menu.Paused*/)
         {
             //Cooldown är olika beroende på vilken färg som är aktiv:
             cooldown = cooldowns[activeColor];
@@ -82,13 +82,13 @@ public class MC_ShootScript : MonoBehaviour
                 switch (activeColor)
                 {
                     case 0:
-                        soundManager.RandomizeSfx(shotsBlue,0);
+                        soundManager.RandomizeSfx(shotsBlue,0,false);
                         break;
                     case 1:
-                        soundManager.RandomizeSfx(shotsYellow,0);
+                        soundManager.RandomizeSfx(shotsYellow,0,true);
                         break;
                     case 2:
-                        soundManager.RandomizeSfx(shotsMagenta,0);
+                        soundManager.RandomizeSfx(shotsMagenta,0,false);
                         break;
                 }
 

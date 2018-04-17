@@ -19,12 +19,12 @@ public class IKHandler : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         playerStats = GetComponent<PlayerStats>();
-        menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
+        //menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
     }
 
     void Update() //Uppdaterar muspekarens position som avataren ska titta på
     {
-        if(!playerStats.Dead && !menu.Paused)
+        if(!playerStats.Dead /*&& !menu.Paused*/)
         SettingAimPosition();
     }
 

@@ -61,7 +61,6 @@ public class DashScript : MonoBehaviour
 
         if(dashing)
         {
-            print(dashParticles.Length);
             dist = Vector3.Distance(transform.position, endDash);
             //Följande gör att spelaren dashar:
             float step = moveSpeed * Time.deltaTime;
