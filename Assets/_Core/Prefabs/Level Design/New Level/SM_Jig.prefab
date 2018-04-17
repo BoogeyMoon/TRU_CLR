@@ -31,6 +31,7 @@ GameObject:
   - component: {fileID: 82239442656594874}
   - component: {fileID: 114893282171233316}
   - component: {fileID: 114799875026311926}
+  - component: {fileID: 95780246434298154}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -47,7 +48,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4952962120308548}
   - component: {fileID: 114256260144600542}
-  - component: {fileID: 114598271793086068}
   - component: {fileID: 114041193580601356}
   m_Layer: 0
   m_Name: SM_Jig
@@ -75,8 +75,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1680108773874910}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 126.9, y: 0.41730547, z: 1.3}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -15.8, y: 1.92, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4054775830404616}
@@ -181,7 +181,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -205,7 +205,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!82 &82048791298839670
 AudioSource:
   m_ObjectHideFlags: 1
@@ -606,6 +606,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!95 &95780246434298154
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1178356237277708}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 18a1d40ec7d374342a6a9cf1d4d09c55, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
 --- !u!114 &114041193580601356
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -651,22 +668,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66235dbd6e949af44841deedc23ab7f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
   boundary: 35
   speed: 15
---- !u!114 &114598271793086068
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1680108773874910}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18e02a3e850d6284e9566ea5cec11342, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boundary: 50
-  speed: 30
 --- !u!114 &114799875026311926
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -703,7 +706,7 @@ MonoBehaviour:
   glowType: 0
   glowTint: {r: 1, g: 1, b: 1, a: 0}
   blurSpreadInner: 0.6
-  blurIterations: 5
+  blurIterations: 8
   glowIntensityInner: 0.4
   samples: 2
 --- !u!124 &124816792234882012
