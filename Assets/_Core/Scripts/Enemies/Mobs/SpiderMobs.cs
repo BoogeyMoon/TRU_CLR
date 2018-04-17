@@ -41,8 +41,7 @@ public class SpiderMobs : MobStats
 
             if (playerDistance < aggroRange && timeLeft < 0)
             {
-                if (CanSeePlayer())
-                    Shoot();
+                Shoot();
             }
             else
             {
@@ -56,5 +55,5 @@ public class SpiderMobs : MobStats
     {
         transform.position = Vector3.MoveTowards(agent.transform.position, destination.transform.position, speed * Time.deltaTime);
     }
-
+	
 }
