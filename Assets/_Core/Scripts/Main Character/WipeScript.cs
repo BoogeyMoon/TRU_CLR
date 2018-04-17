@@ -28,7 +28,7 @@ public class WipeScript : MonoBehaviour
     //Den har samma riktning som ShoulderAim.
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S) && wipeDestroyed && wipeActive)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && wipeDestroyed && wipeActive)
         {
             wipeActive = false;
             wipeDestroyed = false;
@@ -44,6 +44,7 @@ public class WipeScript : MonoBehaviour
             wipeEffect.transform.rotation = directionObject.transform.rotation;
             StartCoroutine(WipeLifetime());
         }
+
         if(!wipeActive)
         {
             cooldownTimer -= Time.deltaTime;
