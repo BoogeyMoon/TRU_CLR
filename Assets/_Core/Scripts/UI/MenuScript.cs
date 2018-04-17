@@ -123,21 +123,10 @@ public class MenuScript : MonoBehaviour
     public void Back()
     {
         SetMenusInactive();
-        //for (int i = 0; i < numberOfLevels; i++)
-        //{
-        //    for (int j = 0; j < Menus[1].transform.GetChild(i).childCount; j++)
-        //    {
-        //        Menus[1].transform.GetChild(i).GetChild(j).gameObject.SetActive(false);
-        //    }
-        //}
-        //for (int i = 0; i < Menus.Count; i++)
-        //{
-        //    Menus[i].SetActive(false);
-        //}
         if (inGame)
         {
+            Menus[6].SetActive(true);
             Menus[1].SetActive(true);
-            //Menus[6].SetActive(true);
         }
         else
         {
@@ -158,8 +147,8 @@ public class MenuScript : MonoBehaviour
 
     public void MainMenuButton()
     {
-        SetMenusInactive();
         inGame = false;
+        SetMenusInactive();
         SceneManager.LoadScene("MenuScene");
     }
 
@@ -169,9 +158,9 @@ public class MenuScript : MonoBehaviour
         {
             Menus[i].SetActive(false);
         }
-        if(paused)
+        if(inGame && paused)
         {
-            Menus[6].SetActive(true);
+            Menus[1].SetActive(true);
         }
     }
 
