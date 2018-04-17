@@ -8,7 +8,7 @@ using UnityEngine.UI;
 //Skapat av Moa Lindgren.
 public class MenuScript : MonoBehaviour
 {
-    GameObject mainMenu, loadMenu, settingsMenu, confirmQuit, creditsMenu, pauseMenu, pausePanel, winScreen;
+    GameObject mainMenu, loadMenu, settingsMenu, confirmQuit, creditsMenu, pauseMenu, pausePanel, winScreen, loseScreen;
     [SerializeField]
     GameObject eventSystem;
     List<GameObject> menus;
@@ -36,7 +36,7 @@ public class MenuScript : MonoBehaviour
     void Start()
     {
         inGame = false;
-        menus = new List<GameObject>() { mainMenu, pausePanel, loadMenu, settingsMenu, creditsMenu, confirmQuit, pauseMenu, winScreen };
+        menus = new List<GameObject>() { mainMenu, pausePanel, loadMenu, settingsMenu, creditsMenu, confirmQuit, pauseMenu, winScreen, loseScreen };
         for (int i = 0; i < menus.Count; i++)
         {
             menus[i] = transform.GetChild(i).gameObject;

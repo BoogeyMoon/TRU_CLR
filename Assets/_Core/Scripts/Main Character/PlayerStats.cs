@@ -9,6 +9,7 @@ using UnityEngine.PostProcessing;
 
 public class PlayerStats : MonoBehaviour
 {
+    GameObject canvas;
     UIHealth2 uiHealth;
     [SerializeField]
     float maxHealth;
@@ -39,7 +40,7 @@ public class PlayerStats : MonoBehaviour
     void Start()
     {
         uiHealth = GameObject.FindGameObjectWithTag("Healthbar").GetComponent<UIHealth2>();
-
+        canvas = GameObject.FindGameObjectWithTag("MenuCanvas").gameObject;
         //Återställer vignetten
         vignetteSettings = ppProfile.vignette.settings;
         vignetteSettings.intensity = 0.0f;
@@ -86,13 +87,7 @@ public class PlayerStats : MonoBehaviour
         anim = GetComponent<Animator>();
         anim.SetLayerWeight(1, 1);
         PlayerPrefs.SetFloat("savedHealth", maxHealth);
-        StartCoroutine(GoToMenu());
-    }
-
-    IEnumerator GoToMenu() //Väntar i tre sekunder innan den går till menyn
-    {
-        yield return new WaitForSeconds(3);
-        SceneManager.LoadScene(1);
+        canvas.transform.GetChild(8).gameObject.SetActive(true);
     }
     public void ChangeLayer(int layer)
     {
