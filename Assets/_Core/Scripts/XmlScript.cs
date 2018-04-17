@@ -288,5 +288,8 @@ public class XmlScript : MonoBehaviour
     {
         Application.Quit();
     }
-
+    public void ActivatePanel(bool enabled)
+    {
+        transform.GetChild(0).gameObject.SetActive(enabled);
+    }
 }

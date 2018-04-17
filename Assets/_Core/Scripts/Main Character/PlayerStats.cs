@@ -50,7 +50,7 @@ public class PlayerStats : MonoBehaviour
 
     public void ChangeHealth(float value) //Lägg till eller ta bort hälsa från spelaren
     {
-        if (health > 0 )
+        if (health > 0)
         {
             health += value;
 
@@ -75,7 +75,7 @@ public class PlayerStats : MonoBehaviour
 
         }
 
-        
+
     }
 
     public void PlayerDies() //Ifall spelaren dör
@@ -86,12 +86,16 @@ public class PlayerStats : MonoBehaviour
         GetComponent<MC_ShootScript>().enabled = false;
         anim = GetComponent<Animator>();
         anim.SetLayerWeight(1, 1);
-        PlayerPrefs.SetFloat("savedHealth", maxHealth);
-        canvas.transform.GetChild(8).gameObject.SetActive(true);
+        StartCoroutine(StartLoseScreen());
     }
     public void ChangeLayer(int layer)
     {
         gameObject.layer = layer;
+    }
+    IEnumerator StartLoseScreen()
+    {
+        yield return new WaitForSeconds(2);
+        canvas.transform.GetChild(8).gameObject.SetActive(true);
     }
 
     IEnumerator LerpDamageEffect() //Lerpar bort den röda effekten långsamt när man tagit skada

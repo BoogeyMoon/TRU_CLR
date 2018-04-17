@@ -25,6 +25,7 @@ public class PlayButton : MonoBehaviour
         currentPlayer = userButton.GetComponentInChildren<Text>().text;
         xmlScript.GetStats(currentPlayer);
         panel.SetActive(false);
+        xmlScript.ActivatePanel(false);
         SceneManager.LoadScene("MenuScene");
     }
 }
