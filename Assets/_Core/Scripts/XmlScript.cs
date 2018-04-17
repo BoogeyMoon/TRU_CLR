@@ -38,6 +38,9 @@ public class XmlScript : MonoBehaviour
 
     void Start()
     {
+        if (GameObject.FindGameObjectsWithTag("Canvas").Length > 1)
+            Destroy(gameObject);
+
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(eventSystem);
         numberOfLevels = 5;
@@ -290,6 +293,11 @@ public class XmlScript : MonoBehaviour
     }
     public void ActivatePanel(bool enabled)
     {
-        transform.GetChild(0).gameObject.SetActive(enabled);
+        for (int i = 0; i < 2; i++)
+        {
+            transform.GetChild(i).gameObject.SetActive(enabled);
+        }
+        
+        
     }
 }

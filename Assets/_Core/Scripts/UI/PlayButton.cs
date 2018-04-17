@@ -24,8 +24,10 @@ public class PlayButton : MonoBehaviour
         GameObject userButton = transform.parent.gameObject;
         currentPlayer = userButton.GetComponentInChildren<Text>().text;
         xmlScript.GetStats(currentPlayer);
-        panel.SetActive(false);
+        //panel.SetActive(false);
         xmlScript.ActivatePanel(false);
+        if (GameObject.FindGameObjectsWithTag("MenuCanvas").Length != 0)
+            GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>().SetMainMenu(true);
         SceneManager.LoadScene("MenuScene");
     }
 }

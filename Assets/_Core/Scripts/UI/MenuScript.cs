@@ -29,6 +29,10 @@ public class MenuScript : MonoBehaviour
     //Spara Canvas till nästa scen.
     void Awake()
     {
+        if (GameObject.FindGameObjectsWithTag("MenuCanvas").Length > 1)
+        {
+            Destroy(gameObject);
+        }
         DontDestroyOnLoad(gameObject);
         xmlScript = GameObject.FindGameObjectWithTag("Canvas").GetComponent<XmlScript>();
     }
@@ -88,6 +92,17 @@ public class MenuScript : MonoBehaviour
         menus[0].SetActive(false);
         menus[2].SetActive(true);
         numberOfLevels = xmlScript.numberOfLevels;
+        for (int i = 0; i < menus[2].transform.childCount; i++) //Stänger av allt så att inget är kvar från förra sparningen
+        {
+            for (int j = 0; j < menus[2].transform.GetChild(i).childCount; j++)
+            {
+                for (int c = 0; c < menus[2].transform.GetChild(i).GetChild(j).childCount; c++)
+                {
+                    menus[2].transform.GetChild(i).GetChild(j).GetChild(c).gameObject.SetActive(false);
+                }
+                menus[2].transform.GetChild(i).GetChild(j).gameObject.SetActive(false);
+            }
+        }
         for (int i = 0; i < numberOfLevels; i++)
         {
             menus[2].transform.GetChild(i).gameObject.SetActive(true); //Sätter parent aktiv.
@@ -168,6 +183,7 @@ public class MenuScript : MonoBehaviour
     public void ChangeUser()
     {
         SetMenusInactive();
+        xmlScript.ActivatePanel(true);
         SceneManager.LoadScene("LogInScene");
     }
 
@@ -176,6 +192,11 @@ public class MenuScript : MonoBehaviour
         SetMenusInactive();
         SceneManager.LoadScene(currentGameScene);
     }
+    public void SetMainMenu(bool enabled)
+    {
+        menus[0].SetActive(enabled);
+    }
+
 
 }
 
