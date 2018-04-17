@@ -173,6 +173,7 @@ public class MenuScript : MonoBehaviour
 
     public void Restart()
     {
+        SetMenusInactive();
         SceneManager.LoadScene(currentGameScene);
     }
 
