@@ -31,7 +31,7 @@ public class MC_ShootScript : MonoBehaviour
     AudioClip[] shotsBlue, shotsYellow, shotsMagenta;
     SoundManager soundManager;
     PlayerStats playerStats;
-    MenuScript menu;
+   // MenuScript menu;
 
 
     void Start()
@@ -132,19 +132,6 @@ public class MC_ShootScript : MonoBehaviour
             }
             SetMCColor();
         }
-
-        //Skickar en sköld på vänster Shift:
-        //if (Input.GetKeyDown(KeyCode.LeftShift))
-        //{
-        //    if (currentShieldCooldown <= 0)
-        //    {
-        //    currentShield = Instantiate(shield,
-        //    new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
-        //    currentShield.transform.rotation = rifleBarrel.transform.rotation;
-        //        currentShieldCooldown = shieldCooldown;
-        //    }
-            
-        //}
     }
 
     //Shoot-metoden instansierar en prefab för en kula i den färg som är aktiv just nu.
