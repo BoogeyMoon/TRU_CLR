@@ -8,7 +8,7 @@ using UnityEngine.UI;
 //Skapat av Moa Lindgren.
 public class MenuScript : MonoBehaviour
 {
-    GameObject mainMenu, loadMenu, settingsMenu, confirmQuit, creditsMenu, pauseMenu, pausePanel, winScreen, loseScreen;
+    GameObject mainMenu, loadMenu, settingsMenu, confirmQuit, creditsMenu, pauseMenu, pausePanel, winScreen, loseScreen, areYouSure;
     [SerializeField]
     GameObject eventSystem;
     List<GameObject> menus;
@@ -40,7 +40,7 @@ public class MenuScript : MonoBehaviour
     void Start()
     {
         inGame = false;
-        menus = new List<GameObject>() { mainMenu, pausePanel, loadMenu, settingsMenu, creditsMenu, confirmQuit, pauseMenu, winScreen, loseScreen };
+        menus = new List<GameObject>() { mainMenu, pausePanel, loadMenu, settingsMenu, creditsMenu, confirmQuit, pauseMenu, winScreen, loseScreen, areYouSure };
         for (int i = 0; i < menus.Count; i++)
         {
             menus[i] = transform.GetChild(i).gameObject;
@@ -96,7 +96,7 @@ public class MenuScript : MonoBehaviour
         {
             for (int j = 0; j < menus[2].transform.GetChild(i).childCount; j++)
             {
-                for (int c = 0; c < menus[2].transform.GetChild(i).GetChild(j).childCount; c++)
+                for (int c = 0; c < menus[2].transform.GetChild(i).GetChild(j).childCount-1; c++)
                 {
                     menus[2].transform.GetChild(i).GetChild(j).GetChild(c).gameObject.SetActive(false);
                 }
@@ -158,7 +158,15 @@ public class MenuScript : MonoBehaviour
 
     public void QuitGame()
     {
+        menus[9].gameObject.SetActive(true);
+    }
+    public void SureQuit()
+    {
         Application.Quit();
+    }
+    public void CloseConfirmMeny()
+    {
+        menus[9].gameObject.SetActive(false);
     }
 
     public void MainMenuButton()
