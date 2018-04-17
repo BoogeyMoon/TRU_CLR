@@ -11,8 +11,10 @@ public class WinScript : MonoBehaviour
     List<Transform> winCons;
     Score ScoreManager;
     bool[] winConditions;
+    GameObject canvas;
     void Start()
     {
+        canvas = GameObject.FindGameObjectWithTag("MenuCanvas").gameObject;
         ScoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<Score>();
         winConditions = new bool[winCons.Count];
     }
@@ -28,9 +30,9 @@ public class WinScript : MonoBehaviour
         }
         Win();
     }
-    void Win() //Sparar {värden som ska sparas} i XML och {annat som ska hända när man vinner}
+    void Win()
     {
-        print("Du vann! Du fick betyget: " + ScoreManager.GetGrade());
+        canvas.transform.GetChild(7).gameObject.SetActive(true);
     }
 
 }

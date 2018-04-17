@@ -18,7 +18,7 @@ public class Turret : MobStats
 
     void Update() //Moben agerar
     {
-        if(head.position.z != player.position.z)
+        if (head.position.z != player.position.z)
             SetToPlayerPlane(head);
         if (!dead)
         {
@@ -30,14 +30,16 @@ public class Turret : MobStats
 
             if (aggroRange > playerDistance)
             {
-                if (burstTimer < 0)
+                if (CanSeePlayer() || raycastOrigin.Length != 0)
                 {
-                    if (timeLeft < 0)
+                    if (burstTimer < 0)
                     {
-                        Shoot();
+                        if (timeLeft < 0)
+                        {
+                            Shoot();
+                        }
                     }
                 }
-
             }
         }
     }

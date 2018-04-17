@@ -484,8 +484,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1366878932874828}
-  m_LocalRotation: {x: 0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: 196.919, y: -10.30522, z: 0}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 162.64658, y: -43.31, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4048353666577790}
@@ -783,9 +783,6 @@ MonoBehaviour:
   damageCyan: []
   damageYellow:
   - {fileID: 8300000, guid: 794d2df5c8c903545b271af672dd7d2e, type: 3}
-  - {fileID: 8300000, guid: ca7f1b6a912a86e42a63c8809e135712, type: 3}
-  - {fileID: 8300000, guid: 888051e12a0b5c142bf86f2f21353ea9, type: 3}
-  - {fileID: 8300000, guid: 04db650176038c747ae4a0f873c734a9, type: 3}
   damageMagenta: []
   speed: 3
   maxHealth: 30
@@ -802,7 +799,8 @@ MonoBehaviour:
   scoreValue: 200
   bulletSpawners:
   - {fileID: 1317472886201978}
-  raycastOrigin: []
+  raycastOrigin:
+  - {fileID: 1317472886201978}
   destination: {fileID: 0}
   bullet: {fileID: 1391852344878852, guid: eb5fe13b20c43284fabd9f2d94d5927a, type: 2}
   patrolPoints: {fileID: 0}
