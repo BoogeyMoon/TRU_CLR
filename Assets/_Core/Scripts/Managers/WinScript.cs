@@ -28,10 +28,12 @@ public class WinScript : MonoBehaviour
             if (!winConditions[i])
                 return;
         }
-        Win();
+        StartCoroutine(Win());
     }
-    void Win()
+    IEnumerator Win()
     {
+        ScoreManager.GetGrade();
+        yield return new WaitForSeconds(1.5f);
         canvas.transform.GetChild(7).gameObject.SetActive(true);
     }
 
