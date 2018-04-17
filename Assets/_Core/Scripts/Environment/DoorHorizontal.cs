@@ -24,7 +24,7 @@ public class DoorHorizontal : MonoBehaviour, Interactable
     {
         if (!activated)
             activated = true;
-        soundManager.RandomizeSfx(doorSound,4);
+        soundManager.RandomizeSfx(doorSound,4,false);
         openDoor = !openDoor;
         closeDoor = !closeDoor;
 

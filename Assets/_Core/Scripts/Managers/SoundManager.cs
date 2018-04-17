@@ -41,7 +41,7 @@ public class SoundManager : MonoBehaviour
         efxSource[whichSource].Play();
     }
 
-    public void RandomizeSfx(AudioClip[] clips, int whichSource) //Används för att slumpmässigt spela upp ljud och ändra pitchen på dem
+    public void RandomizeSfx(AudioClip[] clips, int whichSource, bool waitForLoop) //Används för att slumpmässigt spela upp ljud och ändra pitchen på dem
     {
         if (clips.Length>0) // if sound clips actually exist, play them
         {
@@ -49,7 +49,15 @@ public class SoundManager : MonoBehaviour
             float randomPitch = Random.Range(lowPitchRange, highPitchRange);
             efxSource[whichSource].pitch = randomPitch;
             efxSource[whichSource].clip = clips[randomIndex];
-            efxSource[whichSource].Play();
+            if (waitForLoop)
+            {
+                if (!efxSource[whichSource].isPlaying)
+                efxSource[whichSource].Play();
+            }
+            else
+            {
+                efxSource[whichSource].Play();
+            }
 
         }
     }
