@@ -28,7 +28,7 @@ public class WipeScript : MonoBehaviour
     //Den har samma riktning som ShoulderAim.
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && wipeDestroyed && wipeActive)
+        if (Input.GetMouseButtonDown(1) && wipeDestroyed && wipeActive)
         {
             wipeActive = false;
             wipeDestroyed = false;

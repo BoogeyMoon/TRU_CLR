@@ -41,7 +41,7 @@ public class DashScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && !dashOnCooldown && DashReady)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !dashOnCooldown && DashReady)
         {
             dashOnCooldown = true;
             DashReady = false;

@@ -165,11 +165,11 @@ public class MenuScript : MonoBehaviour
         }
     }
 
-    //public void ChangeUser()
-    //{
-    //    SetMenusInactive();
-    //    SceneManager.LoadScene("LogInScene");
-    //}
+    public void ChangeUser()
+    {
+        SetMenusInactive();
+        SceneManager.LoadScene("LogInScene");
+    }
 
     public void Restart()
     {
