@@ -49,12 +49,7 @@ public class SoundManager : MonoBehaviour
             float randomPitch = Random.Range(lowPitchRange, highPitchRange);
             efxSource[whichSource].pitch = randomPitch;
             efxSource[whichSource].clip = clips[randomIndex];
-            if (waitForLoop)
-            {
-                if (!efxSource[whichSource].isPlaying)
-                efxSource[whichSource].Play();
-            }
-            else
+            if ( ((waitForLoop) && (!efxSource[whichSource].isPlaying)) || (!waitForLoop) ) // check if the sound needs to be played as a loop or not
             {
                 efxSource[whichSource].Play();
             }
