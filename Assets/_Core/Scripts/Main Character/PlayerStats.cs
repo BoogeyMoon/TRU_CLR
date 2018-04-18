@@ -39,12 +39,16 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-        uiHealth = GameObject.FindGameObjectWithTag("Healthbar").GetComponent<UIHealth2>();
-        canvas = GameObject.FindGameObjectWithTag("MenuCanvas").gameObject;
         //Återställer vignetten
         vignetteSettings = ppProfile.vignette.settings;
         vignetteSettings.intensity = 0.0f;
+        vignetteSettings.color = new Color(1, 0, 0, 1);
+        vignetteSettings.smoothness = 1;
+        vignetteSettings.roundness = 1;
+        vignetteSettings.center = new Vector2(0.5f, 0.5f);
         ppProfile.vignette.settings = vignetteSettings;
+        uiHealth = GameObject.FindGameObjectWithTag("Healthbar").GetComponent<UIHealth2>();
+        canvas = GameObject.FindGameObjectWithTag("MenuCanvas").gameObject;
     }
 
 
@@ -64,9 +68,9 @@ public class PlayerStats : MonoBehaviour
                 PlayerDies();
             }
 
-            else if (value < 0 && vignetteSettings.intensity < 0.4f) //Ökar värdet på vignette effekten när man tagit skada
+            else if (value < 0 && vignetteSettings.intensity < 0.6f) //Ökar värdet på vignette effekten när man tagit skada
             {
-                vignetteSettings.intensity = vignetteSettings.intensity + 0.1f;
+                vignetteSettings.intensity = vignetteSettings.intensity + 0.2f;
                 ppProfile.vignette.settings = vignetteSettings;
                 StopCoroutine("LerpDamageEffect");
                 StartCoroutine("LerpDamageEffect");
