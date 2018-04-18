@@ -9,8 +9,9 @@ public class Boss3 : MobStats
     [SerializeField]
     float timeBetweenRotation;
     float rotTimer, rotDoneTimer, rotateAngle = 120;
-    int startChilds;
+    int startChilds, childsLastFrame;
     WinScript win;
+
 
 
     protected override void Start()
@@ -25,6 +26,8 @@ public class Boss3 : MobStats
         rotDoneTimer = timeBetweenRotation + 0.7f;
         win = GameObject.FindGameObjectWithTag("Win").GetComponent<WinScript>();
         startChilds = transform.childCount;
+        timeBetweenBurst = Mathf.Infinity;
+        childsLastFrame = transform.childCount;
     }
 
     void Update()
@@ -43,6 +46,17 @@ public class Boss3 : MobStats
                 win.WinConFinished(transform); //Låter winmanagern veta att det här winconditionet är slutfört
                 Die();
             }
+            else if(childsLastFrame< transform.childCount && transform.childCount == startChilds -2)
+            {
+                timeBetweenBurst = 1;
+            }
+            else if(childsLastFrame < transform.childCount && transform.childCount == startChilds - 1)
+            {
+                timeBetweenBurst = 0.5f;
+                numberOfBulletsPerShot += 1;
+            }
+           
+
             else if (rotTimer <= 0) //Rotera
             {
                Rotate();
@@ -62,6 +76,7 @@ public class Boss3 : MobStats
                 }
             }
         }
+        childsLastFrame = transform.childCount;
 
     }
     void Rotate() //Roterar bossen 120 grader (en tredjedels vard)
