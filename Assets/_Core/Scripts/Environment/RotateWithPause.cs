@@ -16,8 +16,9 @@ public class RotateWithPause : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
-	}
+        rotationHasBegun = false;
+
+    }
 	
 	// Update is called once per frame
 	void Update () {
@@ -32,22 +33,15 @@ public class RotateWithPause : MonoBehaviour {
                 {
                     desiredAngle = 360 - desiredAngle;
                 }
-                //print("desired angle is" + desiredAngle);
-
                 rotateTo = Quaternion.Euler(0, 0, desiredAngle);
             }
+
             rotationHasBegun = true;
-            //print(transform.rotation.eulerAngles.z);
+
             transform.rotation = Quaternion.Slerp(transform.rotation, rotateTo, Time.deltaTime * 3);
-            if ((transform.rotation.eulerAngles.z <= desiredAngle - .1) || (transform.rotation.eulerAngles.z > desiredAngle*3))
-            {
-                //transform.Rotate(Vector3.forward, rotationAngle * Time.deltaTime, Space.World);
-               
-            }
-            else
+            if (!((transform.rotation.eulerAngles.z <= desiredAngle - .1) || (transform.rotation.eulerAngles.z > desiredAngle*3)))
             {
                 transform.rotation = Quaternion.Euler(0,0,desiredAngle);
-                //print("AFTER ROTATION THE ANGLE IS" + transform.rotation.eulerAngles.z);
                 timeSinceStart = -.1f ;
                 rotationHasBegun = false;
             }
