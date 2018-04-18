@@ -29,6 +29,7 @@ public class DashScript : MonoBehaviour
     float dist;
     Animator animator;
     public bool DashReady { get; set; }
+    MenuScript menu;
 
 
     void Start()
@@ -37,11 +38,12 @@ public class DashScript : MonoBehaviour
         playerMovement = gameObject.GetComponent<PlayerMovement>();
         soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
         dashParticles = dashEmitter.GetComponentsInChildren<ParticleSystem>();
+        //menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftShift) && !dashOnCooldown && DashReady)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && !dashOnCooldown && DashReady /*&& !menu.Paused*/)
         {
             dashOnCooldown = true;
             DashReady = false;
