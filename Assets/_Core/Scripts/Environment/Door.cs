@@ -13,7 +13,7 @@ public class Door : MonoBehaviour, Interactable
     [SerializeField]
     float speed;
     bool openDoor, closeDoor = true, activated = false;
-    float height = 7.4f, startY; 
+    float height = 7.4f, startY;
     void Start()
     {
         startY = transform.position.y;
@@ -23,23 +23,24 @@ public class Door : MonoBehaviour, Interactable
     {
         if (!activated)
             activated = true;
-        soundManager.RandomizeSfx(doorSound, 4,false);
+        if (soundManager != null)
+            soundManager.RandomizeSfx(doorSound, 4, false);
         openDoor = !openDoor;
 
     }
     void Update()
     {
-        if(activated)
+        if (activated)
         {
-            if(openDoor && transform.position.y < startY + height)
+            if (openDoor && transform.position.y < startY + height)
             {
                 transform.Translate(Vector3.up * speed * Time.deltaTime);
             }
-            else if(!openDoor && transform.position.y > startY)
+            else if (!openDoor && transform.position.y > startY)
             {
                 transform.Translate(Vector3.up * -speed * Time.deltaTime);
             }
         }
     }
-	
+
 }
