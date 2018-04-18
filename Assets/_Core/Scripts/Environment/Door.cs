@@ -25,7 +25,6 @@ public class Door : MonoBehaviour, Interactable
             activated = true;
         soundManager.RandomizeSfx(doorSound, 4,false);
         openDoor = !openDoor;
-        closeDoor = !closeDoor;
 
     }
     void Update()
@@ -36,7 +35,7 @@ public class Door : MonoBehaviour, Interactable
             {
                 transform.Translate(Vector3.up * speed * Time.deltaTime);
             }
-            else if(closeDoor && transform.position.y > startY)
+            else if(!openDoor && transform.position.y > startY)
             {
                 transform.Translate(Vector3.up * -speed * Time.deltaTime);
             }
