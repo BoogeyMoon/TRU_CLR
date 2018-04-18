@@ -42,6 +42,7 @@ public class MenuScript : MonoBehaviour
     {
         inGame = false;
         menuSound = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<AudioSource>();
+        menuSound.Play();
         menus = new List<GameObject>() { mainMenu, pausePanel, loadMenu, settingsMenu, creditsMenu, confirmQuit, pauseMenu, winScreen, loseScreen, areYouSure };
         for (int i = 0; i < menus.Count; i++)
         {
@@ -49,6 +50,7 @@ public class MenuScript : MonoBehaviour
         }
         menus[0].SetActive(true);
     }
+
     //Öppna och stänga pausmeny.
     void Update()
     {
@@ -135,7 +137,6 @@ public class MenuScript : MonoBehaviour
     public void GeneralIndexButton(int index)
     {
         SetMenusInactive();
-        //Menus[1].SetActive(true);
         menus[index].SetActive(true);
     }
 
@@ -159,17 +160,16 @@ public class MenuScript : MonoBehaviour
         SetMenusInactive();
     }
 
-    public void QuitGame()
+    public void Quit(bool sure)
     {
-        menus[9].gameObject.SetActive(true);
-    }
-    public void SureQuit()
-    {
-        Application.Quit();
-    }
-    public void CloseConfirmMeny()
-    {
-        menus[9].gameObject.SetActive(false);
+        if(!sure)
+        {
+            menus[9].gameObject.SetActive(true);
+        }
+        else if(sure)
+        {
+            Application.Quit();
+        }
     }
 
     public void MainMenuButton()
@@ -193,8 +193,10 @@ public class MenuScript : MonoBehaviour
         }
     }
 
+    //Backar tillbaka till login-scene.
     public void ChangeUser()
     {
+        menuSound.Stop();
         SetMenusInactive();
         xmlScript.ActivatePanel(true);
         SceneManager.LoadScene("LogInScene");
@@ -205,9 +207,23 @@ public class MenuScript : MonoBehaviour
         SetMenusInactive();
         SceneManager.LoadScene(currentGameScene);
     }
+
     public void SetMainMenu(bool enabled)
     {
         menus[0].SetActive(enabled);
+    }
+
+    //Next Level-knappen i Winscreen anropar följande metod.
+    //Metoden adderar 1 till den scen vi befinner oss i just nu för att sedan ladda nästa scen.
+    public void NextLevel()
+    {
+        string lastChar = currentGameScene.Substring(currentGameScene.Length - 1, 1);
+        int nextLevel = int.Parse(lastChar) + 1;
+        string nextLevelString = nextLevel.ToString();
+        currentGameScene = currentGameScene.TrimEnd(currentGameScene[currentGameScene.Length -1]);
+        string nextGameScene = currentGameScene + nextLevelString;
+        SetMenusInactive();
+        SceneManager.LoadScene(nextGameScene);
     }
 
 
