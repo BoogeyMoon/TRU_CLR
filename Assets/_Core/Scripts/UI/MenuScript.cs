@@ -11,6 +11,7 @@ public class MenuScript : MonoBehaviour
     GameObject mainMenu, loadMenu, settingsMenu, confirmQuit, creditsMenu, pauseMenu, pausePanel, winScreen, loseScreen, areYouSure;
     [SerializeField]
     GameObject eventSystem;
+    AudioSource menuSound;
     List<GameObject> menus;
     int numberOfLevels, unlockedLevels;
     int score;
@@ -40,6 +41,7 @@ public class MenuScript : MonoBehaviour
     void Start()
     {
         inGame = false;
+        menuSound = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<AudioSource>();
         menus = new List<GameObject>() { mainMenu, pausePanel, loadMenu, settingsMenu, creditsMenu, confirmQuit, pauseMenu, winScreen, loseScreen, areYouSure };
         for (int i = 0; i < menus.Count; i++)
         {
@@ -84,6 +86,7 @@ public class MenuScript : MonoBehaviour
         currentGameScene = gameScene;
         SetMenusInactive();
         inGame = true;
+        menuSound.Stop();
         SceneManager.LoadScene(currentGameScene);
     }
 
@@ -174,6 +177,7 @@ public class MenuScript : MonoBehaviour
         inGame = false;
         SetMenusInactive();
         SceneManager.LoadScene("MenuScene");
+        menuSound.Play();
     }
 
     void SetMenusInactive()

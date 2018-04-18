@@ -8,7 +8,8 @@ using UnityEngine;
 public class WipeScript : MonoBehaviour
 {
     [SerializeField]
-    GameObject wipePrefab, startObject, directionObject, wipeEffect;
+    GameObject wipePrefab, startObject, directionObject;
+    ParticleSystem wipeEffect;
     GameObject wipe;
     bool wipeDestroyed;
     bool wipeActive;
@@ -22,6 +23,7 @@ public class WipeScript : MonoBehaviour
         wipeDestroyed = true;
         wipeActive = true;
         cooldownTimer = wipeCooldown;
+        wipeEffect = startObject.GetComponentInChildren<ParticleSystem>();
     }
 
     //Wipen instansieras på ett objekt som befinner sig något framför GunBarrel.
@@ -36,9 +38,11 @@ public class WipeScript : MonoBehaviour
                               new Vector3(startObject.transform.position.x, startObject.transform.position.y, startObject.transform.position.z),
                               Quaternion.identity);
 
-            wipeEffect = Instantiate(wipeEffect,
-                              new Vector3(startObject.transform.position.x, startObject.transform.position.y, startObject.transform.position.z),
-                              Quaternion.identity);
+            wipeEffect.Play(true);
+
+            //wipeEffect = Instantiate(wipeEffect,
+            //                  new Vector3(startObject.transform.position.x, startObject.transform.position.y, startObject.transform.position.z),
+            //                  Quaternion.identity);
 
             wipe.transform.rotation = directionObject.transform.rotation;
             wipeEffect.transform.rotation = directionObject.transform.rotation;

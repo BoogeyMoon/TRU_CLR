@@ -21,9 +21,8 @@ public class PlayerMovement : MonoBehaviour
     bool zeroGravity;
 
     [SerializeField]
-    GameObject jumpParticleParent;
-
-    ParticleSystem[] jumpParticleChildren;
+    GameObject jumpParticleObject1, jumpParticleObject2;
+    ParticleSystem jumpParticle1, jumpParticle2;
 
     Animator animator;
 
@@ -39,7 +38,9 @@ public class PlayerMovement : MonoBehaviour
     DashScript dash;
     void Start()
     {
-        jumpParticleChildren = jumpParticleParent.GetComponentsInChildren<ParticleSystem>();
+        jumpParticle1 = jumpParticleObject1.GetComponent<ParticleSystem>();
+        jumpParticle2 = jumpParticleObject2.GetComponent<ParticleSystem>();
+
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         playerStats = GetComponent<PlayerStats>();
@@ -132,12 +133,8 @@ public class PlayerMovement : MonoBehaviour
         if (currentjump == 2)
         {
             animator.SetTrigger("doubleJump");
-
-            foreach (ParticleSystem particle in jumpParticleChildren)
-            {
-                particle.Play();
-            }
-
+            jumpParticle1.Play();
+            jumpParticle2.Play();
         }
         else
         {
