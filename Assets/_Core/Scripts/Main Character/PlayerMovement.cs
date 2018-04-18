@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     float speed = 6.0f, jumpSpeed = 8.0f, gravity = 20.0f;
     float moveOnX, startSpeed, crouchCenterOffsetY = 0.5f, crouchHeightOffset = 0.9f, crouchCenterOriginal = 1f, crouchHeightOriginal = 1.8f, startingGravity, airtime, offsetZ = -0.85f;
 
+    MC_ShootScript shootScript;
 
     int jumps = 2, currentjump = 0;
 
@@ -21,8 +22,8 @@ public class PlayerMovement : MonoBehaviour
     bool zeroGravity;
 
     [SerializeField]
-    GameObject jumpParticleObject1, jumpParticleObject2;
-    ParticleSystem jumpParticle1, jumpParticle2;
+    Transform jumpParticleObject;
+    ParticleSystem[] jumpParticles;
 
     Animator animator;
 
@@ -38,9 +39,9 @@ public class PlayerMovement : MonoBehaviour
     DashScript dash;
     void Start()
     {
-        jumpParticle1 = jumpParticleObject1.GetComponent<ParticleSystem>();
-        jumpParticle2 = jumpParticleObject2.GetComponent<ParticleSystem>();
+        jumpParticles = new ParticleSystem [] { jumpParticleObject.GetChild(0).GetComponent<ParticleSystem>(), jumpParticleObject.GetChild(1).GetComponent<ParticleSystem>(), jumpParticleObject.GetChild(2).GetComponent<ParticleSystem>() };
 
+        shootScript = GameObject.FindGameObjectWithTag("Player").GetComponent<MC_ShootScript>();
         animator = GetComponent<Animator>();
         controller = GetComponent<CharacterController>();
         playerStats = GetComponent<PlayerStats>();
@@ -133,8 +134,11 @@ public class PlayerMovement : MonoBehaviour
         if (currentjump == 2)
         {
             animator.SetTrigger("doubleJump");
-            jumpParticle1.Play();
-            jumpParticle2.Play();
+            jumpParticles[shootScript.ActiveColor].Clear(true);
+            jumpParticles[shootScript.ActiveColor].Play(true);
+            
+            //jumpParticle1.Play();
+            //jumpParticle2.Play();
         }
         else
         {
