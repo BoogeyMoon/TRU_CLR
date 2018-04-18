@@ -10,16 +10,19 @@ public class WipeScript : MonoBehaviour
     [SerializeField]
     GameObject wipePrefab, startObject, directionObject;
     ParticleSystem wipeEffect;
-    GameObject wipe;
+    GameObject wipe, wipeCDIndicator;
     bool wipeDestroyed;
     bool wipeActive;
     [SerializeField]
     float wipeLifeTime, wipeCooldown;
     float cooldownTimer;
+    MenuScript menu;
 
     //Sätter wipe till aktiv vid start, ta bort det här om den inte ska vara aktiv vid start. Men då bör ett annat condition implementeras.
     void Start()
     {
+        //menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
+        wipeCDIndicator = GameObject.Find("Canvas UI").transform.GetChild(2).gameObject;
         wipeDestroyed = true;
         wipeActive = true;
         cooldownTimer = wipeCooldown;
@@ -30,7 +33,7 @@ public class WipeScript : MonoBehaviour
     //Den har samma riktning som ShoulderAim.
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && wipeDestroyed && wipeActive)
+        if (Input.GetMouseButtonDown(1) && wipeDestroyed && wipeActive /*&& !menu.Paused*/)
         {
             wipeActive = false;
             wipeDestroyed = false;
@@ -40,10 +43,6 @@ public class WipeScript : MonoBehaviour
 
             wipeEffect.Play(true);
 
-            //wipeEffect = Instantiate(wipeEffect,
-            //                  new Vector3(startObject.transform.position.x, startObject.transform.position.y, startObject.transform.position.z),
-            //                  Quaternion.identity);
-
             wipe.transform.rotation = directionObject.transform.rotation;
             wipeEffect.transform.rotation = directionObject.transform.rotation;
             StartCoroutine(WipeLifetime());
@@ -51,12 +50,17 @@ public class WipeScript : MonoBehaviour
 
         if(!wipeActive)
         {
+            wipeCDIndicator.transform.GetChild(1).gameObject.SetActive(false);
             cooldownTimer -= Time.deltaTime;
             if(cooldownTimer <= 0)
             {
                 wipeActive = true;
                 cooldownTimer = wipeCooldown;
             }
+        }
+        if(wipeActive)
+        {
+            wipeCDIndicator.transform.GetChild(1).gameObject.SetActive(true);
         }
     }
 
