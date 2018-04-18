@@ -31,8 +31,9 @@ public class BossRoom : MonoBehaviour
     {
         if (startTimer)
             timer -= Time.deltaTime;
-        if(startTimer && startTime < 0)
+        if(startTimer && timer < 0)
         {
+            print("NURÅ");
             trigger.GetComponent<Interactable>().Activated();
             startTimer = false;
         }
