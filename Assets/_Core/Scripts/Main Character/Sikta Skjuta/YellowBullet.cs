@@ -33,7 +33,7 @@ public class YellowBullet : Projectile
     protected override void OnTriggerEnter(Collider coll)
     {
         base.OnTriggerEnter(coll);
-        if (coll.gameObject.tag != "Player" && coll.gameObject.tag != "Bullet" && coll.gameObject.tag != "PatrolPoint")
+        if (coll.gameObject.tag != "Player" && coll.gameObject.tag != "Bullet" && coll.gameObject.tag != "PatrolPoint" && coll.gameObject.tag != "Shield")
         {
             if (coll.gameObject.tag == "Weakpoint")
                 coll.GetComponent<MobStats>().TakeDamage(damage, color);

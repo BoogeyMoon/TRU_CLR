@@ -58,28 +58,32 @@ public class MenuScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) && inGame)
         {
-            paused = !paused;
-            if (paused)
+            if(!menus[7].activeInHierarchy && !menus[8].activeInHierarchy  )
             {
-                menus[1].SetActive(true);
-                menus[6].SetActive(true);
-            }
-            else
-            {
-                for (int i = 0; i < menus.Count; i++)
+                paused = !paused;
+                if (paused)
                 {
-                    menus[i].SetActive(false);
+                    menus[1].SetActive(true);
+                    menus[6].SetActive(true);
+                }
+                else
+                {
+                    for (int i = 0; i < menus.Count; i++)
+                    {
+                        menus[i].SetActive(false);
+                    }
                 }
             }
+            if (paused && inGame)
+            {
+                Time.timeScale = 0;
+            }
+            else if (!paused && inGame)
+            {
+                Time.timeScale = 1;
+            }
         }
-        if (paused && inGame)
-        {
-            Time.timeScale = 0;
-        }
-        else if (!paused && inGame)
-        {
-            Time.timeScale = 1;
-        }
+            
 
     }
 
@@ -120,7 +124,7 @@ public class MenuScript : MonoBehaviour
                 //Följande sätter alla upplåsta levels aktiva:
                 menus[2].transform.GetChild(unlockedLevels).transform.GetChild(0).gameObject.SetActive(true);
                 menus[2].transform.GetChild(unlockedLevels).transform.GetChild(0).GetComponent<Level_Button_Script>().
-                ChangeText(xmlScript.GetScore(unlockedLevels + 1), xmlScript.GetGrade(unlockedLevels));             //Ser till att texten motsvarar spelarens poäng och betyg
+                ChangeText(xmlScript.GetScore(unlockedLevels), xmlScript.GetGrade(unlockedLevels));             //Ser till att texten motsvarar spelarens poäng och betyg
             }
             //Följande sätter alla låsta levels aktiva:
             else
@@ -174,6 +178,8 @@ public class MenuScript : MonoBehaviour
 
     public void MainMenuButton()
     {
+        if (Time.timeScale == 0)
+            Time.timeScale = 1;
         inGame = false;
         SetMenusInactive();
         menus[0].gameObject.SetActive(true);
@@ -205,6 +211,8 @@ public class MenuScript : MonoBehaviour
     public void Restart()
     {
         SetMenusInactive();
+        if (Time.timeScale == 0)
+            Time.timeScale = 1;
         SceneManager.LoadScene(currentGameScene);
     }
 
