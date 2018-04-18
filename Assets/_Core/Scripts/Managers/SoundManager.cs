@@ -11,6 +11,8 @@ public class SoundManager : MonoBehaviour
     AudioSource[] efxSource;
     [SerializeField]
     static SoundManager instance = null;
+    [SerializeField]
+    AudioClip bossAudio;
 
     [SerializeField]
     float lowPitchRange = 0.95f, highPitchRange = 1.0f;
@@ -55,5 +57,10 @@ public class SoundManager : MonoBehaviour
             }
 
         }
+    }
+    public void ChangeToBossMusic()
+    {
+        musicSource.clip = bossAudio;
+        musicSource.Play();
     }
 }

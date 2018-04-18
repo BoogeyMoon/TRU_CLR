@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-// Av Andreas de Freitas
+//Av Andreas de Freitas
 //Hanterar det visuella för spelarens hälsa
 public class UIHealth2 : MonoBehaviour
 {
@@ -21,10 +21,10 @@ public class UIHealth2 : MonoBehaviour
         playerStats = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
         currentHealth = (int)playerStats.Health;
         fullHealth = maxHealth;
-        CheckHealth(currentHealth);
+        UpdateHealth(currentHealth);
     }
 
-    void CheckHealth(int health)
+    void UpdateHealth(int health) //Uppdaterar spelarens hälsa visuellt
     {
 
         for (int i = 0; i < maxHealth; i++)
@@ -44,20 +44,9 @@ public class UIHealth2 : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int health)
+    public void TakeDamage(int health) //Hanterar ifall spelaren tar skada
     {
         currentHealth = health;
-        CheckHealth(health);
+        UpdateHealth(health);
     }
-
-    /*   void AddHealth()
-       {
-           startLives++;
-           startLives = Mathf.Clamp(startLives, 0, maxHealthAmount);
-
-           // currentHealth = startLives * heal;
-           // fullHealth = maxHealthAmount * heal;
-
-           CheckHealth(startLives);
-       } */
 }
