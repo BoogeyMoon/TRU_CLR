@@ -16,6 +16,8 @@ public class MC_ShootScript : MonoBehaviour
 
     enum ColorProjectiles { Blue, Yellow, Red };
     int activeColor;
+    public int ActiveColor { get { return activeColor; } }
+
     [SerializeField]
     float laserDamage, shieldCooldown;
     float cooldown, fireRate, offsetZ, laserLength, currentShieldCooldown;
