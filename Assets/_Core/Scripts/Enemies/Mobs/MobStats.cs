@@ -148,7 +148,11 @@ public class MobStats : MonoBehaviour
     protected void Die() //Mob:en dör.
     {
         score.AddScore(scoreValue);
-        FloatingScore();
+
+        if (scoreValue != 0)
+        {
+            FloatingScore();
+        }
         dead = true;
         if (animator != null)
             animator.SetTrigger("deathTrigger");
