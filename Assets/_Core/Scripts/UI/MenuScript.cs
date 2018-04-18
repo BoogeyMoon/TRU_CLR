@@ -176,6 +176,7 @@ public class MenuScript : MonoBehaviour
     {
         inGame = false;
         SetMenusInactive();
+        menus[0].gameObject.SetActive(true);
         SceneManager.LoadScene("MenuScene");
         menuSound.Play();
     }
