@@ -21,7 +21,7 @@ public class WipeScript : MonoBehaviour
     //Sätter wipe till aktiv vid start, ta bort det här om den inte ska vara aktiv vid start. Men då bör ett annat condition implementeras.
     void Start()
     {
-        //menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
+        menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
         wipeCDIndicator = GameObject.Find("Canvas UI").transform.GetChild(2).gameObject;
         wipeDestroyed = true;
         wipeActive = true;
@@ -33,7 +33,7 @@ public class WipeScript : MonoBehaviour
     //Den har samma riktning som ShoulderAim.
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && wipeDestroyed && wipeActive /*&& !menu.Paused*/)
+        if (Input.GetMouseButtonDown(1) && wipeDestroyed && wipeActive && !menu.Paused)
         {
             wipeActive = false;
             wipeDestroyed = false;
