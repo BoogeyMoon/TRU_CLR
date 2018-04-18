@@ -14,7 +14,7 @@ public class BossRoom : MonoBehaviour
     float startTime;
     float timer;
     bool startTimer;
-
+    SoundManager sound;
     
     void Start() //hämtar komponenter
     {
@@ -26,6 +26,7 @@ public class BossRoom : MonoBehaviour
         }
         if (startTime == 0)
             startTime = 1;
+        sound = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
     }
     void Update()
     {
@@ -43,6 +44,7 @@ public class BossRoom : MonoBehaviour
         if (coll.tag == "Player")
         {
             jig.SetCameraPosition(cameraPosition);
+            sound.ChangeToBossMusic();
             if (trigger != null && trigger.GetComponent<Interactable>() != null)
             {
                 startTimer = true;
