@@ -8,7 +8,6 @@ public class Door : MonoBehaviour, Interactable
 {
     [SerializeField]
     AudioClip[] doorSound;
-    SoundManager soundManager;
 
     [SerializeField]
     float speed;
@@ -17,14 +16,11 @@ public class Door : MonoBehaviour, Interactable
     void Start()
     {
         startY = transform.position.y;
-        soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
     }
     public void Activated() //Öppnar en dörr
     {
         if (!activated)
             activated = true;
-        if (soundManager != null)
-            soundManager.RandomizeSfx(doorSound, 4, false);
         openDoor = !openDoor;
 
     }
