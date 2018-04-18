@@ -35,6 +35,7 @@ public class WinScript : MonoBehaviour
         ScoreManager.GetGrade();
         yield return new WaitForSeconds(1.5f);
         canvas.transform.GetChild(7).gameObject.SetActive(true);
+        Time.timeScale = 0;
     }
 
 }
