@@ -34,6 +34,7 @@ public class MC_ShootScript : MonoBehaviour
     SoundManager soundManager;
     PlayerStats playerStats;
     MenuScript menu;
+    PoolManager[] _pools;
 
 
     void Start()
@@ -48,6 +49,11 @@ public class MC_ShootScript : MonoBehaviour
         mcCharacter = gameObject;
         playerStats = GetComponent<PlayerStats>();
         menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
+        _pools = new PoolManager[2];
+        for (int i = 0; i < _pools.Length; i++)
+        {
+            _pools[i] = GameObject.FindGameObjectWithTag("PoolManagers").transform.GetChild(i).GetComponent<PoolManager>();
+        }
     }
 
     void Update()
@@ -69,7 +75,7 @@ public class MC_ShootScript : MonoBehaviour
             {
                 fireRate -= Time.deltaTime;
             }
-                currentShieldCooldown -= Time.deltaTime;
+            currentShieldCooldown -= Time.deltaTime;
         }
     }
 
@@ -84,13 +90,13 @@ public class MC_ShootScript : MonoBehaviour
                 switch (activeColor)
                 {
                     case 0:
-                        soundManager.RandomizeSfx(shotsBlue,0,false);
+                        soundManager.RandomizeSfx(shotsBlue, 0, false);
                         break;
                     case 1:
-                        soundManager.RandomizeSfx(shotsYellow,0,true);
+                        soundManager.RandomizeSfx(shotsYellow, 0, true);
                         break;
                     case 2:
-                        soundManager.RandomizeSfx(shotsMagenta,0,false);
+                        soundManager.RandomizeSfx(shotsMagenta, 0, false);
                         break;
                 }
 
@@ -99,10 +105,10 @@ public class MC_ShootScript : MonoBehaviour
             }
         }
         //Ändrar till en specifik knapp
-        if(Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Alpha3))
         {
             activeColor = 0;
-            if(Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 activeColor = 0;
             }
@@ -117,7 +123,7 @@ public class MC_ShootScript : MonoBehaviour
 
             SetMCColor();
         }
-        
+
 
         //Byter färg/egenskap på E och Q eller scroll:
         if (Input.GetKeyDown(KeyCode.E) || Input.GetAxis("Mouse ScrollWheel") > 0)
@@ -163,11 +169,17 @@ public class MC_ShootScript : MonoBehaviour
             laserLineRenderer.SetPosition(0, startPosition);
             laserLineRenderer.SetPosition(1, endPosition);
             laserLineRenderer.enabled = true;
+            currentBullet = Instantiate(colorsBullets[(int)ColorProjectiles.Red],
+        new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
+            fireRate = cooldown;
+        }
+        else
+        {
+            currentBullet = _pools[activeColor].InstantiatePool(
+                new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z));
+            fireRate = cooldown;
         }
 
-        currentBullet = Instantiate(colorsBullets[activeColor],
-        new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
-        fireRate = cooldown;
     }
 
     IEnumerator LaserLifeTime() //Stänger av line renderern efter en angiven tid

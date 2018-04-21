@@ -11,28 +11,42 @@ public class Projectile : MonoBehaviour
     protected float startVelocity, damage, startTime, lifeTime;
     [SerializeField]
     protected int color;
+    protected ParticleSystem particle;
+    protected bool active;
+    protected PoolManager _pool;
 
     protected void Start() // Hittar emptyn för att veta var vi siktar, samt sätter rotationen korrekt.
     {
         rotation = GameObject.Find("ShoulderAim");
         transform.rotation = rotation.transform.rotation;
         lifeTime = 10;
+        particle = GetComponent<ParticleSystem>();
+        if (color != 2)
+            _pool = GameObject.FindGameObjectWithTag("PoolManagers").transform.GetChild(color).GetComponent<PoolManager>();
     }
     protected virtual void Update() //Förstör kulan om den missar kolliders.
     {
-        startTime += Time.deltaTime;
-        if (startTime >= lifeTime)
+        if (active)
         {
-            Destroy(gameObject);
+            startTime += Time.deltaTime;
+            if (startTime >= lifeTime)
+            {
+                _pool.DestroyPool(transform);
+            }
         }
+
     }
 
     protected virtual void OnTriggerEnter(Collider coll) //Triggar switchar av rätt färg
     {
-        if(coll.transform.gameObject.tag == "Interactable")
+        if (active)
         {
-            coll.GetComponent<SwitchInteract>().Trigger(color);
-            Destroy(gameObject);
+            if (coll.transform.gameObject.tag == "Interactable")
+            {
+                coll.GetComponent<SwitchInteract>().Trigger(color);
+                _pool.DestroyPool(transform);
+            }
         }
+
     }
 }
