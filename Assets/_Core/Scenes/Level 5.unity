@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -4416,11 +4416,31 @@ Prefab:
       propertyPath: m_Center.z
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 114902953195378208, guid: f47ff51c0d9d6db47995500232fcd9e3,
+        type: 2}
+      propertyPath: interval
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 114902953195378208, guid: f47ff51c0d9d6db47995500232fcd9e3,
+        type: 2}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 773753587}
+    - target: {fileID: 114902953195378208, guid: f47ff51c0d9d6db47995500232fcd9e3,
+        type: 2}
+      propertyPath: patrolpoints
+      value: 
+      objectReference: {fileID: 1723941791}
     m_RemovedComponents:
     - {fileID: 65851937819567374, guid: f47ff51c0d9d6db47995500232fcd9e3, type: 2}
     - {fileID: 65890620880282436, guid: f47ff51c0d9d6db47995500232fcd9e3, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: f47ff51c0d9d6db47995500232fcd9e3, type: 2}
   m_IsPrefabParent: 0
+--- !u!4 &302191678 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4389676162466380, guid: f47ff51c0d9d6db47995500232fcd9e3,
+    type: 2}
+  m_PrefabInternal: {fileID: 302191677}
 --- !u!1001 &309358110
 Prefab:
   m_ObjectHideFlags: 0
@@ -5523,7 +5543,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 112343618
+  randomSeed: -630485142
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -14129,6 +14149,34 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 770440552}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &773753586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 773753587}
+  m_Layer: 0
+  m_Name: Spawnpoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &773753587
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 773753586}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 6.81, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 302191678}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &777155007
 Prefab:
   m_ObjectHideFlags: 0
@@ -23805,7 +23853,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 1589237306
+  randomSeed: 935319792
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -33920,7 +33968,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -469800437
+  randomSeed: -843308467
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -37618,7 +37666,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -365463098
+  randomSeed: -49313208
   InitialModule:
     serializedVersion: 3
     enabled: 1
