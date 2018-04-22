@@ -15,11 +15,28 @@ public class YellowBullet : Projectile, IPoolable
     float gravity = 0.5f;
     float zOffSet = -0.85f;
     Vector3 position;
-    public bool Active { get { return active; } set { active = value; transform.rotation = rotation.transform.rotation; particle.Play(); dropValue = 0; } }
+    bool _newObj = true;
+    TrailRenderer trail;
+    public bool Active { get { return active; } set { active = value; PoolableStart(); } }
 
     void Start()
     {
         base.Start();
+        trail = transform.GetChild(0).GetComponent<TrailRenderer>();
+    }
+
+    protected void PoolableStart()
+    {
+        if (_newObj)
+        {
+            _newObj = false;
+            Start();
+        }
+        transform.rotation = rotation.transform.rotation;
+        particle.Play(true);
+        trail.Clear();
+        trail.enabled = true;
+        dropValue = 0;
     }
 
     void Update()
@@ -44,6 +61,9 @@ public class YellowBullet : Projectile, IPoolable
             {
                 if (coll.gameObject.tag == "Weakpoint")
                     coll.GetComponent<MobStats>().TakeDamage(damage, color);
+                particle.Stop(true);
+                trail.enabled = false;
+                trail.Clear();
                 _pool.DestroyPool(transform);
             }
         }

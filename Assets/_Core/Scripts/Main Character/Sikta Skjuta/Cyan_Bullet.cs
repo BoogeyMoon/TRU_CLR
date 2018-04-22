@@ -6,8 +6,8 @@ using UnityEngine;
 //Beskriver den blå kulans beteende
 public class Cyan_Bullet : Projectile, IPoolable
 {
-    
-    public bool Active { get { return active; } set { active = value; transform.rotation = rotation.transform.rotation; particle.Play(); } }
+    bool _newObj = true;
+    public bool Active { get { return active; } set { active = value; PoolableStart(); } }
     protected override void Update() //Åker framåt
     {
         if (active)
@@ -16,6 +16,16 @@ public class Cyan_Bullet : Projectile, IPoolable
             transform.Translate(Vector3.forward * startVelocity * Time.deltaTime);
             
         }
+    }
+    protected void PoolableStart()
+    {
+        if (_newObj)
+        {
+            _newObj = false;
+            Start();
+        }
+        transform.rotation = rotation.transform.rotation;
+        particle.Play(true);
     }
 
     protected override void OnTriggerEnter(Collider coll) //Tar hand om collisioner

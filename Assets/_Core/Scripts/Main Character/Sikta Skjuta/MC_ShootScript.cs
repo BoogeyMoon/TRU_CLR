@@ -70,11 +70,9 @@ public class MC_ShootScript : MonoBehaviour
                 KeyPress();
             }
 
-            //Firerate räknar ner så länge den är över 0:
-            if (fireRate > 0)
-            {
-                fireRate -= Time.deltaTime;
-            }
+
+            fireRate += Time.deltaTime;
+
             currentShieldCooldown -= Time.deltaTime;
         }
     }
@@ -84,7 +82,7 @@ public class MC_ShootScript : MonoBehaviour
         //Skjuter på vänster musklick:
         if (Input.GetMouseButton(0))
         {
-            if (fireRate <= 0)
+            if (fireRate >= cooldown)
             {
                 laserLineRenderer.enabled = false;
                 switch (activeColor)
@@ -171,13 +169,13 @@ public class MC_ShootScript : MonoBehaviour
             laserLineRenderer.enabled = true;
             currentBullet = Instantiate(colorsBullets[(int)ColorProjectiles.Red],
         new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
-            fireRate = cooldown;
+            fireRate = 0;
         }
         else
         {
             currentBullet = _pools[activeColor].InstantiatePool(
                 new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z));
-            fireRate = cooldown;
+            fireRate = 0;
         }
 
     }

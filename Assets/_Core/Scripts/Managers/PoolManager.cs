@@ -38,7 +38,6 @@ public class PoolManager : MonoBehaviour
     public GameObject InstantiatePool(Vector3 spawnPosition)
     {
         Transform obj;
-
         if (_pool.Count > 0) //Hämtar ett objekt från poolen om det finns något där
         {
             obj = _pool[0];
@@ -48,6 +47,7 @@ public class PoolManager : MonoBehaviour
         {
             obj = Instantiate(_prefab).transform;
             obj.SetParent(_poolParent);
+            print("Bad hombres");
         }
 
         obj.position = spawnPosition;
@@ -61,10 +61,6 @@ public class PoolManager : MonoBehaviour
         obj.position = _poolParent.position;
         _pool.Add(obj);
         obj.GetComponent<IPoolable>().Active = false;
-    }
-    public string HelloWorld()
-    {
-        return "Hello World!";
     }
 
 

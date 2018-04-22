@@ -12,6 +12,8 @@ public class Projectile : MonoBehaviour
     [SerializeField]
     protected int color;
     protected ParticleSystem particle;
+    public ParticleSystem Particle { get { return particle; } }
+
     protected bool active;
     protected PoolManager _pool;
 
@@ -19,7 +21,7 @@ public class Projectile : MonoBehaviour
     {
         rotation = GameObject.Find("ShoulderAim");
         transform.rotation = rotation.transform.rotation;
-        lifeTime = 10;
+        lifeTime = 3;
         particle = GetComponent<ParticleSystem>();
         if (color != 2)
             _pool = GameObject.FindGameObjectWithTag("PoolManagers").transform.GetChild(color).GetComponent<PoolManager>();
@@ -31,6 +33,8 @@ public class Projectile : MonoBehaviour
             startTime += Time.deltaTime;
             if (startTime >= lifeTime)
             {
+                particle.Stop(true);
+                startTime = 0;
                 _pool.DestroyPool(transform);
             }
         }
@@ -44,6 +48,7 @@ public class Projectile : MonoBehaviour
             if (coll.transform.gameObject.tag == "Interactable")
             {
                 coll.GetComponent<SwitchInteract>().Trigger(color);
+                particle.Stop(true);
                 _pool.DestroyPool(transform);
             }
         }

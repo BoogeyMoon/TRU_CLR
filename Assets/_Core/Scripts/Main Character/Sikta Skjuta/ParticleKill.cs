@@ -9,7 +9,8 @@ public class ParticleKill : MonoBehaviour
     [SerializeField]
     float killTime;
     PoolManager _pool;
-	
+    ParticleSystem particle;
+
     void Start()
     {
         _pool = GameObject.FindGameObjectWithTag("PoolManagers").transform.GetChild(0).GetComponent<PoolManager>();
@@ -22,7 +23,10 @@ public class ParticleKill : MonoBehaviour
     IEnumerator KillSoon() //Förstör ett gameobject inom en given tid.
     {
         yield return new WaitForSeconds(killTime);
+        if (particle == null)
+            particle = GetComponent<Cyan_Bullet>().Particle;
+        particle.Stop(true);
         _pool.DestroyPool(transform);
     }
-        
+
 }
