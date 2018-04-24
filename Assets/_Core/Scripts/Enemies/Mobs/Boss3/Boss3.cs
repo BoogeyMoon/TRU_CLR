@@ -65,6 +65,7 @@ public class Boss3 : MobStats
             {
                 rotDoneTimer = timeBetweenRotation + 0.7f;
                 rotTimer = timeBetweenRotation;
+                transform.rotation = Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, rotateAngle); // make sure that the rotation snaps to the desired angle at the end instead of an imprecise one
                 rotateAngle = (rotateAngle + 120) % 360;
             }
             if (GetPlayerDistance(transform) < aggroRange && burstTimer < 0)

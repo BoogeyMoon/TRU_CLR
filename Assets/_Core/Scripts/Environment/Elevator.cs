@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 // by Slavko Stojnic
+// Handles the behaviour of moving platforms
 public class Elevator : MonoBehaviour {
 
     [SerializeField]
@@ -41,23 +42,19 @@ public class Elevator : MonoBehaviour {
 
         float step = speed * Time.deltaTime;
 
-        if (parenting) // if parenting, calculate distance
+        if (parenting) // If parenting, calculate distance
         {
-            //unparentPause = unparentPause + Time.deltaTime; // cooldown for parenting, probably unneessary
             dist = Vector3.Distance(getPlayer.position, transform.position);
-            //print(dist);
         }
 
-        if ((dist > 6) & parenting) // check if need to unparent MC
+        if ((dist > 6) & parenting) // Check if need to unparent MC (if they moved away from the platform)
         {
             getPlayer.parent = null;
             parenting = false;
-            print("Unparented!");
             dist = 0;
         }
+
         time += Time.deltaTime;
-
-
 
         if ((destinationLocal != null) && (Vector3.Distance(destinationLocal.position, transform.position) <= .1)) // reached one patrol point? go to next one.
          {
@@ -69,28 +66,13 @@ public class Elevator : MonoBehaviour {
         }
     }
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other) // If the player steps on the moving platform, make them move along with it (by parenting)
     {
         if ((other.transform.tag == "Player") & !parenting)
         {
             other.transform.parent = this.transform;
             parenting = true;
-            print("Parented!");
         }
     }
-    /*private void OnTriggerExit(Collider other) // older unparenting solution, probably unnecessary 
-    {
-        if ((other.transform.tag == "Player") & (unparentPause > 0.1f) & parenting)
-        {
-            other.transform.parent = null;
-            unparentPause = 0;
-            print("Unparented!");
-            parenting = false;
-        }
-    }*/
-    
-
-    
-
 }
 
