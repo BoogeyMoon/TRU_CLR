@@ -43,7 +43,7 @@ public class Score : MonoBehaviour
         currentScore -= scoreMultiplier;
     }
 
-    public void AddScore(int score) 
+    public void AddScore(int score) //Lägger till ytterligare poäng till spelarens nuvarande score
     {
         currentScore += score;
     }
