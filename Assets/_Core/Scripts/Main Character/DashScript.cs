@@ -54,7 +54,7 @@ public class DashScript : MonoBehaviour
             dashing = true;
             playerMovement.ZeroGravity(dashing);
             animator.SetBool("isDashing", dashing);
-            foreach (ParticleSystem particle in dashParticles)
+            foreach (ParticleSystem particle in dashParticles) // activate particles for the Dash
                 if (!playerMovement.FacingRight)
                     dashParticles[0].Play(true);
                 else
@@ -64,10 +64,10 @@ public class DashScript : MonoBehaviour
         if(dashing)
         {
             dist = Vector3.Distance(transform.position, endDash);
-            //Följande gör att spelaren dashar:
+            //Make the MC dash
             float step = moveSpeed * Time.deltaTime;
             transform.position = Vector3.Lerp(transform.position, endDash, step);
-            //Kollar om spelaren är nära raycastens slutposition (endDash). Vilket leder till att spelaren slutar dasha:
+            //Check if MC reached the destination. Stop the dash.
             if (dist <= approxValue)
             {
                 dashing = false;
@@ -86,7 +86,7 @@ public class DashScript : MonoBehaviour
         //Om spelaren försöker dasha in mot ett objekt:
         if (Physics.Raycast(ray, out raycastHit, lengthOfDash))
         {
-            endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z) ;
+            endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z) ; // make sure the z stays the same, just in case
         }
         else
         {

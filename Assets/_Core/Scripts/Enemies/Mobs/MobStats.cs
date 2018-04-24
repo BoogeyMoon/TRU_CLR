@@ -96,10 +96,10 @@ public class MobStats : MonoBehaviour
         if (color == this.color && health > 0)
         {
             health -= damage;
-            switch (this.color)
+            switch (this.color) // play the sounds based on colour of the mob
             {
                 case 0:
-                    if (damageCyan != null) { soundManager.RandomizeSfx(damageCyan, 3, true); }
+                    if (damageCyan != null) { soundManager.RandomizeSfx(damageCyan, 3, true); } 
                     break;
                 case 1:
                     if (damageYellow != null) { soundManager.RandomizeSfx(damageYellow, 3, true); }

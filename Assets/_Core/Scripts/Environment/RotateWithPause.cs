@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 //by Slavko Stojnic
-
+//Used for rotating platforms - one can regulate the frequency and angle of rotations
 public class RotateWithPause : MonoBehaviour {
 
     [SerializeField]
@@ -14,20 +14,17 @@ public class RotateWithPause : MonoBehaviour {
     bool rotationHasBegun;
     Quaternion rotateTo;
 
-	// Use this for initialization
 	void Start () {
         rotationHasBegun = false;
-
     }
 	
-	// Update is called once per frame
 	void Update () {
-        timeSinceStart = timeSinceStart + Time.deltaTime;
+        timeSinceStart = timeSinceStart + Time.deltaTime; 
         if (timeSinceStart >= timeBetweenRotations)
         {
-            if (!rotationHasBegun)
+            if (!rotationHasBegun) // sets the next rotation angle around Z axis
             {
-                desiredAngle = transform.rotation.eulerAngles.z + rotationAngle;
+                desiredAngle = transform.rotation.eulerAngles.z + rotationAngle; 
 
                 if (desiredAngle >= 360)
                 {
@@ -35,17 +32,15 @@ public class RotateWithPause : MonoBehaviour {
                 }
                 rotateTo = Quaternion.Euler(0, 0, desiredAngle);
             }
-
             rotationHasBegun = true;
 
-            transform.rotation = Quaternion.Slerp(transform.rotation, rotateTo, Time.deltaTime * 3);
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotateTo, Time.deltaTime * 3); // performs a smooth, quick rotation
             if (!((transform.rotation.eulerAngles.z <= desiredAngle - .1) || (transform.rotation.eulerAngles.z > desiredAngle*3)))
             {
-                transform.rotation = Quaternion.Euler(0,0,desiredAngle);
+                transform.rotation = Quaternion.Euler(0,0,desiredAngle); // make sure that the rotation snaps to the desired angle at the end instead of an imprecise one
                 timeSinceStart = -.1f ;
                 rotationHasBegun = false;
             }
         }
-
     }
 }
