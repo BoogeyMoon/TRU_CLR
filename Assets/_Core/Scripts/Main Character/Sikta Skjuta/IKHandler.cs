@@ -28,7 +28,7 @@ public class IKHandler : MonoBehaviour
         SettingAimPosition();
     }
 
-    void SettingAimPosition()
+    void SettingAimPosition() //Sätter en vector3 till positionen karaktären ska sikta
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;

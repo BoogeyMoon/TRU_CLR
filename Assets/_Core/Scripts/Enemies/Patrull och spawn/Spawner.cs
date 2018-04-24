@@ -46,7 +46,7 @@ public class Spawner : MonoBehaviour
             time = 0;
         }
     }
-    public void Upgrade()
+    public void Upgrade() //Increases the spawners spawnrate.
     {
         interval = interval - interval / 3;
     }

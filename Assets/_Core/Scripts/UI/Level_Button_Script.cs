@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+//Timmy Alvelöv
+
+//Ser till att knappen får rätt bild och text beroende på betyg och poäng.
 
 public class Level_Button_Script : MonoBehaviour {
     
@@ -9,7 +12,7 @@ public class Level_Button_Script : MonoBehaviour {
     [SerializeField]
     int gameNumber;
 
-    public void ChangeText(int score, int grade)
+    public void ChangeText(int score, int grade) //Ändrar text och bild beroende på betyg och score
     {
         text = transform.GetChild(transform.childCount - 1).GetComponent<Text>();
         if (score != -1 && grade != 0)

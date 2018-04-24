@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 //Av Timmy Alvelöv
 
-
-
+//Får en dörr att öppna sig från om den blir aktiverad från en annan källa
 public class DoorHorizontal : MonoBehaviour, Interactable
 {
     [SerializeField]

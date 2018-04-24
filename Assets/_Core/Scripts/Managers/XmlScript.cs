@@ -287,11 +287,11 @@ public class XmlScript : MonoBehaviour
         return -1;
     }
 
-    public void Quit()
+    public void Quit() // Avslutar spelet
     {
         Application.Quit();
     }
-    public void ActivatePanel(bool enabled)
+    public void ActivatePanel(bool enabled) //Sätter på och stänger av bakgrundsbilden
     {
         for (int i = 0; i < 2; i++)
         {

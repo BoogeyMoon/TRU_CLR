@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+//Av Timmy Alvelöv 
 
+//Tar hand om en pool av objekt som ska objektpoolas
 public interface IPoolable
 {
     bool Active { get; set; }
@@ -35,7 +37,7 @@ public class PoolManager : MonoBehaviour
             _pool.Add(obj);
         }
     }
-    public GameObject InstantiatePool(Vector3 spawnPosition)
+    public GameObject InstantiatePool(Vector3 spawnPosition) //Används för att ta ett objekt från poolen istället för att instansiera ett nytt.
     {
         Transform obj;
         if (_pool.Count > 0) //Hämtar ett objekt från poolen om det finns något där

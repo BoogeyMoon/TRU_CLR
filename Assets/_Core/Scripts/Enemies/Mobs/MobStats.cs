@@ -136,15 +136,6 @@ public class MobStats : MonoBehaviour
         }
     }
 
-    public void GainHealth(float life) //Ökar mob:ens hälsa
-    {
-        health += life;
-        if (health > maxHealth)
-        {
-            health = maxHealth;
-        }
-    }
-
     protected void Die() //Mob:en dör.
     {
         score.AddScore(scoreValue);

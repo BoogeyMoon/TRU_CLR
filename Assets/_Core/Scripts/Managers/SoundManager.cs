@@ -58,7 +58,7 @@ public class SoundManager : MonoBehaviour
 
         }
     }
-    public void ChangeToBossMusic()
+    public void ChangeToBossMusic() //Byter låt till bosslåten
     {
         musicSource.clip = bossAudio;
         musicSource.Play();

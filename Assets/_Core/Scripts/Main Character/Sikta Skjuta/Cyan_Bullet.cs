@@ -17,7 +17,7 @@ public class Cyan_Bullet : Projectile, IPoolable
             
         }
     }
-    protected void PoolableStart()
+    protected void PoolableStart() //Ersätter startmetoden för när något tar detta objekt från poolen.
     {
         if (_newObj)
         {

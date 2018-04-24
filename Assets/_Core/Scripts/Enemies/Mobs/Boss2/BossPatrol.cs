@@ -62,7 +62,6 @@ public class BossPatrol : MonoBehaviour
     {
         if (lastDestination == destination) //Ser till att vi inte krockar in i fel patrullställe
         {
-            print("HÄRÄRJAG");
             if (newDestination != null) //Sätter ny destination
                 destination = newDestination.transform;
             else //Går till nästa plats i listan

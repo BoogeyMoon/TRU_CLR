@@ -25,7 +25,7 @@ public class MenuScript : MonoBehaviour
     [SerializeField]
     Slider master, music, effects, dialogue;
     [SerializeField]
-    AudioSource tempMaster; //Bara för att simulera ljud TA BORT SEN
+    AudioSource tempMaster; 
 
     //Spara Canvas till nästa scen.
     void Awake()

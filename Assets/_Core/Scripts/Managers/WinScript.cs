@@ -30,7 +30,7 @@ public class WinScript : MonoBehaviour
         }
         StartCoroutine(Win());
     }
-    IEnumerator Win()
+    IEnumerator Win() // Hanterar allt som ska hänta när man vinner
     {
         ScoreManager.GetGrade();
         yield return new WaitForSeconds(1.5f);

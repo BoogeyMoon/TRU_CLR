@@ -25,7 +25,7 @@ public class YellowBullet : Projectile, IPoolable
         trail = transform.GetChild(0).GetComponent<TrailRenderer>();
     }
 
-    protected void PoolableStart()
+    protected void PoolableStart() //Ersätter startmetoden för när något tar detta objekt från poolen.
     {
         if (_newObj)
         {
@@ -46,13 +46,12 @@ public class YellowBullet : Projectile, IPoolable
             base.Update();
             dropValue = dropValue - gravity * Time.deltaTime;
             transform.Translate(Vector3.forward * startVelocity * Time.deltaTime);
-            //transform.Translate(new Vector3(0, dropValue, 0), Space.World);
             transform.position = new Vector3(transform.position.x, transform.position.y + dropValue, zOffSet);
         }
 
     }
 
-    protected override void OnTriggerEnter(Collider coll)
+    protected override void OnTriggerEnter(Collider coll) //Tar hand om collisioner
     {
         if (active)
         {
