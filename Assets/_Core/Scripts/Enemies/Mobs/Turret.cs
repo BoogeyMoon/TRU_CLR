@@ -13,6 +13,7 @@ public class Turret : MobStats
     {
         base.Start();
         SetToPlayerPlane(head);
+        raycastOrigin[0] = head.gameObject; 
 
     }
 
@@ -28,9 +29,9 @@ public class Turret : MobStats
 
             if (aggroRange > playerDistance)
             {
-                LookAtPlayer(head);
                 if (CanSeePlayer())
                 {
+                    LookAtPlayer(head);
                     if (burstTimer < 0)
                     {
                         if (timeLeft < 0)

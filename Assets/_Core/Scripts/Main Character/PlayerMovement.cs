@@ -19,8 +19,6 @@ public class PlayerMovement : MonoBehaviour
 
     public bool FacingRight { get { return facingRight; } }
 
-    bool zeroGravity;
-
     [SerializeField]
     Transform jumpParticleObject;
     ParticleSystem[] jumpParticles;
@@ -47,7 +45,6 @@ public class PlayerMovement : MonoBehaviour
         playerStats = GetComponent<PlayerStats>();
         facingRight = false;
         inAir = false;
-        zeroGravity = false;
         airtime = 0;
         startSpeed = speed;
         startingGravity = gravity;

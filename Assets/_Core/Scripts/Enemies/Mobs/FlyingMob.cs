@@ -28,14 +28,9 @@ public class FlyingMob : MobStats
     {
         if (!dead)
         {
-            if (CanSeePlayer())
-            {
-                timeSinceSeenPlayer = 0;
-            }
-            else
-            {
+            
                 timeSinceSeenPlayer += Time.deltaTime;
-            }
+            
             if (body.velocity != Vector3.zero)
             {
                 body.velocity = Vector3.zero;
@@ -51,6 +46,10 @@ public class FlyingMob : MobStats
 
             if (playerDistance <= aggroRange)
             {
+                if (CanSeePlayer())
+                {
+                    timeSinceSeenPlayer = 0;
+                }
                 if (timeSinceSeenPlayer <= loseTrackOfPlayer)
                 {
                     if (burstTimer < 0)
