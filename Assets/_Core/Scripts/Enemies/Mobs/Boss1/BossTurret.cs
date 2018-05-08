@@ -16,7 +16,7 @@ public class BossTurret : Turret
 
     protected override void Start()
     {
-        base.Start();
+        BaseStart();
         myMats = Turret.GetComponent<Renderer>().materials;
         boss = transform.parent.parent.parent.GetComponent<Boss_1>();
 
