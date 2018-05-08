@@ -39,7 +39,7 @@ public class YellowBullet : Projectile, IPoolable
         dropValue = 0;
     }
 
-    void Update()
+    protected override void Update()
     {
         if (active)
         {
