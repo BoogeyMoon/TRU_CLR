@@ -295,6 +295,7 @@ public class MobStats : MonoBehaviour
             if (Physics.Raycast(raycastOrigin[i].transform.position, new Vector3(playerTarget.position.x - raycastOrigin[i].transform.position.x, playerTarget.position.y - raycastOrigin[i].transform.position.y, playerTarget.position.z - raycastOrigin[i].transform.position.z), out hit, Mathf.Infinity))
             {
                 Debug.DrawRay(raycastOrigin[i].transform.position, new Vector3(playerTarget.position.x - transform.position.x, playerTarget.position.y - transform.position.y, playerTarget.position.z - transform.position.z), Color.blue);
+                print(hit.transform.tag);
                 if (hit.transform.gameObject.tag == "Player")
                 {
                     return true;
