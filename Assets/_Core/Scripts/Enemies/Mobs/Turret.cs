@@ -16,6 +16,11 @@ public class Turret : MobStats
         raycastOrigin[0] = head.gameObject; 
 
     }
+    protected void BaseStart() //Används av BossTurret för att inte sätta raycastOrigin[0] till head
+    {
+        base.Start();
+    }
+
 
     void Update() //Moben agerar
     {
