@@ -554,11 +554,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4525338657399812, guid: 16ff1c615febf0644ba8d55ebc9c19cc, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 157.98
+      value: 158.31
       objectReference: {fileID: 0}
     - target: {fileID: 4525338657399812, guid: 16ff1c615febf0644ba8d55ebc9c19cc, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -6.11
+      value: -5.719098
       objectReference: {fileID: 0}
     - target: {fileID: 4525338657399812, guid: 16ff1c615febf0644ba8d55ebc9c19cc, type: 2}
       propertyPath: m_LocalPosition.z
@@ -6890,11 +6890,20 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ce5dc780defe28343bee0e7e3a616133, type: 2}
   m_IsPrefabParent: 0
---- !u!4 &745319927 stripped
+--- !u!4 &745319927
 Transform:
-  m_PrefabParentObject: {fileID: 4549508479519072, guid: ce5dc780defe28343bee0e7e3a616133,
-    type: 2}
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 745319926}
+  m_GameObject: {fileID: 1670805651}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1582939040}
+  m_Father: {fileID: 220877773}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &751737009 stripped
 MonoBehaviour:
   m_PrefabParentObject: {fileID: 114643157688753058, guid: d06a2c038c235c84d933b30882f782cc,
@@ -6910,11 +6919,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4525338657399812, guid: 16ff1c615febf0644ba8d55ebc9c19cc, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 148.88
+      value: 149.68
       objectReference: {fileID: 0}
     - target: {fileID: 4525338657399812, guid: 16ff1c615febf0644ba8d55ebc9c19cc, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -8.63
+      value: -8.1090975
       objectReference: {fileID: 0}
     - target: {fileID: 4525338657399812, guid: 16ff1c615febf0644ba8d55ebc9c19cc, type: 2}
       propertyPath: m_LocalPosition.z
@@ -15737,6 +15746,34 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 92aa5dd6dd8c3284b87d145c8fc42c48, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1582939039
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 745319926}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1582939040}
+  m_Layer: 0
+  m_Name: Missing Prefab (Dummy)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1582939040
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 745319926}
+  m_GameObject: {fileID: 1582939039}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 745319927}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1595040986
 Prefab:
   m_ObjectHideFlags: 0
@@ -16260,7 +16297,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4546683239751968, guid: 388f3b8302edb9542acefa1951f96bb8, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -285
+      value: -285.00146
       objectReference: {fileID: 0}
     - target: {fileID: 4546683239751968, guid: 388f3b8302edb9542acefa1951f96bb8, type: 2}
       propertyPath: m_LocalPosition.y
@@ -16268,7 +16305,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4546683239751968, guid: 388f3b8302edb9542acefa1951f96bb8, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -15150
+      value: -14650.027
       objectReference: {fileID: 0}
     - target: {fileID: 4546683239751968, guid: 388f3b8302edb9542acefa1951f96bb8, type: 2}
       propertyPath: m_LocalRotation.x
@@ -16456,6 +16493,21 @@ Transform:
   m_PrefabParentObject: {fileID: 4746887334027912, guid: 4dd845a0e5b8f714db8618da5e4a9aa6,
     type: 2}
   m_PrefabInternal: {fileID: 1667289168}
+--- !u!1 &1670805651
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 745319926}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 745319927}
+  m_Layer: 0
+  m_Name: Missing Prefab
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1676324570
 GameObject:
   m_ObjectHideFlags: 0
