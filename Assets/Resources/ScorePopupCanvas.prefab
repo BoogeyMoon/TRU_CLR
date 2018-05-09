@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224319460827997874}
   - component: {fileID: 222969614161312600}
   - component: {fileID: 114655711842764926}
-  - component: {fileID: 95774181240789790}
+  - component: {fileID: 95749194845463980}
   m_Layer: 5
   m_Name: Score_Text
   m_TagString: Untagged
@@ -40,6 +40,7 @@ GameObject:
   - component: {fileID: 223763091134022334}
   - component: {fileID: 114411881652522288}
   - component: {fileID: 114319078852238100}
+  - component: {fileID: 114959550763012034}
   m_Layer: 5
   m_Name: ScorePopupCanvas
   m_TagString: ScoreCanvas
@@ -139,7 +140,7 @@ Transform:
   m_Father: {fileID: 4358327968831058}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &95774181240789790
+--- !u!95 &95749194845463980
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -228,6 +229,17 @@ MonoBehaviour:
   m_Text: 'memes
 
 '
+--- !u!114 &114959550763012034
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1392670578301014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8aa7d05da87f7c84ca75026e45cddbf5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!198 &198574333642712982
 ParticleSystem:
   m_ObjectHideFlags: 1

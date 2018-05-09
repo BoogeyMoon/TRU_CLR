@@ -1,8 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-// Av Andreas de Freitas Timmy Alvelöv
+// Av Andreas de Freitas & Timmy Alvelöv
 
 // Håller koll på hälsa, fart, osv. för mobs
 public class MobStats : MonoBehaviour
@@ -13,7 +12,6 @@ public class MobStats : MonoBehaviour
     SoundManager soundManager;
 
     //score popup memes :)
-    GameObject scoreCanvas;
     protected Vector3 deadMob;
 
 
@@ -21,6 +19,7 @@ public class MobStats : MonoBehaviour
     protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, spread, health, deathAnimDuration;
     [SerializeField]
     protected int color, numberOfBulletsPerShot, scoreValue;
+    public int ScoreValue { get { return scoreValue; } }
     [SerializeField]
     protected GameObject[] bulletSpawners, raycastOrigin;
     [SerializeField]
@@ -41,6 +40,8 @@ public class MobStats : MonoBehaviour
     protected int patrolCounter;
     protected Quaternion startRot;
     protected Animator animator;
+    protected PoolManager _pool;
+    protected PoolManager _textPool;
 
 
     void Awake()
@@ -51,9 +52,6 @@ public class MobStats : MonoBehaviour
     }
     protected virtual void Start()
     {
-        scoreCanvas = Resources.Load("ScorePopupCanvas") as GameObject;
-        
-
         score = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<Score>();
         if (GetComponent<Animator>() != null)
             animator = gameObject.GetComponent<Animator>();
@@ -76,6 +74,8 @@ public class MobStats : MonoBehaviour
             raycastOrigin = new GameObject[1];
             raycastOrigin[0] = bulletSpawners[0];
         }
+        _pool = GameObject.FindGameObjectWithTag("PoolManagers").transform.GetChild(2).GetComponent<PoolManager>();
+        _textPool = GameObject.FindGameObjectWithTag("PoolManagers").transform.GetChild(3).GetComponent<PoolManager>();
     }
     protected void updatePatrolPoints() //Kollar barnen på ett gameobject och lägger till dem i en lista.
     {
@@ -153,13 +153,9 @@ public class MobStats : MonoBehaviour
     protected void FloatingScore() //Skapar en popup textruta som visar hur mycket score som laggts till ens total. 
     {
         deadMob = this.transform.position; 
-        GameObject scoreCanvasInstance = Instantiate(scoreCanvas);
-        scoreCanvasInstance.transform.position = deadMob;
-        scoreCanvasInstance.GetComponentInChildren<Text>().text = scoreValue.ToString();
-        Animator anim = scoreCanvasInstance.GetComponentInChildren<Animator>();
-        AnimatorClipInfo[] clipinfo = anim.GetCurrentAnimatorClipInfo(0);
-        Destroy(scoreCanvasInstance, clipinfo[0].clip.length + 10);
-        
+        GameObject scoreCanvasInstance = _textPool.InstantiatePool(deadMob);
+        scoreCanvasInstance.GetComponent<Mob_ScorePopup>().PoolStart(this);
+
     }
 
 
@@ -274,9 +270,7 @@ public class MobStats : MonoBehaviour
     {
         for (int i = 0; i < bulletSpawners.Length; i++)
         {
-            currentBullet = Instantiate(bullet); //Skapar en kula
-
-            currentBullet.transform.position = bulletSpawners[i].transform.position; //Sätter positionen till mynningen på vapnet
+            currentBullet = _pool.InstantiatePool(bulletSpawners[i].transform.position); //Tar en kula från poolen och sätter positionen till mynningen på vapnet
             currentBullet.transform.rotation = bulletSpawners[i].transform.rotation; //Sätter rotationen så att skottet åker dit vapnet siktar
             currentBullet.transform.Rotate(RotationOffset, 0, 0); //Ändrar offseten för skottet om så önskas
         }

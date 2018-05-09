@@ -49,7 +49,6 @@ public class PoolManager : MonoBehaviour
         {
             obj = Instantiate(_prefab).transform;
             obj.SetParent(_poolParent);
-            print("Bad hombres");
         }
 
         obj.position = spawnPosition;

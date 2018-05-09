@@ -13,6 +13,7 @@ public class MCSpawner : MonoBehaviour
 	void Start () //Hämtar komponenter
     {
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        player.GetComponent<PlayerStats>().Dead = true;
         introPlayer = GameObject.FindGameObjectWithTag("IntroPlayer").transform;
         introPlayer.GetComponent<Animator>().enabled = false;
         ourCamera = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraManager>();
@@ -26,6 +27,7 @@ public class MCSpawner : MonoBehaviour
             {
                 ourCamera.FollowPlayer = true;
                 player.position = introPlayer.position;
+                player.GetComponent<PlayerStats>().Dead = false;
                 Destroy(introPlayer.gameObject);
                 Destroy(this);
             }
