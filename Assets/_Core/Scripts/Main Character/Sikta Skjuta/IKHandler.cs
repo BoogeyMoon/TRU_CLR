@@ -14,6 +14,8 @@ public class IKHandler : MonoBehaviour
     Vector3 lookObj = Vector3.zero;
     PlayerStats playerStats;
     MenuScript menu;
+    Vector3 lookP;
+    public Vector3 MousePos { get { return lookP; } }
 
     void Start()
     {
@@ -34,7 +36,7 @@ public class IKHandler : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit))
         {
-            Vector3 lookP = hit.point;
+            lookP = hit.point;
             lookP.z = transform.position.z;
             lookObj = lookP;
         }

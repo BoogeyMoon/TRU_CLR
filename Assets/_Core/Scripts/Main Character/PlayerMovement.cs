@@ -30,6 +30,8 @@ public class PlayerMovement : MonoBehaviour
     PlayerStats playerStats;
 
     CharacterController controller;
+
+    IKHandler IK;
     void Awake()
     {
         transform.position = new Vector3(transform.position.x, transform.position.y, offsetZ);
@@ -49,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
         startSpeed = speed;
         startingGravity = gravity;
         dash = GetComponent<DashScript>();
+        IK = GetComponent<IKHandler>();
     }
 
     void Update()
@@ -58,7 +61,6 @@ public class PlayerMovement : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, offsetZ);
             GroundCheck();
             animator.SetBool("isGrounded", isGrounded);
-
             moveOnX = Input.GetAxisRaw("Horizontal");
 
             if (isGrounded) //Ifall spelaren är på marken
@@ -75,12 +77,12 @@ public class PlayerMovement : MonoBehaviour
                 JumpOrFall();
             }
 
-            if (Input.mousePosition.x < Screen.width / 2 && facingRight == false) //Om muspekaren är på högra sidan av skärmen så vänder spelaren åt höger
+            if (IK.MousePos.x < transform.position.x && facingRight == false) //Om muspekaren är på högra sidan av skärmen så vänder spelaren åt höger
             {
                 FlipPlayer();
             }
 
-            if (Input.mousePosition.x > Screen.width / 2 && facingRight == true) //Om muspekaren är på vänstra sidan av skärmen så vänder spelaren åt vänster
+            if (IK.MousePos.x > transform.position.x && facingRight == true) //Om muspekaren är på vänstra sidan av skärmen så vänder spelaren åt vänster
             {
                 FlipPlayer();
             }
