@@ -27,6 +27,7 @@ public class PlayerStats : MonoBehaviour
     public bool Dead
     {
         get { return dead; }
+        set { dead = value; }
     }
 
     void Awake()
