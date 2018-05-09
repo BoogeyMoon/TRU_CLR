@@ -74,17 +74,15 @@ public class MenuScript : MonoBehaviour
                     }
                 }
             }
-            if (paused && inGame)
-            {
-                Time.timeScale = 0;
-            }
-            else if (!paused && inGame)
-            {
-                Time.timeScale = 1;
-            }
         }
-            
-
+        if (paused && inGame)
+        {
+            Time.timeScale = 0;
+        }
+        else if (!paused && inGame)
+        {
+            Time.timeScale = 1;
+        }
     }
 
     public void LoadGame(string gameScene)
@@ -178,8 +176,7 @@ public class MenuScript : MonoBehaviour
 
     public void MainMenuButton()
     {
-        if (Time.timeScale == 0)
-            Time.timeScale = 1;
+        paused = false;
         inGame = false;
         SetMenusInactive();
         menus[0].gameObject.SetActive(true);
