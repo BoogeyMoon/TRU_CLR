@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 54821577245886686}
   - component: {fileID: 136819608876774388}
   - component: {fileID: 114325860384542954}
+  - component: {fileID: 114471926117211750}
   m_Layer: 0
   m_Name: SK_Mob_2_Magenta_PF
   m_TagString: Weakpoint
@@ -322,6 +323,21 @@ MonoBehaviour:
   bullet: {fileID: 1391852344878852, guid: eb5fe13b20c43284fabd9f2d94d5927a, type: 2}
   patrolPoints: {fileID: 0}
   Aim: {fileID: 4892386315319258}
+--- !u!114 &114471926117211750
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1994240622069318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 588eb1f80586ac54ba2104d1d2cabd67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  howOften: 0.1
+  howLong: 0.4
+  howMuch: 12
+  howFast: 0.2
 --- !u!136 &136819608876774388
 CapsuleCollider:
   m_ObjectHideFlags: 1

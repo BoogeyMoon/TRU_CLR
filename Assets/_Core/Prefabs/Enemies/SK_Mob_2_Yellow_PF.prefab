@@ -129,6 +129,7 @@ GameObject:
   - component: {fileID: 54703585020550548}
   - component: {fileID: 136918130609173418}
   - component: {fileID: 114247897837894888}
+  - component: {fileID: 114721924883711644}
   m_Layer: 0
   m_Name: SK_Mob_2_Yellow_PF
   m_TagString: Weakpoint
@@ -318,6 +319,21 @@ MonoBehaviour:
   bullet: {fileID: 1391852344878852, guid: eb5fe13b20c43284fabd9f2d94d5927a, type: 2}
   patrolPoints: {fileID: 0}
   Aim: {fileID: 4376773819134010}
+--- !u!114 &114721924883711644
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1961155904786234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 588eb1f80586ac54ba2104d1d2cabd67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  howOften: 0.1
+  howLong: 0.4
+  howMuch: 12
+  howFast: 0.2
 --- !u!136 &136918130609173418
 CapsuleCollider:
   m_ObjectHideFlags: 1
