@@ -6725,7 +6725,6 @@ Transform:
   - {fileID: 491197729}
   - {fileID: 400033205}
   - {fileID: 2036507174}
-  - {fileID: 1715356241}
   - {fileID: 1848644915}
   - {fileID: 1921542584}
   - {fileID: 1151169732}
@@ -6741,10 +6740,12 @@ Transform:
   - {fileID: 1552736485}
   - {fileID: 263004434}
   - {fileID: 1740266856}
+  - {fileID: 1715356241}
   - {fileID: 1757719638}
   - {fileID: 1290003003}
   - {fileID: 1342643989}
   - {fileID: 1268288822}
+  - {fileID: 1177049371}
   - {fileID: 375803047}
   - {fileID: 289519417}
   - {fileID: 1291517904}
@@ -6752,7 +6753,6 @@ Transform:
   - {fileID: 497979757}
   - {fileID: 1981016782}
   - {fileID: 1766340547}
-  - {fileID: 1177049371}
   - {fileID: 49064403}
   - {fileID: 1874983020}
   - {fileID: 2045757525}
@@ -6774,8 +6774,8 @@ Transform:
   - {fileID: 1556960925}
   - {fileID: 1775381990}
   - {fileID: 765257455}
-  - {fileID: 562821947}
   - {fileID: 1140889312}
+  - {fileID: 562821947}
   m_Father: {fileID: 0}
   m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10392,7 +10392,13 @@ Prefab:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 41.480003
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 65177424319640954, guid: 9753cd7c0f0b30e4d9b0c6fd3270ad68,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 65177424319640954, guid: 9753cd7c0f0b30e4d9b0c6fd3270ad68, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 9753cd7c0f0b30e4d9b0c6fd3270ad68, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &879152528
@@ -14345,7 +14351,7 @@ Transform:
   m_LocalScale: {x: 1.2053117, y: 1.2053106, z: 1.2053106}
   m_Children: []
   m_Father: {fileID: 579291647}
-  m_RootOrder: 71
+  m_RootOrder: 64
   m_LocalEulerAnglesHint: {x: 90, y: -90.00001, z: 90.00001}
 --- !u!23 &1177049372
 MeshRenderer:
@@ -24946,13 +24952,12 @@ Transform:
   - {fileID: 702737428}
   - {fileID: 1107134857}
   - {fileID: 1844403473}
-  - {fileID: 1151508608}
-  - {fileID: 1204927662}
   - {fileID: 158981987}
-  - {fileID: 1472000315}
   - {fileID: 596411845}
   - {fileID: 1367862256}
+  - {fileID: 1151508608}
   - {fileID: 317606761}
+  - {fileID: 1204927662}
   - {fileID: 162151491}
   - {fileID: 1415346097}
   - {fileID: 1694109523}
@@ -24969,6 +24974,7 @@ Transform:
   - {fileID: 827700446}
   - {fileID: 887430084}
   - {fileID: 1201888066}
+  - {fileID: 1472000315}
   - {fileID: 139195935}
   - {fileID: 1257719268}
   - {fileID: 194800329}
