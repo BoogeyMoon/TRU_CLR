@@ -16,7 +16,7 @@ public class MobStats : MonoBehaviour
 
 
     [SerializeField]
-    protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, spread, health, deathAnimDuration;
+    protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, spread, health, deathAnimDuration, aggroIncrease;
     [SerializeField]
     protected int color, numberOfBulletsPerShot, scoreValue;
     public int ScoreValue { get { return scoreValue; } }
@@ -115,6 +115,7 @@ public class MobStats : MonoBehaviour
             else
             {
                 StartCoroutine(Flicker());
+                aggroRange += aggroIncrease; // makes the mob more aggro when you shoot it, OR NOT (set value to 0)
             }
         }
     }

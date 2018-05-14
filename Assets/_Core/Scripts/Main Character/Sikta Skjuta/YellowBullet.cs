@@ -37,6 +37,7 @@ public class YellowBullet : Projectile, IPoolable
         trail.Clear();
         trail.enabled = true;
         dropValue = 0;
+        startTime = 0;
     }
 
     protected override void Update()
