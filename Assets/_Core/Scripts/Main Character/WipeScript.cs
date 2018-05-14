@@ -28,7 +28,7 @@ public class WipeScript : MonoBehaviour
         wipeActive = true;
         cooldownTimer = wipeCooldown;
         wipeEffect = startObject.GetComponentInChildren<ParticleSystem>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
+        player = GetComponent<PlayerStats>();
     }
 
     //Wipen instansieras på ett objekt som befinner sig något framför GunBarrel.

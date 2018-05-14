@@ -40,7 +40,7 @@ public class DashScript : MonoBehaviour
         soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
         dashParticles = dashEmitter.GetComponentsInChildren<ParticleSystem>();
         menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
-        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
+        player = GetComponent<PlayerStats>();
     }
 
     void Update()
