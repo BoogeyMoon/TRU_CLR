@@ -17,6 +17,7 @@ public class WipeScript : MonoBehaviour
     float wipeLifeTime, wipeCooldown;
     float cooldownTimer;
     MenuScript menu;
+    PlayerStats player;
 
     //Sätter wipe till aktiv vid start, ta bort det här om den inte ska vara aktiv vid start. Men då bör ett annat condition implementeras.
     void Start()
@@ -27,13 +28,14 @@ public class WipeScript : MonoBehaviour
         wipeActive = true;
         cooldownTimer = wipeCooldown;
         wipeEffect = startObject.GetComponentInChildren<ParticleSystem>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
     }
 
     //Wipen instansieras på ett objekt som befinner sig något framför GunBarrel.
     //Den har samma riktning som ShoulderAim.
     void Update()
     {
-        if (Input.GetMouseButtonDown(1) && wipeDestroyed && wipeActive && !menu.Paused)
+        if (Input.GetMouseButtonDown(1) && wipeDestroyed && wipeActive && !menu.Paused && !player.Dead)
         {
             wipeActive = false;
             wipeDestroyed = false;
