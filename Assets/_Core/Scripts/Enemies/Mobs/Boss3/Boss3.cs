@@ -45,15 +45,15 @@ public class Boss3 : MobStats
                 dead = true;       //Ser till att den inte fortsätter göra något medan den är i sitt dödsstadie
                 win.WinConFinished(transform); //Låter winmanagern veta att det här winconditionet är slutfört
                 Die();
-            }
+            }//Här har två torn dött
             else if(childsLastFrame< transform.childCount && transform.childCount == startChilds -2)
             {
-                timeBetweenBurst = 1;
-            }
+                timeBetweenBurst = 0.5f;
+            }//Under är lättast / när ett torn har dött
             else if(childsLastFrame < transform.childCount && transform.childCount == startChilds - 1)
             {
-                timeBetweenBurst = 0.5f;
-                numberOfBulletsPerShot += 1;
+                timeBetweenBurst = 1;
+                numberOfBulletsPerShot ++;
             }
            
 

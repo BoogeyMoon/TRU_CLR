@@ -25,6 +25,7 @@ public class Cyan_Bullet : Projectile, IPoolable
             Start();
         }
         transform.rotation = rotation.transform.rotation;
+        startTime = 0;
         particle.Play(true);
     }
 
