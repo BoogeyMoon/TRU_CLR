@@ -98,36 +98,37 @@ public class MenuScript : MonoBehaviour
     {
         menus[0].SetActive(false);
         menus[2].SetActive(true);
+        Transform levelParent = menus[2].transform.GetChild(0);
         numberOfLevels = xmlScript.numberOfLevels;
-        for (int i = 0; i < menus[2].transform.childCount; i++) //Stänger av allt så att inget är kvar från förra sparningen
+        for (int i = 0; i < levelParent.childCount; i++) //Stänger av allt så att inget är kvar från förra sparningen
         {
-            for (int j = 0; j < menus[2].transform.GetChild(i).childCount; j++)
+            for (int j = 0; j < levelParent.transform.GetChild(i).childCount; j++)
             {
-                for (int c = 0; c < menus[2].transform.GetChild(i).GetChild(j).childCount-1; c++)
+                for (int c = 0; c < levelParent.transform.GetChild(i).GetChild(j).childCount-1; c++)
                 {
-                    menus[2].transform.GetChild(i).GetChild(j).GetChild(c).gameObject.SetActive(false);
+                    levelParent.transform.GetChild(i).GetChild(j).GetChild(c).gameObject.SetActive(false);
                 }
-                menus[2].transform.GetChild(i).GetChild(j).gameObject.SetActive(false);
+                levelParent.transform.GetChild(i).GetChild(j).gameObject.SetActive(false);
             }
         }
         for (int i = 0; i < numberOfLevels; i++)
         {
-            menus[2].transform.GetChild(i).gameObject.SetActive(true); //Sätter parent aktiv.
+            levelParent.GetChild(i).gameObject.SetActive(true); //Sätter parent aktiv.
             int tempScore = xmlScript.ScoreList[i];
-            menus[2].transform.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
-            menus[2].transform.GetChild(0).transform.GetChild(0).GetComponent<Level_Button_Script>().ChangeText(xmlScript.GetScore(0), xmlScript.GetGrade(0));
+            levelParent.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
+            levelParent.GetChild(0).transform.GetChild(0).GetComponent<Level_Button_Script>().ChangeText(xmlScript.GetScore(0), xmlScript.GetGrade(0));
             unlockedLevels = i + 1; //+1 för att nästa level ska låsas upp när en level är avklarad.
             if (tempScore > 0) //bör vara grade istället.
             {
                 //Följande sätter alla upplåsta levels aktiva:
-                menus[2].transform.GetChild(unlockedLevels).transform.GetChild(0).gameObject.SetActive(true);
-                menus[2].transform.GetChild(unlockedLevels).transform.GetChild(0).GetComponent<Level_Button_Script>().
+                levelParent.GetChild(unlockedLevels).transform.GetChild(0).gameObject.SetActive(true);
+                levelParent.GetChild(unlockedLevels).transform.GetChild(0).GetComponent<Level_Button_Script>().
                 ChangeText(xmlScript.GetScore(unlockedLevels), xmlScript.GetGrade(unlockedLevels));             //Ser till att texten motsvarar spelarens poäng och betyg
             }
             //Följande sätter alla låsta levels aktiva:
             else
             {
-                menus[2].transform.GetChild(unlockedLevels).transform.GetChild(1).gameObject.SetActive(true);
+                levelParent.GetChild(unlockedLevels).transform.GetChild(1).gameObject.SetActive(true);
             }
 
         }
