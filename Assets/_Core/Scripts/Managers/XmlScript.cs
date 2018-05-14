@@ -29,6 +29,8 @@ public class XmlScript : MonoBehaviour
         get { return scoreList; }
     }
     TextAsset path;
+    [SerializeField]
+    Text infoText, inputText;
     string currentPlayer;
 
     XmlDocument doc;
@@ -76,7 +78,6 @@ public class XmlScript : MonoBehaviour
     {
         registerAccountObject.SetActive(false);
         inlogObject.SetActive(true);
-
         playerNodeList = doc.GetElementsByTagName("player");
 
         foreach (XmlNode player in playerNodeList)
@@ -98,32 +99,32 @@ public class XmlScript : MonoBehaviour
         }
     }
 
-    //Vid klick på "Register Account" så tar följande metod in den text som skrivits i inputField och går igenom ifall det är ett godkänt namn att registrera.
-    public void RegisterAccount(Text inputField)
+    //Vid klick på "Create Account" så tar följande metod in den text som skrivits i inputField och går igenom ifall det är ett godkänt namn att skapa.
+    public void CheckIfValid(InputField inputField)
     {
         playerNodeList = doc.GetElementsByTagName("player");
         usernameInput = inputField.text;
+
+        //Sätter validName till true för att ha en utgångspunkt, 
+        //men efter kommande if-satser kan den sättas till false, om inte så är användarnamnet godkänt.
         validName = true;
 
-        if (playerNodeList.Count == 0)
+        //Om spelaren skrivit in ett användarnamn som har färre än 3 karaktärer:
+        if (usernameInput.Length < 3)
         {
-            if (usernameInput.Length < 3)
-            {
-                validName = false;
-                print("Name too short");
-            }
-
-            if (usernameInput.Length > 20)
-            {
-                validName = false;
-                print("Name too long");
-            }
-            else if (validName)
-            {
-                ValidName();
-            }
+            validName = false;
+            infoText.text = "Name too short";
+            infoText.gameObject.SetActive(true);
         }
-        else
+        //Om spelaren skrivit in ett användarnamn som har fler än 20 karaktärer:
+        if (usernameInput.Length > 20)
+        {
+            validName = false;
+            infoText.text = "Name too long";
+            infoText.gameObject.SetActive(true);
+        }
+        //Om användarnamnet har godkänd längd men är inte det första registrerade kontot, så kollar följande så det inte redan finns ett konto med samma namn:
+        else if (playerNodeList.Count > 0)
         {
             foreach (XmlNode playerNode in playerNodeList)
             {
@@ -131,40 +132,26 @@ public class XmlScript : MonoBehaviour
                 {
                     foreach (XmlNode usernameNode in playerNode)
                     {
-                        if (usernameNode.Name == "username")
+                        if (usernameNode.Name == "username" && usernameNode.InnerText == usernameInput)
                         {
-                            if (usernameNode.InnerText == usernameInput)
-                            {
-                                validName = false;
-                                print("Name taken");
-                            }
-                            else if (usernameInput.Length < 3)
-                            {
-                                validName = false;
-                                print("Name too short");
-                            }
-                            else if (usernameInput.Length > 20)
-                            {
-                                validName = false;
-                                print("Name too long");
-                            }
-
+                            validName = false;
+                            infoText.text = "Name taken";
+                            infoText.gameObject.SetActive(true);
                         }
                     }
-
                 }
             }
-            if (validName)
-            {
-                ValidName();
-            }
         }
-
-
+        //Om användarnamnet är godkänt:
+        if(validName)
+        {
+            infoText.gameObject.SetActive(false);
+            CreateAccount();
+            inputField.text = "";
+        }
     }
-
-    //Om namnet som ska registreras är godkänt så skickas det till följande metod som alltså registrerar namnet i xml-dokumentet.
-    void ValidName()
+    //Om namnet som ska registreras är godkänt så skickas det till följande metod som alltså skapar kontot i xml-dokumentet.
+    void CreateAccount()
     {
         player = doc.CreateElement("player");
         username = doc.CreateElement("username");
@@ -186,16 +173,23 @@ public class XmlScript : MonoBehaviour
         InlogPage();
     }
 
-    //Om man går från ingloggnings-menyn till "registrera konto"-menyn så sätts menyerna inaktiva,
-    //samt alla användares knappar förstörs (så nya kan skapas om användar-listan uppdateras).
+    //Om man går från ingloggnings-menyn till "skapa konto"-menyn så sätts menyerna inaktiva,
+    //samt alla "konto-knappar" i listan förstörs (så nya kan skapas om listan ändras).
     public void RegisterAccountPage()
     {
         for (int i = 0; i < playerNodeList.Count; i++)
         {
             Destroy(contentObject.transform.GetChild(i).gameObject);
         }
+
         inlogObject.SetActive(false);
         registerAccountObject.SetActive(true);
+    }
+
+    //Sätter info-texten inaktiv om något nytt skrivs i inputfield. Anropas från komponenten InputField (OnValueChanged()).
+    public void InfoTextInActive()
+    {
+        infoText.gameObject.SetActive(false);
     }
 
     public void GetStats(string currentPlayer)
@@ -224,7 +218,6 @@ public class XmlScript : MonoBehaviour
             }
         }
     }
-
     public void ChangeStats(int levelNumber, int score, int grade)
     {
         foreach (XmlNode player in playerNodeList)
@@ -247,7 +240,6 @@ public class XmlScript : MonoBehaviour
             }
         }
     }
-
     public int GetScore(int level) //Återlämnar poängen för en given level
     {
         foreach (XmlNode player in playerNodeList)
@@ -266,7 +258,7 @@ public class XmlScript : MonoBehaviour
         }
         return -1;
     }
-    public int GetGrade(int level)//Återlämnar betyget för en given level
+    public int GetGrade(int level) //Återlämnar betyget för en given level
     {
         foreach (XmlNode player in playerNodeList)
         {
@@ -286,7 +278,6 @@ public class XmlScript : MonoBehaviour
         }
         return -1;
     }
-
     public void Quit() // Avslutar spelet
     {
         Application.Quit();
@@ -297,7 +288,7 @@ public class XmlScript : MonoBehaviour
         {
             transform.GetChild(i).gameObject.SetActive(enabled);
         }
-        
-        
+
+
     }
 }

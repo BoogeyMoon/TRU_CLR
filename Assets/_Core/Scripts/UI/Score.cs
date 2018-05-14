@@ -50,6 +50,8 @@ public class Score : MonoBehaviour
     public int GetGrade() //Återlämnar vilket betyg spelaren skulle få med sin nuvarande poäng och sparar det i XML-databasen om det är ett rekord
     {
         currentScore += (int)player.Health * scorePerLife;
+        print("score: " + currentScore);
+        
         for (int i = 0; i < gradesCaps.Length; i++)
         {
             if (currentScore >= gradesCaps[gradesCaps.Length - 1 - i])
@@ -60,6 +62,7 @@ public class Score : MonoBehaviour
                 gradeIndex = grades.Length - i;
                 if (xml.GetScore(levelIndex) < currentScore)
                     xml.ChangeStats(levelIndex, currentScore, gradeIndex);
+                print("Grade: " + gradeIndex);
                 return grades.Length - i;
             }
         }
