@@ -19,7 +19,7 @@ public class MobStats : MonoBehaviour
     protected float speed, maxHealth, fireRate, aggroRange, distanceInterval, timeBetweenBurst, shotsPerBurst, spread, health, deathAnimDuration, aggroIncrease;
     [SerializeField]
     protected int color, numberOfBulletsPerShot, scoreValue;
-    public int ScoreValue { get { return scoreValue; } }
+    public int ScoreValue { get { return scoreValue; } set { scoreValue = value; } }
     [SerializeField]
     protected GameObject[] bulletSpawners, raycastOrigin;
     [SerializeField]
