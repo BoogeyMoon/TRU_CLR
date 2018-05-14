@@ -10,12 +10,13 @@ public class Door : MonoBehaviour, Interactable
     AudioClip[] doorSound;
 
     [SerializeField]
-    float speed;
+    float speed, height;
     bool openDoor, closeDoor = true, activated = false;
-    float height = 7.4f, startY;
+    float startY;
     void Start()
     {
         startY = transform.position.y;
+        if (height == 0) height = 7.4f;
     }
     public void Activated() //Öppnar en dörr
     {
