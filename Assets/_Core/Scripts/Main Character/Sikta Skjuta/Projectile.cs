@@ -34,7 +34,6 @@ public class Projectile : MonoBehaviour
             if (startTime >= lifeTime)
             {
                 particle.Stop(true);
-                startTime = 0;
                 _pool.DestroyPool(transform);
             }
         }
