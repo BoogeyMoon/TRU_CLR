@@ -22,17 +22,16 @@ public class FlyingMob : MobStats
         loseTrackOfPlayer = 1;
         timeSinceSeenPlayer = 0;
         SetToPlayerPlane(gameObject.transform);
-        if (raycastOrigin.Length <= 0)
-            raycastOrigin = new GameObject[] { gameObject };
+        raycastOrigin = new GameObject[] { gameObject };
 
     }
     void Update() //Ser till att rätt metoder anropas när de ska.
     {
         if (!dead)
         {
-            
-                timeSinceSeenPlayer += Time.deltaTime;
-            
+
+            timeSinceSeenPlayer += Time.deltaTime;
+
             if (body.velocity != Vector3.zero)
             {
                 body.velocity = Vector3.zero;
