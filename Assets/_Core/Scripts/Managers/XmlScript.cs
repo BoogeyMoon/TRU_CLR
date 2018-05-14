@@ -109,18 +109,17 @@ public class XmlScript : MonoBehaviour
         //men efter kommande if-satser kan den sättas till false, om inte så är användarnamnet godkänt.
         validName = true;
 
-        //Om spelaren skrivit in ett användarnamn som har färre än 3 karaktärer:
-        if (usernameInput.Length < 3)
+        //Om spelaren skrivit in ett användarnamn som har färre än 3 eller längre än 20 karaktärer:
+        if (usernameInput.Length < 3 || usernameInput.Length > 20)
         {
             validName = false;
-            infoText.text = "Name too short";
+            infoText.text = "Username must be within 3 to 20 characters long";
             infoText.gameObject.SetActive(true);
         }
-        //Om spelaren skrivit in ett användarnamn som har fler än 20 karaktärer:
-        if (usernameInput.Length > 20)
+        else if(usernameInput.Contains(" "))
         {
             validName = false;
-            infoText.text = "Name too long";
+            infoText.text = "Username can't contain BLANKSPACE";
             infoText.gameObject.SetActive(true);
         }
         //Om användarnamnet har godkänd längd men är inte det första registrerade kontot, så kollar följande så det inte redan finns ett konto med samma namn:
@@ -135,7 +134,7 @@ public class XmlScript : MonoBehaviour
                         if (usernameNode.Name == "username" && usernameNode.InnerText == usernameInput)
                         {
                             validName = false;
-                            infoText.text = "Name taken";
+                            infoText.text = "Username taken";
                             infoText.gameObject.SetActive(true);
                         }
                     }
