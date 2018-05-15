@@ -31,7 +31,7 @@ public class MC_ShootScript : MonoBehaviour
     Color[] colors;
     [SerializeField]
     AudioClip[] shotsBlue, shotsYellow, shotsMagenta;
-    SoundManager soundManager;
+    AudioManager soundManager;
     PlayerStats playerStats;
     MenuScript menu;
     PoolManager[] _pools;
@@ -39,7 +39,7 @@ public class MC_ShootScript : MonoBehaviour
 
     void Start()
     {
-        soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
+        soundManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
         colors = new Color[] { Color.cyan, Color.yellow, Color.magenta };
         offsetZ = -0.85f;
         laserLength = 50f;
@@ -88,13 +88,13 @@ public class MC_ShootScript : MonoBehaviour
                 switch (activeColor)
                 {
                     case 0:
-                        soundManager.RandomizeSfx(shotsBlue, 0, false);
+                        soundManager.RandomizeSfx(shotsBlue);
                         break;
                     case 1:
-                        soundManager.RandomizeSfx(shotsYellow, 0, true);
+                        soundManager.RandomizeSfx(shotsYellow);
                         break;
                     case 2:
-                        soundManager.RandomizeSfx(shotsMagenta, 0, false);
+                        soundManager.RandomizeSfx(shotsMagenta);
                         break;
                 }
 

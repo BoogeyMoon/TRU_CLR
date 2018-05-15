@@ -8,7 +8,7 @@ public class DashScript : MonoBehaviour
 {
     [SerializeField]
     AudioClip dashSound;
-    SoundManager soundManager;
+    AudioManager soundManager;
 
     [SerializeField]
     GameObject dashEmitter;
@@ -37,7 +37,7 @@ public class DashScript : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         playerMovement = gameObject.GetComponent<PlayerMovement>();
-        soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
+        soundManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
         dashParticles = dashEmitter.GetComponentsInChildren<ParticleSystem>();
         menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
         player = GetComponent<PlayerStats>();
@@ -49,7 +49,7 @@ public class DashScript : MonoBehaviour
         {
             dashOnCooldown = true;
             DashReady = false;
-            soundManager.PlaySingle(dashSound,1); // play Dash sound
+            soundManager.Play(dashSound.name); // play Dash sound
             startPosition = startObject.transform.position;
             direction = rifleBarrel.transform.forward;
             Dash();

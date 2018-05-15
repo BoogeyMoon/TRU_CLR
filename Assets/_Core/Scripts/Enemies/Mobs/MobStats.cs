@@ -8,8 +8,8 @@ public class MobStats : MonoBehaviour
 {
     Score score;
     [SerializeField]
-    AudioClip [] damageCyan, damageYellow, damageMagenta;
-    SoundManager soundManager;
+    AudioClip[] damageCyan, damageYellow, damageMagenta;
+    AudioManager soundManager;
 
     //score popup memes :)
     protected Vector3 deadMob;
@@ -48,7 +48,7 @@ public class MobStats : MonoBehaviour
     {
         playerTarget = GameObject.FindGameObjectWithTag("ShootHere").transform;
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
+        soundManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
     protected virtual void Start()
     {
@@ -99,13 +99,13 @@ public class MobStats : MonoBehaviour
             switch (this.color) // play the sounds based on colour of the mob
             {
                 case 0:
-                    if (damageCyan != null) { soundManager.RandomizeSfx(damageCyan, 3, true); } 
+                    if (damageCyan != null) { soundManager.RandomizeSfx(damageCyan); }
                     break;
                 case 1:
-                    if (damageYellow != null) { soundManager.RandomizeSfx(damageYellow, 3, true); }
+                    if (damageYellow != null) { soundManager.RandomizeSfx(damageYellow); }
                     break;
                 case 2:
-                    if (damageMagenta != null) { soundManager.RandomizeSfx(damageMagenta, 3, false); }
+                    if (damageMagenta != null) { soundManager.RandomizeSfx(damageMagenta); }
                     break;
             }
             if (!dead && health <= 0)
@@ -125,7 +125,7 @@ public class MobStats : MonoBehaviour
         if (color == this.color && health > 0)
         {
             health -= damage;
- 
+
             if (!dead && health <= 0)
             {
                 Die(obj);
@@ -153,7 +153,7 @@ public class MobStats : MonoBehaviour
 
     protected void FloatingScore() //Skapar en popup textruta som visar hur mycket score som laggts till ens total. 
     {
-        deadMob = this.transform.position; 
+        deadMob = this.transform.position;
         GameObject scoreCanvasInstance = _textPool.InstantiatePool(deadMob);
         scoreCanvasInstance.GetComponent<Mob_ScorePopup>().PoolStart(this);
 
@@ -339,7 +339,7 @@ public class MobStats : MonoBehaviour
         foreach (Renderer rend in renderers)
         {
             Material[] mats = rend.materials;
-            
+
             for (int i = 0; i < 2; i++)
             {
                 for (int j = 0; j < mats.Length; j++)
