@@ -64,7 +64,7 @@ public class AudioManager : MonoBehaviour
     public void Play(string name) //Spelar upp rätt spår som angets i inspektorn
     {
         Sound s = System.Array.Find(_sounds, Sound => Sound.Name == name);
-
+        print("Playing " + s.Name);
         if (s.Name == null) //Ifall spåret man försöker spela upp inte hittas ges ett felmeddelande
         {
             print("Sound " + name + " not found!");

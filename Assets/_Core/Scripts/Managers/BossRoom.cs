@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 //Av Timmy Alvelöv
 
-//Ser till att kameran låser sig till en punkt när spelaren kommer fram till triggern
+//Ser till att kameran låser sig till en punkt när spelaren kommer fram till triggern, samt har hand om att spela upp rätt låt vid rätt tillfälle
 public class BossRoom : MonoBehaviour
 {
     [SerializeField]
@@ -14,7 +14,7 @@ public class BossRoom : MonoBehaviour
     float startTime;
     float timer;
     bool startTimer;
-    SoundManager sound;
+    AudioManager sound;
     
     void Start() //hämtar komponenter
     {
@@ -26,7 +26,8 @@ public class BossRoom : MonoBehaviour
         }
         if (startTime == 0)
             startTime = 1;
-        sound = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
+        sound = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+        sound.Play("S_TRU_CLR_InGame"); //Startar in-gameljudet 
     }
     void Update()
     {
@@ -43,7 +44,7 @@ public class BossRoom : MonoBehaviour
         if (coll.tag == "Player")
         {
             jig.SetCameraPosition(cameraPosition);
-            sound.ChangeToBossMusic();
+            sound.Play("S_TRU_CLR_Boss");
             if (trigger != null && trigger.GetComponent<Interactable>() != null)
             {
                 startTimer = true;
