@@ -15,7 +15,7 @@ using UnityEngine.UI;
 
 public class XmlScript : MonoBehaviour
 {
-    string filePath, usernameInput;
+    string filePath, usernameInput, currentPlayer;
     int counter, score;
     public int numberOfLevels;
     bool validName;
@@ -24,6 +24,7 @@ public class XmlScript : MonoBehaviour
     GameObject contentObject, userButtonPrefab, inlogObject, registerAccountObject, loginPage, eventSystem;
 
     List<int> scoreList;
+    List<string> languages;
     public List<int> ScoreList
     {
         get { return scoreList; }
@@ -31,10 +32,13 @@ public class XmlScript : MonoBehaviour
     TextAsset path;
     [SerializeField]
     Text infoText, inputText;
-    string currentPlayer;
+    [SerializeField]
+    Font textFont;
+    [SerializeField]
+    Sprite buttonSprite;
 
     XmlDocument doc;
-    XmlElement player, username, level;
+    XmlElement player, username, level, language;
     XmlWriter writer;
     XmlNodeList playerNodeList;
 
@@ -42,6 +46,8 @@ public class XmlScript : MonoBehaviour
     {
         if (GameObject.FindGameObjectsWithTag("Canvas").Length > 1)
             Destroy(gameObject);
+
+        languages = new List<string> { "english", "swedish", "spanish" };
 
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(eventSystem);
@@ -71,6 +77,7 @@ public class XmlScript : MonoBehaviour
         {
             doc.Save(writer);
         }
+        print(filePath);
     }
 
     //Om spelaren går in i ingloggnings-menyn så gör följande metod att samtliga användare som registrerats visas i en lista.
@@ -90,6 +97,8 @@ public class XmlScript : MonoBehaviour
                     {
                         counter++;
                         GameObject user = Instantiate(userButtonPrefab) as GameObject;
+                        user.GetComponentInChildren<Text>().font = textFont;
+                        user.GetComponent<Image>().sprite = buttonSprite;
                         user.SetActive(true);
                         user.transform.SetParent(contentObject.transform, false);
                         user.GetComponentInChildren<Text>().text = username.InnerText;
@@ -156,6 +165,9 @@ public class XmlScript : MonoBehaviour
         username = doc.CreateElement("username");
         username.InnerText = usernameInput;
         player.AppendChild(username);
+       /* language = doc.CreateElement("language");
+        language.InnerText = */
+
         for (int i = 0; i < numberOfLevels; i++)
         {
             level = doc.CreateElement("level_" + i);
@@ -190,7 +202,6 @@ public class XmlScript : MonoBehaviour
     {
         infoText.gameObject.SetActive(false);
     }
-
     public void GetStats(string currentPlayer)
     {
         scoreList = new List<int>();
