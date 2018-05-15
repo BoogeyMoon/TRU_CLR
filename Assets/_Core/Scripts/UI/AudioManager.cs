@@ -35,16 +35,27 @@ public class AudioManager : MonoBehaviour
 
         foreach (Sound s in _sounds) //Hanterar volym, pitch och loop ifrån ljuder till audiosourcen
         {
+
             s.Source = gameObject.AddComponent<AudioSource>();
             s.Source.clip = s.Clip;
-
+            s.Source.playOnAwake = false;
             s.Source.volume = s.Volume;
-            s.Source.pitch = s.Pitch;
-            s.Source.loop = s.Loop;
+            s.Source.pitch = 1;
+
             if (s.Name.Substring(0, 2) == "S_")
+            {
+                s.Source.volume = _musicSlider.value * _masterSlider.value;
                 s.Type = Sliders.Music;
+                s.Source.loop = true;
+            }
+
             else
+            {
+                s.Source.volume = _efxSlider.value * _masterSlider.value;
                 s.Type = Sliders.Efx;
+                s.Source.loop = false;
+            }
+
         }
 
         AudioListener.volume = _musicSlider.value; //Sätter ljudets volym till sliderns volym 
@@ -56,21 +67,61 @@ public class AudioManager : MonoBehaviour
         Play(soundList[s].name);
     }
 
-    public void OnValueChanged(System.Enum sliderType) //Anpassar volymen med hjälp av slidern
+    public void OnValueChanged() //Anpassar volymen med hjälp av slidern
     {
-        AudioListener.volume = _musicSlider.value;
+        //switch(sliderType)
+        //{
+        //    case (Sliders.Music):
+        //        break;
+        //    case (Sliders.Efx):
+        //        break;
+        //    default:
+        //        break;
+
+        //}
+        ChangeVolume();
     }
 
     public void Play(string name) //Spelar upp rätt spår som angets i inspektorn
     {
         Sound s = System.Array.Find(_sounds, Sound => Sound.Name == name);
-        print("Playing " + s.Name);
-        if (s.Name == null) //Ifall spåret man försöker spela upp inte hittas ges ett felmeddelande
+        if (s == null) //Ifall spåret man försöker spela upp inte hittas ges ett felmeddelande
         {
             print("Sound " + name + " not found!");
             return;
         }
 
         s.Source.Play(); //Spelar upp det valda spåret
+    }
+    public void Stop(string name)
+    {
+        Sound s = System.Array.Find(_sounds, Sound => Sound.Name == name);
+        if (s == null) //Ifall spåret man försöker stoppa inte hittas ges ett felmeddelande
+        {
+            print("Sound " + name + " not found!");
+            return;
+        }
+
+        s.Source.Stop();
+    }
+    void ChangeVolume()
+    {
+        foreach (Sound s in _sounds)
+        {
+            s.Source = gameObject.GetComponent<AudioSource>();
+            if (s.Name.Substring(0, 2) == "S_")
+            {
+                print("Changing volume music");
+                s.Source.volume = _musicSlider.value * _masterSlider.value;
+                print(s.Name);
+            }
+
+            else
+            {
+                print("Changing volume SFX");
+                s.Source.volume = _efxSlider.value * _masterSlider.value;
+            }
+
+        }
     }
 }

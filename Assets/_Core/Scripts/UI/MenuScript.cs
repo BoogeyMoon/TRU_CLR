@@ -11,7 +11,6 @@ public class MenuScript : MonoBehaviour
     GameObject mainMenu, loadMenu, settingsMenu, confirmQuit, creditsMenu, pauseMenu, pausePanel, winScreen, loseScreen, areYouSure;
     [SerializeField]
     GameObject eventSystem;
-    AudioSource menuSound;
     List<GameObject> menus;
     int numberOfLevels, unlockedLevels;
     int score;
@@ -24,8 +23,7 @@ public class MenuScript : MonoBehaviour
     XmlScript xmlScript;
     [SerializeField]
     Slider master, music, effects, dialogue;
-    [SerializeField]
-    AudioSource tempMaster; 
+    AudioManager menuSound;
 
     //Spara Canvas till nästa scen.
     void Awake()
@@ -36,13 +34,13 @@ public class MenuScript : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
         xmlScript = GameObject.FindGameObjectWithTag("Canvas").GetComponent<XmlScript>();
+        menuSound = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
     //Sätter alla värden
     void Start()
     {
         inGame = false;
-        menuSound = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<AudioSource>();
-        menuSound.Play();
+        menuSound.Play("S_TRU_CLR_Menu");
         menus = new List<GameObject>() { mainMenu, pausePanel, loadMenu, settingsMenu, creditsMenu, confirmQuit, pauseMenu, winScreen, loseScreen, areYouSure };
         for (int i = 0; i < menus.Count; i++)
         {
@@ -54,7 +52,6 @@ public class MenuScript : MonoBehaviour
     //Öppna och stänga pausmeny.
     void Update()
     {
-        tempMaster.volume = master.value; //Här sätter man ljudetsvolym LÄGG IN RESTEN SEN
 
         if (Input.GetKeyDown(KeyCode.Escape) && inGame)
         {
@@ -90,7 +87,7 @@ public class MenuScript : MonoBehaviour
         currentGameScene = gameScene;
         SetMenusInactive();
         inGame = true;
-        menuSound.Stop();
+        menuSound.Stop("S_TRU_CLR_Menu");
         SceneManager.LoadScene(currentGameScene);
     }
 
@@ -182,7 +179,7 @@ public class MenuScript : MonoBehaviour
         SetMenusInactive();
         menus[0].gameObject.SetActive(true);
         SceneManager.LoadScene("MenuScene");
-        menuSound.Play();
+        menuSound.Play("S_TRU_CLR_Menu");
     }
 
     void SetMenusInactive()
@@ -200,7 +197,7 @@ public class MenuScript : MonoBehaviour
     //Backar tillbaka till login-scene.
     public void ChangeUser()
     {
-        menuSound.Stop();
+        menuSound.Stop("S_TRU_CLR_Menu");
         SetMenusInactive();
         xmlScript.ActivatePanel(true);
         SceneManager.LoadScene("LogInScene");
