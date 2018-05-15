@@ -97,8 +97,6 @@ public class XmlScript : MonoBehaviour
                     {
                         counter++;
                         GameObject user = Instantiate(userButtonPrefab) as GameObject;
-                        user.GetComponentInChildren<Text>().font = textFont;
-                        user.GetComponent<Image>().sprite = buttonSprite;
                         user.SetActive(true);
                         user.transform.SetParent(contentObject.transform, false);
                         user.GetComponentInChildren<Text>().text = username.InnerText;
@@ -165,8 +163,8 @@ public class XmlScript : MonoBehaviour
         username = doc.CreateElement("username");
         username.InnerText = usernameInput;
         player.AppendChild(username);
-       /* language = doc.CreateElement("language");
-        language.InnerText = */
+        language = doc.CreateElement("language");
+        language.InnerText = languages[0];
 
         for (int i = 0; i < numberOfLevels; i++)
         {
