@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 //Följande script instansierar en wipe som tar bort kulor som befinner sig inom det område den har instansierats.
 //Skapat av Moa Lindgren.
@@ -11,6 +12,7 @@ public class WipeScript : MonoBehaviour
     GameObject wipePrefab, startObject, directionObject;
     ParticleSystem wipeEffect;
     GameObject wipe, wipeCDIndicator;
+    Image wipeImage;
     bool wipeDestroyed;
     bool wipeActive;
     [SerializeField]
@@ -24,6 +26,7 @@ public class WipeScript : MonoBehaviour
     {
         menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
         wipeCDIndicator = GameObject.Find("Canvas UI").transform.GetChild(2).gameObject;
+        wipeImage = wipeCDIndicator.transform.GetChild(1).GetComponent<Image>();
         wipeDestroyed = true;
         wipeActive = true;
         cooldownTimer = wipeCooldown;
@@ -48,22 +51,23 @@ public class WipeScript : MonoBehaviour
             wipe.transform.rotation = directionObject.transform.rotation;
             wipeEffect.transform.rotation = directionObject.transform.rotation;
             StartCoroutine(WipeLifetime());
+            wipeImage.fillAmount = 0;
         }
 
-        if(!wipeActive)
+        if (!wipeActive)
         {
-            wipeCDIndicator.transform.GetChild(1).gameObject.SetActive(false);
             cooldownTimer -= Time.deltaTime;
-            if(cooldownTimer <= 0)
+            wipeImage.fillAmount += Time.deltaTime * 0.2f;
+
+
+            if (cooldownTimer <= 0) 
             {
                 wipeActive = true;
                 cooldownTimer = wipeCooldown;
+                wipeImage.fillAmount = 1;
             }
         }
-        if(wipeActive)
-        {
-            wipeCDIndicator.transform.GetChild(1).gameObject.SetActive(true);
-        }
+        
     }
 
     //Hur länge wipen existerar:
