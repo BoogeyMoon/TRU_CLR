@@ -2370,7 +2370,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1758633439
+  randomSeed: 2099202153
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -8882,6 +8882,11 @@ Prefab:
       propertyPath: aggroRange
       value: 38
       objectReference: {fileID: 0}
+    - target: {fileID: 114818947345882054, guid: f47ff51c0d9d6db47995500232fcd9e3,
+        type: 2}
+      propertyPath: scoreValue
+      value: 1000
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 65851937819567374, guid: f47ff51c0d9d6db47995500232fcd9e3, type: 2}
     - {fileID: 65890620880282436, guid: f47ff51c0d9d6db47995500232fcd9e3, type: 2}
@@ -9962,7 +9967,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 537919921
+  randomSeed: 265745565
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -13636,7 +13641,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 607402076
+  randomSeed: 200529018
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -21669,7 +21674,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 1796083969
+  randomSeed: -455069206
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -26850,22 +26855,27 @@ Prefab:
     - target: {fileID: 114400345458540622, guid: ce026fa48de4e264d96573aa7fc62bd6,
         type: 2}
       propertyPath: gradesCaps.Array.data[0]
-      value: 1000
+      value: 3000
       objectReference: {fileID: 0}
     - target: {fileID: 114400345458540622, guid: ce026fa48de4e264d96573aa7fc62bd6,
         type: 2}
       propertyPath: gradesCaps.Array.data[1]
-      value: 1250
+      value: 4000
       objectReference: {fileID: 0}
     - target: {fileID: 114400345458540622, guid: ce026fa48de4e264d96573aa7fc62bd6,
         type: 2}
       propertyPath: gradesCaps.Array.data[2]
-      value: 1500
+      value: 5300
       objectReference: {fileID: 0}
     - target: {fileID: 114400345458540622, guid: ce026fa48de4e264d96573aa7fc62bd6,
         type: 2}
       propertyPath: gradesCaps.Array.data[3]
-      value: 2000
+      value: 6500
+      objectReference: {fileID: 0}
+    - target: {fileID: 114400345458540622, guid: ce026fa48de4e264d96573aa7fc62bd6,
+        type: 2}
+      propertyPath: multiplierSpeed
+      value: 3.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: ce026fa48de4e264d96573aa7fc62bd6, type: 2}
@@ -30748,7 +30758,7 @@ Prefab:
     - target: {fileID: 114252818721408620, guid: 43457659388034f47889632de8b96c0a,
         type: 2}
       propertyPath: damageYellow.Array.size
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114680022345083392, guid: 43457659388034f47889632de8b96c0a,
         type: 2}
@@ -30877,7 +30887,7 @@ Prefab:
         type: 2}
       propertyPath: damageYellow.Array.data[0]
       value: 
-      objectReference: {fileID: 8300000, guid: b2d9e2e30751a6943ad7f9124eecd978, type: 3}
+      objectReference: {fileID: 8300000, guid: 794d2df5c8c903545b271af672dd7d2e, type: 3}
     - target: {fileID: 114045407786600724, guid: 43457659388034f47889632de8b96c0a,
         type: 2}
       propertyPath: maxHealth
@@ -30923,6 +30933,36 @@ Prefab:
       propertyPath: damageCyan.Array.data[7]
       value: 
       objectReference: {fileID: 8300000, guid: d18a046337b39d84c8c4285ec8089b52, type: 3}
+    - target: {fileID: 114917980094314992, guid: 43457659388034f47889632de8b96c0a,
+        type: 2}
+      propertyPath: scoreValue
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 114680022345083392, guid: 43457659388034f47889632de8b96c0a,
+        type: 2}
+      propertyPath: scoreValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114045407786600724, guid: 43457659388034f47889632de8b96c0a,
+        type: 2}
+      propertyPath: scoreValue
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114252818721408620, guid: 43457659388034f47889632de8b96c0a,
+        type: 2}
+      propertyPath: damageYellow.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: ca7f1b6a912a86e42a63c8809e135712, type: 3}
+    - target: {fileID: 114252818721408620, guid: 43457659388034f47889632de8b96c0a,
+        type: 2}
+      propertyPath: damageYellow.Array.data[2]
+      value: 
+      objectReference: {fileID: 8300000, guid: 888051e12a0b5c142bf86f2f21353ea9, type: 3}
+    - target: {fileID: 114252818721408620, guid: 43457659388034f47889632de8b96c0a,
+        type: 2}
+      propertyPath: damageYellow.Array.data[3]
+      value: 
+      objectReference: {fileID: 8300000, guid: 04db650176038c747ae4a0f873c734a9, type: 3}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 43457659388034f47889632de8b96c0a, type: 2}
   m_IsPrefabParent: 0
@@ -31106,6 +31146,7 @@ MonoBehaviour:
   - {fileID: 1809102768}
   - {fileID: 1090528939}
   speed: 4
+  bossFightElevator: 0
 --- !u!114 &968295097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33512,7 +33553,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 2076814916
+  randomSeed: 1133185252
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -43251,7 +43292,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1054896303
+  randomSeed: -1815155036
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -47450,7 +47491,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1130822194
+  randomSeed: -1178760556
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -53708,7 +53749,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 1272014592
+  randomSeed: -456345764
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -57378,7 +57419,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 338145162
+  randomSeed: 1077608972
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -60903,7 +60944,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -354041724
+  randomSeed: 1607487490
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -64504,7 +64545,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -2143713120
+  randomSeed: -321433397
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -68192,7 +68233,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 214272766
+  randomSeed: -724684812
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -74781,7 +74822,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: -1333707267
+  randomSeed: -700383536
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -78924,7 +78965,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 0
-  randomSeed: 1552620234
+  randomSeed: 1676917743
   InitialModule:
     serializedVersion: 3
     enabled: 1
