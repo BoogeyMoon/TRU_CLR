@@ -7,23 +7,17 @@ using UnityEngine;
 public class DoorHorizontal : MonoBehaviour, Interactable
 {
     [SerializeField]
-    AudioClip[] doorSound;
-    SoundManager soundManager;
-
-    [SerializeField]
     float speed;
     bool openDoor, closeDoor = true, activated = false;
     float height = 7.4f, startX;
     void Start()
     {
         startX = transform.position.x;
-        soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
     }
     public void Activated() //Öppnar en dörr
     {
         if (!activated)
             activated = true;
-        soundManager.RandomizeSfx(doorSound,4,false);
         openDoor = !openDoor;
         closeDoor = !closeDoor;
 

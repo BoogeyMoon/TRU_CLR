@@ -16,7 +16,7 @@ public class HealthPack : Enviromental
     {
         if (coll.gameObject.tag == "Player")
         {
-            soundManager.PlaySingle(healthSound,2); // play HealthPack sound
+            soundManager.Play(healthSound.name); // play HealthPack sound
             player.GetComponent<PlayerStats>().ChangeHealth(+healthGain); //Spelaren får hälsa
             Destroy(gameObject);
         }
