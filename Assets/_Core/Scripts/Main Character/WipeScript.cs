@@ -18,6 +18,7 @@ public class WipeScript : MonoBehaviour
     [SerializeField]
     float wipeLifeTime, wipeCooldown;
     float cooldownTimer;
+    Animation animWipeReady;
     MenuScript menu;
     PlayerStats player;
 
@@ -27,6 +28,7 @@ public class WipeScript : MonoBehaviour
         menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
         wipeCDIndicator = GameObject.Find("Canvas UI").transform.GetChild(2).gameObject;
         wipeImage = wipeCDIndicator.transform.GetChild(1).GetComponent<Image>();
+        animWipeReady = wipeCDIndicator.transform.GetChild(2).GetComponent<Animation>();
         wipeDestroyed = true;
         wipeActive = true;
         cooldownTimer = wipeCooldown;
@@ -63,6 +65,7 @@ public class WipeScript : MonoBehaviour
             if (cooldownTimer <= 0) 
             {
                 wipeActive = true;
+                animWipeReady.Play("Anim_WipeIcon", PlayMode.StopAll);
                 cooldownTimer = wipeCooldown;
                 wipeImage.fillAmount = 1;
             }
