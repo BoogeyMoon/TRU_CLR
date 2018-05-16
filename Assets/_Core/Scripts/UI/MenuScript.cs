@@ -35,19 +35,24 @@ public class MenuScript : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         xmlScript = GameObject.FindGameObjectWithTag("Canvas").GetComponent<XmlScript>();
         menuSound = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
+
     }
     //Sätter alla värden
     void Start()
     {
+        xmlScript.LoadTexts();
         inGame = false;
         menuSound.Play("S_TRU_CLR_Menu");
         menus = new List<GameObject>() { mainMenu, pausePanel, loadMenu, settingsMenu, creditsMenu, confirmQuit, pauseMenu, winScreen, loseScreen, areYouSure };
         for (int i = 0; i < menus.Count; i++)
         {
             menus[i] = transform.GetChild(i).gameObject;
+            menus[i].SetActive(false);
         }
         menus[0].SetActive(true);
+
     }
+
 
     //Öppna och stänga pausmeny.
     void Update()
@@ -132,6 +137,15 @@ public class MenuScript : MonoBehaviour
 
 
     }
+
+    public void ChangeLanguage(int languageIndex)
+
+    {
+
+        xmlScript.SaveLanguageSettings(languageIndex);
+
+    }
+
 
     //Settings och Credits:
     public void GeneralIndexButton(int index)
