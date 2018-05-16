@@ -13,7 +13,7 @@ public class AudioManager : MonoBehaviour
     Sound[] _sounds;
 
     [SerializeField]
-    Slider _musicSlider, _efxSlider, _masterSlider;
+    Slider _musicSlider, _efxSlider, _masterSlider, _musicSliderIG,_efxSliderIG,_masterSliderIG;
 
 
 
@@ -103,25 +103,29 @@ public class AudioManager : MonoBehaviour
         }
 
         s.Source.Stop();
+
+
+    }
+    public void StopAll() //Stoppar alla ljud.
+    {
+        foreach (Sound s in _sounds)
+        {
+            s.Source.Stop();
+        }
     }
     void ChangeVolume()
     {
         foreach (Sound s in _sounds)
         {
-            s.Source = gameObject.GetComponent<AudioSource>();
-            if (s.Name.Substring(0, 2) == "S_")
+            if (s.Type == Sliders.Music)
             {
-                print("Changing volume music");
                 s.Source.volume = _musicSlider.value * _masterSlider.value;
-                print(s.Name);
             }
 
             else
             {
-                print("Changing volume SFX");
                 s.Source.volume = _efxSlider.value * _masterSlider.value;
             }
-
         }
     }
 }
