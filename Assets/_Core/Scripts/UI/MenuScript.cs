@@ -177,9 +177,11 @@ public class MenuScript : MonoBehaviour
         paused = false;
         inGame = false;
         SetMenusInactive();
-        menus[0].gameObject.SetActive(true);
         SceneManager.LoadScene("MenuScene");
+        menus[0].gameObject.SetActive(true);
+        menuSound.StopAll();
         menuSound.Play("S_TRU_CLR_Menu");
+        Time.timeScale = 1;
     }
 
     void SetMenusInactive()
