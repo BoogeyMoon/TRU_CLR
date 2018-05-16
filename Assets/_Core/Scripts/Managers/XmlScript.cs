@@ -15,8 +15,8 @@ using UnityEngine.UI;
 
 public class XmlScript : MonoBehaviour
 {
-    string filePath, usernameInput, currentPlayer;
-    int counter, score;
+    string filePath, usernameInput, currentPlayer, languagesfilePath;
+    int counter, score, currentLanguageIndex;
     public int numberOfLevels;
     bool validName;
 
@@ -25,21 +25,24 @@ public class XmlScript : MonoBehaviour
 
     List<int> scoreList;
     List<string> languages;
+    [SerializeField]
+    List<Text> textAssets;
+    GameObject[] textComponents;
+
     public List<int> ScoreList
     {
         get { return scoreList; }
     }
-    TextAsset path;
+    TextAsset path, languagesPath;
     [SerializeField]
     Text infoText, inputText;
     [SerializeField]
     Font textFont;
-    [SerializeField]
-    Sprite buttonSprite;
 
-    XmlDocument doc;
+
+    XmlDocument playerDoc, languageDoc;
     XmlElement player, username, level, language;
-    XmlWriter writer;
+    XmlWriter writer, languageWriter;
     XmlNodeList playerNodeList;
 
     void Start()
@@ -47,45 +50,83 @@ public class XmlScript : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("Canvas").Length > 1)
             Destroy(gameObject);
 
-        languages = new List<string> { "english", "swedish", "spanish" };
+        languages = new List<string> { "english", "swedish", "russian", "german", "japanese", "spanish" };
+        textAssets = new List<Text>();
+        currentLanguageIndex = 0;
 
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(eventSystem);
         numberOfLevels = 5;
-        SetUpXML();
+        LoadTexts();
+        SetUpPlayerXML();
         InlogPage();
     }
-
-    //Laddar och "plockar fram" samt sparar xml-dokumentet som ska användas för att hämta eller registrera användare.
-    void SetUpXML()
+    //Sätter in alla textkomponenter i en lista så att det senare blir lättare att ändra texten på dom alla i ChangeLanguage metoden.
+    public void LoadTexts()
     {
-        doc = new XmlDocument();
+        textAssets.Clear();
+        textComponents = GameObject.FindGameObjectsWithTag("TextAsset");
+
+        foreach (GameObject texts in textComponents)
+        {
+            textAssets.Add(texts.GetComponent<Text>());
+        }
+    }
+    //Laddar och "plockar fram" samt sparar xml-dokumentet som ska användas för att hämta eller registrera användare.
+    void SetUpPlayerXML()
+    {
+        playerDoc = new XmlDocument();
         if (File.Exists(Application.persistentDataPath + "/Players.xml"))
         {
-            doc.Load(Application.persistentDataPath + "/Players.xml");
+            playerDoc.Load(Application.persistentDataPath + "/Players.xml");
         }
         else
         {
             filePath = Application.dataPath + "/Resources/Players.xml";
             path = Resources.Load("Players") as TextAsset;
-            doc.LoadXml(path.text);
+            playerDoc.LoadXml(path.text);
         }
         filePath = Application.persistentDataPath + "/Players.xml";
         XmlWriterSettings settings = new XmlWriterSettings();
         settings.Indent = true;
         using (writer = XmlWriter.Create(Application.persistentDataPath + "/Players.xml", settings))
         {
-            doc.Save(writer);
+            playerDoc.Save(writer);
         }
         print(filePath);
     }
 
+    //Behövs inte???
+
+    //void SetUpLanguageXML()
+    //{
+    //    languageDoc = new XmlDocument();
+    //    if (File.Exists(Application.persistentDataPath + "/Language.xml"))
+    //    {
+    //        languageDoc.Load(Application.persistentDataPath + "/Language.xml");
+    //    }
+    //    else
+    //    {
+    //        languageFilePath = Application.dataPath + "/Resources/Language.xml";
+    //        languagePath = Resources.Load("Languages") as TextAsset;
+    //        languageDoc.LoadXml(languagePath.text);
+    //    }
+    //    languageFilePath = Application.persistentDataPath + "/Language.xml";
+    //    XmlWriterSettings languageSettings = new XmlWriterSettings();
+    //    languageSettings.Indent = true;
+    //    using (languageWriter = XmlWriter.Create(Application.persistentDataPath + "/Language.xml", languageSettings))
+    //    {
+    //        languageDoc.Save(languageWriter);
+    //    }
+    //}
+
     //Om spelaren går in i ingloggnings-menyn så gör följande metod att samtliga användare som registrerats visas i en lista.
+
     public void InlogPage()
     {
         registerAccountObject.SetActive(false);
         inlogObject.SetActive(true);
-        playerNodeList = doc.GetElementsByTagName("player");
+        playerNodeList = playerDoc.GetElementsByTagName("player");
 
         foreach (XmlNode player in playerNodeList)
         {
@@ -109,7 +150,7 @@ public class XmlScript : MonoBehaviour
     //Vid klick på "Create Account" så tar följande metod in den text som skrivits i inputField och går igenom ifall det är ett godkänt namn att skapa.
     public void CheckIfValid(InputField inputField)
     {
-        playerNodeList = doc.GetElementsByTagName("player");
+        playerNodeList = playerDoc.GetElementsByTagName("player");
         usernameInput = inputField.text;
 
         //Sätter validName till true för att ha en utgångspunkt, 
@@ -123,10 +164,10 @@ public class XmlScript : MonoBehaviour
             infoText.text = "Username must be within 3 to 20 characters long";
             infoText.gameObject.SetActive(true);
         }
-        else if(usernameInput.Contains(" "))
+        else if (usernameInput.Contains(" "))
         {
             validName = false;
-            infoText.text = "Username can't contain BLANKSPACE";
+            infoText.text = "Username can't contain SPACE";
             infoText.gameObject.SetActive(true);
         }
         //Om användarnamnet har godkänd längd men är inte det första registrerade kontot, så kollar följande så det inte redan finns ett konto med samma namn:
@@ -149,7 +190,7 @@ public class XmlScript : MonoBehaviour
             }
         }
         //Om användarnamnet är godkänt:
-        if(validName)
+        if (validName)
         {
             infoText.gameObject.SetActive(false);
             CreateAccount();
@@ -159,28 +200,66 @@ public class XmlScript : MonoBehaviour
     //Om namnet som ska registreras är godkänt så skickas det till följande metod som alltså skapar kontot i xml-dokumentet.
     void CreateAccount()
     {
-        player = doc.CreateElement("player");
-        username = doc.CreateElement("username");
+        player = playerDoc.CreateElement("player");
+        username = playerDoc.CreateElement("username");
         username.InnerText = usernameInput;
+        username.SetAttribute("language", languages[currentLanguageIndex]);
         player.AppendChild(username);
-        language = doc.CreateElement("language");
-        language.InnerText = languages[0];
 
         for (int i = 0; i < numberOfLevels; i++)
         {
-            level = doc.CreateElement("level_" + i);
+            level = playerDoc.CreateElement("level_" + i);
             level.SetAttribute("score", "0");
             level.SetAttribute("grade", "0");
             username.AppendChild(level);
         }
-        doc.DocumentElement.AppendChild(player);
+        playerDoc.DocumentElement.AppendChild(player);
 
         using (writer)
         {
-            doc.Save(filePath);
+            playerDoc.Save(filePath);
         }
         InlogPage();
     }
+    //Följande metod är kopplad till settings.
+    //Den sparar in det språk som spelaren vill ha sparat på sitt konto.
+    public void SaveLanguageSettings(int languageIndex)
+    {
+        foreach (XmlNode player in playerNodeList)
+        {
+            if (player.FirstChild.InnerText == currentPlayer)
+            {
+                player.FirstChild.Attributes[0].Value = languages[languageIndex];
+
+                using (writer)
+                {
+                    playerDoc.Save(filePath);
+                }
+            }
+        }
+        //Anropa ChangeLanguage(int languageIndex) här!
+    }
+    //Följande metod är det som faktiskt ändrar språket på alla textkomponenter.
+    public void ChangeLanguage(int languageIndex)
+    {
+        currentLanguageIndex = languageIndex;
+        //Hämta språk från xml-dokument och applya till samtliga textkomponenter och ändra språket på dem.
+
+        languageDoc = new XmlDocument();
+        if (File.Exists(Application.persistentDataPath + "/Languages.xml"))
+        {
+            languageDoc.Load(Application.persistentDataPath + "/Languages.xml");
+        }
+        else
+        {
+            languagesfilePath = Application.dataPath + "/Resources/Languages.xml";
+            languagesPath = Resources.Load("Players") as TextAsset;
+            languageDoc.LoadXml(languagesPath.text);
+        }
+        print(languagesfilePath);
+        //languagesfilePath = Application.persistentDataPath + "/Languages.xml";
+    }
+
 
     //Om man går från ingloggnings-menyn till "skapa konto"-menyn så sätts menyerna inaktiva,
     //samt alla "konto-knappar" i listan förstörs (så nya kan skapas om listan ändras).
@@ -241,7 +320,7 @@ public class XmlScript : MonoBehaviour
                         scoreList[levelNumber] = score;
                         using (writer)
                         {
-                            doc.Save(filePath);
+                            playerDoc.Save(filePath);
                         }
                     }
                 }
