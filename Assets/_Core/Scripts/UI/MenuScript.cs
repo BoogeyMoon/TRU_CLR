@@ -177,9 +177,15 @@ public class MenuScript : MonoBehaviour
         paused = false;
         inGame = false;
         SetMenusInactive();
-        SceneManager.LoadScene("MenuScene");
-        menus[0].gameObject.SetActive(true);
         menuSound.StopAll();
+        SceneManager.LoadScene("MenuScene");
+        StartCoroutine(WaitForSceneLoad());
+    }
+
+    IEnumerator WaitForSceneLoad()
+    {
+        yield return new WaitForEndOfFrame();
+        menus[0].gameObject.SetActive(true);
         menuSound.Play("S_TRU_CLR_Menu");
         Time.timeScale = 1;
     }
@@ -210,6 +216,7 @@ public class MenuScript : MonoBehaviour
         SetMenusInactive();
         if (Time.timeScale == 0)
             Time.timeScale = 1;
+        menuSound.StopAll();
         SceneManager.LoadScene(currentGameScene);
     }
 
