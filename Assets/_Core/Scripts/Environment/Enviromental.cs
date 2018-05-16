@@ -5,11 +5,11 @@ using UnityEngine;
 public class Enviromental : MonoBehaviour {
 
     protected GameObject player;
-    protected SoundManager soundManager;
+    protected AudioManager soundManager;
 
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        soundManager = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<SoundManager>();
+        soundManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 }

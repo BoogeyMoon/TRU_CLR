@@ -44,6 +44,7 @@ public class BossRoom : MonoBehaviour
         if (coll.tag == "Player")
         {
             jig.SetCameraPosition(cameraPosition);
+            sound.Stop("S_TRU_CLR_InGame");
             sound.Play("S_TRU_CLR_Boss");
             if (trigger != null && trigger.GetComponent<Interactable>() != null)
             {

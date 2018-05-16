@@ -57,7 +57,7 @@ public class WipeScript : MonoBehaviour
         if (!wipeActive)
         {
             cooldownTimer -= Time.deltaTime;
-            wipeImage.fillAmount += Time.deltaTime * 0.2f;
+            wipeImage.fillAmount = wipeImage.fillAmount + Time.deltaTime * (1/wipeCooldown);
 
 
             if (cooldownTimer <= 0) 
