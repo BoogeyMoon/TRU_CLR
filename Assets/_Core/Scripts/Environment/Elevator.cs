@@ -15,7 +15,9 @@ public class Elevator : MonoBehaviour {
     private float unparentPause;
     private bool parenting;
     private Transform getPlayer;
-    float dist; 
+    float dist;
+    [SerializeField]
+    bool bossFightElevator;
 
     void Start()
     {
@@ -39,35 +41,40 @@ public class Elevator : MonoBehaviour {
 
     void Update()
     {
-
-        float step = speed * Time.deltaTime;
-
-        if (parenting) // If parenting, calculate distance
+        if (bossFightElevator == false)
         {
-            dist = Vector3.Distance(getPlayer.position, transform.position);
-        }
+            float step = speed * Time.deltaTime;
 
-        if ((dist > 6) & parenting) // Check if need to unparent MC (if they moved away from the platform)
-        {
-            getPlayer.parent = null;
-            parenting = false;
-            dist = 0;
-        }
+            if (parenting) // If parenting, calculate distance
+            {
+                dist = Vector3.Distance(getPlayer.position, transform.position);
+            }
 
-        time += Time.deltaTime;
+            if ((dist > 6) & parenting) // Check if need to unparent MC (if they moved away from the platform)
+            {
+                getPlayer.parent = null;
+                parenting = false;
+                dist = 0;
+            }
 
-        if ((destinationLocal != null) && (Vector3.Distance(destinationLocal.position, transform.position) <= .1)) // reached one patrol point? go to next one.
-         {
-            GotoNextPoint();
+            time += Time.deltaTime;
+
+            if ((destinationLocal != null) && (Vector3.Distance(destinationLocal.position, transform.position) <= .1)) // reached one patrol point? go to next one.
+            {
+                GotoNextPoint();
+            }
+            if (destinationLocal != null) // travel towards the next patrol point at a designated speed 
+            {
+                transform.position = Vector3.MoveTowards(transform.position, destinationLocal.position, step);
+            }
         }
-        if (destinationLocal != null) // travel towards the next patrol point at a designated speed 
-        {
-            transform.position = Vector3.MoveTowards(transform.position, destinationLocal.position, step);
-        }
+        else return;
+        
     }
 
     private void OnTriggerStay(Collider other) // If the player steps on the moving platform, make them move along with it (by parenting)
     {
+        bossFightElevator = false;
         if ((other.transform.tag == "Player") & !parenting)
         {
             other.transform.parent = this.transform;
