@@ -119,13 +119,14 @@ public class AudioManager : MonoBehaviour
         {
             if (s.Type == Sliders.Music)
             {
-                s.Source.volume = _musicSlider.value * _masterSlider.value;
+                s.Source.volume = _musicSlider.value * _masterSlider.value * s.Volume;
             }
 
             else
             {
-                s.Source.volume = _efxSlider.value * _masterSlider.value;
+                s.Source.volume = _efxSlider.value * _masterSlider.value * s.Volume;
             }
+            
         }
     }
 }

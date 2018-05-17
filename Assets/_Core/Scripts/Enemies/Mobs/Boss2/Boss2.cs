@@ -26,22 +26,25 @@ public class Boss2 : MobStats
     }
     void Update()
     {
-        childs = transform.childCount;
-        if (body.velocity != Vector3.zero)
+        if (!dead)
         {
-            body.velocity = Vector3.zero;
+            childs = transform.childCount;
+            if (body.velocity != Vector3.zero)
+            {
+                body.velocity = Vector3.zero;
+            }
+            Patrol();
+            transform.rotation = startRot;
+            if (childs != childsLastFrame) //Om en mob dör så blir bossen starkare
+            {
+                spawner.Upgrade();
+            }
+            if (childs < 2) //om bossen har slut på bollar så dör den
+            {
+                win.WinConFinished(transform);
+                Die();
+            }
+            childsLastFrame = childs;
         }
-        Patrol();
-        transform.rotation = startRot;
-        if (childs != childsLastFrame) //Om en mob dör så blir bossen starkare
-        {
-            spawner.Upgrade();
-        }
-        if (childs < 2) //om bossen har slut på bollar så dör den
-        {
-            win.WinConFinished(transform);
-            Die();
-        }
-        childsLastFrame = childs;
     }
 }
