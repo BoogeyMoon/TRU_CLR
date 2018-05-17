@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 //Meny-script som hanterar alla menyer och knappar.
 //Skapat av Moa Lindgren.
+//Tillägg av Andreas de Freitas && Timmy Alvelöv
 public class MenuScript : MonoBehaviour
 {
     GameObject mainMenu, loadMenu, settingsMenu, confirmQuit, creditsMenu, pauseMenu, pausePanel, winScreen, loseScreen, areYouSure;
@@ -60,7 +61,7 @@ public class MenuScript : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Escape) && inGame)
         {
-            if(!menus[7].activeInHierarchy && !menus[8].activeInHierarchy  )
+            if (!menus[7].activeInHierarchy && !menus[8].activeInHierarchy)
             {
                 paused = !paused;
                 if (paused)
@@ -93,7 +94,7 @@ public class MenuScript : MonoBehaviour
         SetMenusInactive();
         inGame = true;
         menuSound.Stop("S_TRU_CLR_Menu");
-        SceneManager.LoadScene(currentGameScene);
+        LoadingScreen(currentGameScene);
     }
 
     public void LevelSelect()
@@ -106,7 +107,7 @@ public class MenuScript : MonoBehaviour
         {
             for (int j = 0; j < levelParent.transform.GetChild(i).childCount; j++)
             {
-                for (int c = 0; c < levelParent.transform.GetChild(i).GetChild(j).childCount-1; c++)
+                for (int c = 0; c < levelParent.transform.GetChild(i).GetChild(j).childCount - 1; c++)
                 {
                     levelParent.transform.GetChild(i).GetChild(j).GetChild(c).gameObject.SetActive(false);
                 }
@@ -176,11 +177,11 @@ public class MenuScript : MonoBehaviour
 
     public void Quit(bool sure)
     {
-        if(!sure)
+        if (!sure)
         {
             menus[9].gameObject.SetActive(true);
         }
-        else if(sure)
+        else if (sure)
         {
             Application.Quit();
         }
@@ -192,7 +193,7 @@ public class MenuScript : MonoBehaviour
         inGame = false;
         SetMenusInactive();
         menuSound.StopAll();
-        SceneManager.LoadScene("MenuScene");
+        LoadingScreen("MenuScene");
         StartCoroutine(WaitForSceneLoad());
     }
 
@@ -222,7 +223,7 @@ public class MenuScript : MonoBehaviour
         menuSound.Stop("S_TRU_CLR_Menu");
         SetMenusInactive();
         xmlScript.ActivatePanel(true);
-        SceneManager.LoadScene("LogInScene");
+        LoadingScreen("LogInScene");
     }
 
     public void Restart()
@@ -231,7 +232,7 @@ public class MenuScript : MonoBehaviour
         if (Time.timeScale == 0)
             Time.timeScale = 1;
         menuSound.StopAll();
-        SceneManager.LoadScene(currentGameScene);
+        LoadingScreen(currentGameScene);
     }
 
     public void SetMainMenu(bool enabled)
@@ -240,18 +241,30 @@ public class MenuScript : MonoBehaviour
     }
 
     //Next Level-knappen i Winscreen anropar följande metod.
-    //Metoden adderar 1 till den scen vi befinner oss i just nu för att sedan ladda nästa scen.
+    //Metoden adderar ett index till buildsettings ordningen och går vidare till nästa scene
     public void NextLevel()
     {
-        string lastChar = currentGameScene.Substring(currentGameScene.Length - 1, 1);
-        int nextLevel = int.Parse(lastChar) + 1;
-        string nextLevelString = nextLevel.ToString();
-        currentGameScene = currentGameScene.TrimEnd(currentGameScene[currentGameScene.Length -1]);
-        string nextGameScene = currentGameScene + nextLevelString;
-        SetMenusInactive();
-        SceneManager.LoadScene(nextGameScene);
+        if (SceneManager.GetActiveScene().buildIndex != UnityEditor.EditorBuildSettings.scenes.Length - 1)
+            LoadingScreen(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
+    IEnumerator LoadingScreen(string name)
+    {
+        AsyncOperation async = SceneManager.LoadSceneAsync(name);
+        while (!async.isDone)
+        {
+            yield return null;
+        }
+    }
+
+    IEnumerator LoadingScreen(int index)
+    {
+        AsyncOperation async = SceneManager.LoadSceneAsync(index);
+        while (!async.isDone)
+        {
+            yield return null;
+        }
+    }
 
 }
 
