@@ -18,6 +18,7 @@ public class XmlScript : MonoBehaviour
     string filePath, usernameInput, currentPlayer, languagesfilePath;
     int counter, score, currentLanguageIndex;
     public int numberOfLevels;
+    public string currentMenu;
     bool validName;
 
     [SerializeField]
@@ -43,34 +44,27 @@ public class XmlScript : MonoBehaviour
     XmlDocument playerDoc, languageDoc;
     XmlElement player, username, level, language;
     XmlWriter writer, languageWriter;
-    XmlNodeList playerNodeList;
+    XmlNodeList playerNodeList, languagesNodeList;
+
 
     void Start()
     {
         if (GameObject.FindGameObjectsWithTag("Canvas").Length > 1)
+        {
             Destroy(gameObject);
-
-        languages = new List<string> { "english", "swedish", "russian", "german", "japanese", "spanish" };
+        }
+        languages = new List<string> { "English", "German", "Japanese", "Russian", "Spanish", "Swedish" };
         textAssets = new List<Text>();
         currentLanguageIndex = 0;
+        currentMenu = "Inlog";
 
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(eventSystem);
         numberOfLevels = 5;
+        DefaultState();
         LoadTexts();
         SetUpPlayerXML();
         InlogPage();
-    }
-    //Sätter in alla textkomponenter i en lista så att det senare blir lättare att ändra texten på dom alla i ChangeLanguage metoden.
-    public void LoadTexts()
-    {
-        textAssets.Clear();
-        textComponents = GameObject.FindGameObjectsWithTag("TextAsset");
-
-        foreach (GameObject texts in textComponents)
-        {
-            textAssets.Add(texts.GetComponent<Text>());
-        }
     }
     //Laddar och "plockar fram" samt sparar xml-dokumentet som ska användas för att hämta eller registrera användare.
     void SetUpPlayerXML()
@@ -95,33 +89,12 @@ public class XmlScript : MonoBehaviour
         }
         print(filePath);
     }
-
-    //Behövs inte???
-
-    //void SetUpLanguageXML()
-    //{
-    //    languageDoc = new XmlDocument();
-    //    if (File.Exists(Application.persistentDataPath + "/Language.xml"))
-    //    {
-    //        languageDoc.Load(Application.persistentDataPath + "/Language.xml");
-    //    }
-    //    else
-    //    {
-    //        languageFilePath = Application.dataPath + "/Resources/Language.xml";
-    //        languagePath = Resources.Load("Languages") as TextAsset;
-    //        languageDoc.LoadXml(languagePath.text);
-    //    }
-    //    languageFilePath = Application.persistentDataPath + "/Language.xml";
-    //    XmlWriterSettings languageSettings = new XmlWriterSettings();
-    //    languageSettings.Indent = true;
-    //    using (languageWriter = XmlWriter.Create(Application.persistentDataPath + "/Language.xml", languageSettings))
-    //    {
-    //        languageDoc.Save(languageWriter);
-    //    }
-    //}
-
+    void DefaultState()
+    {
+        inlogObject.SetActive(true);
+        registerAccountObject.SetActive(true);
+    }
     //Om spelaren går in i ingloggnings-menyn så gör följande metod att samtliga användare som registrerats visas i en lista.
-
     public void InlogPage()
     {
         registerAccountObject.SetActive(false);
@@ -146,7 +119,6 @@ public class XmlScript : MonoBehaviour
             }
         }
     }
-
     //Vid klick på "Create Account" så tar följande metod in den text som skrivits i inputField och går igenom ifall det är ett godkänt namn att skapa.
     public void CheckIfValid(InputField inputField)
     {
@@ -221,44 +193,7 @@ public class XmlScript : MonoBehaviour
         }
         InlogPage();
     }
-    //Följande metod är kopplad till settings.
-    //Den sparar in det språk som spelaren vill ha sparat på sitt konto.
-    public void SaveLanguageSettings(int languageIndex)
-    {
-        foreach (XmlNode player in playerNodeList)
-        {
-            if (player.FirstChild.InnerText == currentPlayer)
-            {
-                player.FirstChild.Attributes[0].Value = languages[languageIndex];
 
-                using (writer)
-                {
-                    playerDoc.Save(filePath);
-                }
-            }
-        }
-        //Anropa ChangeLanguage(int languageIndex) här!
-    }
-    //Följande metod är det som faktiskt ändrar språket på alla textkomponenter.
-    public void ChangeLanguage(int languageIndex)
-    {
-        currentLanguageIndex = languageIndex;
-        //Hämta språk från xml-dokument och applya till samtliga textkomponenter och ändra språket på dem.
-
-        languageDoc = new XmlDocument();
-        if (File.Exists(Application.persistentDataPath + "/Languages.xml"))
-        {
-            languageDoc.Load(Application.persistentDataPath + "/Languages.xml");
-        }
-        else
-        {
-            languagesfilePath = Application.dataPath + "/Resources/Languages.xml";
-            languagesPath = Resources.Load("Players") as TextAsset;
-            languageDoc.LoadXml(languagesPath.text);
-        }
-        print(languagesfilePath);
-        //languagesfilePath = Application.persistentDataPath + "/Languages.xml";
-    }
 
 
     //Om man går från ingloggnings-menyn till "skapa konto"-menyn så sätts menyerna inaktiva,
@@ -377,5 +312,96 @@ public class XmlScript : MonoBehaviour
         }
 
 
+    }
+
+    //Sätter in alla textkomponenter i en lista så att det senare blir lättare att ändra texten på dom alla i ChangeLanguage metoden.
+    public void LoadTexts()
+    {
+        //textAssets.Clear();
+        textComponents = GameObject.FindGameObjectsWithTag("TextAsset");
+
+        foreach (GameObject texts in textComponents)
+        {
+            print(textAssets.Count);
+            if(textAssets.Count != 0)
+            {
+                for (int i = 0; i < textAssets.Count; i++)
+                {
+                    if (texts.name == textAssets[i].name)
+                    {
+                        return;
+                    }
+                    else
+                    {
+                        textAssets.Add(texts.GetComponent<Text>());
+                    }
+                }
+            }
+            else
+            {
+                textAssets.Add(texts.GetComponent<Text>());
+            }
+
+
+        }
+
+        ChangeLanguage(currentLanguageIndex);
+    }
+    //Följande metod är kopplad till settings.
+    //Den sparar in det språk som spelaren vill ha sparat på sitt konto.
+    public void SaveLanguageSettings(int languageIndex)
+    {
+        foreach (XmlNode player in playerNodeList)
+        {
+            if (player.FirstChild.InnerText == currentPlayer)
+            {
+                player.FirstChild.Attributes[0].Value = languages[languageIndex];
+
+                using (writer)
+                {
+                    playerDoc.Save(filePath);
+                }
+            }
+        }
+        ChangeLanguage(currentLanguageIndex);
+    }
+    //Följande metod är det som faktiskt ändrar språket på alla textkomponenter.
+    public void ChangeLanguage(int languageIndex)
+    {
+        currentLanguageIndex = languageIndex;
+        print(currentMenu);
+        languageDoc = new XmlDocument();
+        if (File.Exists(Application.persistentDataPath + "/Languages.xml"))
+        {
+            languageDoc.Load(Application.persistentDataPath + "/Languages.xml");
+        }
+        else
+        {
+            languagesfilePath = Application.dataPath + "/Resources/Languages.xml";
+            languagesPath = Resources.Load("Languages") as TextAsset;
+            languageDoc.LoadXml(languagesPath.text);
+        }
+
+        languagesNodeList = languageDoc.GetElementsByTagName(currentMenu);
+
+        foreach (XmlNode menu in languagesNodeList)
+        {
+            foreach (XmlNode language in menu)
+            {
+                if (language.Name == languages[languageIndex])
+                {
+                    for (int i = 0; i < language.Attributes.Count; i++)
+                    {
+                        for (int y = 0; y < textAssets.Count; y++)
+                        {
+                            if (language.Attributes[i].Name == textAssets[y].name)
+                            {
+                                textAssets[y].text = language.Attributes[i].Value;
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
 }

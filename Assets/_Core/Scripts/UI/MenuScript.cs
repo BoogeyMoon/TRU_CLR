@@ -226,6 +226,8 @@ public class MenuScript : MonoBehaviour
         SetMenusInactive();
         xmlScript.ActivatePanel(true);
         StartCoroutine(LoadingScreen("LogInScene"));
+        xmlScript.LoadTexts();
+        xmlScript.currentMenu = "Inlog";
     }
 
     public void Restart()
