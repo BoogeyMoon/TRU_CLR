@@ -12,13 +12,13 @@ public class DashScript : MonoBehaviour
 
     [SerializeField]
     GameObject dashEmitter;
-    ParticleSystem [] dashParticles;
+    ParticleSystem[] dashParticles;
 
     [SerializeField]
     GameObject rifleBarrel, startObject;
 
     [SerializeField]
-    float lengthOfDash, dashCooldown, moveSpeed, approxValue;
+    float lengthOfDash, dashCooldown, moveSpeed, approxValue, dontDashLength;
     float endDashX, endDashY, charX, charY;
     Vector3 direction, endDash, startPosition;
 
@@ -63,7 +63,7 @@ public class DashScript : MonoBehaviour
                     dashParticles[4].Play(true);
         }
 
-        if(dashing)
+        if (dashing)
         {
             dist = Vector3.Distance(transform.position, endDash);
             //Make the MC dash
@@ -84,11 +84,13 @@ public class DashScript : MonoBehaviour
         Ray ray = new Ray(startPosition, direction);
         RaycastHit raycastHit;
         Debug.DrawRay(ray.origin, ray.direction * lengthOfDash);
+        int layerMask = ~(1 << 8 | 1 << 2);
 
         //Om spelaren försöker dasha in mot ett objekt:
-        if (Physics.Raycast(ray, out raycastHit, lengthOfDash))
+        if (Physics.Raycast(ray, out raycastHit, lengthOfDash, layerMask))
         {
-            endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z) ; // make sure the z stays the same, just in case
+            print(raycastHit.transform.gameObject);
+            endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z); // make sure the z stays the same, just in case
         }
         else
         {
