@@ -74,9 +74,9 @@ public class Elevator : MonoBehaviour {
 
     private void OnTriggerStay(Collider other) // If the player steps on the moving platform, make them move along with it (by parenting)
     {
-        bossFightElevator = false;
         if ((other.transform.tag == "Player") & !parenting)
         {
+            bossFightElevator = false;
             other.transform.parent = this.transform;
             parenting = true;
         }

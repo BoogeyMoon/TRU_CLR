@@ -9,7 +9,7 @@ using UnityEngine.UI;
 //Tillägg av Andreas de Freitas && Timmy Alvelöv
 public class MenuScript : MonoBehaviour
 {
-    GameObject mainMenu, loadMenu, settingsMenu, confirmQuit, creditsMenu, pauseMenu, pausePanel, winScreen, loseScreen, areYouSure;
+    GameObject mainMenu, loadMenu, settingsMenu, confirmQuit, creditsMenu, pauseMenu, pausePanel, winScreen, loseScreen, areYouSure, loadingScreen;
     [SerializeField]
     GameObject eventSystem;
     List<GameObject> menus;
@@ -44,7 +44,7 @@ public class MenuScript : MonoBehaviour
         xmlScript.LoadTexts();
         inGame = false;
         menuSound.Play("S_TRU_CLR_Menu");
-        menus = new List<GameObject>() { mainMenu, pausePanel, loadMenu, settingsMenu, creditsMenu, confirmQuit, pauseMenu, winScreen, loseScreen, areYouSure };
+        menus = new List<GameObject>() { mainMenu, pausePanel, loadMenu, settingsMenu, creditsMenu, confirmQuit, pauseMenu, winScreen, loseScreen, areYouSure/*, loadingScreen*/ };
         for (int i = 0; i < menus.Count; i++)
         {
             menus[i] = transform.GetChild(i).gameObject;
@@ -94,7 +94,9 @@ public class MenuScript : MonoBehaviour
         SetMenusInactive();
         inGame = true;
         menuSound.Stop("S_TRU_CLR_Menu");
-        LoadingScreen(currentGameScene);
+        print("YOO!");
+        StartCoroutine(LoadingScreen(currentGameScene));
+        print("LOOO");
     }
 
     public void LevelSelect()
@@ -193,7 +195,7 @@ public class MenuScript : MonoBehaviour
         inGame = false;
         SetMenusInactive();
         menuSound.StopAll();
-        LoadingScreen("MenuScene");
+        StartCoroutine(LoadingScreen("MenuScene"));
         StartCoroutine(WaitForSceneLoad());
     }
 
@@ -223,7 +225,7 @@ public class MenuScript : MonoBehaviour
         menuSound.Stop("S_TRU_CLR_Menu");
         SetMenusInactive();
         xmlScript.ActivatePanel(true);
-        LoadingScreen("LogInScene");
+        StartCoroutine(LoadingScreen("LogInScene"));
     }
 
     public void Restart()
@@ -232,7 +234,7 @@ public class MenuScript : MonoBehaviour
         if (Time.timeScale == 0)
             Time.timeScale = 1;
         menuSound.StopAll();
-        LoadingScreen(currentGameScene);
+        StartCoroutine(LoadingScreen(currentGameScene));
     }
 
     public void SetMainMenu(bool enabled)
@@ -250,20 +252,24 @@ public class MenuScript : MonoBehaviour
 
     IEnumerator LoadingScreen(string name)
     {
+        //menus[10].SetActive(true);
         AsyncOperation async = SceneManager.LoadSceneAsync(name);
         while (!async.isDone)
         {
             yield return null;
         }
+        //menus[10].SetActive(false);
     }
 
     IEnumerator LoadingScreen(int index)
     {
+        //menus[10].SetActive(true);
         AsyncOperation async = SceneManager.LoadSceneAsync(index);
         while (!async.isDone)
         {
             yield return null;
         }
+        //menus[10].SetActive(false);
     }
 
 }
