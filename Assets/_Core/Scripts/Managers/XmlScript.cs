@@ -15,7 +15,7 @@ using UnityEngine.UI;
 
 public class XmlScript : MonoBehaviour
 {
-    string filePath, usernameInput, currentPlayer, languagesfilePath;
+    string filePath, usernameInput, currentPlayer, languagesfilePath, currentLanguage;
     int counter, score, currentLanguageIndex;
     public int numberOfLevels;
     public string currentMenu;
@@ -27,8 +27,8 @@ public class XmlScript : MonoBehaviour
     List<int> scoreList;
     List<string> languages;
     [SerializeField]
-    List<Text> textAssets;
-    GameObject[] textComponents;
+    List<Text> textAssetsInlog, textAssetsMainMenu;
+    GameObject[] textComponentsInlog, textComponentsMainMenu;
 
     public List<int> ScoreList
     {
@@ -54,18 +54,18 @@ public class XmlScript : MonoBehaviour
             Destroy(gameObject);
         }
         languages = new List<string> { "English", "German", "Japanese", "Russian", "Spanish", "Swedish" };
-        textAssets = new List<Text>();
+        textAssetsInlog = new List<Text>();
+        textAssetsMainMenu = new List<Text>();
         currentLanguageIndex = 0;
-        currentMenu = "Inlog";
 
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(eventSystem);
         numberOfLevels = 5;
-        DefaultState();
-        LoadTexts();
+        LoadTexts("Inlog");
         SetUpPlayerXML();
         InlogPage();
     }
+
     //Laddar och "plockar fram" samt sparar xml-dokumentet som ska användas för att hämta eller registrera användare.
     void SetUpPlayerXML()
     {
@@ -89,11 +89,7 @@ public class XmlScript : MonoBehaviour
         }
         print(filePath);
     }
-    void DefaultState()
-    {
-        inlogObject.SetActive(true);
-        registerAccountObject.SetActive(true);
-    }
+
     //Om spelaren går in i ingloggnings-menyn så gör följande metod att samtliga användare som registrerats visas i en lista.
     public void InlogPage()
     {
@@ -193,9 +189,6 @@ public class XmlScript : MonoBehaviour
         }
         InlogPage();
     }
-
-
-
     //Om man går från ingloggnings-menyn till "skapa konto"-menyn så sätts menyerna inaktiva,
     //samt alla "konto-knappar" i listan förstörs (så nya kan skapas om listan ändras).
     public void RegisterAccountPage()
@@ -208,7 +201,6 @@ public class XmlScript : MonoBehaviour
         inlogObject.SetActive(false);
         registerAccountObject.SetActive(true);
     }
-
     //Sätter info-texten inaktiv om något nytt skrivs i inputfield. Anropas från komponenten InputField (OnValueChanged()).
     public void InfoTextInActive()
     {
@@ -315,34 +307,27 @@ public class XmlScript : MonoBehaviour
     }
 
     //Sätter in alla textkomponenter i en lista så att det senare blir lättare att ändra texten på dom alla i ChangeLanguage metoden.
-    public void LoadTexts()
+    public void LoadTexts(string menu)
     {
         //textAssets.Clear();
-        textComponents = GameObject.FindGameObjectsWithTag("TextAsset");
-
-        foreach (GameObject texts in textComponents)
+        currentMenu = menu;
+        if (menu == "Inlog")
         {
-            print(textAssets.Count);
-            if(textAssets.Count != 0)
-            {
-                for (int i = 0; i < textAssets.Count; i++)
-                {
-                    if (texts.name == textAssets[i].name)
-                    {
-                        return;
-                    }
-                    else
-                    {
-                        textAssets.Add(texts.GetComponent<Text>());
-                    }
-                }
-            }
-            else
-            {
-                textAssets.Add(texts.GetComponent<Text>());
-            }
+            textComponentsInlog = GameObject.FindGameObjectsWithTag("TextAsset");
 
+            foreach (GameObject texts in textComponentsInlog)
+            {
+                textAssetsInlog.Add(texts.GetComponent<Text>());
+            }
+        }
+        if (menu == "MainMenu")
+        {
+            textComponentsMainMenu = GameObject.FindGameObjectsWithTag("TextAsset");
 
+            foreach (GameObject texts in textComponentsMainMenu)
+            {
+                textAssetsMainMenu.Add(texts.GetComponent<Text>());
+            }
         }
 
         ChangeLanguage(currentLanguageIndex);
@@ -351,6 +336,7 @@ public class XmlScript : MonoBehaviour
     //Den sparar in det språk som spelaren vill ha sparat på sitt konto.
     public void SaveLanguageSettings(int languageIndex)
     {
+        currentLanguageIndex = languageIndex;
         foreach (XmlNode player in playerNodeList)
         {
             if (player.FirstChild.InnerText == currentPlayer)
@@ -365,6 +351,27 @@ public class XmlScript : MonoBehaviour
         }
         ChangeLanguage(currentLanguageIndex);
     }
+    public void CheckLanguage(string currentPlayer)
+    {
+
+        foreach (XmlNode player in playerNodeList)
+        {
+            if (player.FirstChild.InnerText == currentPlayer)
+            {
+                currentLanguage = player.FirstChild.Attributes[0].Value;
+            }
+        }
+        for(int i = 0; i < languages.Count; i++)
+        {
+            if (languages[i] == currentLanguage)
+            {
+                currentLanguageIndex = i;
+            }
+        }
+        ChangeLanguage(currentLanguageIndex);
+    }
+
+
     //Följande metod är det som faktiskt ändrar språket på alla textkomponenter.
     public void ChangeLanguage(int languageIndex)
     {
@@ -386,19 +393,35 @@ public class XmlScript : MonoBehaviour
 
         foreach (XmlNode menu in languagesNodeList)
         {
+
             foreach (XmlNode language in menu)
             {
                 if (language.Name == languages[languageIndex])
                 {
                     for (int i = 0; i < language.Attributes.Count; i++)
                     {
-                        for (int y = 0; y < textAssets.Count; y++)
+                        if(currentMenu == "Inlog")
                         {
-                            if (language.Attributes[i].Name == textAssets[y].name)
+                            for (int y = 0; y < textAssetsInlog.Count; y++)
                             {
-                                textAssets[y].text = language.Attributes[i].Value;
+                                if (language.Attributes[i].Name == textAssetsInlog[y].name)
+                                {
+                                    textAssetsInlog[y].text = language.Attributes[i].Value;
+                                }
                             }
                         }
+                        if (currentMenu == "MainMenu")
+                        {
+                            for (int y = 0; y < textAssetsMainMenu.Count; y++)
+                            {
+                                if (language.Attributes[i].Name == textAssetsMainMenu[y].name)
+                                {
+                                    print(language.Attributes[i].Value);
+                                    textAssetsMainMenu[y].text = language.Attributes[i].Value;
+                                }
+                            }
+                        }
+
                     }
                 }
             }

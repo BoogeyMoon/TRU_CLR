@@ -41,7 +41,7 @@ public class MenuScript : MonoBehaviour
     //Sätter alla värden
     void Start()
     {
-        xmlScript.LoadTexts();
+        xmlScript.LoadTexts("MainMenu");
         inGame = false;
         menuSound.Play("S_TRU_CLR_Menu");
         menus = new List<GameObject>() { mainMenu, pausePanel, loadMenu, settingsMenu, creditsMenu, confirmQuit, pauseMenu, winScreen, loseScreen, areYouSure/*, loadingScreen*/ };
@@ -225,9 +225,8 @@ public class MenuScript : MonoBehaviour
         menuSound.Stop("S_TRU_CLR_Menu");
         SetMenusInactive();
         xmlScript.ActivatePanel(true);
-        StartCoroutine(LoadingScreen("LogInScene"));
-        xmlScript.LoadTexts();
         xmlScript.currentMenu = "Inlog";
+        StartCoroutine(LoadingScreen("LogInScene"));
     }
 
     public void Restart()

@@ -29,7 +29,7 @@ public class PlayButton : MonoBehaviour
         if (GameObject.FindGameObjectsWithTag("MenuCanvas").Length != 0)
             GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>().SetMainMenu(true);
         SceneManager.LoadScene("MenuScene");
-        xmlScript.LoadTexts();
         xmlScript.currentMenu = "MainMenu";
+        xmlScript.CheckLanguage(currentPlayer);
     }
 }
