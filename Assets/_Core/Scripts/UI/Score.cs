@@ -13,6 +13,8 @@ public class Score : MonoBehaviour
     int startScore, currentScore, scoreMultiplier, levelIndex;
     int scorePerLife;
 
+    public int CurrentScore { get { return currentScore; } }
+
     [SerializeField]
     int[] gradesCaps = new int[4];
 
@@ -63,7 +65,7 @@ public class Score : MonoBehaviour
                 if (xml.GetScore(levelIndex) < currentScore)
                     xml.ChangeStats(levelIndex, currentScore, gradeIndex);
                 print("Grade: " + gradeIndex);
-                return grades.Length - i;
+                return gradeIndex;
             }
         }
         if (xml.GetScore(levelIndex) < currentScore)
