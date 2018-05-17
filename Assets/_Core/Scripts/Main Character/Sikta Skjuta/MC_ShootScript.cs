@@ -20,7 +20,8 @@ public class MC_ShootScript : MonoBehaviour
 
     [SerializeField]
     float laserDamage, shieldCooldown;
-    float cooldown, fireRate, offsetZ, laserLength, currentShieldCooldown;
+    float cooldown, timerCyan, offsetZ, laserLength, currentShieldCooldown;
+    float[] colorCooldowns;
     [SerializeField]
     float[] cooldowns;
 
@@ -39,6 +40,7 @@ public class MC_ShootScript : MonoBehaviour
 
     void Start()
     {
+        colorCooldowns = new float[3];
         soundManager = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
         colors = new Color[] { Color.cyan, Color.yellow, Color.magenta };
         offsetZ = -0.85f;
@@ -70,9 +72,10 @@ public class MC_ShootScript : MonoBehaviour
                 KeyPress();
             }
 
-
-            fireRate += Time.deltaTime;
-
+            for (int i = 0; i < colorCooldowns.Length; i++)
+            {
+                colorCooldowns[i] += Time.deltaTime;
+            }
             currentShieldCooldown -= Time.deltaTime;
         }
     }
@@ -82,7 +85,7 @@ public class MC_ShootScript : MonoBehaviour
         //Skjuter på vänster musklick:
         if (Input.GetMouseButton(0))
         {
-            if (fireRate >= cooldown)
+            if (colorCooldowns[activeColor] >= cooldown)
             {
                 laserLineRenderer.enabled = false;
                 switch (activeColor)
@@ -169,14 +172,13 @@ public class MC_ShootScript : MonoBehaviour
             laserLineRenderer.enabled = true;
             currentBullet = Instantiate(colorsBullets[(int)ColorProjectiles.Red],
         new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z), Quaternion.identity);
-            fireRate = 0;
         }
         else
         {
             currentBullet = _pools[activeColor].InstantiatePool(
                 new Vector3(rifleBarrel.transform.position.x, rifleBarrel.transform.position.y, rifleBarrel.transform.position.z));
-            fireRate = 0;
         }
+        colorCooldowns[activeColor] = 0;
 
     }
 
