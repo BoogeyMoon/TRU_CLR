@@ -255,7 +255,7 @@ public class MenuScript : MonoBehaviour
     //Metoden adderar ett index till buildsettings ordningen och går vidare till nästa scene
     public void NextLevel()
     {
-        if (SceneManager.GetActiveScene().buildIndex != UnityEditor.EditorBuildSettings.scenes.Length - 1)
+        if (SceneManager.GetActiveScene().buildIndex != 6)
             LoadingScreen(SceneManager.GetActiveScene().buildIndex + 1);
     }
 
