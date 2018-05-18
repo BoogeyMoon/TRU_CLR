@@ -11,6 +11,7 @@ public class Score : MonoBehaviour
 
     [SerializeField]
     int startScore, currentScore, scoreMultiplier, levelIndex;
+    public int LevelIndex { get { return levelIndex; } }
     int scorePerLife;
 
     public int CurrentScore { get { return currentScore; } }
