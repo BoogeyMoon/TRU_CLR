@@ -332,7 +332,7 @@ public class XmlScript : MonoBehaviour
         }
 
         ChangeLanguage(currentLanguageIndex);
-        ChangeHighlight();
+        //ChangeHighlight();
     }
     //Följande metod är kopplad till settings.
     //Den sparar in det språk som spelaren vill ha sparat på sitt konto.
@@ -372,7 +372,7 @@ public class XmlScript : MonoBehaviour
             }
         }
         ChangeLanguage(currentLanguageIndex);
-        ChangeHighlight();
+        //ChangeHighlight();
     }
 
     public void ChangeHighlight()
@@ -383,6 +383,7 @@ public class XmlScript : MonoBehaviour
         }
         if (currentMenu == "MainMenu")
         {
+            print("MenyMoa!");
             languageButtonsParent = GameObject.FindGameObjectWithTag("MenuCanvas").transform.GetChild(3).GetChild(2).gameObject;
         }
         for (int i = 0; i < languageButtonsParent.transform.childCount; i++)
