@@ -84,7 +84,7 @@ public class DashScript : MonoBehaviour
         Ray ray = new Ray(startPosition, direction);
         RaycastHit raycastHit;
         Debug.DrawRay(ray.origin, ray.direction * lengthOfDash);
-        int layerMask = ~(1 << 8 | 1 << 2);
+        int layerMask = ~(1 << 8 | 1 << 2); // layers to ignore with raycast - player character and the original ignore raycast layer
 
         //Om spelaren försöker dasha in mot ett objekt:
         if (Physics.Raycast(ray, out raycastHit, lengthOfDash, layerMask))
