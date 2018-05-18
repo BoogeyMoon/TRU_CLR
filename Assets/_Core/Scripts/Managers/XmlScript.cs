@@ -339,7 +339,7 @@ public class XmlScript : MonoBehaviour
     public void SaveLanguageSettings(int languageIndex)
     {
         currentLanguageIndex = languageIndex;
-        
+
         foreach (XmlNode player in playerNodeList)
         {
             if (player.FirstChild.InnerText == currentPlayer)
@@ -364,7 +364,7 @@ public class XmlScript : MonoBehaviour
                 currentLanguage = player.FirstChild.Attributes[0].Value;
             }
         }
-        for(int i = 0; i < languages.Count; i++)
+        for (int i = 0; i < languages.Count; i++)
         {
             if (languages[i] == currentLanguage)
             {
@@ -383,7 +383,6 @@ public class XmlScript : MonoBehaviour
         }
         if (currentMenu == "MainMenu")
         {
-            print("MenyMoa!");
             languageButtonsParent = GameObject.FindGameObjectWithTag("MenuCanvas").transform.GetChild(3).GetChild(2).gameObject;
         }
         for (int i = 0; i < languageButtonsParent.transform.childCount; i++)
@@ -425,7 +424,7 @@ public class XmlScript : MonoBehaviour
                 {
                     for (int i = 0; i < language.Attributes.Count; i++)
                     {
-                        if(currentMenu == "Inlog")
+                        if (currentMenu == "Inlog")
                         {
                             for (int y = 0; y < textAssetsInlog.Count; y++)
                             {
