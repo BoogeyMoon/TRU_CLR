@@ -51,7 +51,7 @@ public class WinScript : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         canvas.transform.GetChild(7).gameObject.SetActive(true);
         Text levelName = canvas.transform.GetChild(7).GetChild(0).GetChild(0).GetComponent<Text>();
-        levelName.text = "Level";
+        levelName.text = "Level " + (ScoreManager.LevelIndex +1);
         Text baseScore = canvas.transform.GetChild(7).GetChild(0).GetChild(3).GetComponent<Text>();
         baseScore.text = ScoreManager.CurrentScore.ToString();
         Text totalScore = canvas.transform.GetChild(7).GetChild(0).GetChild(5).GetComponent<Text>();
