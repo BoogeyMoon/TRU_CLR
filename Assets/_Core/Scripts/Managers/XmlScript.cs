@@ -16,13 +16,14 @@ using UnityEngine.UI;
 public class XmlScript : MonoBehaviour
 {
     string filePath, usernameInput, currentPlayer, languagesfilePath, currentLanguage;
-    int counter, score, currentLanguageIndex;
+    int counter, score;
+    public int currentLanguageIndex;
     public int numberOfLevels;
     public string currentMenu;
     bool validName;
 
     [SerializeField]
-    GameObject contentObject, userButtonPrefab, inlogObject, registerAccountObject, loginPage, eventSystem;
+    GameObject contentObject, userButtonPrefab, inlogObject, registerAccountObject, loginPage, eventSystem, languageButtonsParent;
 
     List<int> scoreList;
     List<string> languages;
@@ -331,12 +332,14 @@ public class XmlScript : MonoBehaviour
         }
 
         ChangeLanguage(currentLanguageIndex);
+        ChangeHighlight();
     }
     //Följande metod är kopplad till settings.
     //Den sparar in det språk som spelaren vill ha sparat på sitt konto.
     public void SaveLanguageSettings(int languageIndex)
     {
         currentLanguageIndex = languageIndex;
+        
         foreach (XmlNode player in playerNodeList)
         {
             if (player.FirstChild.InnerText == currentPlayer)
@@ -350,10 +353,10 @@ public class XmlScript : MonoBehaviour
             }
         }
         ChangeLanguage(currentLanguageIndex);
+
     }
     public void CheckLanguage(string currentPlayer)
     {
-
         foreach (XmlNode player in playerNodeList)
         {
             if (player.FirstChild.InnerText == currentPlayer)
@@ -369,15 +372,36 @@ public class XmlScript : MonoBehaviour
             }
         }
         ChangeLanguage(currentLanguageIndex);
+        ChangeHighlight();
     }
 
-
+    public void ChangeHighlight()
+    {
+        if (currentMenu == "Inlog")
+        {
+            languageButtonsParent = transform.GetChild(1).GetChild(2).gameObject;
+        }
+        if (currentMenu == "MainMenu")
+        {
+            languageButtonsParent = GameObject.FindGameObjectWithTag("MenuCanvas").transform.GetChild(3).GetChild(2).gameObject;
+        }
+        for (int i = 0; i < languageButtonsParent.transform.childCount; i++)
+        {
+            languageButtonsParent.transform.GetChild(i).GetChild(0).gameObject.SetActive(false);
+            if (i == currentLanguageIndex)
+            {
+                languageButtonsParent.transform.GetChild(i).GetChild(0).gameObject.SetActive(true);
+            }
+        }
+    }
     //Följande metod är det som faktiskt ändrar språket på alla textkomponenter.
     public void ChangeLanguage(int languageIndex)
     {
+
         currentLanguageIndex = languageIndex;
         print(currentMenu);
         languageDoc = new XmlDocument();
+
         if (File.Exists(Application.persistentDataPath + "/Languages.xml"))
         {
             languageDoc.Load(Application.persistentDataPath + "/Languages.xml");
@@ -426,5 +450,7 @@ public class XmlScript : MonoBehaviour
                 }
             }
         }
+
+        ChangeHighlight();
     }
 }
