@@ -23,7 +23,7 @@ public class XmlScript : MonoBehaviour
     bool validName;
 
     [SerializeField]
-    GameObject contentObject, userButtonPrefab, inlogObject, registerAccountObject, loginPage, eventSystem, languageButtonsParent;
+    GameObject contentObject, userButtonPrefab, inlogObject, registerAccountObject, loginPage, eventSystem;
 
     List<int> scoreList;
     List<string> languages;
@@ -332,7 +332,6 @@ public class XmlScript : MonoBehaviour
         }
 
         ChangeLanguage(currentLanguageIndex);
-        //ChangeHighlight();
     }
     //Följande metod är kopplad till settings.
     //Den sparar in det språk som spelaren vill ha sparat på sitt konto.
@@ -372,28 +371,8 @@ public class XmlScript : MonoBehaviour
             }
         }
         ChangeLanguage(currentLanguageIndex);
-        //ChangeHighlight();
     }
 
-    public void ChangeHighlight()
-    {
-        if (currentMenu == "Inlog")
-        {
-            languageButtonsParent = transform.GetChild(1).GetChild(2).gameObject;
-        }
-        if (currentMenu == "MainMenu")
-        {
-            languageButtonsParent = GameObject.FindGameObjectWithTag("MenuCanvas").transform.GetChild(3).GetChild(2).gameObject;
-        }
-        for (int i = 0; i < languageButtonsParent.transform.childCount; i++)
-        {
-            languageButtonsParent.transform.GetChild(i).GetChild(0).gameObject.SetActive(false);
-            if (i == currentLanguageIndex)
-            {
-                languageButtonsParent.transform.GetChild(i).GetChild(0).gameObject.SetActive(true);
-            }
-        }
-    }
     //Följande metod är det som faktiskt ändrar språket på alla textkomponenter.
     public void ChangeLanguage(int languageIndex)
     {
@@ -450,7 +429,5 @@ public class XmlScript : MonoBehaviour
                 }
             }
         }
-
-        ChangeHighlight();
     }
 }
