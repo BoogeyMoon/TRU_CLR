@@ -58,8 +58,6 @@ public class WinScript : MonoBehaviour
         int grade = ScoreManager.GetGrade();
         totalScore.text = ScoreManager.CurrentScore.ToString();
         Image rating = canvas.transform.GetChild(7).GetChild(0).GetChild(7).GetComponent<Image>();
-        print(grade);
-        print(grades.Length);
         rating.sprite = grades[grade - 1];
         Time.timeScale = 0;
     }
