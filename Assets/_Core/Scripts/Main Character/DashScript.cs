@@ -15,10 +15,13 @@ public class DashScript : MonoBehaviour
     ParticleSystem[] dashParticles;
 
     [SerializeField]
+    Transform[] Dashlimits;
+
+    [SerializeField]
     GameObject rifleBarrel, startObject;
 
     [SerializeField]
-    float lengthOfDash, dashCooldown, moveSpeed, approxValue, dontDashLength;
+    float lengthOfDash, dashCooldown, moveSpeed, approxValue, dontDashLength, sizeOfSpherecast;
     float endDashX, endDashY, charX, charY;
     Vector3 direction, endDash, startPosition;
 
@@ -26,7 +29,7 @@ public class DashScript : MonoBehaviour
     bool dashing;
     bool dashOnCooldown;
     PlayerMovement playerMovement;
-    float dist;
+    float dist, tempDist;
     Animator animator;
     public bool DashReady { get; set; }
     MenuScript menu;
@@ -54,6 +57,7 @@ public class DashScript : MonoBehaviour
             direction = rifleBarrel.transform.forward;
             Dash();
             dashing = true;
+            dist = lengthOfDash;
             playerMovement.ZeroGravity(dashing);
             animator.SetBool("isDashing", dashing);
             foreach (ParticleSystem particle in dashParticles) // activate particles for the Dash
@@ -65,7 +69,17 @@ public class DashScript : MonoBehaviour
 
         if (dashing)
         {
-            dist = Vector3.Distance(transform.position, endDash);
+
+            foreach (Transform limit in Dashlimits)
+            {
+                tempDist = Vector3.Distance(limit.position, endDash);
+                if (tempDist<dist)
+                {
+                    dist = tempDist;
+                    //print("Distance has changed to " + dist + " from the limit number " + limit.gameObject.name);
+                }
+            }
+
             //Make the MC dash
             float step = moveSpeed * Time.deltaTime;
             transform.position = Vector3.Lerp(transform.position, endDash, step);
@@ -82,16 +96,31 @@ public class DashScript : MonoBehaviour
     void Dash()
     {
         Ray ray = new Ray(startPosition, direction);
-        RaycastHit raycastHit;
+        RaycastHit raycastHit, raycastHit2;
         Debug.DrawRay(ray.origin, ray.direction * lengthOfDash);
         int layerMask = ~(1 << 8 | 1 << 2); // layers to ignore with raycast - player character and the original ignore raycast layer
 
         //Om spelaren försöker dasha in mot ett objekt:
-        if (Physics.Raycast(ray, out raycastHit, lengthOfDash, layerMask))
+        if ((Physics.Raycast(ray, out raycastHit, lengthOfDash, layerMask)) && (Physics.SphereCast(ray, sizeOfSpherecast, out raycastHit2, lengthOfDash, layerMask)))
         {
-            print(raycastHit.transform.gameObject);
+            if ((raycastHit2.distance < raycastHit.distance))
+            raycastHit = raycastHit2;
+            print("Choosing the closer: " + raycastHit.transform.gameObject);
+
             endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z); // make sure the z stays the same, just in case
         }
+        else if (Physics.Raycast(ray, out raycastHit, lengthOfDash, layerMask))
+        {
+            endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z);
+            print("Raycast hit: " + raycastHit.transform.gameObject);
+        }
+        else if (Physics.SphereCast(ray, sizeOfSpherecast, out raycastHit2, lengthOfDash, layerMask))
+        {
+            raycastHit = raycastHit2;
+            endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z);
+            print("Spherecast hit: " + raycastHit.transform.gameObject);
+        }
+
         else
         {
             endDash = ray.origin + ray.direction * lengthOfDash;
