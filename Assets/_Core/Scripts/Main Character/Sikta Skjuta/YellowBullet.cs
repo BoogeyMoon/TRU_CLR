@@ -14,7 +14,7 @@ public class YellowBullet : Projectile, IPoolable
     [SerializeField]
     float gravity = 0.5f;
     float zOffSet = -0.85f;
-    Vector3 position;
+    //Vector3 position;
     bool _newObj = true;
     TrailRenderer trail;
     public bool Active { get { return active; } set { active = value; PoolableStart(); } }
@@ -40,16 +40,14 @@ public class YellowBullet : Projectile, IPoolable
         startTime = 0;
     }
 
-    protected override void Update()
+    void FixedUpdate()
     {
         if (active)
         {
-            base.Update();
-            dropValue = dropValue - (gravity * Time.deltaTime);
-            transform.Translate(Vector3.forward * startVelocity * Time.deltaTime);
-            transform.position = new Vector3(transform.position.x, transform.position.y + dropValue, zOffSet);
+            dropValue -= gravity;
+            transform.Translate((Vector3.forward * startVelocity * Time.fixedDeltaTime) + (Vector3.up * dropValue * Time.fixedDeltaTime));
+            transform.position = new Vector3(transform.position.x, transform.position.y, zOffSet);
         }
-
     }
 
     protected override void OnTriggerEnter(Collider coll) //Tar hand om collisioner
