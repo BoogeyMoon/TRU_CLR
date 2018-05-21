@@ -154,6 +154,10 @@ public class MenuScript : MonoBehaviour
         xmlScript.SaveLanguageSettings(languageIndex);
 
     }
+    //public void ChangeHighlight()
+    //{
+    //    xmlScript.ChangeHighlight();
+    //}
 
 
     //Settings och Credits:
@@ -233,7 +237,7 @@ public class MenuScript : MonoBehaviour
         xmlScript.ActivatePanel(true);
         xmlScript.currentMenu = "Inlog";
         xmlScript.currentLanguageIndex = 0;
-        xmlScript.ChangeHighlight();
+        //xmlScript.ChangeHighlight();
         StartCoroutine(LoadingScreen("LogInScene"));
     }
 

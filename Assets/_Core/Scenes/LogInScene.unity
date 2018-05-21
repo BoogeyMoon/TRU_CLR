@@ -213,7 +213,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000015258789}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &85613625
@@ -572,6 +572,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 4
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 705518662}
+        m_MethodName: Highlight
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 222236598}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -1060,6 +1071,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 705518662}
+        m_MethodName: Highlight
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 565818331}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &565818334
@@ -1249,6 +1271,7 @@ GameObject:
   - component: {fileID: 705518656}
   - component: {fileID: 705518660}
   - component: {fileID: 705518661}
+  - component: {fileID: 705518662}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Canvas
@@ -1354,7 +1377,6 @@ MonoBehaviour:
   registerAccountObject: {fileID: 677408727}
   loginPage: {fileID: 924087694}
   eventSystem: {fileID: 1209544399}
-  languageButtonsParent: {fileID: 1054833862}
   textAssetsInlog: []
   textAssetsMainMenu: []
   infoText: {fileID: 1427702044}
@@ -1369,6 +1391,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ad5b2ec1c22e4f4b8330386ea36bf3e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &705518662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 705518655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 185ddc58668148e45b8bf660d70830bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &724737562
@@ -1728,6 +1761,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 705518662}
+        m_MethodName: Highlight
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 907687625}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &907687628
@@ -1967,7 +2011,7 @@ GameObject:
   - component: {fileID: 1054833863}
   m_Layer: 5
   m_Name: LanguageButtons
-  m_TagString: Untagged
+  m_TagString: LanguageButtons
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2953,6 +2997,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 705518662}
+        m_MethodName: Highlight
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1798678379}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1798678382
@@ -3143,6 +3198,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 705518662}
+        m_MethodName: Highlight
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1823371134}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1823371137
@@ -3261,6 +3327,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 705518662}
+        m_MethodName: Highlight
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1824523729}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
