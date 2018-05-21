@@ -29,7 +29,6 @@ public class FlyingMob : MobStats
     {
         if (!dead)
         {
-
             timeSinceSeenPlayer += Time.deltaTime;
 
             if (body.velocity != Vector3.zero)
@@ -59,6 +58,8 @@ public class FlyingMob : MobStats
                         {
                             if (player.position.y < Aim.transform.position.y)
                                 Shoot();
+                            else
+                                transform.Translate(new Vector3(0, Time.deltaTime * speed / 2, 0));
                         }
                     }
                     else
@@ -80,7 +81,7 @@ public class FlyingMob : MobStats
         }
     }
 
-    void Move() //Styr hur fienden rör sig.
+    void Move() //Styr hur fienden rör sig när den jagar spelaren.
     {
         if (chase)
             transform.position = Vector3.MoveTowards(transform.position, playerTarget.transform.position, speed * Time.deltaTime);
@@ -89,7 +90,6 @@ public class FlyingMob : MobStats
             Vector3 directionToPlayer = new Vector3(player.position.x - transform.position.x, player.position.y - transform.position.y, transform.position.z);
             transform.Translate(Vector3.Normalize(directionToPlayer) * -speed / 2 * Time.deltaTime);
         }
-
 
         transform.position = new Vector3(transform.position.x, transform.position.y, playerTarget.transform.position.z);
     }
