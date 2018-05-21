@@ -101,15 +101,16 @@ public class DashScript : MonoBehaviour
         int layerMask = ~(1 << 8 | 1 << 2); // layers to ignore with raycast - player character and the original ignore raycast layer
 
         //Om spelaren försöker dasha in mot ett objekt:
-        if ((Physics.Raycast(ray, out raycastHit, lengthOfDash, layerMask)) && (Physics.SphereCast(ray, sizeOfSpherecast, out raycastHit2, lengthOfDash, layerMask)))
-        {
-            if ((raycastHit2.distance < raycastHit.distance))
-            raycastHit = raycastHit2;
-            print("Choosing the closer: " + raycastHit.transform.gameObject);
+        //if ((Physics.Raycast(ray, out raycastHit, lengthOfDash, layerMask)) && (Physics.SphereCast(ray, sizeOfSpherecast, out raycastHit2, lengthOfDash, layerMask)))
+        //{
+        //    if ((raycastHit2.distance < raycastHit.distance))
+        //    raycastHit = raycastHit2;
+        //    print("Choosing the closer: " + raycastHit.transform.gameObject);
 
-            endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z); // make sure the z stays the same, just in case
-        }
-        else if (Physics.Raycast(ray, out raycastHit, lengthOfDash, layerMask))
+        //    endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z); // make sure the z stays the same, just in case
+        //}
+        //else 
+        if (Physics.Raycast(ray, out raycastHit, lengthOfDash, layerMask))
         {
             endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z);
             print("Raycast hit: " + raycastHit.transform.gameObject);
