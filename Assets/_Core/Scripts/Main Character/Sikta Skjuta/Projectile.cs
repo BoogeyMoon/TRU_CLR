@@ -17,7 +17,7 @@ public class Projectile : MonoBehaviour
     protected bool active;
     protected PoolManager _pool;
 
-    protected void Start() // Hittar emptyn för att veta var vi siktar, samt sätter rotationen korrekt.
+    protected virtual void Start() // Hittar emptyn för att veta var vi siktar, samt sätter rotationen korrekt.
     {
         rotation = GameObject.Find("ShoulderAim");
         transform.rotation = rotation.transform.rotation;

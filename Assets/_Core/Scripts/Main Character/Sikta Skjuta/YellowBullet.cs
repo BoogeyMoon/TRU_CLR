@@ -19,7 +19,7 @@ public class YellowBullet : Projectile, IPoolable
     TrailRenderer trail;
     public bool Active { get { return active; } set { active = value; PoolableStart(); } }
 
-    void Start()
+    protected override void Start()
     {
         base.Start();
         trail = transform.GetChild(0).GetComponent<TrailRenderer>();
