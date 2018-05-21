@@ -16,6 +16,12 @@ public class WinScript : MonoBehaviour
     bool[] winConditions;
     GameObject canvas;
 
+    GameObject animatedCharacter;
+    //Animator animator;
+
+    bool gameWon;
+    public bool GameWon { get { return gameWon; } }
+
     void Start()
     {
 
