@@ -18,7 +18,10 @@ public class DashScript : MonoBehaviour
     Transform[] Dashlimits;
 
     [SerializeField]
-    GameObject rifleBarrel, startObject;
+    GameObject rifleBarrel;
+
+    [SerializeField]
+    GameObject[] startObject;
 
     [SerializeField]
     float lengthOfDash, dashCooldown, moveSpeed, approxValue, dontDashLength, sizeOfSpherecast;
@@ -53,7 +56,7 @@ public class DashScript : MonoBehaviour
             dashOnCooldown = true;
             DashReady = false;
             soundManager.Play(dashSound.name); // play Dash sound
-            startPosition = startObject.transform.position;
+            startPosition = startObject[0].transform.position;
             direction = rifleBarrel.transform.forward;
             Dash();
             dashing = true;
@@ -73,7 +76,7 @@ public class DashScript : MonoBehaviour
             foreach (Transform limit in Dashlimits)
             {
                 tempDist = Vector3.Distance(limit.position, endDash);
-                if (tempDist<dist)
+                if (tempDist < dist)
                 {
                     dist = tempDist;
                     //print("Distance has changed to " + dist + " from the limit number " + limit.gameObject.name);
@@ -95,10 +98,32 @@ public class DashScript : MonoBehaviour
 
     void Dash()
     {
-        Ray ray = new Ray(startPosition, direction);
-        RaycastHit raycastHit, raycastHit2;
-        Debug.DrawRay(ray.origin, ray.direction * lengthOfDash);
-        int layerMask = ~(1 << 8 | 1 << 2); // layers to ignore with raycast - player character and the original ignore raycast layer
+        Ray ray;
+        RaycastHit raycastHit;
+        float shortestHit = Mathf.Infinity;
+        foreach (GameObject startObjects in startObject)
+        {
+            startPosition = startObjects.transform.position;
+            ray = new Ray(startPosition, direction);
+            Debug.DrawRay(ray.origin, ray.direction * lengthOfDash);
+            int layerMask = ~(1 << 8 | 1 << 2); // layers to ignore with raycast - player character and the original ignore raycast layer
+
+            if (Physics.Raycast(ray, out raycastHit, lengthOfDash, layerMask))
+            {
+                if (raycastHit.distance < shortestHit)
+                {
+                    shortestHit = raycastHit.distance;
+                    endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z);
+
+                }
+                print("Raycast hit: " + raycastHit.transform.gameObject);
+            }
+            else if(shortestHit == Mathf.Infinity)
+            {
+                    endDash = rifleBarrel.transform.position + ray.direction * lengthOfDash;
+            }
+        }
+
 
         //Om spelaren försöker dasha in mot ett objekt:
         //if ((Physics.Raycast(ray, out raycastHit, lengthOfDash, layerMask)) && (Physics.SphereCast(ray, sizeOfSpherecast, out raycastHit2, lengthOfDash, layerMask)))
@@ -110,22 +135,7 @@ public class DashScript : MonoBehaviour
         //    endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z); // make sure the z stays the same, just in case
         //}
         //else 
-        if (Physics.Raycast(ray, out raycastHit, lengthOfDash, layerMask))
-        {
-            endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z);
-            print("Raycast hit: " + raycastHit.transform.gameObject);
-        }
-        else if (Physics.SphereCast(ray, sizeOfSpherecast, out raycastHit2, lengthOfDash, layerMask))
-        {
-            raycastHit = raycastHit2;
-            endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z);
-            print("Spherecast hit: " + raycastHit.transform.gameObject);
-        }
 
-        else
-        {
-            endDash = ray.origin + ray.direction * lengthOfDash;
-        }
         StartCoroutine(DashCooldown());
     }
     IEnumerator DashCooldown()
