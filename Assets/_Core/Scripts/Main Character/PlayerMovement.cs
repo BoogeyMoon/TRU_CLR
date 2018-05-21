@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     bool facingRight, isGrounded, inAir;
 
     public bool FacingRight { get { return facingRight; } }
+    bool dashing;
 
     [SerializeField]
     Transform jumpParticleObject;
@@ -39,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     DashScript dash;
     void Start()
     {
-        jumpParticles = new ParticleSystem [] { jumpParticleObject.GetChild(0).GetComponent<ParticleSystem>(), jumpParticleObject.GetChild(1).GetComponent<ParticleSystem>(), jumpParticleObject.GetChild(2).GetComponent<ParticleSystem>() };
+        jumpParticles = new ParticleSystem[] { jumpParticleObject.GetChild(0).GetComponent<ParticleSystem>(), jumpParticleObject.GetChild(1).GetComponent<ParticleSystem>(), jumpParticleObject.GetChild(2).GetComponent<ParticleSystem>() };
 
         shootScript = GameObject.FindGameObjectWithTag("Player").GetComponent<MC_ShootScript>();
         animator = GetComponent<Animator>();
@@ -61,6 +62,7 @@ public class PlayerMovement : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, offsetZ);
             GroundCheck();
             animator.SetBool("isGrounded", isGrounded);
+
             moveOnX = Input.GetAxisRaw("Horizontal");
 
             if (isGrounded) //Ifall spelaren är på marken
@@ -88,7 +90,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
             moveDirection.y -= gravity * Time.deltaTime;
-            controller.Move(moveDirection * Time.deltaTime);
+            if (!dashing)
+                controller.Move(moveDirection * Time.deltaTime);
         }
     }
 
@@ -135,7 +138,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetTrigger("doubleJump");
             jumpParticles[shootScript.ActiveColor].Clear(true);
             jumpParticles[shootScript.ActiveColor].Play(true);
-            
+
             //jumpParticle1.Play();
             //jumpParticle2.Play();
         }
@@ -176,10 +179,15 @@ public class PlayerMovement : MonoBehaviour
     {
         if (dashing)
         {
+            this.dashing = true;
             moveDirection.y = 0;
             gravity = 0;
         }
         else
+        {
+            this.dashing = false;
             gravity = startingGravity;
+        }
+
     }
 }
