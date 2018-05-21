@@ -15,6 +15,7 @@ public class WinScript : MonoBehaviour
     Score ScoreManager;
     bool[] winConditions;
     GameObject canvas;
+
     void Start()
     {
 
@@ -28,6 +29,8 @@ public class WinScript : MonoBehaviour
 
         grades = new Sprite[] { Pass, Good, Great, Awesome, TRUCLR };
 
+        animatedCharacter = Resources.Load("SK_AnimatedMCWIN_PF") as GameObject;
+        
 
         canvas = GameObject.FindGameObjectWithTag("MenuCanvas").gameObject;
         ScoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<Score>();
@@ -43,11 +46,21 @@ public class WinScript : MonoBehaviour
             if (!winConditions[i])
                 return;
         }
+
+        gameWon = true;
         StartCoroutine(Win());
     }
+
     IEnumerator Win() // Hanterar allt som ska hänta när man vinner
     {
-        
+        Vector3 playerposition = GameObject.FindGameObjectWithTag("Player").transform.position;
+
+        Vector3 camerahereposition = GameObject.Find("CameraGoesHere").transform.position;
+
+        Vector3 animatedspawn = new Vector3(camerahereposition.x, camerahereposition.y, playerposition.z);
+
+        animatedCharacter = Instantiate(animatedCharacter, animatedspawn, new Quaternion(0, 90, 0, 0));
+
         yield return new WaitForSeconds(1.5f);
         canvas.transform.GetChild(7).gameObject.SetActive(true);
         Text levelName = canvas.transform.GetChild(7).GetChild(0).GetChild(0).GetComponent<Text>();
