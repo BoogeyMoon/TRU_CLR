@@ -79,12 +79,12 @@ public class PlayerMovement : MonoBehaviour
                 JumpOrFall();
             }
 
-            if (IK.MousePos.x < transform.position.x && facingRight == false) //Om muspekaren är på högra sidan av skärmen så vänder spelaren åt höger
+            if (IK.MousePos.x + 0.1f < transform.position.x && facingRight == false) //Om muspekaren är på högra sidan av skärmen så vänder spelaren åt höger
             {
                 FlipPlayer();
             }
 
-            if (IK.MousePos.x > transform.position.x && facingRight == true) //Om muspekaren är på vänstra sidan av skärmen så vänder spelaren åt vänster
+            if (IK.MousePos.x -0.1f > transform.position.x && facingRight == true) //Om muspekaren är på vänstra sidan av skärmen så vänder spelaren åt vänster
             {
                 FlipPlayer();
             }
