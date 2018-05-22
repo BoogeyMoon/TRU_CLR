@@ -101,7 +101,7 @@ public class DashScript : MonoBehaviour
         Ray ray;
         RaycastHit raycastHit;
         float shortestHit = Mathf.Infinity;
-        foreach (GameObject startObjects in startObject)
+        foreach (GameObject startObjects in startObject) // checking several raycasts from different points on the character
         {
             startPosition = startObjects.transform.position;
             ray = new Ray(startPosition, direction);
@@ -113,6 +113,7 @@ public class DashScript : MonoBehaviour
                 if (raycastHit.distance < shortestHit)
                 {
                     shortestHit = raycastHit.distance;
+                    print(shortestHit);
                     endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z);
 
                 }
@@ -123,18 +124,6 @@ public class DashScript : MonoBehaviour
                     endDash = rifleBarrel.transform.position + ray.direction * lengthOfDash;
             }
         }
-
-
-        //Om spelaren försöker dasha in mot ett objekt:
-        //if ((Physics.Raycast(ray, out raycastHit, lengthOfDash, layerMask)) && (Physics.SphereCast(ray, sizeOfSpherecast, out raycastHit2, lengthOfDash, layerMask)))
-        //{
-        //    if ((raycastHit2.distance < raycastHit.distance))
-        //    raycastHit = raycastHit2;
-        //    print("Choosing the closer: " + raycastHit.transform.gameObject);
-
-        //    endDash = new Vector3(raycastHit.point.x, raycastHit.point.y, transform.position.z); // make sure the z stays the same, just in case
-        //}
-        //else 
 
         StartCoroutine(DashCooldown());
     }
