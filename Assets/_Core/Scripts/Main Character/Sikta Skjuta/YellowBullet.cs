@@ -44,9 +44,9 @@ public class YellowBullet : Projectile, IPoolable
     {
         if (active)
         {
-            dropValue -= gravity;
-            transform.Translate((Vector3.forward * startVelocity * Time.fixedDeltaTime) + (Vector3.up * dropValue * Time.fixedDeltaTime));
-            transform.position = new Vector3(transform.position.x, transform.position.y, zOffSet);
+            dropValue -= gravity *Time.deltaTime;
+            transform.Translate((Vector3.forward * startVelocity * Time.fixedDeltaTime));// (Vector3.up * dropValue * Time.fixedDeltaTime));
+            transform.position = new Vector3(transform.position.x, transform.position.y + dropValue , zOffSet);
         }
     }
 

@@ -12,6 +12,10 @@ public class WinScript : MonoBehaviour
     List<Transform> winCons;
     Sprite[] grades;
 
+    CameraManager cameramanager;
+
+    PlayerStats playerstats;
+
     Score ScoreManager;
     bool[] winConditions;
     GameObject canvas;
@@ -59,15 +63,23 @@ public class WinScript : MonoBehaviour
 
     IEnumerator Win() // Hanterar allt som ska hänta när man vinner
     {
-        Vector3 playerposition = GameObject.FindGameObjectWithTag("Player").transform.position;
+       
 
-        Vector3 camerahereposition = GameObject.Find("CameraGoesHere").transform.position;
+        yield return new WaitForSeconds(1.5f);
 
-        Vector3 animatedspawn = new Vector3(camerahereposition.x, camerahereposition.y, playerposition.z);
+
+        GameObject playerposition = GameObject.FindGameObjectWithTag("Player");
+
+        Transform spawnposition = GameObject.Find("CameraGoesHere").transform;
+
+        Vector3 animatedspawn = new Vector3(spawnposition.position.x, spawnposition.position.y, playerposition.transform.position.z);
+
+        playerposition.SetActive(false);
+
+        spawnposition.position = animatedspawn + new Vector3(0, -5.5f, 80) + new Vector3(0.25f, 1.5f, -5.45f);
 
         animatedCharacter = Instantiate(animatedCharacter, animatedspawn, new Quaternion(0, 90, 0, 0));
 
-        yield return new WaitForSeconds(1.5f);
         canvas.transform.GetChild(7).gameObject.SetActive(true);
         Text levelName = canvas.transform.GetChild(7).GetChild(0).GetChild(0).GetComponent<Text>();
         levelName.text = "Level " + (ScoreManager.LevelIndex +1);

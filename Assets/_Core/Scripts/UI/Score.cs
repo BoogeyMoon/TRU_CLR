@@ -21,6 +21,7 @@ public class Score : MonoBehaviour
 
     [SerializeField]
     float multiplierSpeed, startCounter;
+    float timer;
 
     string[] grades = new string[] { "Pass", "Good", "Great", "Amazing", "TRU_CLR!" };
 
@@ -31,19 +32,31 @@ public class Score : MonoBehaviour
     {
         scorePerLife = 80;
         currentScore = startScore;
-        InvokeRepeating("LooseScore", startCounter, multiplierSpeed);
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
         xml = GameObject.FindGameObjectWithTag("Canvas").GetComponent<XmlScript>();
+        timer = startCounter;
     }
 
     void Update()
     {
         displayScore.text = "Score: " + currentScore.ToString();
+        timer -= Time.deltaTime;
+        if(timer <= 0 )
+        {
+            LooseScore();
+            timer = multiplierSpeed;
+            multiplierSpeed -= 0.1f;
+            if (multiplierSpeed < 1)
+                multiplierSpeed = 1;
+        }
+
     }
 
     public void LooseScore() //Kommer ta in score parametrar sen
     {
         currentScore -= scoreMultiplier;
+        if (currentScore < 0)
+            currentScore = 0;
     }
 
     public void AddScore(int score) //Lägger till ytterligare poäng till spelarens nuvarande score
