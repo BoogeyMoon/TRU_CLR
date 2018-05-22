@@ -154,12 +154,6 @@ public class MenuScript : MonoBehaviour
         xmlScript.SaveLanguageSettings(languageIndex);
 
     }
-    //public void ChangeHighlight()
-    //{
-    //    xmlScript.ChangeHighlight();
-    //}
-
-
     //Settings och Credits:
     public void GeneralIndexButton(int index)
     {
