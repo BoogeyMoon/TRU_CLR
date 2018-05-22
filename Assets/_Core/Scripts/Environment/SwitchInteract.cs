@@ -16,12 +16,18 @@ public class SwitchInteract : MonoBehaviour {
     [SerializeField]
     GameObject Object;
     bool activated;
+    Collider coll;
 
 
+    void Start()
+    {
+        coll = GetComponent<Collider>();
+    }
     public void Trigger(int color) //Om switchen träffas av rätt färg
     {
         if(this.color == color && !activated)
         {
+            coll.enabled = false;
             activated = true;
             Object.GetComponent<Interactable>().Activated();
         }
