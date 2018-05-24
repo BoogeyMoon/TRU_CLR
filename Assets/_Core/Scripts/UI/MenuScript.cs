@@ -266,7 +266,11 @@ public class MenuScript : MonoBehaviour
         {
             yield return null;
         }
+        paused = false;
         menus[10].SetActive(false);
+        menus[1].SetActive(false);
+        menus[6].SetActive(false);
+        Time.timeScale = 1;
         loading = false;
     }
 
@@ -279,7 +283,11 @@ public class MenuScript : MonoBehaviour
         {
             yield return null;
         }
+        paused = false;
         menus[10].SetActive(false);
+        menus[1].SetActive(false);
+        menus[6].SetActive(false);
+        Time.timeScale = 1;
         loading = false;
     }
 

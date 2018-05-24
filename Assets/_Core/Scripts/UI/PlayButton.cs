@@ -27,7 +27,11 @@ public class PlayButton : MonoBehaviour
         //panel.SetActive(false);
         xmlScript.ActivatePanel(false);
         if (GameObject.FindGameObjectsWithTag("MenuCanvas").Length != 0)
+        {
             GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>().SetMainMenu(true);
+            GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>().Play("S_TRU_CLR_Menu");
+        }
+
         SceneManager.LoadScene("MenuScene");
         xmlScript.currentMenu = "MainMenu";
         xmlScript.CheckLanguage(currentPlayer);

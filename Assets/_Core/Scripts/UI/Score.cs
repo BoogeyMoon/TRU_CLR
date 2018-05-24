@@ -24,6 +24,7 @@ public class Score : MonoBehaviour
     float timer;
 
     string[] grades = new string[] { "Pass", "Good", "Great", "Amazing", "TRU_CLR!" };
+    bool gradeReturned;
 
     XmlScript xml;
     PlayerStats player;
@@ -39,16 +40,20 @@ public class Score : MonoBehaviour
 
     void Update()
     {
-        displayScore.text = "Score: " + currentScore.ToString();
-        timer -= Time.deltaTime;
-        if(timer <= 0 )
+        if (!gradeReturned)
         {
-            LooseScore();
-            timer = multiplierSpeed;
-            multiplierSpeed -= 0.1f;
-            if (multiplierSpeed < 1)
-                multiplierSpeed = 1;
+            displayScore.text = "Score: " + currentScore.ToString();
+            timer -= Time.deltaTime;
+            if (timer <= 0)
+            {
+                LooseScore();
+                timer = multiplierSpeed;
+                multiplierSpeed -= 0.1f;
+                if (multiplierSpeed < 1)
+                    multiplierSpeed = 1;
+            }
         }
+
 
     }
 
@@ -67,7 +72,8 @@ public class Score : MonoBehaviour
     {
         currentScore += (int)player.Health * scorePerLife;
         print("score: " + currentScore);
-        
+        gradeReturned = true;
+
         for (int i = 0; i < gradesCaps.Length; i++)
         {
             if (currentScore >= gradesCaps[gradesCaps.Length - 1 - i])

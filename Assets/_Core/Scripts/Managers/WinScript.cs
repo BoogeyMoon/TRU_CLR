@@ -70,16 +70,27 @@ public class WinScript : MonoBehaviour
 
         GameObject playerposition = GameObject.FindGameObjectWithTag("Player");
 
-        Transform spawnposition = GameObject.Find("CameraGoesHere").transform;
+        Transform spawnposition = GameObject.Find("CharacterGoesHere").transform;
+        Transform cameraposition = GameObject.Find("CameraGoesHere").transform;
+        Transform bossroomcenter = GameObject.Find("BossRoom").transform;
 
-        Vector3 animatedspawn = new Vector3(spawnposition.position.x, spawnposition.position.y, playerposition.transform.position.z);
 
-        playerposition.SetActive(false);
+        if (spawnposition != null && cameraposition != null && bossroomcenter != null)
+        {
+            Vector3 animatedspawn = new Vector3(spawnposition.position.x, spawnposition.position.y, playerposition.transform.position.z);
 
-        spawnposition.position = animatedspawn + new Vector3(0, -5.5f, 80) + new Vector3(0.25f, 1.5f, -5.45f);
+            playerposition.SetActive(false);
 
-        animatedCharacter = Instantiate(animatedCharacter, animatedspawn, new Quaternion(0, 90, 0, 0));
+            cameraposition.position = bossroomcenter.position + new Vector3(0, -5.5f, 80) + new Vector3(0.25f, 1.5f, -5.45f);
 
+            yield return new WaitForSeconds(0.5f);
+
+
+            animatedCharacter = Instantiate(animatedCharacter, animatedspawn, new Quaternion(0, 90, 0, 0));
+
+            cameraposition.position = animatedspawn + new Vector3(0, -5.5f, 80) + new Vector3(0.25f, 1.5f, -5.45f);
+
+        }
         canvas.transform.GetChild(7).gameObject.SetActive(true);
         Text levelName = canvas.transform.GetChild(7).GetChild(0).GetChild(0).GetComponent<Text>();
         levelName.text = "Level " + (ScoreManager.LevelIndex +1);
