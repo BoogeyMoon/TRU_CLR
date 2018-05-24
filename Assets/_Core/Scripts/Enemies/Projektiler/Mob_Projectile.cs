@@ -13,6 +13,8 @@ public class Mob_Projectile : MonoBehaviour, IPoolable
     protected float startVelocity, damage, startTime, lifeTime;
     [SerializeField]
     protected int color;
+    [SerializeField]
+    bool homing;
     protected PoolManager _pool;
     bool active;
     public bool Active { get { { return active; } } set { active = value; PoolStart(); } }
@@ -20,7 +22,10 @@ public class Mob_Projectile : MonoBehaviour, IPoolable
     protected void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        _pool = GameObject.FindGameObjectWithTag("PoolManagers").transform.GetChild(2).GetComponent<PoolManager>();
+        if (!homing)
+            _pool = GameObject.FindGameObjectWithTag("PoolManagers").transform.GetChild(2).GetComponent<PoolManager>();
+        else
+            _pool = GameObject.FindGameObjectWithTag("PoolManagers").transform.GetChild(4).GetComponent<PoolManager>();
         if (lifeTime == 0)
         {
             lifeTime = 5;

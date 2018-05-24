@@ -74,7 +74,10 @@ public class MobStats : MonoBehaviour
             raycastOrigin = new GameObject[1];
             raycastOrigin[0] = bulletSpawners[0];
         }
-        _pool = GameObject.FindGameObjectWithTag("PoolManagers").transform.GetChild(2).GetComponent<PoolManager>();
+        if (gameObject.tag != "Boss")
+            _pool = GameObject.FindGameObjectWithTag("PoolManagers").transform.GetChild(2).GetComponent<PoolManager>();
+        else
+            _pool = GameObject.FindGameObjectWithTag("PoolManagers").transform.GetChild(4).GetComponent<PoolManager>();
         _textPool = GameObject.FindGameObjectWithTag("PoolManagers").transform.GetChild(3).GetComponent<PoolManager>();
     }
     protected void updatePatrolPoints() //Kollar barnen på ett gameobject och lägger till dem i en lista.
