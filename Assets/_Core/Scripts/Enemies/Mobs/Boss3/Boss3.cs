@@ -18,7 +18,7 @@ public class Boss3 : MobStats
     {
         base.Start();
         SetToPlayerPlane(transform);
-        if(timeBetweenRotation <= 0)
+        if (timeBetweenRotation <= 0)
         {
             timeBetweenRotation = 4;
         }
@@ -40,28 +40,30 @@ public class Boss3 : MobStats
             rotDoneTimer -= Time.deltaTime;
             Patrol();
 
-            if (transform.childCount == startChilds-3)
+            if (transform.childCount == startChilds - 3)
             {
                 dead = true;       //Ser till att den inte fortsätter göra något medan den är i sitt dödsstadie
                 win.WinConFinished(transform); //Låter winmanagern veta att det här winconditionet är slutfört
                 Die();
             }//Här har två torn dött
-            else if(childsLastFrame< transform.childCount && transform.childCount == startChilds -2)
+            else if ( transform.childCount < childsLastFrame && transform.childCount == startChilds - 2)
             {
                 timeBetweenBurst = 0.5f;
+                burstTimer = timeBetweenBurst;
             }//Under är lättast / när ett torn har dött
-            else if(childsLastFrame < transform.childCount && transform.childCount == startChilds - 1)
+            else if ( transform.childCount < childsLastFrame && transform.childCount == startChilds - 1)
             {
                 timeBetweenBurst = 1;
-                numberOfBulletsPerShot ++;
+                burstTimer = timeBetweenBurst;
+                numberOfBulletsPerShot++;
             }
-           
+
 
             else if (rotTimer <= 0) //Rotera
             {
-               Rotate();
+                Rotate();
             }
-            if(rotDoneTimer <= 0) //Nollställ värden & setup för nästa rotation
+            if (rotDoneTimer <= 0) //Nollställ värden & setup för nästa rotation
             {
                 rotDoneTimer = timeBetweenRotation + 0.7f;
                 rotTimer = timeBetweenRotation;
@@ -70,10 +72,10 @@ public class Boss3 : MobStats
             }
             if (GetPlayerDistance(transform) < aggroRange && burstTimer < 0)
             {
-                
+
                 if (timeLeft < 0)
                 {
-                        Shoot();
+                    Shoot();
                 }
             }
         }
@@ -82,6 +84,6 @@ public class Boss3 : MobStats
     }
     void Rotate() //Roterar bossen 120 grader (en tredjedels vard)
     {
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles.x,transform.rotation.eulerAngles.y,rotateAngle), 5 *Time.deltaTime);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(transform.rotation.eulerAngles.x, transform.rotation.eulerAngles.y, rotateAngle), 5 * Time.deltaTime);
     }
 }
