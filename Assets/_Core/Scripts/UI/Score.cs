@@ -72,6 +72,7 @@ public class Score : MonoBehaviour
     {
         currentScore += (int)player.Health * scorePerLife;
         print("score: " + currentScore);
+        gradeReturned = true;
 
         for (int i = 0; i < gradesCaps.Length; i++)
         {
