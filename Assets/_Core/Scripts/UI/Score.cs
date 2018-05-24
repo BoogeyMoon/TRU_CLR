@@ -29,9 +29,12 @@ public class Score : MonoBehaviour
     XmlScript xml;
     PlayerStats player;
 
+    Animator animator;
+
     void Start()
     {
         scorePerLife = 80;
+        animator = GameObject.Find("Canvas UI").transform.GetChild(0).GetComponent<Animator>();
         currentScore = startScore;
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerStats>();
         xml = GameObject.FindGameObjectWithTag("Canvas").GetComponent<XmlScript>();
@@ -59,6 +62,9 @@ public class Score : MonoBehaviour
 
     public void LooseScore() //Kommer ta in score parametrar sen
     {
+        if (animator != null)
+            animator.SetTrigger("red");
+
         currentScore -= scoreMultiplier;
         if (currentScore < 0)
             currentScore = 0;
@@ -66,6 +72,8 @@ public class Score : MonoBehaviour
 
     public void AddScore(int score) //Lägger till ytterligare poäng till spelarens nuvarande score
     {
+        if (animator != null)
+            animator.SetTrigger("green");
         currentScore += score;
     }
     public int GetGrade() //Återlämnar vilket betyg spelaren skulle få med sin nuvarande poäng och sparar det i XML-databasen om det är ett rekord

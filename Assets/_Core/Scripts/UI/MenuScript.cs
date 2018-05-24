@@ -254,7 +254,16 @@ public class MenuScript : MonoBehaviour
     public void NextLevel()
     {
         if (SceneManager.GetActiveScene().buildIndex != 6)
-            LoadingScreen(SceneManager.GetActiveScene().buildIndex + 1);
+        {
+            int nextLevelIndex = SceneManager.GetActiveScene().buildIndex + 1;
+            StartCoroutine(LoadingScreen(nextLevelIndex));
+        }
+        else
+        {
+            StartCoroutine(LoadingScreen(1));
+            menus[0].SetActive(true);
+        }
+
     }
 
     IEnumerator LoadingScreen(string name)
@@ -276,6 +285,7 @@ public class MenuScript : MonoBehaviour
 
     IEnumerator LoadingScreen(int index)
     {
+        print("jag kommer hit! index = " + index);
         loading = true;
         menus[10].SetActive(true);
         AsyncOperation async = SceneManager.LoadSceneAsync(index);
@@ -287,6 +297,7 @@ public class MenuScript : MonoBehaviour
         menus[10].SetActive(false);
         menus[1].SetActive(false);
         menus[6].SetActive(false);
+        menus[7].SetActive(false);
         Time.timeScale = 1;
         loading = false;
     }
