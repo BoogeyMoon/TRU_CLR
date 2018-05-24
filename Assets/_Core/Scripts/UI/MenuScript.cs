@@ -41,7 +41,8 @@ public class MenuScript : MonoBehaviour
     //Sätter alla värden
     void Start()
     {
-        xmlScript.LoadTexts("MainMenu");
+        xmlScript.currentMenu = "MainMenu";
+        xmlScript.LoadTexts();
         inGame = false;
         menuSound.Play("S_TRU_CLR_Menu");
         menus = new List<GameObject>() { mainMenu, pausePanel, loadMenu, settingsMenu, creditsMenu, confirmQuit, pauseMenu, winScreen, loseScreen, areYouSure, loadingScreen };
@@ -200,6 +201,7 @@ public class MenuScript : MonoBehaviour
         SetMenusInactive();
         menuSound.StopAll();
         StartCoroutine(LoadingScreen("MenuScene"));
+        xmlScript.SetLanguage(xmlScript.currentLanguageIndex);
         StartCoroutine(WaitForSceneLoad());
     }
 
@@ -230,8 +232,7 @@ public class MenuScript : MonoBehaviour
         SetMenusInactive();
         xmlScript.ActivatePanel(true);
         xmlScript.currentMenu = "Inlog";
-        xmlScript.currentLanguageIndex = 0;
-        //xmlScript.ChangeHighlight();
+        xmlScript.SetLanguage(0);
         StartCoroutine(LoadingScreen("LogInScene"));
     }
 
@@ -281,6 +282,10 @@ public class MenuScript : MonoBehaviour
         menus[6].SetActive(false);
         Time.timeScale = 1;
         loading = false;
+        if (name == "Level1")
+        {
+            xmlScript.LoadTexts();
+        }
     }
 
     IEnumerator LoadingScreen(int index)
