@@ -9,9 +9,9 @@ public class HighlightButtons : MonoBehaviour
     public void Highlight(GameObject button)
     {
         xmlScript = GameObject.FindGameObjectWithTag("Canvas").GetComponent<XmlScript>();
-        if (button == null)
+        if (button.name == "LanguageButtons")
         {
-            button = GameObject.FindGameObjectWithTag("LanguageButtons").transform.GetChild(xmlScript.currentLanguageIndex).gameObject;
+            button = button.transform.GetChild(xmlScript.currentLanguageIndex).gameObject;
         }
         for (int i = 0; i < GameObject.FindGameObjectWithTag("LanguageButtons").transform.childCount; i++)
         {
