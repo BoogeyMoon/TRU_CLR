@@ -266,9 +266,7 @@ public class MenuScript : MonoBehaviour
         {
             yield return null;
         }
-        paused = false;
-        SetMenusInactive();
-        Time.timeScale = 1;
+        menus[10].SetActive(false);
         loading = false;
     }
 
@@ -281,9 +279,7 @@ public class MenuScript : MonoBehaviour
         {
             yield return null;
         }
-        paused = false;
-        SetMenusInactive();
-        Time.timeScale = 1;
+        menus[10].SetActive(false);
         loading = false;
     }
 
