@@ -271,6 +271,7 @@ public class MenuScript : MonoBehaviour
     {
         loading = true;
         menus[10].SetActive(true);
+        menuSound.StopAll();
         AsyncOperation async = SceneManager.LoadSceneAsync(name);
         while (!async.isDone)
         {
@@ -293,6 +294,7 @@ public class MenuScript : MonoBehaviour
         print("jag kommer hit! index = " + index);
         loading = true;
         menus[10].SetActive(true);
+        menuSound.StopAll();
         AsyncOperation async = SceneManager.LoadSceneAsync(index);
         while (!async.isDone)
         {
