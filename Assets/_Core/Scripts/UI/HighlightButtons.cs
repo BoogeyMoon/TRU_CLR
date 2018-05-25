@@ -5,24 +5,20 @@ using UnityEngine;
 public class HighlightButtons : MonoBehaviour
 {
     XmlScript xmlScript;
-    GameObject defaultButton;
+    [SerializeField]
+    GameObject parent;
 
-    public void Highlight(string button)
+    public void Highlight(int languageindex)
     {
-        xmlScript = GameObject.FindGameObjectWithTag("Canvas").GetComponent<XmlScript>();
-
-        for (int i = 0; i < GameObject.FindGameObjectWithTag("LanguageButtons").transform.childCount; i++)
+        if(languageindex == -1)
         {
-            GameObject.FindGameObjectWithTag("LanguageButtons").transform.GetChild(i).GetChild(0).gameObject.SetActive(false);
+            xmlScript = GameObject.FindGameObjectWithTag("Canvas").GetComponent<XmlScript>();
+            languageindex = xmlScript.currentLanguageIndex;
         }
-        if (button == "LanguageButtons")
+        for (int i = 0; i < parent.transform.childCount; i++)
         {
-            defaultButton = GameObject.Find(button).gameObject;
-            defaultButton.SetActive(true);
+            parent.transform.GetChild(i).GetChild(0).gameObject.SetActive(false);
         }
-        else
-        {
-            gameObject.SetActive(true);
-        }
+        parent.transform.GetChild(languageindex).GetChild(0).gameObject.SetActive(true);
     }
 }

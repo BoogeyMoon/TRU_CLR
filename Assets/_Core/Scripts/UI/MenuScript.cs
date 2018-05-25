@@ -9,7 +9,7 @@ using UnityEngine.UI;
 //Tillägg av Andreas de Freitas && Timmy Alvelöv
 public class MenuScript : MonoBehaviour
 {
-    GameObject mainMenu, loadMenu, settingsMenu, confirmQuit, creditsMenu, pauseMenu, pausePanel, winScreen, loseScreen, areYouSure, loadingScreen, loadingWheel;
+    GameObject mainMenu, loadMenu, settingsMenu, confirmQuit, creditsMenu, pauseMenu, pausePanel, winScreen, loseScreen, areYouSure, loadingScreen, loadingWheel, languageButton;
     [SerializeField]
     GameObject eventSystem;
     List<GameObject> menus;
@@ -22,6 +22,7 @@ public class MenuScript : MonoBehaviour
         get { return paused; }
     }
     XmlScript xmlScript;
+    HighlightButtons highlightButtonsScript;
     [SerializeField]
     Slider master, music, effects, dialogue;
     AudioManager menuSound;
@@ -35,6 +36,7 @@ public class MenuScript : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
         xmlScript = GameObject.FindGameObjectWithTag("Canvas").GetComponent<XmlScript>();
+        highlightButtonsScript = GameObject.FindGameObjectWithTag("Canvas").GetComponent<HighlightButtons>();
         menuSound = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
 
     }
@@ -233,6 +235,7 @@ public class MenuScript : MonoBehaviour
         xmlScript.ActivatePanel(true);
         xmlScript.currentMenu = "Inlog";
         xmlScript.SetLanguage(0);
+        highlightButtonsScript.Highlight(0);
         StartCoroutine(LoadingScreen("LogInScene"));
     }
 
