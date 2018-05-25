@@ -55,7 +55,7 @@ public class Boss3 : MobStats
             {
                 timeBetweenBurst = 1;
                 burstTimer = timeBetweenBurst;
-                numberOfBulletsPerShot++;
+                shotsPerBurst++;
             }
 
 
