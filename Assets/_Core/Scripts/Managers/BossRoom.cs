@@ -19,6 +19,7 @@ public class BossRoom : MonoBehaviour
     void Start() //hämtar komponenter
     {
         cameraPosition = transform.GetChild(0);
+        timer = startTime;
         jig = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraManager>();
         if(trigger != null && trigger.GetComponent<Interactable>() != null)
         {
