@@ -245,6 +245,7 @@ public class MenuScript : MonoBehaviour
         if (Time.timeScale == 0)
             Time.timeScale = 1;
         menuSound.StopAll();
+        
         StartCoroutine(LoadingScreen(currentGameScene));
     }
 
@@ -290,6 +291,7 @@ public class MenuScript : MonoBehaviour
         {
             xmlScript.LoadTexts();
         }
+        currentGameScene = SceneManager.GetActiveScene().name;
     }
 
     IEnumerator LoadingScreen(int index)
@@ -310,6 +312,7 @@ public class MenuScript : MonoBehaviour
         menus[7].SetActive(false);
         Time.timeScale = 1;
         loading = false;
+        currentGameScene = SceneManager.GetActiveScene().name;
     }
 
 }
