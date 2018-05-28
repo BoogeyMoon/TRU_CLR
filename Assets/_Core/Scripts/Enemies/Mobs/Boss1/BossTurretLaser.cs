@@ -12,7 +12,7 @@ public class BossTurretLaser : MobStats
     Vector3 startPosition, direction;
     Collider beam;
     Vector3 endPosition;
-
+    AudioManager audio;
     ParticleSystem[] particleSystems;
 
 
@@ -28,6 +28,7 @@ public class BossTurretLaser : MobStats
         beam.enabled = false;
         transform.position = new Vector3(transform.position.x, transform.position.y, player.transform.position.z);
         particleSystems = new ParticleSystem[] { transform.GetChild(0).GetComponent<ParticleSystem>(), transform.GetChild(1).GetComponent<ParticleSystem>() };
+        audio = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     void Update() //Hanterar cooldown conditions 
@@ -71,6 +72,7 @@ public class BossTurretLaser : MobStats
         endPosition = transform.GetChild(3).position;
         laserCooldown = maxLaserCharge + chargeUpTime;
         yield return new WaitForSeconds(chargeUpTime);
+        audio.Play("laser 1 sec");
         particleSystems[0].Stop(true);
         particleSystems[0].Clear(true);
         particleSystems[1].Clear(true);
