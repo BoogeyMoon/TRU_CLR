@@ -7,7 +7,7 @@ using UnityEngine.UI;
 //Låter spelaren vinna när alla conditions har blivit uppfyllda.
 public class WinScript : MonoBehaviour
 {
-    
+
     [SerializeField]
     List<Transform> winCons;
     Sprite[] grades;
@@ -41,7 +41,7 @@ public class WinScript : MonoBehaviour
         grades = new Sprite[] { Pass, Good, Great, Awesome, TRUCLR };
 
         animatedCharacter = Resources.Load("SK_AnimatedMCWIN_PF") as GameObject;
-        
+
 
         canvas = GameObject.FindGameObjectWithTag("MenuCanvas").gameObject;
         winScreen = canvas.transform.GetChild(7).gameObject;
@@ -65,7 +65,7 @@ public class WinScript : MonoBehaviour
 
     IEnumerator Win() // Hanterar allt som ska hänta när man vinner
     {
-       
+
 
         yield return new WaitForSeconds(1.5f);
 
@@ -97,20 +97,22 @@ public class WinScript : MonoBehaviour
 
         //Sätter level-nummer:
         levelNr = winScreen.transform.GetChild(0).GetChild(1).GetComponent<Text>();
-        levelNr.text = (ScoreManager.LevelIndex +1).ToString();
+        levelNr.text = (ScoreManager.LevelIndex + 1).ToString();
 
         //Sätter poäng:
         Text baseScore = winScreen.transform.GetChild(0).GetChild(4).GetComponent<Text>();
         baseScore.text = ScoreManager.CurrentScore.ToString();
 
-        //Sätter totalpoäng:
-        Text totalScore = winScreen.transform.GetChild(0).GetChild(6).GetComponent<Text>();
-        totalScore.text = ScoreManager.CurrentScore.ToString();
-
         //Sätter betyget:
         Image rating = winScreen.transform.GetChild(0).GetChild(8).GetComponent<Image>();
         int grade = ScoreManager.GetGrade();
         rating.sprite = grades[grade - 1];
+
+        //Sätter totalpoäng:
+        Text totalScore = winScreen.transform.GetChild(0).GetChild(6).GetComponent<Text>();
+        totalScore.text = ScoreManager.CurrentScore.ToString();
+
+
 
         Time.timeScale = 0;
     }

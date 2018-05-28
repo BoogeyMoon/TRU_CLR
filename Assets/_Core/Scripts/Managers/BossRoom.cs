@@ -21,14 +21,14 @@ public class BossRoom : MonoBehaviour
         cameraPosition = transform.GetChild(0);
         timer = startTime;
         jig = GameObject.FindGameObjectWithTag("Camera").GetComponent<CameraManager>();
-        if (trigger != null && trigger.GetComponent<Interactable>() != null)
-        {
-            trigger.GetComponent<Interactable>().Activated();
-        }
         if (startTime == 0)
             startTime = 1;
         sound = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
         sound.Play("S_TRU_CLR_InGame"); //Startar in-gameljudet 
+        if (trigger != null && trigger.GetComponent<Interactable>() != null)
+        {
+            trigger.GetComponent<Interactable>().Activated();
+        }
     }
     void Update()
     {
@@ -47,20 +47,19 @@ public class BossRoom : MonoBehaviour
             jig.SetCameraPosition(cameraPosition);
             sound.Stop("S_TRU_CLR_InGame");
             sound.Play("S_TRU_CLR_Boss");
-            if (trigger != null)
-                startTimer = true;
+            startTimer = true;
 
         }
     }
-    void OnTriggerExit(Collider coll) //Återställer kameran så att den följer spelaren
-    {
-        if (coll.tag == "Player")
-        {
-            jig.SetCameraPosition(null);
-        }
-        timer = startTime;
-        startTimer = false;
-    }
+    //void OnTriggerExit(Collider coll) //Återställer kameran så att den följer spelaren
+    //{
+    //    if (coll.tag == "Player")
+    //    {
+    //        jig.SetCameraPosition(null);
+    //    }
+    //    timer = startTime;
+    //    startTimer = false;
+    //}
 
 
 }
