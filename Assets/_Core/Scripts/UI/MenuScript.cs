@@ -13,8 +13,7 @@ public class MenuScript : MonoBehaviour
     [SerializeField]
     GameObject eventSystem;
     List<GameObject> menus;
-    int numberOfLevels, unlockedLevels;
-    int score;
+    int numberOfLevels, unlockedLevels, score, numberOfGrades;
     string currentGameScene;
     bool paused, inGame, loading;
     public bool Paused
@@ -55,6 +54,7 @@ public class MenuScript : MonoBehaviour
         }
         menus[0].SetActive(true);
         loadingWheel = menus[10].transform.GetChild(0).GetChild(1).gameObject;
+        numberOfGrades = 4;
 
     }
 
@@ -108,45 +108,35 @@ public class MenuScript : MonoBehaviour
         StartCoroutine(LoadingScreen(currentGameScene));
     }
 
+    //Kallas på från LevelSelect knappen i MainMenu.
     public void LevelSelect()
     {
-        menus[0].SetActive(false);
-        menus[2].SetActive(true);
+        menus[0].SetActive(false); //Sätter MainMenu-knapparna inaktiva.
+        menus[2].SetActive(true);  //Sätter LevelParent aktiv.
         Transform levelParent = menus[2].transform.GetChild(0);
+        Transform level1 = levelParent.GetChild(0);
+
         numberOfLevels = xmlScript.numberOfLevels;
-        for (int i = 0; i < levelParent.childCount; i++) //Stänger av allt så att inget är kvar från förra sparningen
+        for (int i = 0; i < numberOfLevels; i++) //För varje level som finns så...
         {
-            for (int j = 0; j < levelParent.transform.GetChild(i).childCount; j++)
+            for(int x = 0; x < numberOfGrades; x++) //Och för varje betyg som finns så...
             {
-                for (int c = 0; c < levelParent.transform.GetChild(i).GetChild(j).childCount - 1; c++)
-                {
-                    levelParent.transform.GetChild(i).GetChild(j).GetChild(c).gameObject.SetActive(false);
-                }
-                levelParent.transform.GetChild(i).GetChild(j).gameObject.SetActive(false);
+                levelParent.GetChild(i).GetChild(0).GetChild(x).gameObject.SetActive(false); //...Sätt alla betyg inaktiva.
             }
-        }
-        for (int i = 0; i < numberOfLevels; i++)
-        {
-            levelParent.GetChild(i).gameObject.SetActive(true); //Sätter parent aktiv.
-            int tempScore = xmlScript.ScoreList[i];
-            levelParent.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
-            levelParent.GetChild(0).transform.GetChild(0).GetComponent<Level_Button_Script>().ChangeText(xmlScript.GetScore(0), xmlScript.GetGrade(0));
+            int levelScore = xmlScript.ScoreList[i]; //Hämtar vilken score just denna level(int i) har.
+
+            level1.GetChild(0).GetComponent<Level_Button_Script>().ChangeText(xmlScript.GetScore(0), xmlScript.GetGrade(0)); //Hämtar score och grade för Level 1.
+            level1.GetChild(1).gameObject.SetActive(false); //Sätter så att Level 1 är upplåst.
+
             unlockedLevels = i + 1; //+1 för att nästa level ska låsas upp när en level är avklarad.
-            if (tempScore > 0) //bör vara grade istället.
+            if (levelScore > 0)
             {
-                //Följande sätter alla upplåsta levels aktiva:
-                levelParent.GetChild(unlockedLevels).transform.GetChild(0).gameObject.SetActive(true);
+                //Följande gör alla upplåsta levels aktiva (dvs. sätter alla lås-komponenter på alla upplåsta levels inaktiva):
+                levelParent.GetChild(unlockedLevels).transform.GetChild(1).gameObject.SetActive(false);
                 levelParent.GetChild(unlockedLevels).transform.GetChild(0).GetComponent<Level_Button_Script>().
-                ChangeText(xmlScript.GetScore(unlockedLevels), xmlScript.GetGrade(unlockedLevels));             //Ser till att texten motsvarar spelarens poäng och betyg
+                ChangeText(xmlScript.GetScore(unlockedLevels), xmlScript.GetGrade(unlockedLevels));//Ser till att texten motsvarar spelarens poäng och betyg
             }
-            //Följande sätter alla låsta levels aktiva:
-            else
-            {
-                levelParent.GetChild(unlockedLevels).transform.GetChild(1).gameObject.SetActive(true);
-            }
-
         }
-
 
     }
 

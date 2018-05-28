@@ -8,23 +8,16 @@ using UnityEngine.UI;
 
 public class Level_Button_Script : MonoBehaviour {
     
-    Text text;
-    [SerializeField]
-    int gameNumber;
+    Text scoreText;
 
     public void ChangeText(int score, int grade) //Ändrar text och bild beroende på betyg och score
     {
-        text = transform.GetChild(transform.childCount - 1).GetComponent<Text>();
+        scoreText = transform.GetChild(5).GetComponent<Text>();
         if (score != -1 && grade != 0)
         {
-            text.text = "\nLevel " + gameNumber + "\n score: " + score;
-            transform.GetChild(grade - 1).gameObject.SetActive(true);
+            scoreText.text = score.ToString(); //Sätter vilken poäng spelaren får
+            transform.GetChild(grade - 1).gameObject.SetActive(true); //Sätter det betyg som spelaren får till aktiv
         }
-        else
-        {
-            text.text = "\nLevel " + gameNumber;
-        }
-        
     }
 	
 }
