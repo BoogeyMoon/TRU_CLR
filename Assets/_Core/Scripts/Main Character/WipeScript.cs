@@ -21,6 +21,7 @@ public class WipeScript : MonoBehaviour
     Animation animWipeReady;
     MenuScript menu;
     PlayerStats player;
+    AudioManager sound;
 
     //Sätter wipe till aktiv vid start, ta bort det här om den inte ska vara aktiv vid start. Men då bör ett annat condition implementeras.
     void Start()
@@ -34,6 +35,7 @@ public class WipeScript : MonoBehaviour
         cooldownTimer = wipeCooldown;
         wipeEffect = startObject.GetComponentInChildren<ParticleSystem>();
         player = GetComponent<PlayerStats>();
+        sound = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
 
     //Wipen instansieras på ett objekt som befinner sig något framför GunBarrel.
@@ -49,7 +51,7 @@ public class WipeScript : MonoBehaviour
                               Quaternion.identity);
 
             wipeEffect.Play(true);
-
+            sound.Play("wipe");
             wipe.transform.rotation = directionObject.transform.rotation;
             wipeEffect.transform.rotation = directionObject.transform.rotation;
             StartCoroutine(WipeLifetime());
