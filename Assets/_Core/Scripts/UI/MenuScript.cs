@@ -117,6 +117,10 @@ public class MenuScript : MonoBehaviour
         Transform level1 = levelParent.GetChild(0);
 
         numberOfLevels = xmlScript.numberOfLevels;
+        for(int i = 0; i < numberOfLevels; i++)
+        {
+            levelParent.GetChild(i).GetChild(1).gameObject.SetActive(true); //...Sätt alla levels som låsta.
+        }
         for (int i = 0; i < numberOfLevels; i++) //För varje level som finns så...
         {
             for(int x = 0; x < numberOfGrades; x++) //Och för varje betyg som finns så...
@@ -124,14 +128,18 @@ public class MenuScript : MonoBehaviour
                 levelParent.GetChild(i).GetChild(0).GetChild(x).gameObject.SetActive(false); //...Sätt alla betyg inaktiva.
             }
             int levelScore = xmlScript.ScoreList[i]; //Hämtar vilken score just denna level(int i) har.
+            print(xmlScript.ScoreList[i]);
 
             level1.GetChild(0).GetComponent<Level_Button_Script>().ChangeText(xmlScript.GetScore(0), xmlScript.GetGrade(0)); //Hämtar score och grade för Level 1.
             level1.GetChild(1).gameObject.SetActive(false); //Sätter så att Level 1 är upplåst.
 
             unlockedLevels = i + 1; //+1 för att nästa level ska låsas upp när en level är avklarad.
+            print(levelScore);
             if (levelScore > 0)
             {
+                print("halllllooo");
                 //Följande gör alla upplåsta levels aktiva (dvs. sätter alla lås-komponenter på alla upplåsta levels inaktiva):
+                print("vafan: " + levelParent.GetChild(unlockedLevels).gameObject);
                 levelParent.GetChild(unlockedLevels).transform.GetChild(1).gameObject.SetActive(false);
                 levelParent.GetChild(unlockedLevels).transform.GetChild(0).GetComponent<Level_Button_Script>().
                 ChangeText(xmlScript.GetScore(unlockedLevels), xmlScript.GetGrade(unlockedLevels));//Ser till att texten motsvarar spelarens poäng och betyg
