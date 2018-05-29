@@ -117,6 +117,10 @@ public class MenuScript : MonoBehaviour
         Transform level1 = levelParent.GetChild(0);
 
         numberOfLevels = xmlScript.numberOfLevels;
+        for(int i = 0; i < numberOfLevels; i++)
+        {
+            levelParent.GetChild(i).GetChild(1).gameObject.SetActive(true); //...Sätt alla levels som låsta.
+        }
         for (int i = 0; i < numberOfLevels; i++) //För varje level som finns så...
         {
             for(int x = 0; x < numberOfGrades; x++) //Och för varje betyg som finns så...

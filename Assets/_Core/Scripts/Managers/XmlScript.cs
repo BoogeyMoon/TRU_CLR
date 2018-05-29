@@ -229,6 +229,7 @@ public class XmlScript : MonoBehaviour
                     {
                         if (level.Name == "level_" + i)
                         {
+                            print("hej");
                             string tempScore = level.Attributes[0].Value;
                             score = int.Parse(tempScore);
                             scoreList.Add(score);
