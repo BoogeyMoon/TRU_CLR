@@ -115,24 +115,27 @@ public class MenuScript : MonoBehaviour
         menus[2].SetActive(true);  //Sätter LevelParent aktiv.
         Transform levelParent = menus[2].transform.GetChild(0);
         Transform level1 = levelParent.GetChild(0);
-
         numberOfLevels = xmlScript.numberOfLevels;
-        for(int i = 0; i < numberOfLevels; i++)
+        
+        for (int i = 0; i < numberOfLevels; i++)
         {
             levelParent.GetChild(i).GetChild(1).gameObject.SetActive(true); //Sätter alla levels som låsta.
         }
+        //Ändrar text och grade för level 1
+        level1.GetChild(0).GetComponent<Level_Button_Script>().ChangeText(xmlScript.GetScore(0), xmlScript.GetGrade(0)); //Hämtar score och grade för Level 1.
+        level1.GetChild(1).gameObject.SetActive(false); //Sätter så att Level 1 är upplåst.
+
+        //Ändrar text och grade för resten av levlarna
+
         for (int i = 0; i < numberOfLevels; i++) //För varje level som finns så...
         {
+            unlockedLevels = i + 1; //+1 för att nästa level ska låsas upp när en level är avklarad.
             for(int x = 0; x < numberOfGrades; x++) //Och för varje betyg som finns så...
             {
-                levelParent.GetChild(i).GetChild(0).GetChild(x).gameObject.SetActive(false); //...Sätt alla betyg inaktiva.
+                levelParent.GetChild(unlockedLevels).GetChild(0).GetChild(x).gameObject.SetActive(false); //...Sätt alla betyg inaktiva.
             }
             int levelScore = xmlScript.ScoreList[i]; //Hämtar vilken score just denna level(int i) har.
-
-            level1.GetChild(0).GetComponent<Level_Button_Script>().ChangeText(xmlScript.GetScore(0), xmlScript.GetGrade(0)); //Hämtar score och grade för Level 1.
-            level1.GetChild(1).gameObject.SetActive(false); //Sätter så att Level 1 är upplåst.
-
-            unlockedLevels = i + 1; //+1 för att nästa level ska låsas upp när en level är avklarad.
+            
             if (levelScore > 0)
             {
                 //Följande gör alla upplåsta levels aktiva (dvs. sätter alla lås-komponenter på alla upplåsta levels inaktiva):
