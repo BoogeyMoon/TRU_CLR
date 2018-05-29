@@ -140,7 +140,6 @@ public class MenuScript : MonoBehaviour
             {
                 //Följande gör alla upplåsta levels aktiva (dvs. sätter alla lås-komponenter på alla upplåsta levels inaktiva):
                 levelParent.GetChild(unlockedLevels).transform.GetChild(1).gameObject.SetActive(false);
-                print("Level index number: " + unlockedLevels);
                 levelParent.GetChild(unlockedLevels).transform.GetChild(0).GetComponent<Level_Button_Script>().
                 ChangeText(xmlScript.GetScore(unlockedLevels), xmlScript.GetGrade(unlockedLevels));//Ser till att texten motsvarar spelarens poäng och betyg
             }
