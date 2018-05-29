@@ -52,15 +52,4 @@ public class BossRoom : MonoBehaviour
 
         }
     }
-    //void OnTriggerExit(Collider coll) //Återställer kameran så att den följer spelaren
-    //{
-    //    if (coll.tag == "Player")
-    //    {
-    //        jig.SetCameraPosition(null);
-    //    }
-    //    timer = startTime;
-    //    startTimer = false;
-    //}
-
-
 }
