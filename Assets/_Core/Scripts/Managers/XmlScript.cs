@@ -42,7 +42,7 @@ public class XmlScript : MonoBehaviour
     }
     TextAsset path, languagesPath;
     [SerializeField]
-    Text infoText, inputText;
+    Text inputText, charIssue_InfoText, takenName_InfoText, space_InfoText;
     [SerializeField]
     Font textFont;
 
@@ -71,6 +71,9 @@ public class XmlScript : MonoBehaviour
         LoadTexts();
         SetUpPlayerXML();
         InlogPage();
+        takenName_InfoText.gameObject.SetActive(false);
+        space_InfoText.gameObject.SetActive(false);
+        charIssue_InfoText.gameObject.SetActive(false);
     }
 
     //Laddar och "plockar fram" samt sparar xml-dokumentet som ska användas för att hämta eller registrera användare.
@@ -135,14 +138,12 @@ public class XmlScript : MonoBehaviour
         if (usernameInput.Length < 3 || usernameInput.Length > 20)
         {
             validName = false;
-            infoText.text = "Username must be within 3 to 20 characters long";
-            infoText.gameObject.SetActive(true);
+            charIssue_InfoText.gameObject.SetActive(true);
         }
         else if (usernameInput.Contains(" "))
         {
             validName = false;
-            infoText.text = "Username can't contain SPACE";
-            infoText.gameObject.SetActive(true);
+            space_InfoText.gameObject.SetActive(true);
         }
         //Om användarnamnet har godkänd längd men är inte det första registrerade kontot, så kollar följande så det inte redan finns ett konto med samma namn:
         else if (playerNodeList.Count > 0)
@@ -156,8 +157,7 @@ public class XmlScript : MonoBehaviour
                         if (usernameNode.Name == "username" && usernameNode.InnerText == usernameInput)
                         {
                             validName = false;
-                            infoText.text = "Username taken";
-                            infoText.gameObject.SetActive(true);
+                            takenName_InfoText.gameObject.SetActive(true);
                         }
                     }
                 }
@@ -166,7 +166,9 @@ public class XmlScript : MonoBehaviour
         //Om användarnamnet är godkänt:
         if (validName)
         {
-            infoText.gameObject.SetActive(false);
+            takenName_InfoText.gameObject.SetActive(false);
+            space_InfoText.gameObject.SetActive(false);
+            charIssue_InfoText.gameObject.SetActive(false);
             CreateAccount();
             inputField.text = "";
         }
@@ -210,7 +212,9 @@ public class XmlScript : MonoBehaviour
     //Sätter info-texten inaktiv om något nytt skrivs i inputfield. Anropas från komponenten InputField (OnValueChanged()).
     public void InfoTextInActive()
     {
-        infoText.gameObject.SetActive(false);
+        takenName_InfoText.gameObject.SetActive(false);
+        space_InfoText.gameObject.SetActive(false);
+        charIssue_InfoText.gameObject.SetActive(false);
     }
     public void GetStats(string currentPlayer)
     {
@@ -229,7 +233,6 @@ public class XmlScript : MonoBehaviour
                     {
                         if (level.Name == "level_" + i)
                         {
-                            print("hej");
                             string tempScore = level.Attributes[0].Value;
                             score = int.Parse(tempScore);
                             scoreList.Add(score);
@@ -442,7 +445,6 @@ public class XmlScript : MonoBehaviour
                 currentTextAssets = textAssetsInlog;
                 return;
             case "MainMenu":
-                print("pls");
                 currentTextAssets = textAssetsMainMenu;
                 return;
 
