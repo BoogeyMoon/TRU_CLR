@@ -119,7 +119,7 @@ public class MenuScript : MonoBehaviour
         numberOfLevels = xmlScript.numberOfLevels;
         for(int i = 0; i < numberOfLevels; i++)
         {
-            levelParent.GetChild(i).GetChild(1).gameObject.SetActive(true); //...Sätt alla levels som låsta.
+            levelParent.GetChild(i).GetChild(1).gameObject.SetActive(true); //Sätter alla levels som låsta.
         }
         for (int i = 0; i < numberOfLevels; i++) //För varje level som finns så...
         {
