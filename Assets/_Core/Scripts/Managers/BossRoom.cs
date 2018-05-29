@@ -38,6 +38,7 @@ public class BossRoom : MonoBehaviour
         {
             trigger.GetComponent<Interactable>().Activated();
             startTimer = false;
+            Destroy(this);
         }
     }
     void OnTriggerEnter(Collider coll) //Byter till "bossmode"
