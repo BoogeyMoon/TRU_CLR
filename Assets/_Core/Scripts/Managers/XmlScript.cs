@@ -21,6 +21,8 @@ public class XmlScript : MonoBehaviour
     public int numberOfLevels;
     public string currentMenu;
     bool validName;
+    public bool changeLanguage;
+
 
     [SerializeField]
     GameObject contentObject, userButtonPrefab, inlogObject, registerAccountObject, loginPage, eventSystem;
@@ -28,10 +30,9 @@ public class XmlScript : MonoBehaviour
     List<int> scoreList;
     List<string> languages;
     [SerializeField]
-    List<Text> currentTextAssets;
+    List<GameObject> currentTextAssets;
     [SerializeField]
-    List<Text> textAssetsInlog, textAssetsMainMenu;
-    List<TextMesh> textAssetsLevel1;
+    List<GameObject> textAssetsMainMenu, textAssetsInlog, textAssetsLevel1;
     GameObject[] textComponentsInlog, textComponentsMainMenu, textComponentsLevel1;
     [SerializeField]
     GameObject[] currentComponents;
@@ -60,10 +61,11 @@ public class XmlScript : MonoBehaviour
             Destroy(gameObject);
         }
         languages = new List<string> { "English", "German", "Japanese", "Russian", "Spanish", "Swedish" };
-        textAssetsInlog = new List<Text>();
-        textAssetsMainMenu = new List<Text>();
+        textAssetsInlog = new List<GameObject>();
+        textAssetsMainMenu = new List<GameObject>();
+        textAssetsLevel1 = new List<GameObject>();
         currentLanguageIndex = 0;
-
+        changeLanguage = false;
         DontDestroyOnLoad(transform.gameObject);
         DontDestroyOnLoad(eventSystem);
         numberOfLevels = 5;
@@ -320,40 +322,44 @@ public class XmlScript : MonoBehaviour
     /*Denna metod ska ske varje gång spelaren når följande scener första gången:
      *                                          - InLogScene (dvs. i Start() i XmlScript)
      *                                          - MenuScene (dvs. i Start() i MenuScript)
-     *                                          - Level1 (i slutet av LoadingScreen() i MenuScript. Lägg till en if(name == "Level1") och därefter kalla på denna metod).
+     *                                          - Level1 (i slutet av LoadingScreen() i MenuScript.
      */
     public void LoadTexts()
     {
 
         currentComponents = GameObject.FindGameObjectsWithTag("TextAsset");
-        switch (currentMenu)
-        {
-            case "Inlog":
+        textAssetsLevel1.Clear();
+            switch (currentMenu)
+            {
+                case "Inlog":
 
-                foreach (GameObject texts in currentComponents)
-                {
-                    textAssetsInlog.Add(texts.GetComponent<Text>());
-                }
-                SetLanguage(currentLanguageIndex);
-                return;
-            case "MainMenu":
+                    foreach (GameObject texts in currentComponents)
+                    {
+                        textAssetsInlog.Add(texts);
+                    }
+                    SetLanguage(currentLanguageIndex);
+                    return;
+                case "MainMenu":
 
-                foreach (GameObject texts in currentComponents)
-                {
+                    foreach (GameObject texts in currentComponents)
+                    {
 
-                    textAssetsMainMenu.Add(texts.GetComponent<Text>());
-                }
-                SetLanguage(currentLanguageIndex);
-                return;
+                        textAssetsMainMenu.Add(texts);
+                    }
+                    SetLanguage(currentLanguageIndex);
+                    return;
 
-            case "Level1":
-                foreach (GameObject texts in currentComponents)
-                {
-                    textAssetsLevel1.Add(texts.GetComponent<TextMesh>());
-                }
-                SetLanguage(currentLanguageIndex);
-                return;
-        }
+                case "Level1":
+
+                    foreach (GameObject texts in currentComponents)
+                    {
+                        textAssetsLevel1.Add(texts);
+                    }
+                    SetLanguage(currentLanguageIndex);
+                    return;
+            }
+
+       
     }
     //Följande metod är kopplad till settings i MenuScene.
     //Den sparar in det språk som spelaren vill ha sparat på sin användarprofil.
@@ -414,6 +420,7 @@ public class XmlScript : MonoBehaviour
         }
 
         languagesNodeList = languageDoc.GetElementsByTagName(currentMenu);
+
         GetCurrentTexts();
 
         foreach (XmlNode menu in languagesNodeList)
@@ -426,18 +433,33 @@ public class XmlScript : MonoBehaviour
                     {
                         for (int y = 0; y < currentTextAssets.Count; y++)
                         {
+                        
                             if (language.Attributes[i].Name == currentTextAssets[y].name)
                             {
-                                currentTextAssets[y].text = language.Attributes[i].Value;
+                                Text temp = currentTextAssets[y].GetComponent<Text>();
+
+                                if (temp == null)
+                                {
+                                    TextMesh tempText = currentTextAssets[y].GetComponent<TextMesh>();
+                                    tempText.text = language.Attributes[i].Value;
+                                }
+                                else
+                                {
+                                    temp.text = language.Attributes[i].Value;
+                                }
+
+
                             }
                         }
                     }
                 }
             }
         }
+
     }
     void GetCurrentTexts()
     {
+
         switch (currentMenu)
         {
             case "Inlog":
@@ -447,11 +469,13 @@ public class XmlScript : MonoBehaviour
             case "MainMenu":
                 currentTextAssets = textAssetsMainMenu;
                 return;
-
-                //ÄNDRA TEXTMESHES I LEVEL1 TILL TEXTASSETS SÅ KOMMER DET HÄR FUNGERA.
-                //case "Level1":
-                //    currentTextAssets = textAssetsLevel1;
-                //    return;
+            case "Level1":
+                currentTextAssets = textAssetsLevel1;
+                for (int i = 0; i < textAssetsMainMenu.Count; i++)
+                {
+                    currentTextAssets.Add(textAssetsMainMenu[i]);
+                }
+                return;
         }
     }
 }
