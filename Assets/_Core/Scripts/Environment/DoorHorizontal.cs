@@ -10,16 +10,21 @@ public class DoorHorizontal : MonoBehaviour, Interactable
     float speed;
     bool openDoor, closeDoor = true, activated = false;
     float height = 7.4f, startX;
+    AudioManager sound;
+
     void Start()
     {
         startX = transform.position.x;
+        if (height == 0) height = 7.4f;
+        sound = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
     public void Activated() //Öppnar en dörr
     {
         if (!activated)
             activated = true;
         openDoor = !openDoor;
-        closeDoor = !closeDoor;
+        if (Time.time > 2 && sound != null)
+            sound.Play("door open");
 
     }
     void Update()
