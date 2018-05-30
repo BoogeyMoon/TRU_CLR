@@ -328,11 +328,11 @@ public class XmlScript : MonoBehaviour
     {
 
         currentComponents = GameObject.FindGameObjectsWithTag("TextAsset");
-        textAssetsLevel1.Clear();
+        
             switch (currentMenu)
             {
                 case "Inlog":
-
+                textAssetsInlog.Clear();
                     foreach (GameObject texts in currentComponents)
                     {
                         textAssetsInlog.Add(texts);
@@ -340,7 +340,7 @@ public class XmlScript : MonoBehaviour
                     SetLanguage(currentLanguageIndex);
                     return;
                 case "MainMenu":
-
+                textAssetsMainMenu.Clear();
                     foreach (GameObject texts in currentComponents)
                     {
 
@@ -350,8 +350,8 @@ public class XmlScript : MonoBehaviour
                     return;
 
                 case "Level1":
-
-                    foreach (GameObject texts in currentComponents)
+                textAssetsLevel1.Clear();
+                foreach (GameObject texts in currentComponents)
                     {
                         textAssetsLevel1.Add(texts);
                     }

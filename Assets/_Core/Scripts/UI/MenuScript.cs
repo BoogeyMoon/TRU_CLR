@@ -315,6 +315,11 @@ public class MenuScript : MonoBehaviour
         menus[7].SetActive(false);
         Time.timeScale = 1;
         loading = false;
+        if (name == "Level 1")
+        {
+            xmlScript.currentMenu = "Level1";
+            xmlScript.LoadTexts();
+        }
         currentGameScene = SceneManager.GetActiveScene().name;
     }
 
