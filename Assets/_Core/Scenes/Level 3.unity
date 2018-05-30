@@ -2387,8 +2387,7 @@ Prefab:
         type: 2}
       propertyPath: spawnedEnemies.Array.data[0]
       value: 
-      objectReference: {fileID: 1970287622373258, guid: 5a088c4ddd37d83418a78829f1a0eb75,
-        type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 114902953195378208, guid: f47ff51c0d9d6db47995500232fcd9e3,
         type: 2}
       propertyPath: patrolpoints
@@ -2402,12 +2401,37 @@ Prefab:
     - target: {fileID: 114902953195378208, guid: f47ff51c0d9d6db47995500232fcd9e3,
         type: 2}
       propertyPath: interval
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 54675105737919546, guid: f47ff51c0d9d6db47995500232fcd9e3,
         type: 2}
       propertyPath: m_Constraints
       value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 114973791851244876, guid: f47ff51c0d9d6db47995500232fcd9e3,
+        type: 2}
+      propertyPath: maxHealth
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114682933441283136, guid: f47ff51c0d9d6db47995500232fcd9e3,
+        type: 2}
+      propertyPath: maxHealth
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114312586393352664, guid: f47ff51c0d9d6db47995500232fcd9e3,
+        type: 2}
+      propertyPath: maxHealth
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114233045213692606, guid: f47ff51c0d9d6db47995500232fcd9e3,
+        type: 2}
+      propertyPath: maxHealth
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114014683868673204, guid: f47ff51c0d9d6db47995500232fcd9e3,
+        type: 2}
+      propertyPath: maxHealth
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: f47ff51c0d9d6db47995500232fcd9e3, type: 2}
@@ -51500,6 +51524,7 @@ Transform:
   - {fileID: 1352540251}
   - {fileID: 140102717}
   - {fileID: 1165483418}
+  - {fileID: 2056599525}
   - {fileID: 328011751}
   - {fileID: 1152454702}
   - {fileID: 1774437410}
@@ -51509,7 +51534,6 @@ Transform:
   - {fileID: 1090826676}
   - {fileID: 1783802812}
   - {fileID: 920913926}
-  - {fileID: 2056599525}
   - {fileID: 604239560}
   - {fileID: 1900930528}
   - {fileID: 1356295158}
@@ -83671,7 +83695,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1255531778}
-  m_RootOrder: 89
+  m_RootOrder: 80
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2056599526
 BoxCollider:
