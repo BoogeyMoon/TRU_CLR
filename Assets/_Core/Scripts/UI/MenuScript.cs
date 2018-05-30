@@ -13,9 +13,9 @@ public class MenuScript : MonoBehaviour
     [SerializeField]
     GameObject eventSystem;
     List<GameObject> menus;
-    int numberOfLevels, unlockedLevels, score, numberOfGrades;
+    int numberOfLevels, unlockedLevels, score, numberOfGrades, counter;
     string currentGameScene;
-    bool paused, inGame, loading;
+    bool paused, inGame, loading, level1FirstTime;
     public bool Paused
     {
         get { return paused; }
@@ -42,6 +42,7 @@ public class MenuScript : MonoBehaviour
     //Sätter alla värden
     void Start()
     {
+        counter = 0;
         xmlScript.currentMenu = "MainMenu";
         xmlScript.LoadTexts();
         inGame = false;
@@ -116,7 +117,7 @@ public class MenuScript : MonoBehaviour
         Transform levelParent = menus[2].transform.GetChild(0);
         Transform level1 = levelParent.GetChild(0);
         numberOfLevels = xmlScript.numberOfLevels;
-        
+
         for (int i = 0; i < numberOfLevels; i++)
         {
             levelParent.GetChild(i).GetChild(1).gameObject.SetActive(true); //Sätter alla levels som låsta.
@@ -130,12 +131,12 @@ public class MenuScript : MonoBehaviour
         for (int i = 0; i < numberOfLevels; i++) //För varje level som finns så...
         {
             unlockedLevels = i + 1; //+1 för att nästa level ska låsas upp när en level är avklarad.
-            for(int x = 0; x < numberOfGrades; x++) //Och för varje betyg som finns så...
+            for (int x = 0; x < numberOfGrades; x++) //Och för varje betyg som finns så...
             {
                 levelParent.GetChild(unlockedLevels).GetChild(0).GetChild(x).gameObject.SetActive(false); //...Sätt alla betyg inaktiva.
             }
             int levelScore = xmlScript.ScoreList[i]; //Hämtar vilken score just denna level(int i) har.
-            
+
             if (levelScore > 0)
             {
                 //Följande gör alla upplåsta levels aktiva (dvs. sätter alla lås-komponenter på alla upplåsta levels inaktiva):
@@ -150,7 +151,7 @@ public class MenuScript : MonoBehaviour
     public void ChangeLanguage(int languageIndex)
 
     {
-
+        xmlScript.changeLanguage = true;
         xmlScript.SaveLanguageSettings(languageIndex);
 
     }
@@ -242,7 +243,7 @@ public class MenuScript : MonoBehaviour
         if (Time.timeScale == 0)
             Time.timeScale = 1;
         menuSound.StopAll();
-        
+
         StartCoroutine(LoadingScreen(currentGameScene));
     }
 
@@ -271,6 +272,8 @@ public class MenuScript : MonoBehaviour
     IEnumerator LoadingScreen(string name)
     {
         loading = true;
+        if (GameObject.Find("Canvas UI") != null)
+            GameObject.Find("Canvas UI").SetActive(false);
         menus[10].SetActive(true);
         menuSound.StopAll();
         AsyncOperation async = SceneManager.LoadSceneAsync(name);
@@ -284,8 +287,9 @@ public class MenuScript : MonoBehaviour
         menus[6].SetActive(false);
         Time.timeScale = 1;
         loading = false;
-        if (name == "Level1")
+        if (name == "Level 1")
         {
+            xmlScript.currentMenu = "Level1";
             xmlScript.LoadTexts();
         }
         currentGameScene = SceneManager.GetActiveScene().name;
@@ -295,6 +299,8 @@ public class MenuScript : MonoBehaviour
     {
         print("jag kommer hit! index = " + index);
         loading = true;
+        if (GameObject.Find("Canvas UI") != null)
+            GameObject.Find("Canvas UI").SetActive(false);
         menus[10].SetActive(true);
         menuSound.StopAll();
         AsyncOperation async = SceneManager.LoadSceneAsync(index);
