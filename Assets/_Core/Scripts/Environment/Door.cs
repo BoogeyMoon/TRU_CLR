@@ -6,6 +6,7 @@ using UnityEngine;
 //Får en dörr att öppna sig från om den blir aktiverad från en annan källa
 public class Door : MonoBehaviour, Interactable
 {
+
     [SerializeField]
     AudioClip[] doorSound;
 
@@ -26,7 +27,7 @@ public class Door : MonoBehaviour, Interactable
         if (!activated)
             activated = true;
         openDoor = !openDoor;
-        if(Time.time > 2 && sound != null)
+        if (Time.timeSinceLevelLoad > 2 && sound != null)
             sound.Play("door open");
     }
     void Update()

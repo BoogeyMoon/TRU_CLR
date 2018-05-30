@@ -55,7 +55,7 @@ public class AudioManager : MonoBehaviour
                 s.Type = Sliders.Efx;
                 s.Source.loop = false;
             }
-
+            s.Source.volume *= s.Volume;
         }
 
         AudioListener.volume = _musicSlider.value; //Sätter ljudets volym till sliderns volym 
