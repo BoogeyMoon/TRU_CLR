@@ -276,6 +276,10 @@ public class MenuScript : MonoBehaviour
         {
             xmlScript.currentMenu = "Level1";
         }
+        if (name == "Level 5")
+            menus[7].transform.GetChild(3).gameObject.SetActive(false);
+        else
+            menus[7].transform.GetChild(3).gameObject.SetActive(true);
         xmlScript.LoadTexts();
         if (GameObject.Find("Canvas UI") != null)
             GameObject.Find("Canvas UI").SetActive(false);
