@@ -26,7 +26,8 @@ public class Door : MonoBehaviour, Interactable
         if (!activated)
             activated = true;
         openDoor = !openDoor;
-        sound.Play("door open");
+        if(Time.time > 2 && sound != null)
+            sound.Play("door open");
     }
     void Update()
     {
