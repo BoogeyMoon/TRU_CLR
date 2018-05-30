@@ -328,7 +328,6 @@ public class XmlScript : MonoBehaviour
     {
 
         currentComponents = GameObject.FindGameObjectsWithTag("TextAsset");
-
             switch (currentMenu)
             {
                 case "Inlog":
