@@ -9,12 +9,11 @@ using UnityEngine.UI;
 //Tillägg av Andreas de Freitas && Timmy Alvelöv
 public class MenuScript : MonoBehaviour
 {
-    GameObject mainMenu, loadMenu, settingsMenu, confirmQuit, creditsMenu, pauseMenu, pausePanel, winScreen, loseScreen, areYouSure, loadingScreen, loadingWheel;
+    GameObject mainMenu, loadMenu, settingsMenu, confirmQuit, creditsMenu, pauseMenu, pausePanel, winScreen, loseScreen, areYouSure, loadingScreen, loadingWheel, languageButton;
     [SerializeField]
     GameObject eventSystem;
     List<GameObject> menus;
-    int numberOfLevels, unlockedLevels;
-    int score;
+    int numberOfLevels, unlockedLevels, score, numberOfGrades;
     string currentGameScene;
     bool paused, inGame, loading;
     public bool Paused
@@ -22,6 +21,7 @@ public class MenuScript : MonoBehaviour
         get { return paused; }
     }
     XmlScript xmlScript;
+    HighlightButtons highlightButtonsScript;
     [SerializeField]
     Slider master, music, effects, dialogue;
     AudioManager menuSound;
@@ -35,13 +35,15 @@ public class MenuScript : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
         xmlScript = GameObject.FindGameObjectWithTag("Canvas").GetComponent<XmlScript>();
+        highlightButtonsScript = GameObject.FindGameObjectWithTag("Canvas").GetComponent<HighlightButtons>();
         menuSound = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
 
     }
     //Sätter alla värden
     void Start()
     {
-        xmlScript.LoadTexts("MainMenu");
+        xmlScript.currentMenu = "MainMenu";
+        xmlScript.LoadTexts();
         inGame = false;
         menuSound.Play("S_TRU_CLR_Menu");
         menus = new List<GameObject>() { mainMenu, pausePanel, loadMenu, settingsMenu, creditsMenu, confirmQuit, pauseMenu, winScreen, loseScreen, areYouSure, loadingScreen };
@@ -52,6 +54,7 @@ public class MenuScript : MonoBehaviour
         }
         menus[0].SetActive(true);
         loadingWheel = menus[10].transform.GetChild(0).GetChild(1).gameObject;
+        numberOfGrades = 4;
 
     }
 
@@ -105,45 +108,42 @@ public class MenuScript : MonoBehaviour
         StartCoroutine(LoadingScreen(currentGameScene));
     }
 
+    //Kallas på från LevelSelect knappen i MainMenu.
     public void LevelSelect()
     {
-        menus[0].SetActive(false);
-        menus[2].SetActive(true);
+        menus[0].SetActive(false); //Sätter MainMenu-knapparna inaktiva.
+        menus[2].SetActive(true);  //Sätter LevelParent aktiv.
         Transform levelParent = menus[2].transform.GetChild(0);
+        Transform level1 = levelParent.GetChild(0);
         numberOfLevels = xmlScript.numberOfLevels;
-        for (int i = 0; i < levelParent.childCount; i++) //Stänger av allt så att inget är kvar från förra sparningen
-        {
-            for (int j = 0; j < levelParent.transform.GetChild(i).childCount; j++)
-            {
-                for (int c = 0; c < levelParent.transform.GetChild(i).GetChild(j).childCount - 1; c++)
-                {
-                    levelParent.transform.GetChild(i).GetChild(j).GetChild(c).gameObject.SetActive(false);
-                }
-                levelParent.transform.GetChild(i).GetChild(j).gameObject.SetActive(false);
-            }
-        }
+        
         for (int i = 0; i < numberOfLevels; i++)
         {
-            levelParent.GetChild(i).gameObject.SetActive(true); //Sätter parent aktiv.
-            int tempScore = xmlScript.ScoreList[i];
-            levelParent.GetChild(0).transform.GetChild(0).gameObject.SetActive(true);
-            levelParent.GetChild(0).transform.GetChild(0).GetComponent<Level_Button_Script>().ChangeText(xmlScript.GetScore(0), xmlScript.GetGrade(0));
-            unlockedLevels = i + 1; //+1 för att nästa level ska låsas upp när en level är avklarad.
-            if (tempScore > 0) //bör vara grade istället.
-            {
-                //Följande sätter alla upplåsta levels aktiva:
-                levelParent.GetChild(unlockedLevels).transform.GetChild(0).gameObject.SetActive(true);
-                levelParent.GetChild(unlockedLevels).transform.GetChild(0).GetComponent<Level_Button_Script>().
-                ChangeText(xmlScript.GetScore(unlockedLevels), xmlScript.GetGrade(unlockedLevels));             //Ser till att texten motsvarar spelarens poäng och betyg
-            }
-            //Följande sätter alla låsta levels aktiva:
-            else
-            {
-                levelParent.GetChild(unlockedLevels).transform.GetChild(1).gameObject.SetActive(true);
-            }
-
+            levelParent.GetChild(i).GetChild(1).gameObject.SetActive(true); //Sätter alla levels som låsta.
         }
+        //Ändrar text och grade för level 1
+        level1.GetChild(0).GetComponent<Level_Button_Script>().ChangeText(xmlScript.GetScore(0), xmlScript.GetGrade(0)); //Hämtar score och grade för Level 1.
+        level1.GetChild(1).gameObject.SetActive(false); //Sätter så att Level 1 är upplåst.
 
+        //Ändrar text och grade för resten av levlarna
+
+        for (int i = 0; i < numberOfLevels; i++) //För varje level som finns så...
+        {
+            unlockedLevels = i + 1; //+1 för att nästa level ska låsas upp när en level är avklarad.
+            for(int x = 0; x < numberOfGrades; x++) //Och för varje betyg som finns så...
+            {
+                levelParent.GetChild(unlockedLevels).GetChild(0).GetChild(x).gameObject.SetActive(false); //...Sätt alla betyg inaktiva.
+            }
+            int levelScore = xmlScript.ScoreList[i]; //Hämtar vilken score just denna level(int i) har.
+            
+            if (levelScore > 0)
+            {
+                //Följande gör alla upplåsta levels aktiva (dvs. sätter alla lås-komponenter på alla upplåsta levels inaktiva):
+                levelParent.GetChild(unlockedLevels).transform.GetChild(1).gameObject.SetActive(false);
+                levelParent.GetChild(unlockedLevels).transform.GetChild(0).GetComponent<Level_Button_Script>().
+                ChangeText(xmlScript.GetScore(unlockedLevels), xmlScript.GetGrade(unlockedLevels));//Ser till att texten motsvarar spelarens poäng och betyg
+            }
+        }
 
     }
 
@@ -200,6 +200,7 @@ public class MenuScript : MonoBehaviour
         SetMenusInactive();
         menuSound.StopAll();
         StartCoroutine(LoadingScreen("MenuScene"));
+        xmlScript.SetLanguage(xmlScript.currentLanguageIndex);
         StartCoroutine(WaitForSceneLoad());
     }
 
@@ -230,8 +231,8 @@ public class MenuScript : MonoBehaviour
         SetMenusInactive();
         xmlScript.ActivatePanel(true);
         xmlScript.currentMenu = "Inlog";
-        xmlScript.currentLanguageIndex = 0;
-        //xmlScript.ChangeHighlight();
+        xmlScript.SetLanguage(0);
+        highlightButtonsScript.Highlight(0);
         StartCoroutine(LoadingScreen("LogInScene"));
     }
 
@@ -241,6 +242,7 @@ public class MenuScript : MonoBehaviour
         if (Time.timeScale == 0)
             Time.timeScale = 1;
         menuSound.StopAll();
+        
         StartCoroutine(LoadingScreen(currentGameScene));
     }
 
@@ -270,6 +272,7 @@ public class MenuScript : MonoBehaviour
     {
         loading = true;
         menus[10].SetActive(true);
+        menuSound.StopAll();
         AsyncOperation async = SceneManager.LoadSceneAsync(name);
         while (!async.isDone)
         {
@@ -281,6 +284,11 @@ public class MenuScript : MonoBehaviour
         menus[6].SetActive(false);
         Time.timeScale = 1;
         loading = false;
+        if (name == "Level1")
+        {
+            xmlScript.LoadTexts();
+        }
+        currentGameScene = SceneManager.GetActiveScene().name;
     }
 
     IEnumerator LoadingScreen(int index)
@@ -288,6 +296,7 @@ public class MenuScript : MonoBehaviour
         print("jag kommer hit! index = " + index);
         loading = true;
         menus[10].SetActive(true);
+        menuSound.StopAll();
         AsyncOperation async = SceneManager.LoadSceneAsync(index);
         while (!async.isDone)
         {
@@ -300,6 +309,7 @@ public class MenuScript : MonoBehaviour
         menus[7].SetActive(false);
         Time.timeScale = 1;
         loading = false;
+        currentGameScene = SceneManager.GetActiveScene().name;
     }
 
 }

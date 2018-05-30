@@ -149,7 +149,7 @@ public class MobStats : MonoBehaviour
             FloatingScore();
         }
         dead = true;
-        if (animator != null)
+        if (animator != null && animator.parameterCount >= 2)
             animator.SetTrigger("deathTrigger");
         StartCoroutine(GetDestroyed());
     }
@@ -167,7 +167,7 @@ public class MobStats : MonoBehaviour
     {
         score.AddScore(scoreValue);
         dead = true;
-        if (animator != null)
+        if (animator != null && animator.parameterCount >= 2)
             animator.SetTrigger("deathTrigger");
         StartCoroutine(GetDestroyed());
     }

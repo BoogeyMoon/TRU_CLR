@@ -7,7 +7,7 @@ using UnityEngine.UI;
 //Låter spelaren vinna när alla conditions har blivit uppfyllda.
 public class WinScript : MonoBehaviour
 {
-    
+
     [SerializeField]
     List<Transform> winCons;
     Sprite[] grades;
@@ -18,7 +18,8 @@ public class WinScript : MonoBehaviour
 
     Score ScoreManager;
     bool[] winConditions;
-    GameObject canvas;
+    GameObject canvas, winScreen;
+    Text levelNr;
 
     GameObject animatedCharacter;
     //Animator animator;
@@ -40,9 +41,10 @@ public class WinScript : MonoBehaviour
         grades = new Sprite[] { Pass, Good, Great, Awesome, TRUCLR };
 
         animatedCharacter = Resources.Load("SK_AnimatedMCWIN_PF") as GameObject;
-        
+
 
         canvas = GameObject.FindGameObjectWithTag("MenuCanvas").gameObject;
+        winScreen = canvas.transform.GetChild(7).gameObject;
         ScoreManager = GameObject.FindGameObjectWithTag("ScoreManager").GetComponent<Score>();
         winConditions = new bool[winCons.Count];
     }
@@ -63,7 +65,7 @@ public class WinScript : MonoBehaviour
 
     IEnumerator Win() // Hanterar allt som ska hänta när man vinner
     {
-       
+
 
         yield return new WaitForSeconds(1.5f);
 
@@ -91,16 +93,27 @@ public class WinScript : MonoBehaviour
             cameraposition.position = animatedspawn + new Vector3(0, -5.5f, 80) + new Vector3(0.25f, 1.5f, -5.45f);
 
         }
-        canvas.transform.GetChild(7).gameObject.SetActive(true);
-        Text levelName = canvas.transform.GetChild(7).GetChild(0).GetChild(0).GetComponent<Text>();
-        levelName.text = "Level " + (ScoreManager.LevelIndex +1);
-        Text baseScore = canvas.transform.GetChild(7).GetChild(0).GetChild(3).GetComponent<Text>();
+        winScreen.SetActive(true);
+
+        //Sätter level-nummer:
+        levelNr = winScreen.transform.GetChild(0).GetChild(1).GetComponent<Text>();
+        levelNr.text = (ScoreManager.LevelIndex + 1).ToString();
+
+        //Sätter poäng:
+        Text baseScore = winScreen.transform.GetChild(0).GetChild(4).GetComponent<Text>();
         baseScore.text = ScoreManager.CurrentScore.ToString();
-        Text totalScore = canvas.transform.GetChild(7).GetChild(0).GetChild(5).GetComponent<Text>();
+
+        //Sätter betyget:
+        Image rating = winScreen.transform.GetChild(0).GetChild(8).GetComponent<Image>();
         int grade = ScoreManager.GetGrade();
-        totalScore.text = ScoreManager.CurrentScore.ToString();
-        Image rating = canvas.transform.GetChild(7).GetChild(0).GetChild(7).GetComponent<Image>();
         rating.sprite = grades[grade - 1];
+
+        //Sätter totalpoäng:
+        Text totalScore = winScreen.transform.GetChild(0).GetChild(6).GetComponent<Text>();
+        totalScore.text = ScoreManager.CurrentScore.ToString();
+
+
+
         Time.timeScale = 0;
     }
 
