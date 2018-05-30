@@ -81,5 +81,9 @@ public class Elevator : MonoBehaviour {
             parenting = true;
         }
     }
+    public void OnStay(Collider other)
+    {
+        OnTriggerStay(other);
+    }
 }
 
