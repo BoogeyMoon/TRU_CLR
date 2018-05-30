@@ -272,6 +272,11 @@ public class MenuScript : MonoBehaviour
     IEnumerator LoadingScreen(string name)
     {
         loading = true;
+        if (name == "Level 1")
+        {
+            xmlScript.currentMenu = "Level1";
+        }
+        xmlScript.LoadTexts();
         if (GameObject.Find("Canvas UI") != null)
             GameObject.Find("Canvas UI").SetActive(false);
         menus[10].SetActive(true);
@@ -287,11 +292,7 @@ public class MenuScript : MonoBehaviour
         menus[6].SetActive(false);
         Time.timeScale = 1;
         loading = false;
-        if (name == "Level 1")
-        {
-            xmlScript.currentMenu = "Level1";
-            xmlScript.LoadTexts();
-        }
+        xmlScript.LoadTexts();
         currentGameScene = SceneManager.GetActiveScene().name;
     }
 
@@ -299,6 +300,11 @@ public class MenuScript : MonoBehaviour
     {
         print("jag kommer hit! index = " + index);
         loading = true;
+        if (name == "Level 1")
+        {
+            xmlScript.currentMenu = "Level1";
+        }
+        xmlScript.LoadTexts();
         if (GameObject.Find("Canvas UI") != null)
             GameObject.Find("Canvas UI").SetActive(false);
         menus[10].SetActive(true);
@@ -315,11 +321,7 @@ public class MenuScript : MonoBehaviour
         menus[7].SetActive(false);
         Time.timeScale = 1;
         loading = false;
-        if (name == "Level 1")
-        {
-            xmlScript.currentMenu = "Level1";
-            xmlScript.LoadTexts();
-        }
+        xmlScript.LoadTexts();
         currentGameScene = SceneManager.GetActiveScene().name;
     }
 

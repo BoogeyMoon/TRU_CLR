@@ -45,7 +45,7 @@ public class Score : MonoBehaviour
     {
         if (!gradeReturned)
         {
-            displayScore.text = "Score: " + currentScore.ToString();
+            displayScore.text = currentScore.ToString();
             timer -= Time.deltaTime;
             if (timer <= 0)
             {

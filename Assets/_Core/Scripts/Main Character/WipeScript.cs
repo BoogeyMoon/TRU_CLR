@@ -27,7 +27,7 @@ public class WipeScript : MonoBehaviour
     void Start()
     {
         menu = GameObject.FindGameObjectWithTag("MenuCanvas").GetComponent<MenuScript>();
-        wipeCDIndicator = GameObject.Find("Canvas UI").transform.GetChild(2).gameObject;
+        wipeCDIndicator = GameObject.Find("Canvas UI").transform.GetChild(3).gameObject;
         wipeImage = wipeCDIndicator.transform.GetChild(1).GetComponent<Image>();
         animWipeReady = wipeCDIndicator.transform.GetChild(2).GetComponent<Animation>();
         wipeDestroyed = true;
