@@ -13,17 +13,20 @@ public class Door : MonoBehaviour, Interactable
     float speed, height;
     bool openDoor, closeDoor = true, activated = false;
     float startY;
+    AudioManager sound;
+
     void Start()
     {
         startY = transform.position.y;
         if (height == 0) height = 7.4f;
+        sound = GameObject.FindGameObjectWithTag("AudioManager").GetComponent<AudioManager>();
     }
     public void Activated() //Öppnar en dörr
     {
         if (!activated)
             activated = true;
         openDoor = !openDoor;
-
+        sound.Play("door open");
     }
     void Update()
     {

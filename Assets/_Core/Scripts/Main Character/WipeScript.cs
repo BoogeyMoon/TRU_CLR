@@ -51,7 +51,7 @@ public class WipeScript : MonoBehaviour
                               Quaternion.identity);
 
             wipeEffect.Play(true);
-            sound.Play("wipe");
+            sound.Play("wipe2");
             wipe.transform.rotation = directionObject.transform.rotation;
             wipeEffect.transform.rotation = directionObject.transform.rotation;
             StartCoroutine(WipeLifetime());
