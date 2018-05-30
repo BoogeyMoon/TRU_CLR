@@ -116,7 +116,7 @@ public class MenuScript : MonoBehaviour
         Transform levelParent = menus[2].transform.GetChild(0);
         Transform level1 = levelParent.GetChild(0);
         numberOfLevels = xmlScript.numberOfLevels;
-        
+
         for (int i = 0; i < numberOfLevels; i++)
         {
             levelParent.GetChild(i).GetChild(1).gameObject.SetActive(true); //Sätter alla levels som låsta.
@@ -130,12 +130,12 @@ public class MenuScript : MonoBehaviour
         for (int i = 0; i < numberOfLevels; i++) //För varje level som finns så...
         {
             unlockedLevels = i + 1; //+1 för att nästa level ska låsas upp när en level är avklarad.
-            for(int x = 0; x < numberOfGrades; x++) //Och för varje betyg som finns så...
+            for (int x = 0; x < numberOfGrades; x++) //Och för varje betyg som finns så...
             {
                 levelParent.GetChild(unlockedLevels).GetChild(0).GetChild(x).gameObject.SetActive(false); //...Sätt alla betyg inaktiva.
             }
             int levelScore = xmlScript.ScoreList[i]; //Hämtar vilken score just denna level(int i) har.
-            
+
             if (levelScore > 0)
             {
                 //Följande gör alla upplåsta levels aktiva (dvs. sätter alla lås-komponenter på alla upplåsta levels inaktiva):
@@ -242,7 +242,7 @@ public class MenuScript : MonoBehaviour
         if (Time.timeScale == 0)
             Time.timeScale = 1;
         menuSound.StopAll();
-        
+
         StartCoroutine(LoadingScreen(currentGameScene));
     }
 
@@ -270,6 +270,8 @@ public class MenuScript : MonoBehaviour
 
     IEnumerator LoadingScreen(string name)
     {
+        if (GameObject.Find("Canvas UI") != null)
+            GameObject.Find("Canvas UI").SetActive(false);
         loading = true;
         menus[10].SetActive(true);
         menuSound.StopAll();
@@ -294,6 +296,8 @@ public class MenuScript : MonoBehaviour
     IEnumerator LoadingScreen(int index)
     {
         print("jag kommer hit! index = " + index);
+        if (GameObject.Find("Canvas UI") != null)
+            GameObject.Find("Canvas UI").SetActive(false);
         loading = true;
         menus[10].SetActive(true);
         menuSound.StopAll();
